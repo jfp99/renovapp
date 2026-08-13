@@ -11,7 +11,7 @@ import {
   useReactTable,
   ColumnFiltersState,
 } from '@tanstack/react-table';
-import { Trash2, Edit } from 'lucide-react';
+import { Edit, Paperclip, Repeat, Trash2 } from 'lucide-react';
 import { CostEntry, CostStatus } from '@/types/cost';
 import { useCostStore } from '@/stores/costStore';
 import { toPHP, formatPHP, formatMoney } from '@/lib/format';
@@ -55,7 +55,32 @@ export const CostTable: React.FC<CostTableProps> = ({ entries, onEdit }) => {
     }),
     columnHelper.accessor('description', {
       header: 'Description',
-      cell: (info) => info.getValue(),
+      cell: (info) => {
+        const entry = info.row.original;
+        const isTemplate = Boolean(
+          entry.recurrence && entry.recurrence !== 'none' && !entry.recurrenceParentId
+        );
+        return (
+          <div className="flex items-center gap-1.5">
+            <span>{info.getValue()}</span>
+            {isTemplate && (
+              <span title="Dépense récurrente" className="text-brand-600">
+                <Repeat size={13} />
+              </span>
+            )}
+            {entry.recurrenceParentId && (
+              <span title="Échéance générée automatiquement" className="text-ink-faint">
+                <Repeat size={12} />
+              </span>
+            )}
+            {entry.receiptFileId && (
+              <span title="Reçu joint" className="text-emerald-600">
+                <Paperclip size={12} />
+              </span>
+            )}
+          </div>
+        );
+      },
     }),
     columnHelper.accessor('categoryId', {
       header: 'Catégorie',

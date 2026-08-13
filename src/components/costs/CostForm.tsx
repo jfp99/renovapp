@@ -1,10 +1,12 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { X } from 'lucide-react';
+import { Paperclip, Repeat, Trash2, X } from 'lucide-react';
 import { useCostStore } from '@/stores/costStore';
 import { usePlanStore } from '@/stores/planStore';
-import { CostEntry, CostNature, CostStatus, Currency } from '@/types/cost';
+import { CostEntry, CostNature, CostStatus, Currency, PaymentMethod, Recurrence } from '@/types/cost';
+import { putMediaBlob, deleteMedia } from '@/lib/mediaDb';
+import { useMediaUrl } from '@/lib/useMediaUrl';
 
 interface CostFormProps {
   isOpen: boolean;
@@ -18,9 +20,25 @@ const CurrencySymbols: Record<Currency, string> = {
   USD: '$',
 };
 
-const ExchangeRates: Record<Exclude<Currency, 'PHP'>, number> = {
-  EUR: 58,
-  USD: 52,
+
+
+const ReceiptPreview: React.FC<{ fileId: string }> = ({ fileId }) => {
+  const url = useMediaUrl(fileId);
+  if (!url) return <span className="text-sm text-ink-faint">Reçu joint</span>;
+  return (
+    <a
+      href={url}
+      target="_blank"
+      rel="noreferrer"
+      className="flex items-center gap-2 text-sm text-brand-600 underline"
+    >
+      <span className="h-9 w-9 overflow-hidden rounded border border-[var(--border)] bg-slate-100">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={url} alt="" className="h-full w-full object-cover" />
+      </span>
+      Voir le reçu
+    </a>
+  );
 };
 
 export const CostForm: React.FC<CostFormProps> = ({
@@ -28,7 +46,7 @@ export const CostForm: React.FC<CostFormProps> = ({
   onClose,
   editingEntry,
 }) => {
-  const { categories, addEntry, updateEntry } = useCostStore();
+  const { categories, addEntry, updateEntry, getRate, settings, updateSettings } = useCostStore();
   const { rooms } = usePlanStore();
 
   const [formData, setFormData] = useState({
@@ -42,7 +60,12 @@ export const CostForm: React.FC<CostFormProps> = ({
     linkedRoomIds: [] as string[],
     status: 'planned' as CostStatus,
     nature: 'capex' as CostNature,
+    recurrence: 'none' as Recurrence,
+    recurrenceEndDate: '',
+    paymentMethod: 'cash' as PaymentMethod,
+    receiptFileId: undefined as string | undefined,
   });
+  const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
     if (editingEntry) {
@@ -57,6 +80,10 @@ export const CostForm: React.FC<CostFormProps> = ({
         linkedRoomIds: editingEntry.linkedRoomIds,
         status: editingEntry.status,
         nature: editingEntry.nature ?? 'capex',
+        recurrence: editingEntry.recurrence ?? 'none',
+        recurrenceEndDate: editingEntry.recurrenceEndDate ?? '',
+        paymentMethod: editingEntry.paymentMethod ?? 'cash',
+        receiptFileId: editingEntry.receiptFileId,
       });
     } else {
       setFormData({
@@ -70,6 +97,10 @@ export const CostForm: React.FC<CostFormProps> = ({
         linkedRoomIds: [],
         status: 'planned',
         nature: categories[0]?.defaultNature ?? 'capex',
+        recurrence: 'none',
+        recurrenceEndDate: '',
+        paymentMethod: 'cash',
+        receiptFileId: undefined,
       });
     }
   }, [editingEntry, isOpen, categories]);
@@ -78,7 +109,7 @@ export const CostForm: React.FC<CostFormProps> = ({
     setFormData({
       ...formData,
       currency,
-      exchangeRate: currency === 'PHP' ? 1 : ExchangeRates[currency as Exclude<Currency, 'PHP'>],
+      exchangeRate: getRate(currency),
     });
   };
 
@@ -99,10 +130,17 @@ export const CostForm: React.FC<CostFormProps> = ({
       return;
     }
 
+    const payload = {
+      ...formData,
+      recurrenceEndDate: formData.recurrenceEndDate || undefined,
+      // A generated instalment must never become a template itself.
+      recurrence: editingEntry?.recurrenceParentId ? 'none' : formData.recurrence,
+    };
+
     if (editingEntry) {
-      updateEntry(editingEntry.id, formData);
+      updateEntry(editingEntry.id, payload);
     } else {
-      addEntry(formData);
+      addEntry(payload);
     }
 
     onClose();
@@ -295,6 +333,155 @@ export const CostForm: React.FC<CostFormProps> = ({
               />
             </div>
           </div>
+
+          {/* Payment method */}
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="label">Moyen de paiement</label>
+              <select
+                value={formData.paymentMethod}
+                onChange={(e) =>
+                  setFormData({ ...formData, paymentMethod: e.target.value as PaymentMethod })
+                }
+                className="input"
+              >
+                <option value="cash">Espèces</option>
+                <option value="gcash">GCash</option>
+                <option value="maya">Maya</option>
+                <option value="transfer">Virement</option>
+                <option value="card">Carte</option>
+                <option value="other">Autre</option>
+              </select>
+              {formData.paymentMethod === 'cash' && (
+                <p className="mt-1 text-xs text-amber-700">
+                  Les espèces ne laissent aucune trace : joignez le reçu.
+                </p>
+              )}
+            </div>
+
+            {/* Receipt */}
+            <div>
+              <label className="label">Reçu</label>
+              {formData.receiptFileId ? (
+                <div className="mt-1 flex items-center gap-2">
+                  <ReceiptPreview fileId={formData.receiptFileId} />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const id = formData.receiptFileId;
+                      setFormData({ ...formData, receiptFileId: undefined });
+                      if (id) void deleteMedia(id);
+                    }}
+                    className="rounded-lg p-1.5 text-red-600 hover:bg-red-50"
+                    aria-label="Retirer le reçu"
+                  >
+                    <Trash2 size={15} />
+                  </button>
+                </div>
+              ) : (
+                <label className="mt-1 flex cursor-pointer items-center gap-2 rounded-lg border border-dashed border-[var(--border-strong)] px-3 py-2 text-sm text-ink-muted hover:bg-slate-50">
+                  <Paperclip size={15} />
+                  {uploading ? 'Ajout…' : 'Joindre une photo ou un PDF'}
+                  <input
+                    type="file"
+                    accept="image/*,application/pdf"
+                    className="hidden"
+                    onChange={async (e) => {
+                      const file = e.target.files?.[0];
+                      if (!file) return;
+                      setUploading(true);
+                      try {
+                        const fileId = await putMediaBlob(file, file.name);
+                        setFormData((prev) => ({ ...prev, receiptFileId: fileId }));
+                      } catch (error) {
+                        console.error('[RenovApp] Reçu non enregistré :', error);
+                        alert("Le reçu n'a pas pu être enregistré.");
+                      } finally {
+                        setUploading(false);
+                        e.target.value = '';
+                      }
+                    }}
+                  />
+                </label>
+              )}
+            </div>
+          </div>
+
+          {/* Recurrence */}
+          {!editingEntry?.recurrenceParentId && (
+            <div className="rounded-xl border border-[var(--border)] bg-slate-50/60 p-4">
+              <div className="flex items-center gap-2">
+                <Repeat size={15} className="text-brand-600" />
+                <label className="text-sm font-medium text-ink-soft">Dépense récurrente</label>
+              </div>
+              <p className="mt-0.5 text-xs text-ink-faint">
+                Loyer, internet, salaire… Les échéances sont créées automatiquement, en
+                &laquo;&nbsp;prévu&nbsp;&raquo; : à vous de confirmer chaque paiement.
+              </p>
+
+              <div className="mt-3 grid grid-cols-2 gap-4">
+                <select
+                  value={formData.recurrence}
+                  onChange={(e) =>
+                    setFormData({ ...formData, recurrence: e.target.value as Recurrence })
+                  }
+                  className="input"
+                >
+                  <option value="none">Ponctuelle</option>
+                  <option value="monthly">Tous les mois</option>
+                  <option value="quarterly">Tous les trimestres</option>
+                  <option value="yearly">Tous les ans</option>
+                </select>
+
+                {formData.recurrence !== 'none' && (
+                  <div>
+                    <input
+                      type="date"
+                      value={formData.recurrenceEndDate}
+                      onChange={(e) =>
+                        setFormData({ ...formData, recurrenceEndDate: e.target.value })
+                      }
+                      className="input"
+                    />
+                    <p className="mt-1 text-xs text-ink-faint">Fin (optionnel)</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Exchange rate — project-wide, so two expenses can't disagree */}
+          {formData.currency !== 'PHP' && (
+            <div className="rounded-xl border border-[var(--border)] bg-slate-50/60 p-4">
+              <label className="text-sm font-medium text-ink-soft">
+                Taux de référence du projet — 1 {formData.currency} =
+              </label>
+              <div className="mt-2 flex items-center gap-2">
+                <input
+                  type="number"
+                  step="0.01"
+                  min="0"
+                  value={settings.exchangeRates[formData.currency as Exclude<Currency, 'PHP'>] ?? 0}
+                  onChange={(e) => {
+                    const rate = parseFloat(e.target.value) || 0;
+                    updateSettings({
+                      exchangeRates: {
+                        ...settings.exchangeRates,
+                        [formData.currency as Exclude<Currency, 'PHP'>]: rate,
+                      },
+                    });
+                    setFormData((prev) => ({ ...prev, exchangeRate: rate }));
+                  }}
+                  className="input w-32"
+                />
+                <span className="text-sm text-ink-muted">₱</span>
+              </div>
+              <p className="mt-1 text-xs text-ink-faint">
+                Modifie le taux de tout le projet, pour éviter deux dépenses converties
+                différemment.
+              </p>
+            </div>
+          )}
 
           {/* Linked Rooms */}
           {rooms.length > 0 && (

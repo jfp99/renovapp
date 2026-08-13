@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useEffect, useState, useCallback } from 'react';
+import { useRef, useEffect, useMemo, useState, useCallback } from 'react';
 import { Stage, Layer, Group, Rect, Text, Line, Arc } from 'react-konva';
 import { usePlanStore } from '@/stores/planStore';
 import { Room, DoorPlacement, WindowPlacement } from '@/types/plan';
@@ -162,7 +162,12 @@ export default function PlanCanvasClient() {
   const [snapOn, setSnapOn] = useState(true);
 
   const { rooms, selectedFloorId, selectedRoomId, setSelectedRoom, updateRoom, removeRoom, duplicateRoom } = usePlanStore();
-  const floorRooms = selectedFloorId ? rooms.filter((r) => r.floorId === selectedFloorId) : [];
+  // Memoised: a fresh array on every render would invalidate the useCallback
+  // below and re-create the export handler each time.
+  const floorRooms = useMemo(
+    () => (selectedFloorId ? rooms.filter((r) => r.floorId === selectedFloorId) : []),
+    [rooms, selectedFloorId]
+  );
 
   // overlap set
   const overlapIds = new Set<string>();

@@ -1,6 +1,11 @@
 export type CostStatus = 'planned' | 'paid' | 'cancelled';
 export type Currency = 'PHP' | 'EUR' | 'USD';
 
+/** How often a charge repeats. Rent, internet and salaries are never one-offs. */
+export type Recurrence = 'none' | 'monthly' | 'quarterly' | 'yearly';
+
+export type PaymentMethod = 'cash' | 'gcash' | 'maya' | 'transfer' | 'card' | 'other';
+
 /**
  * CAPEX = one-off investment (renovation, furniture). Sits at the DENOMINATOR
  * of the ROI: it is the money you have to earn back.
@@ -38,6 +43,25 @@ export interface CostEntry {
   nature: CostNature;
   /** CAPEX only — used to provision replacement (mattresses, paint...). */
   amortizationYears?: number;
+
+  /** Repeat rule. Only ever set on the template entry, never on generated ones. */
+  recurrence?: Recurrence;
+  /** ISO date after which the template stops generating instalments. */
+  recurrenceEndDate?: string;
+  /** Set on generated instalments, pointing back at their template. */
+  recurrenceParentId?: string;
+
+  paymentMethod?: PaymentMethod;
+  /** IndexedDB media id for the receipt photo or PDF. */
+  receiptFileId?: string;
+}
+
+/** Project-wide settings, so two expenses can't disagree on the same rate. */
+export interface CostSettings {
+  /** Reference rates against PHP. Overridable per entry when a bank differs. */
+  exchangeRates: Record<Exclude<Currency, 'PHP'>, number>;
+  /** Currency the totals are displayed in. Amounts are always stored in PHP. */
+  displayCurrency: Currency;
 }
 
 export interface ROIConfig {

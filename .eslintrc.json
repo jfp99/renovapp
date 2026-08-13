@@ -1,0 +1,15 @@
+{
+  "extends": "next/core-web-vitals",
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "rules": {
+    "@next/next/no-img-element": "off"
+  },
+  "ignorePatterns": [
+    "out/",
+    ".next/",
+    "node_modules/",
+    "scripts/serve.mjs"
+  ]
+}

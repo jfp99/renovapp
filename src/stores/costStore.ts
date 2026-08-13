@@ -4,10 +4,14 @@ import { v4 as uuidv4 } from 'uuid';
 import { safeStorage } from '@/lib/safeStorage';
 import { countBeds } from '@/lib/beds';
 import { useFurnitureStore } from '@/stores/furnitureStore';
+import { missingInstalments } from '@/lib/recurrence';
+import { deleteMedia } from '@/lib/mediaDb';
 import {
   CostCategory,
   CostEntry,
   CostNature,
+  CostSettings,
+  Currency,
   ROIConfig,
   RoiMetrics,
 } from '@/types/cost';
@@ -16,6 +20,16 @@ interface CostState {
   categories: CostCategory[];
   entries: CostEntry[];
   roiConfig: ROIConfig;
+  settings: CostSettings;
+  updateSettings: (updates: Partial<CostSettings>) => void;
+  /** Reference rate for a currency, used when an entry doesn't override it. */
+  getRate: (currency: Currency) => number;
+  /**
+   * Create the instalments recurring templates still owe, up to `until`.
+   * Idempotent, and everything it creates is 'planned' — never 'paid'.
+   * Returns how many were added.
+   */
+  materializeRecurrences: (until?: string) => number;
   addCategory: (name: string, color: string, budgetAllocation: number, defaultNature?: CostNature) => void;
   updateCategory: (id: string, updates: Partial<CostCategory>) => void;
   removeCategory: (id: string) => void;
@@ -61,6 +75,12 @@ const defaultCategories: CostCategory[] = [
   mkCategory('Divers', '#6b7280', 'capex'),
 ];
 
+const defaultSettings: CostSettings = {
+  // Indicative starting points — set your bank's actual rate in the UI.
+  exchangeRates: { EUR: 58, USD: 52 },
+  displayCurrency: 'PHP',
+};
+
 const defaultROIConfig: ROIConfig = {
   propertyMode: 'lease',
   propertyPurchasePrice: 0,
@@ -74,8 +94,13 @@ const defaultROIConfig: ROIConfig = {
 };
 
 /** Convert an entry to PHP, the reference currency of the project. */
-function toPHP(entry: CostEntry): number {
-  return entry.currency === 'PHP' ? entry.amount : entry.amount * entry.exchangeRate;
+function toPHP(entry: CostEntry, fallbackRates?: CostSettings['exchangeRates']): number {
+  if (entry.currency === 'PHP') return entry.amount;
+  const rate =
+    entry.exchangeRate && entry.exchangeRate > 0
+      ? entry.exchangeRate
+      : fallbackRates?.[entry.currency] ?? 1;
+  return entry.amount * rate;
 }
 
 export const useCostStore = create<CostState>()(
@@ -84,6 +109,26 @@ export const useCostStore = create<CostState>()(
       categories: defaultCategories,
       entries: [],
       roiConfig: defaultROIConfig,
+      settings: defaultSettings,
+
+      updateSettings: (updates) =>
+        set((state) => ({ settings: { ...state.settings, ...updates } })),
+
+      getRate: (currency) =>
+        currency === 'PHP' ? 1 : get().settings.exchangeRates[currency] ?? 1,
+
+      materializeRecurrences: (until = new Date().toISOString().slice(0, 10)) => {
+        const entries = get().entries;
+        const created = entries
+          .filter((e) => e.recurrence && e.recurrence !== 'none' && !e.recurrenceParentId)
+          .flatMap((template) => missingInstalments(template, entries, until));
+
+        if (created.length === 0) return 0;
+        set((state) => ({
+          entries: [...state.entries, ...created.map((e) => ({ ...e, id: uuidv4() }))],
+        }));
+        return created.length;
+      },
 
       addCategory: (name, color, budgetAllocation, defaultNature = 'capex') =>
         set((state) => ({
@@ -114,10 +159,15 @@ export const useCostStore = create<CostState>()(
           entries: state.entries.map((e) => (e.id === id ? { ...e, ...updates } : e)),
         })),
 
-      removeEntry: (id) =>
+      removeEntry: (id) => {
+        const doomed = get().entries.filter((e) => e.id === id || e.recurrenceParentId === id);
+        doomed.forEach((e) => {
+          if (e.receiptFileId) void deleteMedia(e.receiptFileId);
+        });
         set((state) => ({
-          entries: state.entries.filter((e) => e.id !== id),
-        })),
+          entries: state.entries.filter((e) => e.id !== id && e.recurrenceParentId !== id),
+        }));
+      },
 
       updateROIConfig: (config) =>
         set((state) => ({ roiConfig: { ...state.roiConfig, ...config } })),
@@ -125,17 +175,17 @@ export const useCostStore = create<CostState>()(
       getTotalPaid: () =>
         get()
           .entries.filter((e) => e.status === 'paid')
-          .reduce((sum, e) => sum + toPHP(e), 0),
+          .reduce((sum, e) => sum + toPHP(e, get().settings.exchangeRates), 0),
 
       getTotalCommitted: () =>
         get()
           .entries.filter((e) => e.status !== 'cancelled')
-          .reduce((sum, e) => sum + toPHP(e), 0),
+          .reduce((sum, e) => sum + toPHP(e, get().settings.exchangeRates), 0),
 
       getPaidByNature: (nature) =>
         get()
           .entries.filter((e) => e.status === 'paid' && (e.nature ?? 'capex') === nature)
-          .reduce((sum, e) => sum + toPHP(e), 0),
+          .reduce((sum, e) => sum + toPHP(e, get().settings.exchangeRates), 0),
 
       getTotalBudget: () =>
         get().categories.reduce((sum, cat) => sum + cat.budgetAllocation, 0),
@@ -145,7 +195,7 @@ export const useCostStore = create<CostState>()(
         get()
           .entries.filter((e) => e.status === 'paid')
           .forEach((entry) => {
-            result[entry.categoryId] = (result[entry.categoryId] || 0) + toPHP(entry);
+            result[entry.categoryId] = (result[entry.categoryId] || 0) + toPHP(entry, get().settings.exchangeRates);
           });
         return result;
       },
@@ -207,14 +257,14 @@ export const useCostStore = create<CostState>()(
     {
       name: 'renovapp-costs',
       storage: createJSONStorage(() => safeStorage),
-      version: 2,
+      version: 3,
       migrate: (persisted: unknown, version: number) => {
         const state = persisted as {
           categories?: CostCategory[];
           entries?: CostEntry[];
           roiConfig?: Partial<ROIConfig>;
         };
-        if (version >= 2 || !state) return state as never;
+        if (version >= 3 || !state) return state as never;
 
         // v1 had no CAPEX/OPEX split. Everything recorded back then was
         // renovation spending, so CAPEX is the correct default.
@@ -226,6 +276,7 @@ export const useCostStore = create<CostState>()(
           })),
           entries: (state.entries ?? []).map((e) => ({ ...e, nature: e.nature ?? 'capex' })),
           roiConfig: { ...defaultROIConfig, ...(state.roiConfig ?? {}) },
+          settings: defaultSettings,
         } as never;
       },
     }

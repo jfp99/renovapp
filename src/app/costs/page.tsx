@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { LineChart, Plus, TrendingUp } from 'lucide-react';
 import { useCostStore } from '@/stores/costStore';
 import { CostForm } from '@/components/costs/CostForm';
@@ -16,6 +16,19 @@ type TabType = 'expenses' | 'budget' | 'roi' | 'projection';
 
 export default function CostsPage() {
   const { entries } = useCostStore();
+  const materializeRecurrences = useCostStore((s) => s.materializeRecurrences);
+  const [generated, setGenerated] = useState(0);
+
+  // Recurring charges (rent, internet, salary) shouldn't need re-typing every
+  // month. Instalments are created as 'planned' — never marked paid for you.
+  useEffect(() => {
+    const count = materializeRecurrences();
+    if (count > 0) {
+      setGenerated(count);
+      const timer = window.setTimeout(() => setGenerated(0), 8000);
+      return () => window.clearTimeout(timer);
+    }
+  }, [materializeRecurrences]);
   const [activeTab, setActiveTab] = useState<TabType>('expenses');
   const [isCostFormOpen, setIsCostFormOpen] = useState(false);
   const [editingEntry, setEditingEntry] = useState<CostEntry | undefined>();
@@ -85,6 +98,15 @@ export default function CostsPage() {
                   </button>
                 </div>
               </div>
+
+              {generated > 0 && (
+                <div className="rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-sm text-sky-900">
+                  {generated} échéance{generated > 1 ? 's' : ''} récurrente
+                  {generated > 1 ? 's' : ''} ajoutée{generated > 1 ? 's' : ''} en statut
+                  &laquo;&nbsp;prévu&nbsp;&raquo;. Passez-les en &laquo;&nbsp;payé&nbsp;&raquo; une
+                  fois réglées.
+                </div>
+              )}
 
               {entries.length === 0 ? (
                 <div className="text-center py-14">

@@ -3,13 +3,14 @@
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import {
+  Armchair,
+  BedDouble,
+  Calculator,
+  Camera,
+  FileImage,
+  Hammer,
   LayoutDashboard,
   PencilRuler,
-  Armchair,
-  FileImage,
-  Camera,
-  Calculator,
-  Hammer,
 } from 'lucide-react';
 
 interface NavLink {
@@ -26,6 +27,7 @@ const navLinks: NavLink[] = [
   { name: 'Blueprints', href: '/blueprints', icon: <FileImage className="w-[18px] h-[18px]" />, desc: 'Plans techniques' },
   { name: 'Inspiration', href: '/inspiration', icon: <Camera className="w-[18px] h-[18px]" />, desc: 'Moodboard' },
   { name: 'Coûts & ROI', href: '/costs', icon: <Calculator className="w-[18px] h-[18px]" />, desc: 'Budget & rentabilité' },
+  { name: 'Location', href: '/location', icon: <BedDouble className="w-[18px] h-[18px]" />, desc: 'Lits & locataires' },
 ];
 
 export default function Sidebar() {
