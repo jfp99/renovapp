@@ -1,17 +1,18 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Plus, TrendingUp } from 'lucide-react';
+import { LineChart, Plus, TrendingUp } from 'lucide-react';
 import { useCostStore } from '@/stores/costStore';
 import { CostForm } from '@/components/costs/CostForm';
 import { CostTable } from '@/components/costs/CostTable';
 import { BudgetOverview } from '@/components/costs/BudgetOverview';
 import { ROICalculator } from '@/components/costs/ROICalculator';
+import { ROIProjection } from '@/components/costs/ROIProjection';
 import { ExportButton } from '@/components/costs/ExportButton';
 import { CategoryEditor } from '@/components/costs/CategoryEditor';
 import { CostEntry } from '@/types/cost';
 
-type TabType = 'expenses' | 'budget' | 'roi';
+type TabType = 'expenses' | 'budget' | 'roi' | 'projection';
 
 export default function CostsPage() {
   const { entries } = useCostStore();
@@ -33,6 +34,7 @@ export default function CostsPage() {
     { id: 'expenses', label: 'Dépenses', icon: null },
     { id: 'budget', label: 'Budget', icon: null },
     { id: 'roi', label: 'ROI', icon: <TrendingUp size={18} /> },
+    { id: 'projection', label: 'Projection', icon: <LineChart size={18} /> },
   ];
 
   return (
@@ -117,6 +119,19 @@ export default function CostsPage() {
                   <CategoryEditor />
                 </div>
               </div>
+            </div>
+          )}
+
+          {/* Projection Tab */}
+          {activeTab === 'projection' && (
+            <div className="space-y-6">
+              <div>
+                <h2 className="text-lg font-semibold text-ink">Projection sur plusieurs années</h2>
+                <p className="mt-0.5 text-sm text-ink-muted">
+                  Trésorerie mois par mois, saisonnalité, montée en charge et sensibilité.
+                </p>
+              </div>
+              <ROIProjection />
             </div>
           )}
 
