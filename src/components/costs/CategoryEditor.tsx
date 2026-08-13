@@ -25,7 +25,7 @@ interface CategoryEditForm {
 }
 
 export const CategoryEditor: React.FC = () => {
-  const { categories, addCategory, removeCategory } = useCostStore();
+  const { categories, addCategory, updateCategory, removeCategory } = useCostStore();
   const [isAddingNew, setIsAddingNew] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [formData, setFormData] = useState<CategoryEditForm>({
@@ -58,22 +58,18 @@ export const CategoryEditor: React.FC = () => {
   };
 
   const handleSaveEdit = () => {
-    if (editingId && !formData.name || formData.budgetAllocation < 0) {
+    if (!editingId || !formData.name || formData.budgetAllocation < 0) {
       alert('Veuillez remplir tous les champs');
       return;
     }
-    // Note: We need to update the category in the store
-    // For now, we'll remove and re-add
-    if (editingId) {
-      removeCategory(editingId);
-      addCategory(formData.name, formData.color, formData.budgetAllocation);
-      setEditingId(null);
-      setFormData({
-        name: '',
-        color: COLOR_PRESETS[0],
-        budgetAllocation: 0,
-      });
-    }
+    // Proper in-place update — keeps the category id so linked expenses stay attached
+    updateCategory(editingId, {
+      name: formData.name,
+      color: formData.color,
+      budgetAllocation: formData.budgetAllocation,
+    });
+    setEditingId(null);
+    setFormData({ name: '', color: COLOR_PRESETS[0], budgetAllocation: 0 });
   };
 
   const handleCancel = () => {
@@ -88,51 +84,39 @@ export const CategoryEditor: React.FC = () => {
 
   return (
     <div className="space-y-4">
-      <div className="flex justify-between items-center">
-        <h3 className="text-lg font-semibold text-gray-900">Catégories</h3>
+      <div className="flex items-center justify-between">
+        <h3 className="text-sm font-semibold text-ink">Catégories</h3>
         {!isAddingNew && !editingId && (
-          <button
-            onClick={() => setIsAddingNew(true)}
-            className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
-          >
-            <Plus size={18} />
-            Nouvelle Catégorie
+          <button onClick={() => setIsAddingNew(true)} className="btn-primary btn-sm">
+            <Plus size={15} /> Nouvelle catégorie
           </button>
         )}
       </div>
 
       {/* Add/Edit Form */}
       {(isAddingNew || editingId) && (
-        <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+        <div className="rounded-xl border border-[var(--border)] bg-slate-50 p-4">
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Nom
-              </label>
+              <label className="label">Nom</label>
               <input
                 type="text"
                 value={formData.name}
-                onChange={(e) =>
-                  setFormData({ ...formData, name: e.target.value })
-                }
-                placeholder="Ex: Matériaux"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                placeholder="Ex : Matériaux"
+                className="input"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Couleur
-              </label>
+              <label className="label">Couleur</label>
               <div className="flex flex-wrap gap-2">
                 {COLOR_PRESETS.map((color) => (
                   <button
                     key={color}
                     onClick={() => setFormData({ ...formData, color })}
-                    className={`w-10 h-10 rounded-lg border-2 transition-transform ${
-                      formData.color === color
-                        ? 'border-gray-900 scale-110'
-                        : 'border-transparent'
+                    className={`h-9 w-9 rounded-lg border-2 transition-transform hover:scale-110 ${
+                      formData.color === color ? 'border-ink scale-110' : 'border-transparent'
                     }`}
                     style={{ backgroundColor: color }}
                     title={color}
@@ -142,36 +126,21 @@ export const CategoryEditor: React.FC = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Budget Allocation (₱)
-              </label>
+              <label className="label">Budget alloué (₱)</label>
               <input
                 type="number"
                 value={formData.budgetAllocation}
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    budgetAllocation: parseFloat(e.target.value) || 0,
-                  })
-                }
+                onChange={(e) => setFormData({ ...formData, budgetAllocation: parseFloat(e.target.value) || 0 })}
                 placeholder="0"
                 min="0"
                 step="100"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                className="input"
               />
             </div>
 
             <div className="flex gap-2">
-              <button
-                onClick={handleCancel}
-                className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100"
-              >
-                Annuler
-              </button>
-              <button
-                onClick={editingId ? handleSaveEdit : handleAddNew}
-                className="flex-1 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
-              >
+              <button onClick={handleCancel} className="btn-secondary btn-sm flex-1">Annuler</button>
+              <button onClick={editingId ? handleSaveEdit : handleAddNew} className="btn-primary btn-sm flex-1">
                 {editingId ? 'Mettre à jour' : 'Ajouter'}
               </button>
             </div>
@@ -182,51 +151,34 @@ export const CategoryEditor: React.FC = () => {
       {/* Categories List */}
       <div className="space-y-2">
         {categories.length === 0 ? (
-          <p className="text-gray-500 text-center py-8">Aucune catégorie</p>
+          <p className="py-8 text-center text-ink-faint">Aucune catégorie</p>
         ) : (
           categories.map((category) => (
             <div
               key={category.id}
-              className="flex items-center justify-between p-4 bg-white border border-gray-200 rounded-lg hover:shadow-md transition-shadow"
+              className="flex items-center justify-between rounded-xl border border-[var(--border)] bg-white p-3.5 transition-shadow hover:shadow-card-hover"
             >
-              <div className="flex items-center gap-3 flex-1">
-                <div
-                  className="w-4 h-4 rounded-full"
-                  style={{ backgroundColor: category.color }}
-                />
+              <div className="flex flex-1 items-center gap-3">
+                <div className="h-9 w-9 flex-shrink-0 rounded-lg" style={{ backgroundColor: category.color }} />
                 <div className="flex-1">
-                  <p className="font-medium text-gray-900">{category.name}</p>
-                  <p className="text-sm text-gray-600">
-                    Budget: ₱
-                    {category.budgetAllocation.toLocaleString('fr-FR', {
-                      minimumFractionDigits: 0,
-                      maximumFractionDigits: 0,
-                    })}
+                  <p className="font-medium text-ink">{category.name}</p>
+                  <p className="text-sm text-ink-muted">
+                    Budget : ₱{category.budgetAllocation.toLocaleString('fr-FR', { maximumFractionDigits: 0 })}
                   </p>
                 </div>
               </div>
-              <div className="flex gap-2">
-                <button
-                  onClick={() => handleEditCategory(category)}
-                  className="p-2 text-blue-500 hover:bg-blue-50 rounded-lg transition-colors"
-                  title="Modifier"
-                >
-                  <Edit size={18} />
+              <div className="flex gap-1">
+                <button onClick={() => handleEditCategory(category)} className="rounded-lg p-2 text-brand-600 transition-colors hover:bg-brand-50" title="Modifier">
+                  <Edit size={16} />
                 </button>
                 <button
                   onClick={() => {
-                    if (
-                      confirm(
-                        'Êtes-vous sûr de vouloir supprimer cette catégorie ?'
-                      )
-                    ) {
-                      removeCategory(category.id);
-                    }
+                    if (confirm('Êtes-vous sûr de vouloir supprimer cette catégorie ?')) removeCategory(category.id);
                   }}
-                  className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                  className="rounded-lg p-2 text-rose-500 transition-colors hover:bg-rose-50"
                   title="Supprimer"
                 >
-                  <Trash2 size={18} />
+                  <Trash2 size={16} />
                 </button>
               </div>
             </div>

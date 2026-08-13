@@ -17,41 +17,35 @@ export default function InspirationGrid({
   if (images.length === 0) {
     return (
       <div className="text-center py-12">
-        <p className="text-gray-500">No inspiration images yet. Upload some to get started!</p>
+        <p className="text-ink-faint">Aucune image d&apos;inspiration. Importez-en pour commencer.</p>
       </div>
     );
   }
 
   return (
-    <div className="columns-3 gap-4 space-y-4">
+    <div className="columns-2 gap-4 space-y-4 sm:columns-3 lg:columns-4">
       {images.map((image) => {
-        const linkedRooms = rooms.filter((r) =>
-          image.linkedRoomIds.includes(r.id)
-        );
+        const linkedRooms = rooms.filter((r) => image.linkedRoomIds.includes(r.id));
 
         return (
           <button
             key={image.id}
             onClick={() => onSelectImage(image)}
-            className="break-inside-avoid w-full"
+            className="block w-full break-inside-avoid"
           >
-            <div className="relative group overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg transition-shadow">
+            <div className="group relative overflow-hidden rounded-xl border border-[var(--border)] bg-slate-100 transition-all hover:shadow-card-hover">
               <img
                 src={image.thumbnailData}
                 alt="Inspiration"
-                className="w-full h-auto group-hover:brightness-75 transition-all"
+                className="h-auto w-full transition-all duration-300 group-hover:brightness-75"
               />
 
-              {/* Hover overlay */}
-              <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all flex items-end p-3 opacity-0 group-hover:opacity-100">
+              <div className="absolute inset-0 flex items-end bg-ink/0 p-3 opacity-0 transition-all group-hover:bg-ink/30 group-hover:opacity-100">
                 <div className="w-full">
                   {image.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-1 mb-2">
+                    <div className="mb-1.5 flex flex-wrap gap-1">
                       {image.tags.slice(0, 3).map((tag) => (
-                        <span
-                          key={tag}
-                          className="inline-block bg-purple-600 text-white text-xs px-2 py-1 rounded"
-                        >
+                        <span key={tag} className="inline-block rounded bg-white/90 px-2 py-0.5 text-xs font-medium text-ink">
                           {tag}
                         </span>
                       ))}
@@ -60,10 +54,7 @@ export default function InspirationGrid({
                   {linkedRooms.length > 0 && (
                     <div className="flex flex-wrap gap-1">
                       {linkedRooms.slice(0, 2).map((room) => (
-                        <span
-                          key={room.id}
-                          className="inline-block bg-indigo-600 text-white text-xs px-2 py-1 rounded"
-                        >
+                        <span key={room.id} className="inline-block rounded bg-brand-600 px-2 py-0.5 text-xs font-medium text-white">
                           {room.name}
                         </span>
                       ))}

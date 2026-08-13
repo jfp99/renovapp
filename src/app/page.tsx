@@ -1,259 +1,399 @@
 'use client';
 
+import Link from 'next/link';
+import {
+  PieChart,
+  Pie,
+  Cell,
+  ResponsiveContainer,
+} from 'recharts';
+import {
+  Home,
+  Sofa,
+  FileImage,
+  Camera,
+  TrendingUp,
+  Wallet,
+  ArrowUpRight,
+  CheckCircle2,
+  Circle,
+  PencilRuler,
+  Layers,
+  Target,
+} from 'lucide-react';
 import { usePlanStore } from '@/stores/planStore';
 import { useFurnitureStore } from '@/stores/furnitureStore';
 import { useBlueprintStore } from '@/stores/blueprintStore';
+import { useInspirationStore } from '@/stores/inspirationStore';
 import { useCostStore } from '@/stores/costStore';
-import { BarChart3, Home, Sofa, FileText, DollarSign, TrendingUp } from 'lucide-react';
+import { useHydrated } from '@/lib/useHydrated';
+import { formatPHP, formatPct, formatMonths, areaM2 } from '@/lib/format';
+import {
+  computeRoomCompletion,
+  ROOM_TYPE_LABELS,
+  ROOM_ACCENT,
+} from '@/lib/rooms';
+import ProjectActions from '@/components/ProjectActions';
 
-function SummaryCard({
+function StatCard({
   title,
   value,
-  icon: Icon,
-  color,
+  sub,
+  icon,
+  tint,
+  href,
 }: {
   title: string;
   value: string | number;
+  sub?: string;
   icon: React.ReactNode;
-  color: string;
+  tint: string;
+  href: string;
 }) {
   return (
-    <div className="card p-6">
+    <Link href={href} className="card-hover p-5 group">
       <div className="flex items-start justify-between">
         <div>
-          <p className="text-slate-600 text-sm font-medium mb-1">{title}</p>
-          <p className="text-3xl font-bold text-slate-900">{value}</p>
+          <p className="text-sm font-medium text-ink-muted">{title}</p>
+          <p className="mt-1.5 text-3xl font-bold text-ink tracking-tight">{value}</p>
+          {sub && <p className="mt-1 text-xs text-ink-faint">{sub}</p>}
         </div>
-        <div className={`p-3 rounded-lg ${color}`}>{Icon}</div>
+        <div className={`flex h-11 w-11 items-center justify-center rounded-xl ${tint}`}>
+          {icon}
+        </div>
       </div>
-    </div>
+      <div className="mt-3 flex items-center gap-1 text-xs font-medium text-brand-600 opacity-0 transition-opacity group-hover:opacity-100">
+        Ouvrir <ArrowUpRight size={13} />
+      </div>
+    </Link>
   );
 }
 
-function RoomProgressItem({
-  name,
-  completion,
-}: {
-  name: string;
-  completion: number;
-}) {
-  const getStatusColor = (percentage: number) => {
-    if (percentage === 100) return 'bg-green-500';
-    if (percentage >= 75) return 'bg-blue-500';
-    if (percentage >= 50) return 'bg-yellow-500';
-    return 'bg-slate-300';
-  };
-
-  const getStatusLabel = (percentage: number) => {
-    if (percentage === 100) return 'Complète';
-    if (percentage >= 75) return 'Presque fini';
-    if (percentage >= 50) return 'En cours';
-    return 'Non commencé';
-  };
-
+function Milestone({ done, label }: { done: boolean; label: string }) {
   return (
-    <div className="mb-4">
-      <div className="flex items-center justify-between mb-2">
-        <p className="text-sm font-medium text-slate-700">{name}</p>
-        <span className="text-xs font-semibold text-slate-600">
-          {completion}% - {getStatusLabel(completion)}
-        </span>
-      </div>
-      <div className="w-full bg-slate-200 rounded-full h-2">
-        <div
-          className={`h-2 rounded-full transition-all ${getStatusColor(completion)}`}
-          style={{ width: `${completion}%` }}
-        />
-      </div>
-    </div>
+    <span
+      className={`inline-flex items-center gap-1 text-[11px] font-medium ${
+        done ? 'text-emerald-600' : 'text-ink-faint'
+      }`}
+    >
+      {done ? <CheckCircle2 size={13} /> : <Circle size={13} />}
+      {label}
+    </span>
   );
 }
 
 export default function Dashboard() {
-  const { rooms } = usePlanStore();
+  const hydrated = useHydrated();
+  const { rooms, floors } = usePlanStore();
   const { placements } = useFurnitureStore();
   const { blueprints } = useBlueprintStore();
-  const { entries, roiConfig } = useCostStore();
+  const { images } = useInspirationStore();
+  const cost = useCostStore();
 
-  const roomsCount = rooms?.length ?? 0;
-  const placementsCount = placements?.length ?? 0;
-  const blueprintsCount = blueprints?.length ?? 0;
+  if (!hydrated) {
+    return (
+      <div className="p-8">
+        <div className="skeleton h-10 w-64 mb-8" />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+          {[0, 1, 2, 3].map((i) => (
+            <div key={i} className="skeleton h-28" />
+          ))}
+        </div>
+        <div className="skeleton h-80" />
+      </div>
+    );
+  }
 
-  // Calculate budget information
-  const totalCostEntries = entries ?? [];
-  const totalSpent = totalCostEntries.reduce((sum, entry) => sum + (entry.amount || 0), 0);
-  const totalBudget = roiConfig?.totalRenovationBudget ?? 0;
+  // ── Real metrics ──
+  const totalSpent = cost.getTotalSpent();
+  const totalBudget = cost.getTotalBudget() || cost.roiConfig.totalRenovationBudget;
+  const budgetPct = totalBudget > 0 ? (totalSpent / totalBudget) * 100 : 0;
+  const monthlyNet = cost.getMonthlyNetIncome();
+  const roiMonths = cost.getROIMonths();
+  const spentByCategory = cost.getSpentByCategory();
 
-  // Calculate months to recover (ROI)
-  const monthlyRentPerBed = roiConfig?.monthlyRentPerBed ?? 0;
-  const numberOfBeds = roiConfig?.numberOfBeds ?? 0;
-  const occupancyRate = roiConfig?.occupancyRate ?? 1;
-  const monthlyNetIncome = (monthlyRentPerBed * numberOfBeds * occupancyRate) - (roiConfig?.monthlyExpenses ?? 0);
-  const monthsToRecover = totalBudget && monthlyNetIncome ? Math.ceil(totalBudget / monthlyNetIncome) : 0;
+  const totalAreaM2 = rooms.reduce((s, r) => s + areaM2(r.width, r.height), 0);
 
-  // Calculate room completion percentages
-  const roomCompletionData = (rooms ?? []).map((room) => {
-    const roomPlacements = placementsCount > 0 ? Math.min(placementsCount, 100) : 0;
-    const completion = Math.floor((roomPlacements / Math.max(roomsCount, 1)) * 100);
+  // Per-room completion using cross-module data
+  const roomData = rooms.map((room) => {
+    const fc = placements.filter((p) => p.roomId === room.id).length;
+    const bc = blueprints.filter((b) => b.linkedRoomIds.includes(room.id)).length;
+    const cc = cost.entries.filter(
+      (e) => e.linkedRoomIds.includes(room.id) && e.status !== 'cancelled'
+    ).length;
     return {
-      name: room.name || 'Unnamed Room',
-      completion: Math.min(completion, 100),
+      room,
+      furnitureCount: fc,
+      completion: computeRoomCompletion(room, {
+        furnitureCount: fc,
+        blueprintCount: bc,
+        costCount: cc,
+      }),
     };
   });
 
-  const budgetPercentage = totalBudget > 0 ? Math.floor((totalSpent / totalBudget) * 100) : 0;
+  const avgCompletion =
+    roomData.length > 0
+      ? Math.round(roomData.reduce((s, r) => s + r.completion.percent, 0) / roomData.length)
+      : 0;
+
+  // Donut data
+  const pieData = cost.categories
+    .filter((c) => (spentByCategory[c.id] ?? 0) > 0)
+    .map((c) => ({ name: c.name, value: Math.round(spentByCategory[c.id]), color: c.color }));
+
+  const isEmpty = rooms.length === 0 && cost.entries.length === 0;
 
   return (
-    <div className="p-8">
-      <div className="mb-8">
-        <h1 className="text-4xl font-bold text-slate-900 mb-2">Dashboard</h1>
-        <p className="text-slate-600">Vue d'ensemble de votre projet de rénovation</p>
+    <div className="min-h-screen">
+      {/* Hero header */}
+      <div className="bg-mesh border-b border-[var(--border)]">
+        <div className="px-8 py-7 flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-wider text-brand-600">
+              Maison Philippines · Dortoirs étudiants
+            </p>
+            <h1 className="mt-1 text-3xl font-bold text-ink tracking-tight">Tableau de bord</h1>
+            <p className="mt-1 text-sm text-ink-muted">
+              {rooms.length} pièce{rooms.length > 1 ? 's' : ''} ·{' '}
+              {floors.length} étage{floors.length > 1 ? 's' : ''} ·{' '}
+              {totalAreaM2.toLocaleString('fr-FR', { maximumFractionDigits: 1 })} m² planifiés
+            </p>
+          </div>
+          <ProjectActions />
+        </div>
       </div>
 
-      {/* Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <SummaryCard
-          title="Pièces créées"
-          value={roomsCount}
-          icon={<Home className="w-6 h-6 text-blue-600" />}
-          color="bg-blue-100"
-        />
-        <SummaryCard
-          title="Meubles placés"
-          value={placementsCount}
-          icon={<Sofa className="w-6 h-6 text-purple-600" />}
-          color="bg-purple-100"
-        />
-        <SummaryCard
-          title="Blueprints"
-          value={blueprintsCount}
-          icon={<FileText className="w-6 h-6 text-orange-600" />}
-          color="bg-orange-100"
-        />
-        <SummaryCard
-          title="Budget utilisé"
-          value={`$${totalSpent.toLocaleString()}`}
-          icon={<DollarSign className="w-6 h-6 text-green-600" />}
-          color="bg-green-100"
-        />
-      </div>
+      <div className="p-8 space-y-8">
+        {isEmpty && (
+          <div className="card p-10 text-center animate-fade-in">
+            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-50">
+              <PencilRuler className="h-7 w-7 text-brand-600" />
+            </div>
+            <h2 className="text-lg font-semibold text-ink">Commencez votre projet</h2>
+            <p className="mt-1 text-sm text-ink-muted">
+              Créez vos premières pièces dans l&apos;éditeur de plan, puis aménagez-les et suivez les coûts.
+            </p>
+            <Link href="/plans" className="btn-primary mt-5 inline-flex">
+              <PencilRuler size={16} /> Ouvrir l&apos;éditeur de plan
+            </Link>
+          </div>
+        )}
 
-      {/* ROI and Progress Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-        {/* ROI Estimate */}
-        <div className="card p-6">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-bold text-slate-900">Estimation ROI</h2>
-            <TrendingUp className="w-5 h-5 text-slate-400" />
-          </div>
-          <div className="space-y-3">
-            <div>
-              <p className="text-sm text-slate-600 mb-1">Budget total</p>
-              <p className="text-2xl font-bold text-slate-900">
-                ${totalBudget.toLocaleString()}
-              </p>
-            </div>
-            <div>
-              <p className="text-sm text-slate-600 mb-1">Revenu mensuel net</p>
-              <p className="text-2xl font-bold text-slate-900">
-                ${monthlyNetIncome.toLocaleString()}
-              </p>
-            </div>
-            <div className="pt-3 border-t border-slate-200">
-              <p className="text-sm text-slate-600 mb-1">Mois pour récupérer l'investissement</p>
-              <p className="text-3xl font-bold text-blue-600">
-                {monthsToRecover} mois
-              </p>
-            </div>
-          </div>
+        {/* Stat cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+          <StatCard
+            title="Pièces planifiées"
+            value={rooms.length}
+            sub={`${totalAreaM2.toLocaleString('fr-FR', { maximumFractionDigits: 1 })} m² au total`}
+            icon={<Home className="h-5 w-5 text-brand-600" />}
+            tint="bg-brand-50"
+            href="/plans"
+          />
+          <StatCard
+            title="Meubles placés"
+            value={placements.length}
+            sub={`${blueprints.length} blueprint(s) · ${images.length} inspiration(s)`}
+            icon={<Sofa className="h-5 w-5 text-accent-600" />}
+            tint="bg-accent-50"
+            href="/furniture"
+          />
+          <StatCard
+            title="Budget dépensé"
+            value={formatPHP(totalSpent, { compact: true })}
+            sub={totalBudget > 0 ? `sur ${formatPHP(totalBudget, { compact: true })} (${formatPct(budgetPct)})` : 'Budget non défini'}
+            icon={<Wallet className="h-5 w-5 text-emerald-600" />}
+            tint="bg-emerald-50"
+            href="/costs"
+          />
+          <StatCard
+            title="Retour sur invest."
+            value={roiMonths > 0 ? formatMonths(roiMonths) : '—'}
+            sub={monthlyNet > 0 ? `${formatPHP(monthlyNet, { compact: true })}/mois net` : 'ROI à configurer'}
+            icon={<TrendingUp className="h-5 w-5 text-brand-600" />}
+            tint="bg-brand-50"
+            href="/costs"
+          />
         </div>
 
-        {/* Budget Progress */}
-        <div className="card p-6">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-bold text-slate-900">Progression Budget</h2>
-            <BarChart3 className="w-5 h-5 text-slate-400" />
-          </div>
-          <div className="space-y-4">
-            <div>
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-medium text-slate-700">Dépensé</span>
-                <span className="text-sm font-bold text-slate-900">
-                  {budgetPercentage}%
-                </span>
+        {/* Mid row: budget + breakdown */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Budget progress */}
+          <div className="card p-6 lg:col-span-2">
+            <div className="flex items-center justify-between mb-5">
+              <div className="flex items-center gap-2">
+                <Target className="h-4 w-4 text-ink-faint" />
+                <h2 className="font-semibold text-ink">Avancement du budget</h2>
               </div>
-              <div className="w-full bg-slate-200 rounded-full h-3">
-                <div
-                  className="h-3 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 transition-all"
-                  style={{ width: `${Math.min(budgetPercentage, 100)}%` }}
-                />
-              </div>
+              <Link href="/costs" className="text-xs font-medium text-brand-600 hover:underline">
+                Détails →
+              </Link>
             </div>
-            <div className="grid grid-cols-2 gap-3 text-sm">
-              <div>
-                <p className="text-slate-600 text-xs mb-1">Montant dépensé</p>
-                <p className="font-bold text-slate-900">
-                  ${totalSpent.toLocaleString()}
-                </p>
-              </div>
-              <div>
-                <p className="text-slate-600 text-xs mb-1">Restant</p>
-                <p className="font-bold text-slate-900">
-                  ${Math.max(0, totalBudget - totalSpent).toLocaleString()}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        {/* Project Status */}
-        <div className="card p-6">
-          <h2 className="text-lg font-bold text-slate-900 mb-4">Status Projet</h2>
-          <div className="space-y-3">
-            <div className="flex items-center justify-between">
-              <span className="text-sm text-slate-600">Pièces</span>
-              <span className="font-bold text-slate-900">{roomsCount}</span>
+            <div className="flex items-end justify-between mb-2">
+              <p className="text-2xl font-bold text-ink">{formatPHP(totalSpent)}</p>
+              <p className="text-sm text-ink-muted">
+                {totalBudget > 0 ? `/ ${formatPHP(totalBudget)}` : 'budget non défini'}
+              </p>
             </div>
-            <div className="flex items-center justify-between">
-              <span className="text-sm text-slate-600">Meubles</span>
-              <span className="font-bold text-slate-900">{placementsCount}</span>
+            <div className="h-3 w-full overflow-hidden rounded-full bg-slate-100">
+              <div
+                className={`h-full rounded-full transition-all ${
+                  budgetPct > 100 ? 'bg-rose-500' : 'bg-gradient-to-r from-brand-500 to-brand-600'
+                }`}
+                style={{ width: `${Math.min(budgetPct, 100)}%` }}
+              />
             </div>
-            <div className="flex items-center justify-between">
-              <span className="text-sm text-slate-600">Plans</span>
-              <span className="font-bold text-slate-900">{blueprintsCount}</span>
-            </div>
-            <div className="flex items-center justify-between pt-3 border-t border-slate-200">
-              <span className="text-sm text-slate-600">Dépenses</span>
-              <span className="font-bold text-slate-900">
-                ${totalSpent.toLocaleString()}
+            <div className="mt-2 flex items-center justify-between text-xs">
+              <span className={budgetPct > 100 ? 'text-rose-600 font-medium' : 'text-ink-muted'}>
+                {formatPct(budgetPct)} utilisé
+              </span>
+              <span className="text-ink-muted">
+                Restant : {formatPHP(Math.max(0, totalBudget - totalSpent))}
               </span>
             </div>
+
+            {/* secondary metrics */}
+            <div className="mt-6 grid grid-cols-3 gap-4 border-t border-[var(--border)] pt-5">
+              <div>
+                <p className="text-xs text-ink-faint">Dépenses</p>
+                <p className="mt-0.5 text-lg font-bold text-ink">{cost.entries.length}</p>
+              </div>
+              <div>
+                <p className="text-xs text-ink-faint">Revenu net / mois</p>
+                <p className="mt-0.5 text-lg font-bold text-ink">{formatPHP(Math.max(0, monthlyNet), { compact: true })}</p>
+              </div>
+              <div>
+                <p className="text-xs text-ink-faint">Avancement moyen</p>
+                <p className="mt-0.5 text-lg font-bold text-ink">{formatPct(avgCompletion)}</p>
+              </div>
+            </div>
           </div>
+
+          {/* Spend breakdown donut */}
+          <div className="card p-6">
+            <div className="flex items-center gap-2 mb-4">
+              <Layers className="h-4 w-4 text-ink-faint" />
+              <h2 className="font-semibold text-ink">Répartition des coûts</h2>
+            </div>
+            {pieData.length > 0 ? (
+              <>
+                <div className="relative h-40">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Pie
+                        data={pieData}
+                        dataKey="value"
+                        innerRadius={48}
+                        outerRadius={70}
+                        paddingAngle={2}
+                        stroke="none"
+                      >
+                        {pieData.map((d, i) => (
+                          <Cell key={i} fill={d.color} />
+                        ))}
+                      </Pie>
+                    </PieChart>
+                  </ResponsiveContainer>
+                  <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                    <span className="text-[11px] text-ink-faint">Total</span>
+                    <span className="text-sm font-bold text-ink">
+                      {formatPHP(totalSpent, { compact: true })}
+                    </span>
+                  </div>
+                </div>
+                <div className="mt-3 space-y-1.5">
+                  {pieData.slice(0, 5).map((d) => (
+                    <div key={d.name} className="flex items-center justify-between text-xs">
+                      <span className="flex items-center gap-2 text-ink-muted">
+                        <span className="h-2.5 w-2.5 rounded-sm" style={{ background: d.color }} />
+                        {d.name}
+                      </span>
+                      <span className="font-medium text-ink">{formatPHP(d.value, { compact: true })}</span>
+                    </div>
+                  ))}
+                </div>
+              </>
+            ) : (
+              <div className="flex h-48 flex-col items-center justify-center text-center">
+                <Wallet className="h-8 w-8 text-slate-300 mb-2" />
+                <p className="text-sm text-ink-faint">Aucune dépense enregistrée</p>
+                <Link href="/costs" className="mt-2 text-xs font-medium text-brand-600 hover:underline">
+                  Ajouter une dépense
+                </Link>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Per-room progress */}
+        {roomData.length > 0 && (
+          <div className="card p-6">
+            <div className="flex items-center justify-between mb-5">
+              <h2 className="font-semibold text-ink">Avancement par pièce</h2>
+              <span className="badge-muted">{roomData.length} pièces</span>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5">
+              {roomData.map(({ room, completion }) => (
+                <div key={room.id}>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="flex items-center gap-2 text-sm font-medium text-ink">
+                      <span
+                        className="h-2.5 w-2.5 rounded-full"
+                        style={{ background: ROOM_ACCENT[room.type] }}
+                      />
+                      {room.name}
+                      <span className="text-xs font-normal text-ink-faint">
+                        {ROOM_TYPE_LABELS[room.type]}
+                      </span>
+                    </span>
+                    <span className="text-xs font-semibold text-ink-muted">
+                      {formatPct(completion.percent)}
+                    </span>
+                  </div>
+                  <div className="h-2 w-full overflow-hidden rounded-full bg-slate-100">
+                    <div
+                      className="h-full rounded-full transition-all"
+                      style={{
+                        width: `${completion.percent}%`,
+                        background:
+                          completion.percent === 100
+                            ? '#10b981'
+                            : ROOM_ACCENT[room.type],
+                      }}
+                    />
+                  </div>
+                  <div className="mt-1.5 flex flex-wrap gap-x-3 gap-y-1">
+                    <Milestone done={completion.hasPlan && completion.hasOpening} label="Plan" />
+                    <Milestone done={completion.hasFurniture} label="Meubles" />
+                    <Milestone done={completion.hasBlueprint} label="Blueprint" />
+                    <Milestone done={completion.hasCost} label="Coûts" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Quick links */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {[
+            { href: '/plans', label: 'Dessiner un plan', icon: <PencilRuler className="h-4 w-4" /> },
+            { href: '/furniture', label: 'Agencer les meubles', icon: <Sofa className="h-4 w-4" /> },
+            { href: '/blueprints', label: 'Ajouter un blueprint', icon: <FileImage className="h-4 w-4" /> },
+            { href: '/inspiration', label: 'Collecter des idées', icon: <Camera className="h-4 w-4" /> },
+          ].map((q) => (
+            <Link
+              key={q.href}
+              href={q.href}
+              className="panel flex items-center gap-2.5 px-4 py-3 text-sm font-medium text-ink-soft transition-all hover:border-brand-200 hover:bg-brand-50/40"
+            >
+              <span className="text-brand-600">{q.icon}</span>
+              {q.label}
+            </Link>
+          ))}
         </div>
       </div>
-
-      {/* Room Progress Overview */}
-      {roomCompletionData.length > 0 && (
-        <div className="card p-6">
-          <h2 className="text-lg font-bold text-slate-900 mb-6">Progression des Pièces</h2>
-          <div className="space-y-4">
-            {roomCompletionData.map((room, index) => (
-              <RoomProgressItem
-                key={index}
-                name={room.name}
-                completion={room.completion}
-              />
-            ))}
-          </div>
-        </div>
-      )}
-
-      {roomCompletionData.length === 0 && (
-        <div className="card p-12 text-center">
-          <Home className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-          <p className="text-slate-600">Commencez par créer des pièces dans l'onglet Plans</p>
-        </div>
-      )}
     </div>
   );
 }

@@ -2,143 +2,82 @@
 
 import { useState } from 'react';
 import { usePlanStore } from '@/stores/planStore';
-import { Room, RoomType, DoorPlacement, WindowPlacement } from '@/types/plan';
-import { Trash2, Plus, X } from 'lucide-react';
+import { Room, RoomType } from '@/types/plan';
+import { Trash2, Plus, X, DoorOpen, RectangleHorizontal, Copy } from 'lucide-react';
+import { ROOM_TYPES, ROOM_TYPE_LABELS, ROOM_COLORS } from '@/lib/rooms';
+import { formatArea } from '@/lib/format';
 
-const ROOM_TYPES: RoomType[] = ['bedroom', 'bathroom', 'kitchen', 'common', 'storage', 'hallway'];
-const WALLS = ['top', 'bottom', 'left', 'right'] as const;
+type Wall = 'top' | 'bottom' | 'left' | 'right';
+const WALLS: Wall[] = ['top', 'bottom', 'left', 'right'];
+const WALL_LABELS: Record<Wall, string> = { top: 'Haut', bottom: 'Bas', left: 'Gauche', right: 'Droite' };
 
-const ROOM_COLORS: Record<RoomType, string> = {
-  bedroom: '#dbeafe',
-  bathroom: '#d1fae5',
-  kitchen: '#fef3c7',
-  common: '#fce7f3',
-  storage: '#f3e8ff',
-  hallway: '#f1f5f9',
-};
-
-interface RoomPanelProps {
-  room: Room;
-}
-
-export default function RoomPanel({ room }: RoomPanelProps) {
-  const { updateRoom, removeRoom, addDoor, removeDoor, addWindow, removeWindow, setSelectedRoom } =
+export default function RoomPanel({ room }: { room: Room }) {
+  const { updateRoom, removeRoom, duplicateRoom, addDoor, removeDoor, addWindow, removeWindow, setSelectedRoom } =
     usePlanStore();
 
   const [showAddDoor, setShowAddDoor] = useState(false);
   const [showAddWindow, setShowAddWindow] = useState(false);
-  const [doorForm, setDoorForm] = useState<{
-    wall: 'top' | 'bottom' | 'left' | 'right';
-    position: number;
-    width: number;
-  }>({
-    wall: 'top',
-    position: 0.5,
-    width: 90,
-  });
-  const [windowForm, setWindowForm] = useState<{
-    wall: 'top' | 'bottom' | 'left' | 'right';
-    position: number;
-    width: number;
-  }>({
-    wall: 'top',
-    position: 0.5,
-    width: 100,
-  });
+  const [doorForm, setDoorForm] = useState<{ wall: Wall; position: number; width: number }>({ wall: 'top', position: 0.5, width: 90 });
+  const [windowForm, setWindowForm] = useState<{ wall: Wall; position: number; width: number }>({ wall: 'top', position: 0.5, width: 100 });
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
-  const handleUpdateRoom = (updates: Partial<Room>) => {
-    updateRoom(room.id, updates);
-  };
-
-  const handleAddDoor = () => {
-    addDoor(room.id, {
-      wall: doorForm.wall,
-      position: doorForm.position,
-      width: doorForm.width,
-    });
-    setShowAddDoor(false);
-  };
-
-  const handleAddWindow = () => {
-    addWindow(room.id, {
-      wall: windowForm.wall,
-      position: windowForm.position,
-      width: windowForm.width,
-    });
-    setShowAddWindow(false);
-  };
-
-  const handleDeleteRoom = () => {
-    removeRoom(room.id);
-    setSelectedRoom(null);
-    setShowDeleteConfirm(false);
-  };
+  const up = (u: Partial<Room>) => updateRoom(room.id, u);
 
   return (
-    <div className="h-full flex flex-col">
+    <div className="flex h-full flex-col">
       {/* Header */}
-      <div className="p-4 border-b border-gray-200 bg-gray-50">
-        <h3 className="text-lg font-semibold text-gray-900">Room Details</h3>
+      <div className="flex items-center justify-between border-b border-[var(--border)] px-4 h-[60px]">
+        <div className="flex items-center gap-2 min-w-0">
+          <span className="h-6 w-6 flex-shrink-0 rounded-md border border-black/5" style={{ background: room.color }} />
+          <h3 className="truncate text-sm font-bold text-ink">{room.name}</h3>
+        </div>
+        <button onClick={() => setSelectedRoom(null)} className="text-ink-faint hover:text-ink-soft">
+          <X className="h-5 w-5" />
+        </button>
       </div>
 
-      {/* Content */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-6">
-        {/* Basic Info */}
+      <div className="flex-1 space-y-6 overflow-y-auto p-4">
+        {/* area badge */}
+        <div className="flex items-center justify-between rounded-xl bg-slate-50 px-3 py-2.5">
+          <span className="text-xs text-ink-muted">Surface</span>
+          <span className="text-sm font-bold text-ink">{formatArea(room.width, room.height)}</span>
+        </div>
+
+        {/* Basic info */}
         <section>
-          <h4 className="text-sm font-semibold text-gray-700 mb-3">Basic Info</h4>
+          <h4 className="section-title mb-3">Informations</h4>
           <div className="space-y-3">
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">
-                Room Name
-              </label>
-              <input
-                type="text"
-                value={room.name}
-                onChange={(e) => handleUpdateRoom({ name: e.target.value })}
-                className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
-              />
+              <label className="label">Nom de la pièce</label>
+              <input type="text" value={room.name} onChange={(e) => up({ name: e.target.value })} className="input" />
             </div>
-
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">
-                Room Type
-              </label>
+              <label className="label">Type</label>
               <select
                 value={room.type}
                 onChange={(e) => {
-                  const newType = e.target.value as RoomType;
-                  handleUpdateRoom({
-                    type: newType,
-                    color: ROOM_COLORS[newType],
-                  });
+                  const t = e.target.value as RoomType;
+                  up({ type: t, color: ROOM_COLORS[t] });
                 }}
-                className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                className="input"
               >
-                {ROOM_TYPES.map((type) => (
-                  <option key={type} value={type}>
-                    {type.charAt(0).toUpperCase() + type.slice(1)}
-                  </option>
+                {ROOM_TYPES.map((t) => (
+                  <option key={t} value={t}>{ROOM_TYPE_LABELS[t]}</option>
                 ))}
               </select>
             </div>
-
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">
-                Color
-              </label>
-              <div className="flex gap-2 flex-wrap">
-                {Object.entries(ROOM_COLORS).map(([type, color]) => (
+              <label className="label">Couleur</label>
+              <div className="flex flex-wrap gap-2">
+                {ROOM_TYPES.map((t) => (
                   <button
-                    key={color}
-                    onClick={() => handleUpdateRoom({ color })}
-                    className={`w-8 h-8 rounded border-2 ${
-                      room.color === color
-                        ? 'border-gray-900 shadow-md'
-                        : 'border-gray-300'
+                    key={t}
+                    onClick={() => up({ color: ROOM_COLORS[t] })}
+                    className={`h-8 w-8 rounded-lg border-2 transition-transform hover:scale-110 ${
+                      room.color === ROOM_COLORS[t] ? 'border-ink shadow-md' : 'border-[var(--border)]'
                     }`}
-                    style={{ backgroundColor: color }}
-                    title={type}
+                    style={{ background: ROOM_COLORS[t] }}
+                    title={ROOM_TYPE_LABELS[t]}
                   />
                 ))}
               </div>
@@ -148,284 +87,130 @@ export default function RoomPanel({ room }: RoomPanelProps) {
 
         {/* Dimensions */}
         <section>
-          <h4 className="text-sm font-semibold text-gray-700 mb-3">Dimensions</h4>
+          <h4 className="section-title mb-3">Dimensions</h4>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">
-                Width (cm)
-              </label>
-              <input
-                type="number"
-                value={room.width}
-                onChange={(e) =>
-                  handleUpdateRoom({ width: parseInt(e.target.value) })
-                }
-                min="50"
-                max="1000"
-                className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
-              />
+              <label className="label">Largeur (cm)</label>
+              <input type="number" value={room.width} min="50" max="2000"
+                onChange={(e) => up({ width: Math.max(50, parseInt(e.target.value) || 50) })} className="input" />
             </div>
             <div>
-              <label className="block text-xs font-medium text-gray-600 mb-1">
-                Height (cm)
-              </label>
-              <input
-                type="number"
-                value={room.height}
-                onChange={(e) =>
-                  handleUpdateRoom({ height: parseInt(e.target.value) })
-                }
-                min="50"
-                max="1000"
-                className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
-              />
+              <label className="label">Hauteur (cm)</label>
+              <input type="number" value={room.height} min="50" max="2000"
+                onChange={(e) => up({ height: Math.max(50, parseInt(e.target.value) || 50) })} className="input" />
             </div>
           </div>
         </section>
 
         {/* Doors */}
         <section>
-          <div className="flex items-center justify-between mb-3">
-            <h4 className="text-sm font-semibold text-gray-700">Doors</h4>
-            <button
-              onClick={() => setShowAddDoor(true)}
-              className="text-blue-600 hover:text-blue-700"
-            >
-              <Plus size={16} />
-            </button>
+          <div className="mb-3 flex items-center justify-between">
+            <h4 className="section-title flex items-center gap-1.5"><DoorOpen size={13} /> Portes</h4>
+            <button onClick={() => setShowAddDoor((s) => !s)} className="text-brand-600 hover:text-brand-700"><Plus size={16} /></button>
           </div>
-
           {room.doors.length === 0 ? (
-            <p className="text-xs text-gray-500">No doors added</p>
+            <p className="text-xs text-ink-faint">Aucune porte</p>
           ) : (
-            <div className="space-y-2">
-              {room.doors.map((door) => (
-                <div
-                  key={door.id}
-                  className="flex items-center justify-between p-2 bg-gray-100 rounded text-xs"
-                >
-                  <span>
-                    {door.wall} wall - {door.width}cm @ {(door.position * 100).toFixed(0)}%
-                  </span>
-                  <button
-                    onClick={() => removeDoor(room.id, door.id)}
-                    className="text-red-600 hover:text-red-700"
-                  >
-                    <X size={14} />
-                  </button>
+            <div className="space-y-1.5">
+              {room.doors.map((d) => (
+                <div key={d.id} className="flex items-center justify-between rounded-lg bg-slate-50 px-2.5 py-1.5 text-xs">
+                  <span className="text-ink-muted">Mur {WALL_LABELS[d.wall].toLowerCase()} · {d.width} cm · {(d.position * 100).toFixed(0)}%</span>
+                  <button onClick={() => removeDoor(room.id, d.id)} className="text-rose-500 hover:text-rose-700"><X size={14} /></button>
                 </div>
               ))}
             </div>
           )}
-
           {showAddDoor && (
-            <div className="mt-3 p-3 border border-gray-200 rounded bg-gray-50 space-y-2">
-              <select
-                value={doorForm.wall}
-                onChange={(e) =>
-                  setDoorForm({
-                    ...doorForm,
-                    wall: e.target.value as 'top' | 'bottom' | 'left' | 'right',
-                  })
-                }
-                className="w-full px-2 py-1 text-xs border border-gray-300 rounded"
-              >
-                {WALLS.map((wall) => (
-                  <option key={wall} value={wall}>
-                    {wall.charAt(0).toUpperCase() + wall.slice(1)} wall
-                  </option>
-                ))}
-              </select>
-
-              <div>
-                <label className="block text-xs font-medium text-gray-600 mb-1">
-                  Position (0-1)
-                </label>
-                <input
-                  type="number"
-                  min="0"
-                  max="1"
-                  step="0.1"
-                  value={doorForm.position}
-                  onChange={(e) =>
-                    setDoorForm({ ...doorForm, position: parseFloat(e.target.value) })
-                  }
-                  className="w-full px-2 py-1 text-xs border border-gray-300 rounded"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-medium text-gray-600 mb-1">
-                  Width (cm)
-                </label>
-                <input
-                  type="number"
-                  min="50"
-                  max="150"
-                  value={doorForm.width}
-                  onChange={(e) =>
-                    setDoorForm({ ...doorForm, width: parseInt(e.target.value) })
-                  }
-                  className="w-full px-2 py-1 text-xs border border-gray-300 rounded"
-                />
-              </div>
-
-              <div className="flex gap-2">
-                <button
-                  onClick={handleAddDoor}
-                  className="flex-1 px-2 py-1 bg-blue-600 text-white text-xs rounded hover:bg-blue-700"
-                >
-                  Add
-                </button>
-                <button
-                  onClick={() => setShowAddDoor(false)}
-                  className="flex-1 px-2 py-1 bg-gray-300 text-gray-700 text-xs rounded hover:bg-gray-400"
-                >
-                  Cancel
-                </button>
-              </div>
-            </div>
+            <OpeningForm
+              form={doorForm} setForm={setDoorForm} widthMin={50} widthMax={150}
+              onAdd={() => { addDoor(room.id, doorForm); setShowAddDoor(false); }}
+              onCancel={() => setShowAddDoor(false)}
+            />
           )}
         </section>
 
         {/* Windows */}
         <section>
-          <div className="flex items-center justify-between mb-3">
-            <h4 className="text-sm font-semibold text-gray-700">Windows</h4>
-            <button
-              onClick={() => setShowAddWindow(true)}
-              className="text-blue-600 hover:text-blue-700"
-            >
-              <Plus size={16} />
-            </button>
+          <div className="mb-3 flex items-center justify-between">
+            <h4 className="section-title flex items-center gap-1.5"><RectangleHorizontal size={13} /> Fenêtres</h4>
+            <button onClick={() => setShowAddWindow((s) => !s)} className="text-brand-600 hover:text-brand-700"><Plus size={16} /></button>
           </div>
-
           {room.windows.length === 0 ? (
-            <p className="text-xs text-gray-500">No windows added</p>
+            <p className="text-xs text-ink-faint">Aucune fenêtre</p>
           ) : (
-            <div className="space-y-2">
-              {room.windows.map((window) => (
-                <div
-                  key={window.id}
-                  className="flex items-center justify-between p-2 bg-gray-100 rounded text-xs"
-                >
-                  <span>
-                    {window.wall} wall - {window.width}cm @ {(window.position * 100).toFixed(0)}%
-                  </span>
-                  <button
-                    onClick={() => removeWindow(room.id, window.id)}
-                    className="text-red-600 hover:text-red-700"
-                  >
-                    <X size={14} />
-                  </button>
+            <div className="space-y-1.5">
+              {room.windows.map((w) => (
+                <div key={w.id} className="flex items-center justify-between rounded-lg bg-slate-50 px-2.5 py-1.5 text-xs">
+                  <span className="text-ink-muted">Mur {WALL_LABELS[w.wall].toLowerCase()} · {w.width} cm · {(w.position * 100).toFixed(0)}%</span>
+                  <button onClick={() => removeWindow(room.id, w.id)} className="text-rose-500 hover:text-rose-700"><X size={14} /></button>
                 </div>
               ))}
             </div>
           )}
-
           {showAddWindow && (
-            <div className="mt-3 p-3 border border-gray-200 rounded bg-gray-50 space-y-2">
-              <select
-                value={windowForm.wall}
-                onChange={(e) =>
-                  setWindowForm({
-                    ...windowForm,
-                    wall: e.target.value as 'top' | 'bottom' | 'left' | 'right',
-                  })
-                }
-                className="w-full px-2 py-1 text-xs border border-gray-300 rounded"
-              >
-                {WALLS.map((wall) => (
-                  <option key={wall} value={wall}>
-                    {wall.charAt(0).toUpperCase() + wall.slice(1)} wall
-                  </option>
-                ))}
-              </select>
-
-              <div>
-                <label className="block text-xs font-medium text-gray-600 mb-1">
-                  Position (0-1)
-                </label>
-                <input
-                  type="number"
-                  min="0"
-                  max="1"
-                  step="0.1"
-                  value={windowForm.position}
-                  onChange={(e) =>
-                    setWindowForm({
-                      ...windowForm,
-                      position: parseFloat(e.target.value),
-                    })
-                  }
-                  className="w-full px-2 py-1 text-xs border border-gray-300 rounded"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-medium text-gray-600 mb-1">
-                  Width (cm)
-                </label>
-                <input
-                  type="number"
-                  min="50"
-                  max="200"
-                  value={windowForm.width}
-                  onChange={(e) =>
-                    setWindowForm({ ...windowForm, width: parseInt(e.target.value) })
-                  }
-                  className="w-full px-2 py-1 text-xs border border-gray-300 rounded"
-                />
-              </div>
-
-              <div className="flex gap-2">
-                <button
-                  onClick={handleAddWindow}
-                  className="flex-1 px-2 py-1 bg-blue-600 text-white text-xs rounded hover:bg-blue-700"
-                >
-                  Add
-                </button>
-                <button
-                  onClick={() => setShowAddWindow(false)}
-                  className="flex-1 px-2 py-1 bg-gray-300 text-gray-700 text-xs rounded hover:bg-gray-400"
-                >
-                  Cancel
-                </button>
-              </div>
-            </div>
+            <OpeningForm
+              form={windowForm} setForm={setWindowForm} widthMin={50} widthMax={250}
+              onAdd={() => { addWindow(room.id, windowForm); setShowAddWindow(false); }}
+              onCancel={() => setShowAddWindow(false)}
+            />
           )}
         </section>
       </div>
 
-      {/* Footer - Delete Button */}
-      <div className="p-4 border-t border-gray-200 bg-gray-50">
+      {/* Footer */}
+      <div className="space-y-2 border-t border-[var(--border)] p-4">
+        <button onClick={() => duplicateRoom(room.id)} className="btn-secondary btn-sm w-full">
+          <Copy size={14} /> Dupliquer la pièce
+        </button>
         {showDeleteConfirm ? (
           <div className="space-y-2">
-            <p className="text-xs text-gray-600">Delete this room?</p>
+            <p className="text-xs text-ink-muted">Supprimer définitivement cette pièce ?</p>
             <div className="flex gap-2">
-              <button
-                onClick={handleDeleteRoom}
-                className="flex-1 px-3 py-1 bg-red-600 hover:bg-red-700 text-white text-xs rounded font-medium"
-              >
-                Delete
+              <button onClick={() => { removeRoom(room.id); setSelectedRoom(null); }} className="btn btn-sm flex-1 bg-rose-600 text-white hover:bg-rose-700">
+                Supprimer
               </button>
-              <button
-                onClick={() => setShowDeleteConfirm(false)}
-                className="flex-1 px-3 py-1 bg-gray-300 hover:bg-gray-400 text-gray-700 text-xs rounded"
-              >
-                Cancel
-              </button>
+              <button onClick={() => setShowDeleteConfirm(false)} className="btn-secondary btn-sm flex-1">Annuler</button>
             </div>
           </div>
         ) : (
-          <button
-            onClick={() => setShowDeleteConfirm(true)}
-            className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-red-100 hover:bg-red-200 text-red-700 rounded font-medium text-sm transition-colors"
-          >
-            <Trash2 size={16} />
-            Delete Room
+          <button onClick={() => setShowDeleteConfirm(true)} className="btn-danger btn-sm w-full">
+            <Trash2 size={14} /> Supprimer la pièce
           </button>
         )}
+      </div>
+    </div>
+  );
+}
+
+function OpeningForm({
+  form, setForm, widthMin, widthMax, onAdd, onCancel,
+}: {
+  form: { wall: Wall; position: number; width: number };
+  setForm: (f: { wall: Wall; position: number; width: number }) => void;
+  widthMin: number; widthMax: number;
+  onAdd: () => void; onCancel: () => void;
+}) {
+  return (
+    <div className="mt-3 space-y-2.5 rounded-xl border border-[var(--border)] bg-slate-50 p-3">
+      <div>
+        <label className="label">Mur</label>
+        <select value={form.wall} onChange={(e) => setForm({ ...form, wall: e.target.value as Wall })} className="input py-1.5 text-xs">
+          {WALLS.map((w) => <option key={w} value={w}>{WALL_LABELS[w]}</option>)}
+        </select>
+      </div>
+      <div>
+        <label className="label">Position le long du mur ({Math.round(form.position * 100)}%)</label>
+        <input type="range" min="0" max="1" step="0.05" value={form.position}
+          onChange={(e) => setForm({ ...form, position: parseFloat(e.target.value) })} className="w-full accent-brand-600" />
+      </div>
+      <div>
+        <label className="label">Largeur (cm)</label>
+        <input type="number" min={widthMin} max={widthMax} value={form.width}
+          onChange={(e) => setForm({ ...form, width: parseInt(e.target.value) || widthMin })} className="input py-1.5 text-xs" />
+      </div>
+      <div className="flex gap-2">
+        <button onClick={onAdd} className="btn-primary btn-sm flex-1">Ajouter</button>
+        <button onClick={onCancel} className="btn-secondary btn-sm flex-1">Annuler</button>
       </div>
     </div>
   );

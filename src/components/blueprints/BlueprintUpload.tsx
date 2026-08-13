@@ -46,28 +46,22 @@ export default function BlueprintUpload() {
   return (
     <div
       {...getRootProps()}
-      className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors cursor-pointer ${
+      className={`cursor-pointer rounded-2xl border-2 border-dashed p-9 text-center transition-all ${
         isDragActive
-          ? 'border-blue-500 bg-blue-50'
-          : 'border-gray-300 bg-gray-50 hover:border-gray-400'
+          ? 'border-brand-500 bg-brand-50'
+          : 'border-[var(--border-strong)] bg-white hover:border-brand-300 hover:bg-brand-50/30'
       }`}
     >
       <input {...getInputProps()} />
       <div className="flex flex-col items-center gap-3">
-        {isDragActive ? (
-          <Cloud className="w-10 h-10 text-blue-500" />
-        ) : (
-          <Upload className="w-10 h-10 text-gray-400" />
-        )}
+        <div className={`flex h-12 w-12 items-center justify-center rounded-xl ${isDragActive ? 'bg-brand-100' : 'bg-slate-100'}`}>
+          {isDragActive ? <Cloud className="h-6 w-6 text-brand-600" /> : <Upload className="h-6 w-6 text-ink-faint" />}
+        </div>
         <div>
-          <p className="text-lg font-medium text-gray-900">
-            {isDragActive
-              ? 'Drop blueprints here'
-              : 'Drag blueprints here or click to select'}
+          <p className="font-semibold text-ink">
+            {isDragActive ? 'Déposez vos blueprints ici' : 'Glissez vos blueprints ici, ou cliquez pour parcourir'}
           </p>
-          <p className="text-sm text-gray-500">
-            Supports JPG, PNG, GIF, WebP
-          </p>
+          <p className="mt-0.5 text-sm text-ink-faint">Formats acceptés : JPG, PNG, GIF, WebP</p>
         </div>
       </div>
     </div>

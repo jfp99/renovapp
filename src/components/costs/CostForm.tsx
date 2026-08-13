@@ -92,7 +92,7 @@ export const CostForm: React.FC<CostFormProps> = ({
     e.preventDefault();
 
     if (!formData.description || !formData.categoryId || formData.amount <= 0) {
-      alert('Please fill in all required fields');
+      alert('Veuillez remplir tous les champs obligatoires.');
       return;
     }
 
@@ -108,24 +108,21 @@ export const CostForm: React.FC<CostFormProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-        <div className="sticky top-0 bg-white border-b border-gray-200 p-6 flex justify-between items-center">
-          <h2 className="text-2xl font-bold">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/40 p-4 backdrop-blur-sm animate-fade-in">
+      <div className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl bg-white shadow-float animate-scale-in">
+        <div className="sticky top-0 flex items-center justify-between border-b border-[var(--border)] bg-white px-6 py-4">
+          <h2 className="text-lg font-bold text-ink">
             {editingEntry ? 'Modifier la dépense' : 'Ajouter une dépense'}
           </h2>
-          <button
-            onClick={onClose}
-            className="text-gray-500 hover:text-gray-700"
-          >
-            <X size={24} />
+          <button onClick={onClose} className="text-ink-faint hover:text-ink-soft">
+            <X size={20} />
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-6 space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-5 p-6">
           {/* Description */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="label">
               Description *
             </label>
             <input
@@ -135,7 +132,7 @@ export const CostForm: React.FC<CostFormProps> = ({
                 setFormData({ ...formData, description: e.target.value })
               }
               placeholder="Ex: Peinture salon"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="input"
               required
             />
           </div>
@@ -143,7 +140,7 @@ export const CostForm: React.FC<CostFormProps> = ({
           <div className="grid grid-cols-2 gap-4">
             {/* Category */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="label">
                 Catégorie *
               </label>
               <select
@@ -151,7 +148,7 @@ export const CostForm: React.FC<CostFormProps> = ({
                 onChange={(e) =>
                   setFormData({ ...formData, categoryId: e.target.value })
                 }
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="input"
               >
                 {categories.map((cat) => (
                   <option key={cat.id} value={cat.id}>
@@ -163,7 +160,7 @@ export const CostForm: React.FC<CostFormProps> = ({
 
             {/* Status */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="label">
                 Statut
               </label>
               <select
@@ -174,7 +171,7 @@ export const CostForm: React.FC<CostFormProps> = ({
                     status: e.target.value as CostStatus,
                   })
                 }
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="input"
               >
                 <option value="planned">Prévu</option>
                 <option value="paid">Payé</option>
@@ -186,7 +183,7 @@ export const CostForm: React.FC<CostFormProps> = ({
           <div className="grid grid-cols-2 gap-4">
             {/* Amount */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="label">
                 Montant *
               </label>
               <input
@@ -201,14 +198,14 @@ export const CostForm: React.FC<CostFormProps> = ({
                 placeholder="0.00"
                 step="0.01"
                 min="0"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="input"
                 required
               />
             </div>
 
             {/* Currency */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="label">
                 Devise
               </label>
               <div className="flex gap-2">
@@ -217,23 +214,29 @@ export const CostForm: React.FC<CostFormProps> = ({
                     key={curr}
                     type="button"
                     onClick={() => handleCurrencyChange(curr)}
-                    className={`flex-1 py-2 px-3 rounded-lg font-medium transition-colors ${
+                    className={`flex-1 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
                       formData.currency === curr
-                        ? 'bg-blue-500 text-white'
-                        : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                        ? 'bg-brand-600 text-white'
+                        : 'bg-slate-100 text-ink-muted hover:bg-slate-200'
                     }`}
                   >
                     {curr} ({CurrencySymbols[curr]})
                   </button>
                 ))}
               </div>
+              {formData.currency !== 'PHP' && (
+                <p className="mt-1.5 text-xs text-ink-faint">
+                  ≈ ₱{(formData.amount * formData.exchangeRate).toLocaleString('fr-FR', { maximumFractionDigits: 0 })}
+                  {' '}(taux : {formData.exchangeRate} ₱/{formData.currency})
+                </p>
+              )}
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             {/* Date */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="label">
                 Date
               </label>
               <input
@@ -242,13 +245,13 @@ export const CostForm: React.FC<CostFormProps> = ({
                 onChange={(e) =>
                   setFormData({ ...formData, date: e.target.value })
                 }
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="input"
               />
             </div>
 
             {/* Vendor */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="label">
                 Fournisseur
               </label>
               <input
@@ -258,7 +261,7 @@ export const CostForm: React.FC<CostFormProps> = ({
                   setFormData({ ...formData, vendor: e.target.value })
                 }
                 placeholder="Ex: Leroy Merlin"
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="input"
               />
             </div>
           </div>
@@ -271,14 +274,14 @@ export const CostForm: React.FC<CostFormProps> = ({
               </label>
               <div className="grid grid-cols-2 gap-2">
                 {rooms.map((room) => (
-                  <label key={room.id} className="flex items-center gap-2 cursor-pointer">
+                  <label key={room.id} className="flex cursor-pointer items-center gap-2 rounded-lg px-1 py-0.5 hover:bg-slate-50">
                     <input
                       type="checkbox"
                       checked={formData.linkedRoomIds.includes(room.id)}
                       onChange={() => handleRoomToggle(room.id)}
-                      className="w-4 h-4 text-blue-500 rounded"
+                      className="h-4 w-4 rounded border-slate-300 accent-brand-600"
                     />
-                    <span className="text-sm text-gray-700">{room.name}</span>
+                    <span className="text-sm text-ink-soft">{room.name}</span>
                   </label>
                 ))}
               </div>
@@ -286,19 +289,12 @@ export const CostForm: React.FC<CostFormProps> = ({
           )}
 
           {/* Buttons */}
-          <div className="flex gap-4 pt-4 border-t">
-            <button
-              type="button"
-              onClick={onClose}
-              className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium"
-            >
+          <div className="flex gap-3 border-t border-[var(--border)] pt-5">
+            <button type="button" onClick={onClose} className="btn-secondary flex-1">
               Annuler
             </button>
-            <button
-              type="submit"
-              className="flex-1 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 font-medium"
-            >
-              {editingEntry ? 'Mettre à jour' : 'Ajouter'}
+            <button type="submit" className="btn-primary flex-1">
+              {editingEntry ? 'Mettre à jour' : 'Ajouter la dépense'}
             </button>
           </div>
         </form>

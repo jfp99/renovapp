@@ -8,6 +8,7 @@ interface CostState {
   entries: CostEntry[];
   roiConfig: ROIConfig;
   addCategory: (name: string, color: string, budgetAllocation: number) => void;
+  updateCategory: (id: string, updates: Partial<CostCategory>) => void;
   removeCategory: (id: string) => void;
   addEntry: (entry: Omit<CostEntry, 'id'>) => void;
   updateEntry: (id: string, updates: Partial<CostEntry>) => void;
@@ -92,6 +93,13 @@ export const useCostStore = create<CostState>()(
               budgetAllocation,
             },
           ],
+        })),
+
+      updateCategory: (id: string, updates: Partial<CostCategory>) =>
+        set((state) => ({
+          categories: state.categories.map((c) =>
+            c.id === id ? { ...c, ...updates } : c
+          ),
         })),
 
       removeCategory: (id: string) =>

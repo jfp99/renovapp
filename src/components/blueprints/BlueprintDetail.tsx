@@ -61,188 +61,114 @@ export default function BlueprintDetail({
   };
 
   const handleDelete = () => {
-    if (confirm('Delete this blueprint?')) {
+    if (confirm('Supprimer ce blueprint ?')) {
       removeBlueprint(blueprint.id);
       onClose();
     }
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto flex flex-col">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/40 p-4 backdrop-blur-sm animate-fade-in">
+      <div className="flex max-h-[90vh] w-full max-w-4xl flex-col overflow-hidden rounded-2xl bg-white shadow-float animate-scale-in">
         {/* Header */}
-        <div className="flex items-center justify-between border-b p-4 sticky top-0 bg-white">
-          <h2 className="text-2xl font-bold">Blueprint Details</h2>
-          <button
-            onClick={onClose}
-            className="p-1 hover:bg-gray-100 rounded-lg transition-colors"
-          >
-            <X className="w-6 h-6" />
+        <div className="sticky top-0 flex items-center justify-between border-b border-[var(--border)] bg-white px-6 py-4">
+          <h2 className="text-lg font-bold text-ink">Détails du blueprint</h2>
+          <button onClick={onClose} className="text-ink-faint hover:text-ink-soft">
+            <X className="h-5 w-5" />
           </button>
         </div>
 
         {/* Content */}
         <div className="flex-1 overflow-y-auto p-6">
-          <div className="grid grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
             {/* Image viewer */}
-            <div className="col-span-2">
-              <div className="bg-gray-100 rounded-lg overflow-hidden relative">
-                <div className="flex items-center justify-center min-h-[400px]">
-                  <div
-                    style={{
-                      transform: `scale(${zoom})`,
-                      transformOrigin: 'center',
-                    }}
-                    className="transition-transform"
-                  >
-                    <img
-                      src={blueprint.fileData}
-                      alt={blueprint.name}
-                      className="max-w-full h-auto max-h-[400px]"
-                    />
+            <div className="lg:col-span-2">
+              <div className="relative overflow-hidden rounded-xl border border-[var(--border)] bg-slate-100">
+                <div className="flex min-h-[400px] items-center justify-center">
+                  <div style={{ transform: `scale(${zoom})`, transformOrigin: 'center' }} className="transition-transform">
+                    <img src={blueprint.fileData} alt={blueprint.name} className="h-auto max-h-[400px] max-w-full" />
                   </div>
                 </div>
-
-                {/* Zoom controls */}
-                <div className="absolute bottom-4 right-4 flex gap-2">
-                  <button
-                    onClick={() => setZoom((z) => Math.max(0.5, z - 0.2))}
-                    className="p-2 bg-white rounded-lg shadow hover:bg-gray-50 transition-colors"
-                  >
-                    <ZoomOut className="w-4 h-4" />
+                <div className="absolute bottom-4 right-4 flex items-center gap-1 rounded-xl bg-white p-1 shadow-card">
+                  <button onClick={() => setZoom((z) => Math.max(0.5, z - 0.2))} className="rounded-lg p-2 text-ink-muted hover:bg-slate-100">
+                    <ZoomOut className="h-4 w-4" />
                   </button>
-                  <div className="px-3 py-2 bg-white rounded-lg shadow text-sm font-medium">
-                    {Math.round(zoom * 100)}%
-                  </div>
-                  <button
-                    onClick={() => setZoom((z) => Math.min(2.5, z + 0.2))}
-                    className="p-2 bg-white rounded-lg shadow hover:bg-gray-50 transition-colors"
-                  >
-                    <ZoomIn className="w-4 h-4" />
+                  <span className="w-12 text-center font-mono text-sm text-ink-muted">{Math.round(zoom * 100)}%</span>
+                  <button onClick={() => setZoom((z) => Math.min(2.5, z + 0.2))} className="rounded-lg p-2 text-ink-muted hover:bg-slate-100">
+                    <ZoomIn className="h-4 w-4" />
                   </button>
                 </div>
               </div>
             </div>
 
             {/* Sidebar */}
-            <div className="col-span-1 space-y-6">
-              {/* Name */}
+            <div className="space-y-5 lg:col-span-1">
               <div>
-                <label className="block text-sm font-medium text-gray-900 mb-2">
-                  Name
-                </label>
+                <label className="label">Nom</label>
+                <input type="text" value={name} onChange={(e) => setName(e.target.value)} className="input" />
+              </div>
+              <div>
+                <label className="label">Description</label>
+                <textarea value={description} onChange={(e) => setDescription(e.target.value)} rows={3} className="input resize-none" />
+              </div>
+              <div>
+                <label className="label">Tags</label>
                 <input
                   type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  value={tagInput}
+                  onChange={(e) => setTagInput(e.target.value)}
+                  onKeyDown={handleAddTag}
+                  placeholder="Ajouter un tag puis Entrée…"
+                  className="input mb-2 text-sm"
                 />
-              </div>
-
-              {/* Description */}
-              <div>
-                <label className="block text-sm font-medium text-gray-900 mb-2">
-                  Description
-                </label>
-                <textarea
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </div>
-
-              {/* Tags */}
-              <div>
-                <label className="block text-sm font-medium text-gray-900 mb-2">
-                  Tags
-                </label>
-                <div className="flex gap-2 mb-2">
-                  <input
-                    type="text"
-                    value={tagInput}
-                    onChange={(e) => setTagInput(e.target.value)}
-                    onKeyDown={handleAddTag}
-                    placeholder="Add tag..."
-                    className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-                  />
-                </div>
                 <div className="flex flex-wrap gap-2">
                   {tags.map((tag) => (
-                    <div
-                      key={tag}
-                      className="bg-blue-100 text-blue-700 text-sm px-3 py-1 rounded-full flex items-center gap-2"
-                    >
+                    <div key={tag} className="flex items-center gap-1.5 rounded-full bg-brand-50 px-2.5 py-1 text-xs font-medium text-brand-700">
                       {tag}
-                      <button
-                        onClick={() => handleRemoveTag(tag)}
-                        className="hover:text-blue-900"
-                      >
-                        ×
-                      </button>
+                      <button onClick={() => handleRemoveTag(tag)} className="text-brand-400 hover:text-brand-700">×</button>
                     </div>
                   ))}
                 </div>
               </div>
-
-              {/* Linked Rooms */}
               <div>
-                <label className="block text-sm font-medium text-gray-900 mb-2">
-                  Linked Rooms
-                </label>
-                <div className="space-y-2">
+                <label className="label">Pièces liées</label>
+                <div className="space-y-1.5">
                   {rooms.length === 0 ? (
-                    <p className="text-sm text-gray-500">No rooms created yet</p>
+                    <p className="text-sm text-ink-faint">Aucune pièce créée</p>
                   ) : (
                     rooms.map((room) => (
-                      <label
-                        key={room.id}
-                        className="flex items-center gap-2 cursor-pointer"
-                      >
+                      <label key={room.id} className="flex cursor-pointer items-center gap-2 rounded-lg px-1 py-0.5 hover:bg-slate-50">
                         <input
                           type="checkbox"
                           checked={linkedRoomIds.includes(room.id)}
                           onChange={() => handleRoomToggle(room.id)}
-                          className="w-4 h-4 rounded border-gray-300"
+                          className="h-4 w-4 rounded border-slate-300 accent-brand-600"
                         />
-                        <span className="text-sm text-gray-700">{room.name}</span>
+                        <span className="text-sm text-ink-soft">{room.name}</span>
                       </label>
                     ))
                   )}
                 </div>
               </div>
-
-              {/* Metadata */}
-              <div className="text-xs text-gray-500 space-y-1 pt-4 border-t">
-                <p>Created: {new Date(blueprint.createdAt).toLocaleString()}</p>
-                <p>Type: {blueprint.fileType}</p>
+              <div className="space-y-1 border-t border-[var(--border)] pt-4 text-xs text-ink-faint">
+                <p>Créé le : {new Date(blueprint.createdAt).toLocaleString('fr-FR')}</p>
+                <p>Type : {blueprint.fileType}</p>
               </div>
             </div>
           </div>
 
-          {/* Annotations */}
           {blueprint.annotations.length > 0 && (
-            <div className="mt-6 border-t pt-6">
-              <h3 className="font-semibold text-gray-900 mb-3">Annotations</h3>
-              <div className="space-y-3">
+            <div className="mt-6 border-t border-[var(--border)] pt-6">
+              <h3 className="mb-3 font-semibold text-ink">Annotations</h3>
+              <div className="space-y-2">
                 {blueprint.annotations.map((annotation) => (
-                  <div
-                    key={annotation.id}
-                    className="p-3 bg-gray-50 rounded-lg border border-gray-200"
-                  >
+                  <div key={annotation.id} className="rounded-xl border border-[var(--border)] bg-slate-50 p-3">
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
-                        <p className="text-xs font-medium text-gray-600 uppercase">
-                          {annotation.type}
-                        </p>
-                        <p className="text-sm text-gray-900 mt-1">
-                          {annotation.content}
-                        </p>
+                        <p className="text-xs font-semibold uppercase text-ink-faint">{annotation.type}</p>
+                        <p className="mt-1 text-sm text-ink">{annotation.content}</p>
                       </div>
-                      <div
-                        className="w-4 h-4 rounded-full flex-shrink-0"
-                        style={{ backgroundColor: annotation.color }}
-                      />
+                      <div className="h-4 w-4 flex-shrink-0 rounded-full" style={{ backgroundColor: annotation.color }} />
                     </div>
                   </div>
                 ))}
@@ -252,27 +178,13 @@ export default function BlueprintDetail({
         </div>
 
         {/* Footer */}
-        <div className="border-t p-4 bg-gray-50 flex justify-between">
-          <button
-            onClick={handleDelete}
-            className="px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors flex items-center gap-2"
-          >
-            <Trash2 className="w-4 h-4" />
-            Delete
+        <div className="flex justify-between border-t border-[var(--border)] bg-slate-50 px-6 py-4">
+          <button onClick={handleDelete} className="btn-danger btn-sm">
+            <Trash2 className="h-4 w-4" /> Supprimer
           </button>
           <div className="flex gap-2">
-            <button
-              onClick={onClose}
-              className="px-4 py-2 text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
-            >
-              Cancel
-            </button>
-            <button
-              onClick={handleSave}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              Save Changes
-            </button>
+            <button onClick={onClose} className="btn-secondary btn-sm">Annuler</button>
+            <button onClick={handleSave} className="btn-primary btn-sm">Enregistrer</button>
           </div>
         </div>
       </div>

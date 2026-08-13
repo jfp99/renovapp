@@ -14,22 +14,17 @@ import {
 import { Trash2, Edit } from 'lucide-react';
 import { CostEntry, CostStatus } from '@/types/cost';
 import { useCostStore } from '@/stores/costStore';
+import { toPHP, formatPHP, formatMoney } from '@/lib/format';
 
 interface CostTableProps {
   entries: CostEntry[];
   onEdit: (entry: CostEntry) => void;
 }
 
-const CurrencySymbols: Record<string, string> = {
-  PHP: '₱',
-  EUR: '€',
-  USD: '$',
-};
-
-const StatusBadges: Record<CostStatus, { bg: string; text: string; label: string }> = {
-  planned: { bg: 'bg-yellow-100', text: 'text-yellow-800', label: 'Prévu' },
-  paid: { bg: 'bg-green-100', text: 'text-green-800', label: 'Payé' },
-  cancelled: { bg: 'bg-red-100', text: 'text-red-800', label: 'Annulé' },
+const StatusBadges: Record<CostStatus, { cls: string; label: string }> = {
+  planned: { cls: 'bg-amber-50 text-amber-700', label: 'Prévu' },
+  paid: { cls: 'bg-emerald-50 text-emerald-700', label: 'Payé' },
+  cancelled: { cls: 'bg-rose-50 text-rose-700', label: 'Annulé' },
 };
 
 const columnHelper = createColumnHelper<CostEntry>();
@@ -42,18 +37,11 @@ export const CostTable: React.FC<CostTableProps> = ({ entries, onEdit }) => {
   const [statusFilter, setStatusFilter] = useState<string>('');
 
   const getCategoryName = (categoryId: string) => {
-    return categories.find((c) => c.id === categoryId)?.name || 'Unknown';
+    return categories.find((c) => c.id === categoryId)?.name || 'Inconnue';
   };
 
   const getCategoryColor = (categoryId: string) => {
     return categories.find((c) => c.id === categoryId)?.color || '#999';
-  };
-
-  const formatAmount = (amount: number, currency: string) => {
-    return `${CurrencySymbols[currency] || currency} ${amount.toLocaleString('fr-FR', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    })}`;
   };
 
   const columns = [
@@ -88,9 +76,16 @@ export const CostTable: React.FC<CostTableProps> = ({ entries, onEdit }) => {
     columnHelper.accessor('amount', {
       header: 'Montant',
       cell: (info) => {
-        const amount = info.row.original.amount;
-        const currency = info.row.original.currency;
-        return formatAmount(amount, currency);
+        const { amount, currency, exchangeRate } = info.row.original;
+        const php = toPHP(amount, currency, exchangeRate);
+        return (
+          <div className="font-medium text-ink">
+            {formatPHP(php, { decimals: 0 })}
+            {currency !== 'PHP' && (
+              <span className="ml-1 text-xs font-normal text-ink-faint">({formatMoney(amount, currency, 2)})</span>
+            )}
+          </div>
+        );
       },
       sortingFn: (rowA, rowB) => {
         const amountA = rowA.original.amount;
@@ -103,13 +98,7 @@ export const CostTable: React.FC<CostTableProps> = ({ entries, onEdit }) => {
       cell: (info) => {
         const status = info.getValue() as CostStatus;
         const badge = StatusBadges[status];
-        return (
-          <span
-            className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${badge.bg} ${badge.text}`}
-          >
-            {badge.label}
-          </span>
-        );
+        return <span className={`badge ${badge.cls}`}>{badge.label}</span>;
       },
     }),
     columnHelper.display({
@@ -159,29 +148,21 @@ export const CostTable: React.FC<CostTableProps> = ({ entries, onEdit }) => {
     getFilteredRowModel: getFilteredRowModel(),
   });
 
-  const totalAmount = filteredEntries.reduce((sum, entry) => sum + entry.amount, 0);
+  const totalPHP = filteredEntries
+    .filter((e) => e.status !== 'cancelled')
+    .reduce((sum, e) => sum + toPHP(e.amount, e.currency, e.exchangeRate), 0);
 
   return (
     <div className="space-y-4">
       {/* Filters */}
-      <div className="flex gap-4">
-        <select
-          value={categoryFilter}
-          onChange={(e) => setCategoryFilter(e.target.value)}
-          className="px-4 py-2 border border-gray-300 rounded-lg text-sm"
-        >
+      <div className="flex flex-wrap gap-3">
+        <select value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)} className="input w-auto py-2">
           <option value="">Toutes les catégories</option>
           {categories.map((cat) => (
-            <option key={cat.id} value={cat.id}>
-              {cat.name}
-            </option>
+            <option key={cat.id} value={cat.id}>{cat.name}</option>
           ))}
         </select>
-        <select
-          value={statusFilter}
-          onChange={(e) => setStatusFilter(e.target.value)}
-          className="px-4 py-2 border border-gray-300 rounded-lg text-sm"
-        >
+        <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="input w-auto py-2">
           <option value="">Tous les statuts</option>
           <option value="planned">Prévu</option>
           <option value="paid">Payé</option>
@@ -190,26 +171,21 @@ export const CostTable: React.FC<CostTableProps> = ({ entries, onEdit }) => {
       </div>
 
       {/* Table */}
-      <div className="overflow-x-auto border border-gray-200 rounded-lg">
+      <div className="overflow-x-auto rounded-xl border border-[var(--border)]">
         <table className="w-full">
-          <thead className="bg-gray-50 border-b border-gray-200">
+          <thead className="border-b border-[var(--border)] bg-slate-50">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
                   <th
                     key={header.id}
-                    className="px-6 py-3 text-left text-sm font-semibold text-gray-700 cursor-pointer hover:bg-gray-100"
+                    className="cursor-pointer px-5 py-3 text-left text-xs font-semibold uppercase tracking-wide text-ink-muted hover:bg-slate-100"
                     onClick={header.column.getToggleSortingHandler()}
                   >
-                    <div className="flex items-center gap-2">
-                      {flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
+                    <div className="flex items-center gap-1.5">
+                      {flexRender(header.column.columnDef.header, header.getContext())}
                       {header.column.getIsSorted() && (
-                        <span className="text-xs">
-                          {header.column.getIsSorted() === 'desc' ? '↓' : '↑'}
-                        </span>
+                        <span className="text-[10px]">{header.column.getIsSorted() === 'desc' ? '↓' : '↑'}</span>
                       )}
                     </div>
                   </th>
@@ -219,9 +195,9 @@ export const CostTable: React.FC<CostTableProps> = ({ entries, onEdit }) => {
           </thead>
           <tbody>
             {table.getRowModel().rows.map((row) => (
-              <tr key={row.id} className="border-b border-gray-200 hover:bg-gray-50">
+              <tr key={row.id} className="border-b border-[var(--border)] last:border-0 hover:bg-slate-50/60">
                 {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id} className="px-6 py-4 text-sm text-gray-700">
+                  <td key={cell.id} className="px-5 py-3.5 text-sm text-ink-soft">
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
                 ))}
@@ -232,10 +208,11 @@ export const CostTable: React.FC<CostTableProps> = ({ entries, onEdit }) => {
       </div>
 
       {/* Total */}
-      <div className="flex justify-end pt-4 border-t">
-        <div className="text-lg font-semibold text-gray-700">
-          Total: <span className="text-blue-600">{filteredEntries.length} entrées</span>
-        </div>
+      <div className="flex items-center justify-between border-t border-[var(--border)] pt-4 text-sm">
+        <span className="text-ink-muted">{filteredEntries.length} dépense(s) affichée(s)</span>
+        <span className="font-semibold text-ink">
+          Total (hors annulées) : <span className="text-brand-600">{formatPHP(totalPHP)}</span>
+        </span>
       </div>
     </div>
   );

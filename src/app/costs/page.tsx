@@ -36,29 +36,28 @@ export default function CostsPage() {
   ];
 
   return (
-    <main className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-6 py-8">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Suivi des Coûts & ROI
-          </h1>
-          <p className="text-gray-600">
-            Gérez vos dépenses de rénovation et calculez votre retour sur
-            investissement
+    <main className="min-h-screen">
+      <div className="bg-mesh border-b border-[var(--border)]">
+        <div className="max-w-7xl mx-auto px-8 py-7">
+          <p className="text-xs font-semibold uppercase tracking-wider text-brand-600">Finances du projet</p>
+          <h1 className="mt-1 text-3xl font-bold text-ink tracking-tight">Coûts &amp; rentabilité</h1>
+          <p className="mt-1 text-sm text-ink-muted">
+            Suivez vos dépenses en pesos (₱) et estimez le retour sur investissement de votre location.
           </p>
         </div>
+      </div>
 
+      <div className="max-w-7xl mx-auto px-8 py-8">
         {/* Tabs */}
-        <div className="flex gap-2 mb-8 border-b border-gray-200">
+        <div className="mb-7 flex gap-1 border-b border-[var(--border)]">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-6 py-3 font-medium flex items-center gap-2 transition-colors border-b-2 ${
+              className={`-mb-px flex items-center gap-2 border-b-2 px-5 py-3 text-sm font-medium transition-colors ${
                 activeTab === tab.id
-                  ? 'border-blue-500 text-blue-600'
-                  : 'border-transparent text-gray-600 hover:text-gray-900'
+                  ? 'border-brand-600 text-brand-700'
+                  : 'border-transparent text-ink-muted hover:text-ink-soft'
               }`}
             >
               {tab.icon}
@@ -68,36 +67,28 @@ export default function CostsPage() {
         </div>
 
         {/* Tab Content */}
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="card p-6">
           {/* Dépenses Tab */}
           {activeTab === 'expenses' && (
             <div className="space-y-6">
               <div className="flex justify-between items-center">
-                <h2 className="text-xl font-semibold text-gray-900">
+                <h2 className="text-lg font-semibold text-ink">
                   Toutes les dépenses
                 </h2>
-                <div className="flex gap-4">
+                <div className="flex gap-3">
                   <ExportButton />
-                  <button
-                    onClick={() => setIsCostFormOpen(true)}
-                    className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors font-medium"
-                  >
-                    <Plus size={18} />
+                  <button onClick={() => setIsCostFormOpen(true)} className="btn-primary btn-sm">
+                    <Plus size={16} />
                     Ajouter une dépense
                   </button>
                 </div>
               </div>
 
               {entries.length === 0 ? (
-                <div className="text-center py-12">
-                  <p className="text-gray-500 text-lg mb-4">
-                    Aucune dépense enregistrée
-                  </p>
-                  <button
-                    onClick={() => setIsCostFormOpen(true)}
-                    className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
-                  >
-                    Ajouter la première dépense
+                <div className="text-center py-14">
+                  <p className="text-ink-muted mb-4">Aucune dépense enregistrée</p>
+                  <button onClick={() => setIsCostFormOpen(true)} className="btn-primary">
+                    <Plus size={16} /> Ajouter la première dépense
                   </button>
                 </div>
               ) : (
@@ -114,13 +105,13 @@ export default function CostsPage() {
             <div className="space-y-8">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <div>
-                  <h2 className="text-xl font-semibold text-gray-900 mb-6">
+                  <h2 className="text-lg font-semibold text-ink mb-5">
                     Aperçu du Budget
                   </h2>
                   <BudgetOverview />
                 </div>
                 <div>
-                  <h2 className="text-xl font-semibold text-gray-900 mb-6">
+                  <h2 className="text-lg font-semibold text-ink mb-5">
                     Gestion des Catégories
                   </h2>
                   <CategoryEditor />
@@ -132,8 +123,8 @@ export default function CostsPage() {
           {/* ROI Tab */}
           {activeTab === 'roi' && (
             <div className="space-y-6">
-              <h2 className="text-xl font-semibold text-gray-900">
-                Analyse du Retour sur Investissement
+              <h2 className="text-lg font-semibold text-ink">
+                Analyse du retour sur investissement
               </h2>
               <ROICalculator />
             </div>

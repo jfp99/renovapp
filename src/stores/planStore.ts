@@ -13,6 +13,7 @@ interface PlanState {
   addRoom: (floorId: string, room: Omit<Room, 'id'>) => void;
   updateRoom: (roomId: string, updates: Partial<Room>) => void;
   removeRoom: (roomId: string) => void;
+  duplicateRoom: (roomId: string) => void;
   addDoor: (roomId: string, door: Omit<DoorPlacement, 'id'>) => void;
   removeDoor: (roomId: string, doorId: string) => void;
   addWindow: (roomId: string, window: Omit<WindowPlacement, 'id'>) => void;
@@ -82,6 +83,22 @@ export const usePlanStore = create<PlanState>()(
           selectedRoomId:
             state.selectedRoomId === roomId ? null : state.selectedRoomId,
         })),
+
+      duplicateRoom: (roomId: string) =>
+        set((state) => {
+          const src = state.rooms.find((r) => r.id === roomId);
+          if (!src) return {};
+          const copy: Room = {
+            ...src,
+            id: uuidv4(),
+            name: `${src.name} (copie)`,
+            x: src.x + 30,
+            y: src.y + 30,
+            doors: src.doors.map((d) => ({ ...d, id: uuidv4() })),
+            windows: src.windows.map((w) => ({ ...w, id: uuidv4() })),
+          };
+          return { rooms: [...state.rooms, copy], selectedRoomId: copy.id };
+        }),
 
       addDoor: (roomId: string, door: Omit<DoorPlacement, 'id'>) =>
         set((state) => ({

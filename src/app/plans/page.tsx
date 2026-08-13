@@ -6,29 +6,14 @@ import PlanCanvas from '@/components/plan-editor/PlanCanvas';
 import RoomPanel from '@/components/plan-editor/RoomPanel';
 import FloorSelector from '@/components/plan-editor/FloorSelector';
 import RoomListItem from '@/components/plan-editor/RoomListItem';
-import { Plus, X } from 'lucide-react';
-import { Room, RoomType } from '@/types/plan';
-
-const ROOM_COLORS: Record<RoomType, string> = {
-  bedroom: '#dbeafe',
-  bathroom: '#d1fae5',
-  kitchen: '#fef3c7',
-  common: '#fce7f3',
-  storage: '#f3e8ff',
-  hallway: '#f1f5f9',
-};
-
-const ROOM_TYPES: RoomType[] = ['bedroom', 'bathroom', 'kitchen', 'common', 'storage', 'hallway'];
-const ROOM_TYPE_LABELS: Record<RoomType, string> = {
-  bedroom: 'Chambre',
-  bathroom: 'Salle de bain',
-  kitchen: 'Cuisine',
-  common: 'Pièce commune',
-  storage: 'Rangement',
-  hallway: 'Couloir',
-};
+import { Plus, X, PencilRuler } from 'lucide-react';
+import { RoomType } from '@/types/plan';
+import { useHydrated } from '@/lib/useHydrated';
+import { ROOM_COLORS, ROOM_TYPES, ROOM_TYPE_LABELS, ROOM_ACCENT } from '@/lib/rooms';
+import { areaM2 } from '@/lib/format';
 
 export default function PlansPage() {
+  const hydrated = useHydrated();
   const { floors, rooms, selectedFloorId, selectedRoomId, setSelectedRoom, addRoom } = usePlanStore();
   const [showAddRoomForm, setShowAddRoomForm] = useState(false);
   const [formData, setFormData] = useState({ name: '', type: 'bedroom' as RoomType, width: 400, height: 300 });
@@ -56,70 +41,63 @@ export default function PlansPage() {
   };
 
   return (
-    // Full remaining height — layout main has ml-60, so this fills the viewport
-    <div className="flex overflow-hidden bg-slate-100" style={{ height: '100vh' }}>
-
-      {/* ── LEFT PANEL : floors + room list ── */}
-      <div className="w-72 flex-shrink-0 bg-white shadow-md flex flex-col border-r border-slate-200 z-10">
-        {/* Header */}
-        <div className="px-5 py-4 border-b border-slate-200 bg-slate-50">
-          <h1 className="text-lg font-bold text-slate-900">Plan Editor</h1>
-          <p className="text-xs text-slate-500 mt-0.5">Dessinez les pièces de votre maison</p>
+    <div className="flex h-screen overflow-hidden">
+      {/* ── LEFT PANEL ── */}
+      <div className="w-72 flex-shrink-0 bg-white flex flex-col border-r border-[var(--border)] z-10">
+        <div className="px-5 h-[60px] flex items-center gap-2 border-b border-[var(--border)]">
+          <PencilRuler className="h-5 w-5 text-brand-600" />
+          <div>
+            <h1 className="text-[15px] font-bold text-ink leading-tight">Éditeur de plan</h1>
+            <p className="text-[11px] text-ink-faint leading-tight">Dessinez vos pièces</p>
+          </div>
         </div>
 
-        {/* Floor selector */}
-        <div className="px-4 py-3 border-b border-slate-200">
+        <div className="px-4 py-3 border-b border-[var(--border)]">
           <FloorSelector />
         </div>
 
-        {/* Room list */}
         <div className="flex-1 overflow-y-auto px-4 py-3">
-          <div className="flex items-center justify-between mb-3">
-            <h2 className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-              {selectedFloor ? selectedFloor.name : 'Aucun étage'}
-            </h2>
-            <span className="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">
-              {currentRooms.length}
-            </span>
+          <div className="mb-3 flex items-center justify-between">
+            <h2 className="section-title">{selectedFloor ? selectedFloor.name : 'Aucun étage'}</h2>
+            <span className="badge-muted">{hydrated ? currentRooms.length : 0}</span>
           </div>
           <div className="space-y-1.5">
-            {currentRooms.length === 0 && (
-              <p className="text-xs text-slate-400 text-center py-6">
-                Aucune pièce. Cliquez sur "Ajouter" pour commencer.
+            {hydrated && currentRooms.length === 0 && (
+              <p className="py-8 text-center text-xs text-ink-faint">
+                Aucune pièce. Cliquez sur « Ajouter » pour commencer.
               </p>
             )}
-            {currentRooms.map((room) => (
-              <RoomListItem
-                key={room.id}
-                room={room}
-                isSelected={selectedRoomId === room.id}
-                onSelect={() => setSelectedRoom(room.id)}
-              />
-            ))}
+            {hydrated &&
+              currentRooms.map((room) => (
+                <RoomListItem
+                  key={room.id}
+                  room={room}
+                  isSelected={selectedRoomId === room.id}
+                  onSelect={() => setSelectedRoom(room.id)}
+                />
+              ))}
           </div>
         </div>
 
-        {/* Add room button */}
-        <div className="px-4 py-4 border-t border-slate-200">
+        <div className="px-4 py-4 border-t border-[var(--border)]">
           <button
             onClick={() => setShowAddRoomForm(true)}
             disabled={!selectedFloorId}
-            className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-300 disabled:cursor-not-allowed text-white py-2.5 px-4 rounded-lg font-medium text-sm transition-colors"
+            className="btn-primary w-full"
           >
-            <Plus size={16} />
-            Ajouter une pièce
+            <Plus size={16} /> Ajouter une pièce
           </button>
         </div>
       </div>
 
-      {/* ── CENTER : canvas ── */}
+      {/* ── CENTER ── */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         <PlanCanvas />
       </div>
 
-      {/* ── RIGHT PANEL : room details (slides in when a room is selected) ── */}
+      {/* ── RIGHT PANEL ── */}
       <div
-        className={`flex-shrink-0 bg-white shadow-md border-l border-slate-200 overflow-y-auto transition-all duration-200 ${
+        className={`flex-shrink-0 bg-white border-l border-[var(--border)] overflow-y-auto transition-all duration-200 ${
           selectedRoom ? 'w-80' : 'w-0'
         }`}
       >
@@ -128,39 +106,39 @@ export default function PlansPage() {
 
       {/* ── ADD ROOM MODAL ── */}
       {showAddRoomForm && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 backdrop-blur-sm">
-          <div className="bg-white rounded-xl shadow-2xl w-full max-w-md mx-4 overflow-hidden">
-            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 bg-slate-50">
-              <h3 className="text-base font-semibold text-slate-900">Nouvelle pièce</h3>
-              <button onClick={() => setShowAddRoomForm(false)} className="text-slate-400 hover:text-slate-600 transition-colors">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/40 backdrop-blur-sm animate-fade-in">
+          <div className="w-full max-w-md mx-4 overflow-hidden rounded-2xl bg-white shadow-float animate-scale-in">
+            <div className="flex items-center justify-between border-b border-[var(--border)] bg-slate-50 px-6 py-4">
+              <h3 className="text-base font-semibold text-ink">Nouvelle pièce</h3>
+              <button onClick={() => setShowAddRoomForm(false)} className="text-ink-faint hover:text-ink-soft">
                 <X size={20} />
               </button>
             </div>
 
-            <div className="p-6 space-y-4">
+            <div className="space-y-4 p-6">
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Nom de la pièce *</label>
+                <label className="label">Nom de la pièce *</label>
                 <input
                   type="text"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
-                  placeholder="ex. Chambre 1, Cuisine..."
+                  className="input"
+                  placeholder="ex. Dortoir A, Cuisine…"
                   autoFocus
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Type</label>
+                <label className="label">Type</label>
                 <div className="grid grid-cols-3 gap-2">
                   {ROOM_TYPES.map((type) => (
                     <button
                       key={type}
-                      onClick={() => setFormData({ ...formData, type, color: ROOM_COLORS[type] } as typeof formData & { color: string })}
-                      className={`py-2 px-3 rounded-lg text-xs font-medium border-2 transition-all ${
+                      onClick={() => setFormData({ ...formData, type })}
+                      className={`rounded-xl border-2 px-3 py-2 text-xs font-medium transition-all ${
                         formData.type === type
-                          ? 'border-blue-500 bg-blue-50 text-blue-700'
-                          : 'border-slate-200 hover:border-slate-300 text-slate-600'
+                          ? 'border-brand-500 bg-brand-50 text-brand-700'
+                          : 'border-[var(--border)] text-ink-muted hover:border-slate-300'
                       }`}
                     >
                       {ROOM_TYPE_LABELS[type]}
@@ -171,49 +149,48 @@ export default function PlansPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Largeur (cm)</label>
+                  <label className="label">Largeur (cm)</label>
                   <input
                     type="number"
                     value={formData.width}
                     onChange={(e) => setFormData({ ...formData, width: Math.max(50, parseInt(e.target.value) || 50) })}
-                    min="50" max="2000"
-                    className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                    min="50"
+                    max="2000"
+                    className="input"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Hauteur (cm)</label>
+                  <label className="label">Hauteur (cm)</label>
                   <input
                     type="number"
                     value={formData.height}
                     onChange={(e) => setFormData({ ...formData, height: Math.max(50, parseInt(e.target.value) || 50) })}
-                    min="50" max="2000"
-                    className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                    min="50"
+                    max="2000"
+                    className="input"
                   />
                 </div>
               </div>
 
-              {/* Preview swatch */}
-              <div className="flex items-center gap-3 p-3 rounded-lg" style={{ background: ROOM_COLORS[formData.type] }}>
-                <div className="w-8 h-8 rounded border-2 border-slate-400 flex-shrink-0" style={{ background: ROOM_COLORS[formData.type] }} />
+              <div className="flex items-center gap-3 rounded-xl border border-[var(--border)] p-3">
+                <div
+                  className="h-10 w-10 flex-shrink-0 rounded-lg border-2"
+                  style={{ background: ROOM_COLORS[formData.type], borderColor: ROOM_ACCENT[formData.type] }}
+                />
                 <div>
-                  <p className="text-xs font-semibold text-slate-800">{formData.name || 'Nouvelle pièce'}</p>
-                  <p className="text-xs text-slate-600">{formData.width} × {formData.height} cm = {((formData.width * formData.height) / 10000).toFixed(1)} m²</p>
+                  <p className="text-sm font-semibold text-ink">{formData.name || 'Nouvelle pièce'}</p>
+                  <p className="text-xs text-ink-muted">
+                    {formData.width} × {formData.height} cm · {areaM2(formData.width, formData.height).toFixed(1)} m²
+                  </p>
                 </div>
               </div>
             </div>
 
-            <div className="flex gap-3 px-6 py-4 border-t border-slate-200 bg-slate-50">
-              <button
-                onClick={() => setShowAddRoomForm(false)}
-                className="flex-1 px-4 py-2 border border-slate-300 text-slate-700 rounded-lg hover:bg-slate-100 font-medium text-sm transition-colors"
-              >
+            <div className="flex gap-3 border-t border-[var(--border)] bg-slate-50 px-6 py-4">
+              <button onClick={() => setShowAddRoomForm(false)} className="btn-secondary flex-1">
                 Annuler
               </button>
-              <button
-                onClick={handleAddRoom}
-                disabled={!formData.name.trim()}
-                className="flex-1 px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 text-white rounded-lg font-medium text-sm transition-colors"
-              >
+              <button onClick={handleAddRoom} disabled={!formData.name.trim()} className="btn-primary flex-1">
                 Créer la pièce
               </button>
             </div>

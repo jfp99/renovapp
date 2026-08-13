@@ -1,123 +1,176 @@
 'use client';
 
 import { useRef, useEffect, useState, useCallback } from 'react';
-import { Stage, Layer, Group, Rect, Text, Line } from 'react-konva';
+import { Stage, Layer, Group, Rect, Text, Line, Arc } from 'react-konva';
 import { usePlanStore } from '@/stores/planStore';
 import { Room, DoorPlacement, WindowPlacement } from '@/types/plan';
 import {
-  ZoomIn, ZoomOut, Maximize2, Grid3x3, FileDown, MousePointer
+  ZoomIn, ZoomOut, Maximize2, Grid3x3, FileDown, Magnet, Copy, Trash2, Move,
 } from 'lucide-react';
+import { ROOM_COLORS, ROOM_TYPE_LABELS } from '@/lib/rooms';
+import { areaM2 } from '@/lib/format';
 import type Konva from 'konva';
 
 const SCALE = 2;          // 1 cm = 2 px
-const GRID_CM = 50;       // grid every 50 cm
+const GRID_CM = 50;       // major grid every 50 cm
 const GRID_PX = GRID_CM * SCALE;
-const CANVAS_LOGICAL = { w: 3000, h: 2000 }; // logical canvas size in px
+const SNAP_CM = 10;       // snap step when magnet on
+const SNAP_PX = SNAP_CM * SCALE;
+const MIN_CM = 50;
+const CANVAS_LOGICAL = { w: 4000, h: 3000 };
 
-const ROOM_TYPE_COLORS: Record<string, string> = {
-  bedroom: '#dbeafe',
-  bathroom: '#d1fae5',
-  kitchen: '#fef3c7',
-  common: '#fce7f3',
-  storage: '#f3e8ff',
-  hallway: '#f1f5f9',
-};
+const snap = (v: number, on: boolean) => (on ? Math.round(v / SNAP_PX) * SNAP_PX : v);
 
-/* ─── Sub-components (all run client-side since this file is dynamically imported) ─── */
-
-function GridLayer({ width, height, spacing, show }: { width: number; height: number; spacing: number; show: boolean }) {
-  if (!show) return null;
-  const lines = [];
-  for (let x = 0; x <= width; x += spacing) {
-    lines.push(<Line key={`v${x}`} points={[x, 0, x, height]} stroke="#cbd5e1" strokeWidth={0.5} listening={false} />);
-  }
-  for (let y = 0; y <= height; y += spacing) {
-    lines.push(<Line key={`h${y}`} points={[0, y, width, y]} stroke="#cbd5e1" strokeWidth={0.5} listening={false} />);
-  }
-  return <>{lines}</>;
-}
-
+/* ─── Door with swing arc ─── */
 function DoorMarker({ door, rw, rh }: { door: DoorPlacement; rw: number; rh: number }) {
   const dw = door.width * SCALE;
-  let x = 0, y = 0, w = dw, h = 8;
+  const t = 7;
+  let gap: { x: number; y: number; w: number; h: number };
+  let arc: { x: number; y: number; rotation: number } | null = null;
   switch (door.wall) {
-    case 'top':    x = door.position * rw - dw / 2; y = -4; w = dw; h = 8; break;
-    case 'bottom': x = door.position * rw - dw / 2; y = rh - 4; w = dw; h = 8; break;
-    case 'left':   x = -4; y = door.position * rh - dw / 2; w = 8; h = dw; break;
-    case 'right':  x = rw - 4; y = door.position * rh - dw / 2; w = 8; h = dw; break;
+    case 'top':    gap = { x: door.position * rw - dw / 2, y: -t / 2, w: dw, h: t }; arc = { x: door.position * rw - dw / 2, y: 0, rotation: 0 }; break;
+    case 'bottom': gap = { x: door.position * rw - dw / 2, y: rh - t / 2, w: dw, h: t }; arc = { x: door.position * rw - dw / 2, y: rh, rotation: 270 }; break;
+    case 'left':   gap = { x: -t / 2, y: door.position * rh - dw / 2, w: t, h: dw }; arc = { x: 0, y: door.position * rh - dw / 2, rotation: 90 }; break;
+    default:       gap = { x: rw - t / 2, y: door.position * rh - dw / 2, w: t, h: dw }; arc = { x: rw, y: door.position * rh - dw / 2, rotation: 180 }; break;
   }
   return (
     <Group listening={false}>
-      <Rect x={x} y={y} width={w} height={h} fill="#92400e" cornerRadius={1} />
+      {/* opening cut (white) */}
+      <Rect x={gap.x} y={gap.y} width={gap.w} height={gap.h} fill="#ffffff" />
+      {/* swing arc */}
+      {arc && (
+        <Arc x={arc.x} y={arc.y} innerRadius={0} outerRadius={dw} angle={90} rotation={arc.rotation}
+          stroke="#b45309" strokeWidth={1} dash={[3, 3]} fill="rgba(180,83,9,0.06)" />
+      )}
+      {/* hinge jamb */}
+      <Rect x={gap.x} y={gap.y} width={gap.w} height={gap.h} stroke="#b45309" strokeWidth={1.2} />
     </Group>
   );
 }
 
+/* ─── Window as double line ─── */
 function WindowMarker({ win, rw, rh }: { win: WindowPlacement; rw: number; rh: number }) {
   const ww = win.width * SCALE;
-  let x = 0, y = 0, w = ww, h = 6;
+  let bg: { x: number; y: number; w: number; h: number };
+  let lines: number[][];
   switch (win.wall) {
-    case 'top':    x = win.position * rw - ww / 2; y = -3; w = ww; h = 6; break;
-    case 'bottom': x = win.position * rw - ww / 2; y = rh - 3; w = ww; h = 6; break;
-    case 'left':   x = -3; y = win.position * rh - ww / 2; w = 6; h = ww; break;
-    case 'right':  x = rw - 3; y = win.position * rh - ww / 2; w = 6; h = ww; break;
+    case 'top':    bg = { x: win.position * rw - ww / 2, y: -3, w: ww, h: 6 }; lines = [[bg.x, 0, bg.x + ww, 0]]; break;
+    case 'bottom': bg = { x: win.position * rw - ww / 2, y: rh - 3, w: ww, h: 6 }; lines = [[bg.x, rh, bg.x + ww, rh]]; break;
+    case 'left':   bg = { x: -3, y: win.position * rh - ww / 2, w: 6, h: ww }; lines = [[0, bg.y, 0, bg.y + ww]]; break;
+    default:       bg = { x: rw - 3, y: win.position * rh - ww / 2, w: 6, h: ww }; lines = [[rw, bg.y, rw, bg.y + ww]]; break;
   }
   return (
     <Group listening={false}>
-      <Rect x={x} y={y} width={w} height={h} fill="#3b82f6" />
+      <Rect x={bg.x} y={bg.y} width={bg.w} height={bg.h} fill="#ffffff" stroke="#2563eb" strokeWidth={1} />
+      {lines.map((p, i) => <Line key={i} points={p} stroke="#2563eb" strokeWidth={1.5} />)}
     </Group>
   );
 }
 
-function RoomShape({ room, isSelected, onSelect, onDragEnd }: {
-  room: Room; isSelected: boolean; onSelect: () => void; onDragEnd: (x: number, y: number) => void;
+/* ─── Room ─── */
+function RoomShape({
+  room, isSelected, overlapping, snapOn, onSelect, onChange,
+}: {
+  room: Room; isSelected: boolean; overlapping: boolean; snapOn: boolean;
+  onSelect: () => void; onChange: (u: Partial<Room>) => void;
 }) {
   const rw = room.width * SCALE;
   const rh = room.height * SCALE;
-  const color = room.color || ROOM_TYPE_COLORS[room.type] || '#f1f5f9';
+  const color = room.color || ROOM_COLORS[room.type] || '#f1f5f9';
+  const stroke = overlapping ? '#ef4444' : isSelected ? '#4f46e5' : '#475569';
+
+  // resize handle helper
+  const handles: { key: string; x: number; y: number }[] = [
+    { key: 'tl', x: 0, y: 0 }, { key: 'tr', x: rw, y: 0 },
+    { key: 'bl', x: 0, y: rh }, { key: 'br', x: rw, y: rh },
+  ];
+
+  const onHandleDrag = (key: string, e: Konva.KonvaEventObject<DragEvent>) => {
+    e.cancelBubble = true;
+    let hx = e.target.x();
+    let hy = e.target.y();
+    hx = snap(hx, snapOn);
+    hy = snap(hy, snapOn);
+    let nx = room.x, ny = room.y, nw = rw, nh = rh;
+    if (key === 'br') { nw = hx; nh = hy; }
+    if (key === 'tl') { nx = room.x + hx; ny = room.y + hy; nw = rw - hx; nh = rh - hy; }
+    if (key === 'tr') { ny = room.y + hy; nw = hx; nh = rh - hy; }
+    if (key === 'bl') { nx = room.x + hx; nw = rw - hx; nh = hy; }
+    const minPx = MIN_CM * SCALE;
+    if (nw < minPx || nh < minPx) return;
+    onChange({
+      x: nx, y: ny,
+      width: Math.round(nw / SCALE),
+      height: Math.round(nh / SCALE),
+    });
+  };
 
   return (
-    <Group x={room.x} y={room.y} draggable onDragEnd={(e) => onDragEnd(e.target.x(), e.target.y())} onClick={onSelect} onTap={onSelect}>
-      {/* Shadow */}
-      <Rect width={rw} height={rh} offsetX={-3} offsetY={-3} fill="rgba(0,0,0,0.08)" cornerRadius={4} listening={false} />
-      {/* Fill */}
-      <Rect
-        width={rw} height={rh} fill={color}
-        stroke={isSelected ? '#2563eb' : '#64748b'}
-        strokeWidth={isSelected ? 2.5 : 1.5}
-        cornerRadius={3}
-      />
-      {/* Selection glow */}
-      {isSelected && <Rect width={rw} height={rh} fill="transparent" stroke="#93c5fd" strokeWidth={6} cornerRadius={3} opacity={0.4} listening={false} />}
-      {/* Room name */}
-      <Text x={8} y={rh / 2 - 18} width={rw - 16} text={room.name} fontSize={Math.max(11, Math.min(15, rw / 20))} fontStyle="bold" fontFamily="Inter, Arial, sans-serif" fill="#1e293b" align="center" listening={false} />
-      {/* Dimensions */}
-      <Text x={8} y={rh / 2 + 2} width={rw - 16} text={`${room.width} × ${room.height} cm`} fontSize={Math.max(9, Math.min(12, rw / 28))} fontFamily="Inter, Arial, sans-serif" fill="#64748b" align="center" listening={false} />
-      {/* Area */}
-      <Text x={8} y={rh / 2 + 18} width={rw - 16} text={`${((room.width * room.height) / 10000).toFixed(1)} m²`} fontSize={Math.max(9, Math.min(11, rw / 32))} fontFamily="Inter, Arial, sans-serif" fill="#94a3b8" align="center" listening={false} />
-      {/* Doors & Windows */}
+    <Group
+      x={room.x} y={room.y} draggable
+      onClick={onSelect} onTap={onSelect}
+      onDragStart={onSelect}
+      onDragEnd={(e) => onChange({ x: snap(e.target.x(), snapOn), y: snap(e.target.y(), snapOn) })}
+    >
+      {/* soft shadow */}
+      <Rect width={rw} height={rh} x={2} y={3} fill="rgba(15,23,42,0.07)" cornerRadius={4} listening={false} />
+      {/* fill + wall */}
+      <Rect width={rw} height={rh} fill={color} stroke={stroke} strokeWidth={isSelected ? 2.5 : 1.75} cornerRadius={3} />
+      {isSelected && <Rect width={rw} height={rh} stroke="#a5b4fc" strokeWidth={6} cornerRadius={3} opacity={0.35} listening={false} />}
+
+      {/* labels */}
+      <Text x={6} y={rh / 2 - 20} width={rw - 12} text={room.name} fontSize={Math.max(11, Math.min(15, rw / 18))} fontStyle="700" fontFamily="Inter, sans-serif" fill="#0f172a" align="center" listening={false} />
+      <Text x={6} y={rh / 2 + 1} width={rw - 12} text={`${room.width} × ${room.height} cm`} fontSize={Math.max(9, Math.min(12, rw / 26))} fontFamily="Inter, sans-serif" fill="#475569" align="center" listening={false} />
+      <Text x={6} y={rh / 2 + 17} width={rw - 12} text={`${areaM2(room.width, room.height).toFixed(1)} m²`} fontSize={Math.max(8, Math.min(11, rw / 30))} fontFamily="Inter, sans-serif" fill="#94a3b8" align="center" listening={false} />
+
+      {/* openings */}
       {room.doors.map((d) => <DoorMarker key={d.id} door={d} rw={rw} rh={rh} />)}
       {room.windows.map((w) => <WindowMarker key={w.id} win={w} rw={rw} rh={rh} />)}
+
+      {/* resize handles */}
+      {isSelected && handles.map((h) => (
+        <Rect
+          key={h.key} x={h.x - 5} y={h.y - 5} width={10} height={10}
+          fill="#ffffff" stroke="#4f46e5" strokeWidth={1.5} cornerRadius={2}
+          draggable
+          onDragStart={(e) => { e.cancelBubble = true; }}
+          onDragMove={(e) => onHandleDrag(h.key, e)}
+          onMouseEnter={(e) => { const s = e.target.getStage(); if (s) s.container().style.cursor = h.key === 'tl' || h.key === 'br' ? 'nwse-resize' : 'nesw-resize'; }}
+          onMouseLeave={(e) => { const s = e.target.getStage(); if (s) s.container().style.cursor = 'default'; }}
+        />
+      ))}
     </Group>
   );
 }
 
-/* ─── Main Canvas ─── */
+function roomsOverlap(a: Room, b: Room): boolean {
+  const ax2 = a.x + a.width * SCALE, ay2 = a.y + a.height * SCALE;
+  const bx2 = b.x + b.width * SCALE, by2 = b.y + b.height * SCALE;
+  return a.x < bx2 && ax2 > b.x && a.y < by2 && ay2 > b.y;
+}
+
+/* ─── Main ─── */
 export default function PlanCanvasClient() {
   const containerRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<Konva.Stage | null>(null);
   const [size, setSize] = useState({ w: 800, h: 600 });
   const [zoom, setZoom] = useState(1);
-  const [pan, setPan] = useState({ x: 0, y: 0 });
+  const [pan, setPan] = useState({ x: 40, y: 40 });
   const [isPanning, setIsPanning] = useState(false);
-  const [panStart, setPanStart] = useState({ x: 0, y: 0 });
+  const panStart = useRef({ x: 0, y: 0 });
   const [showGrid, setShowGrid] = useState(true);
-  const [isPdfExporting, setIsPdfExporting] = useState(false);
+  const [snapOn, setSnapOn] = useState(true);
 
-  const { rooms, selectedFloorId, selectedRoomId, setSelectedRoom, updateRoom } = usePlanStore();
+  const { rooms, selectedFloorId, selectedRoomId, setSelectedRoom, updateRoom, removeRoom, duplicateRoom } = usePlanStore();
   const floorRooms = selectedFloorId ? rooms.filter((r) => r.floorId === selectedFloorId) : [];
 
-  // Measure container
+  // overlap set
+  const overlapIds = new Set<string>();
+  for (let i = 0; i < floorRooms.length; i++)
+    for (let j = i + 1; j < floorRooms.length; j++)
+      if (roomsOverlap(floorRooms[i], floorRooms[j])) { overlapIds.add(floorRooms[i].id); overlapIds.add(floorRooms[j].id); }
+
+  // measure
   useEffect(() => {
     const measure = () => {
       if (containerRef.current) {
@@ -131,7 +184,31 @@ export default function PlanCanvasClient() {
     return () => ro.disconnect();
   }, []);
 
-  // Fit all rooms on first load
+  // keyboard shortcuts
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const tag = (e.target as HTMLElement)?.tagName;
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+      if (!selectedRoomId) return;
+      const room = rooms.find((r) => r.id === selectedRoomId);
+      if (!room) return;
+      if (e.key === 'Delete' || e.key === 'Backspace') { e.preventDefault(); removeRoom(selectedRoomId); }
+      else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'd') { e.preventDefault(); duplicateRoom(selectedRoomId); }
+      else if (e.key === 'Escape') setSelectedRoom(null);
+      else if (e.key.startsWith('Arrow')) {
+        e.preventDefault();
+        const step = e.shiftKey ? SNAP_PX * 5 : SNAP_PX;
+        const deltas: Record<string, [number, number]> = {
+          ArrowUp: [0, -step], ArrowDown: [0, step], ArrowLeft: [-step, 0], ArrowRight: [step, 0],
+        };
+        const d = deltas[e.key];
+        if (d) updateRoom(selectedRoomId, { x: room.x + d[0], y: room.y + d[1] });
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [selectedRoomId, rooms, removeRoom, duplicateRoom, updateRoom, setSelectedRoom]);
+
   const fitRooms = useCallback(() => {
     if (floorRooms.length === 0) { setZoom(1); setPan({ x: 40, y: 40 }); return; }
     const minX = Math.min(...floorRooms.map((r) => r.x));
@@ -139,202 +216,146 @@ export default function PlanCanvasClient() {
     const maxX = Math.max(...floorRooms.map((r) => r.x + r.width * SCALE));
     const maxY = Math.max(...floorRooms.map((r) => r.y + r.height * SCALE));
     const pad = 80;
-    const scaleX = (size.w - pad * 2) / (maxX - minX || 1);
-    const scaleY = (size.h - pad * 2) / (maxY - minY || 1);
-    const newZoom = Math.min(scaleX, scaleY, 2);
-    setZoom(newZoom);
-    setPan({ x: pad - minX * newZoom, y: pad - minY * newZoom });
+    const z = Math.min((size.w - pad * 2) / (maxX - minX || 1), (size.h - pad * 2) / (maxY - minY || 1), 2);
+    setZoom(z);
+    setPan({ x: pad - minX * z, y: pad - minY * z });
   }, [floorRooms, size]);
 
-  // Wheel zoom
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleWheel = (e: any) => {
     e.evt.preventDefault();
     const stage = e.target.getStage();
     const pointer = stage?.getPointerPosition();
     if (!pointer) return;
-    const delta = e.evt.deltaY > 0 ? -0.1 : 0.1;
-    const newZoom = Math.max(0.2, Math.min(4, zoom + delta));
-    const mousePointTo = { x: (pointer.x - pan.x) / zoom, y: (pointer.y - pan.y) / zoom };
+    const delta = e.evt.deltaY > 0 ? -0.12 : 0.12;
+    const newZoom = Math.max(0.2, Math.min(4, zoom * (1 + delta)));
+    const mp = { x: (pointer.x - pan.x) / zoom, y: (pointer.y - pan.y) / zoom };
     setZoom(newZoom);
-    setPan({ x: pointer.x - mousePointTo.x * newZoom, y: pointer.y - mousePointTo.y * newZoom });
+    setPan({ x: pointer.x - mp.x * newZoom, y: pointer.y - mp.y * newZoom });
   };
-
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleMouseDown = (e: any) => {
     if (e.evt.button === 1 || e.evt.button === 2) {
       e.evt.preventDefault();
       setIsPanning(true);
-      setPanStart({ x: e.evt.clientX - pan.x, y: e.evt.clientY - pan.y });
+      panStart.current = { x: e.evt.clientX - pan.x, y: e.evt.clientY - pan.y };
     }
   };
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleMouseMove = (e: any) => {
-    if (isPanning) { setPan({ x: e.evt.clientX - panStart.x, y: e.evt.clientY - panStart.y }); }
+    if (isPanning) setPan({ x: e.evt.clientX - panStart.current.x, y: e.evt.clientY - panStart.current.y });
   };
 
-  // PDF export
   const exportToPDF = () => {
     const stage = stageRef.current;
     if (!stage) return;
-    setIsPdfExporting(true);
-
-    // Temporarily reset transform for full export
     const dataUrl = stage.toDataURL({ pixelRatio: 2 });
     const w = window.open('', '_blank');
-    if (!w) { setIsPdfExporting(false); return; }
-
-    const floorName = rooms.length > 0 ? `Plan — ${floorRooms.length} pièce(s)` : 'Plan RenovApp';
-    w.document.write(`<!DOCTYPE html>
-<html>
-<head>
-  <title>RenovApp — ${floorName}</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: #fff; font-family: Arial, sans-serif; }
-    .header { padding: 16px 24px; border-bottom: 2px solid #2563eb; display: flex; justify-content: space-between; align-items: center; }
-    .header h1 { font-size: 18px; color: #1e293b; }
-    .header p { font-size: 11px; color: #64748b; }
-    .canvas-wrap { padding: 24px; display: flex; justify-content: center; }
-    img { max-width: 100%; border: 1px solid #e2e8f0; border-radius: 8px; }
-    .legend { padding: 16px 24px; display: flex; gap: 24px; flex-wrap: wrap; border-top: 1px solid #e2e8f0; }
-    .legend-item { display: flex; align-items: center; gap: 8px; font-size: 11px; color: #475569; }
-    .dot { width: 14px; height: 14px; border-radius: 3px; border: 1px solid #94a3b8; flex-shrink: 0; }
-    .door { width: 14px; height: 8px; background: #92400e; border-radius: 2px; }
-    .window { width: 14px; height: 6px; background: #3b82f6; }
-    @media print {
-      .no-print { display: none !important; }
-      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    }
-  </style>
-</head>
-<body>
-  <div class="header">
-    <div>
-      <h1>RenovApp — Plan de masse</h1>
-      <p>${floorName} · Exporté le ${new Date().toLocaleDateString('fr-FR')}</p>
-    </div>
-    <button class="no-print" onclick="window.print()" style="padding:8px 16px;background:#2563eb;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:13px;">⬇ Imprimer / Enregistrer PDF</button>
-  </div>
-  <div class="canvas-wrap"><img src="${dataUrl}" /></div>
-  <div class="legend">
-    <div class="legend-item"><div class="dot" style="background:#dbeafe"></div> Chambre</div>
-    <div class="legend-item"><div class="dot" style="background:#d1fae5"></div> Salle de bain</div>
-    <div class="legend-item"><div class="dot" style="background:#fef3c7"></div> Cuisine</div>
-    <div class="legend-item"><div class="dot" style="background:#fce7f3"></div> Pièce commune</div>
-    <div class="legend-item"><div class="dot" style="background:#f3e8ff"></div> Rangement</div>
-    <div class="legend-item"><div class="dot" style="background:#f1f5f9"></div> Couloir</div>
-    <div class="legend-item"><div class="door"></div> Porte</div>
-    <div class="legend-item"><div class="window"></div> Fenêtre</div>
-  </div>
-</body>
-</html>`);
+    if (!w) return;
+    const floorName = `Plan — ${floorRooms.length} pièce(s)`;
+    const legendRows = (Object.keys(ROOM_TYPE_LABELS) as (keyof typeof ROOM_TYPE_LABELS)[])
+      .map((t) => `<div class="legend-item"><div class="dot" style="background:${ROOM_COLORS[t]}"></div> ${ROOM_TYPE_LABELS[t]}</div>`).join('');
+    w.document.write(`<!DOCTYPE html><html><head><title>RenovApp — ${floorName}</title>
+<style>*{margin:0;padding:0;box-sizing:border-box}body{background:#fff;font-family:Inter,Arial,sans-serif;color:#0f172a}
+.header{padding:18px 28px;border-bottom:2px solid #4f46e5;display:flex;justify-content:space-between;align-items:center}
+.header h1{font-size:18px}.header p{font-size:11px;color:#64748b;margin-top:2px}
+.canvas-wrap{padding:28px;display:flex;justify-content:center}img{max-width:100%;border:1px solid #e2e8f0;border-radius:10px}
+.legend{padding:16px 28px;display:flex;gap:22px;flex-wrap:wrap;border-top:1px solid #e2e8f0}
+.legend-item{display:flex;align-items:center;gap:8px;font-size:11px;color:#475569}
+.dot{width:14px;height:14px;border-radius:3px;border:1px solid #94a3b8}.door{width:14px;height:8px;border:1.5px solid #b45309}.window{width:14px;height:0;border-top:2px solid #2563eb}
+@media print{.no-print{display:none!important}body{-webkit-print-color-adjust:exact;print-color-adjust:exact}}</style></head>
+<body><div class="header"><div><h1>RenovApp — Plan de masse</h1><p>${floorName} · Exporté le ${new Date().toLocaleDateString('fr-FR')}</p></div>
+<button class="no-print" onclick="window.print()" style="padding:9px 16px;background:#4f46e5;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600">⬇ Imprimer / PDF</button></div>
+<div class="canvas-wrap"><img src="${dataUrl}" /></div>
+<div class="legend">${legendRows}<div class="legend-item"><div class="door"></div> Porte</div><div class="legend-item"><div class="window"></div> Fenêtre</div></div></body></html>`);
     w.document.close();
-    setIsPdfExporting(false);
   };
+
+  const ToolBtn = ({ active, onClick, title, children }: { active?: boolean; onClick: () => void; title: string; children: React.ReactNode }) => (
+    <button onClick={onClick} title={title}
+      className={`flex h-8 w-8 items-center justify-center rounded-lg transition-colors ${active ? 'bg-brand-50 text-brand-600' : 'text-ink-muted hover:bg-slate-100'}`}>
+      {children}
+    </button>
+  );
 
   return (
     <div className="flex flex-col h-full w-full overflow-hidden">
-      {/* ── Toolbar ── */}
-      <div className="flex items-center gap-1 px-3 py-2 bg-white border-b border-slate-200 flex-shrink-0">
-        {/* Zoom controls */}
-        <button onClick={() => setZoom((z) => Math.min(z + 0.2, 4))} title="Zoom in" className="p-1.5 rounded hover:bg-slate-100 text-slate-600 transition-colors">
-          <ZoomIn size={16} />
-        </button>
-        <span className="text-xs text-slate-500 w-12 text-center font-mono">{Math.round(zoom * 100)}%</span>
-        <button onClick={() => setZoom((z) => Math.max(z - 0.2, 0.2))} title="Zoom out" className="p-1.5 rounded hover:bg-slate-100 text-slate-600 transition-colors">
-          <ZoomOut size={16} />
-        </button>
-
+      {/* Toolbar */}
+      <div className="flex items-center gap-1 px-3 py-2 bg-white border-b border-[var(--border)] flex-shrink-0">
+        <ToolBtn onClick={() => setZoom((z) => Math.min(z + 0.2, 4))} title="Zoom avant"><ZoomIn size={16} /></ToolBtn>
+        <span className="text-xs text-ink-faint w-11 text-center font-mono">{Math.round(zoom * 100)}%</span>
+        <ToolBtn onClick={() => setZoom((z) => Math.max(z - 0.2, 0.2))} title="Zoom arrière"><ZoomOut size={16} /></ToolBtn>
         <div className="w-px h-5 bg-slate-200 mx-1" />
-
-        {/* Fit */}
-        <button onClick={fitRooms} title="Ajuster la vue" className="p-1.5 rounded hover:bg-slate-100 text-slate-600 transition-colors">
-          <Maximize2 size={16} />
-        </button>
-
-        {/* Grid toggle */}
-        <button onClick={() => setShowGrid((g) => !g)} title="Afficher/masquer la grille"
-          className={`p-1.5 rounded transition-colors ${showGrid ? 'bg-blue-50 text-blue-600' : 'hover:bg-slate-100 text-slate-400'}`}>
-          <Grid3x3 size={16} />
-        </button>
+        <ToolBtn onClick={fitRooms} title="Ajuster la vue"><Maximize2 size={16} /></ToolBtn>
+        <ToolBtn active={showGrid} onClick={() => setShowGrid((g) => !g)} title="Grille"><Grid3x3 size={16} /></ToolBtn>
+        <ToolBtn active={snapOn} onClick={() => setSnapOn((s) => !s)} title="Aimant (snap 10 cm)"><Magnet size={16} /></ToolBtn>
+        <div className="w-px h-5 bg-slate-200 mx-1" />
+        <ToolBtn onClick={() => selectedRoomId && duplicateRoom(selectedRoomId)} title="Dupliquer (Ctrl+D)"><Copy size={16} /></ToolBtn>
+        <ToolBtn onClick={() => selectedRoomId && removeRoom(selectedRoomId)} title="Supprimer (Suppr)"><Trash2 size={16} /></ToolBtn>
 
         <div className="flex-1" />
-
-        {/* Legend hint */}
-        <div className="hidden sm:flex items-center gap-3 mr-2">
-          <span className="flex items-center gap-1 text-xs text-slate-400">
-            <span className="inline-block w-3 h-2.5 rounded-sm bg-amber-800 opacity-80" /> Porte
-          </span>
-          <span className="flex items-center gap-1 text-xs text-slate-400">
-            <span className="inline-block w-3 h-1.5 bg-blue-500" /> Fenêtre
-          </span>
-          <span className="flex items-center gap-1 text-xs text-slate-400">
-            <MousePointer size={11} className="text-slate-400" /> Clic droit = pan
-          </span>
+        <div className="hidden lg:flex items-center gap-3 mr-2 text-xs text-ink-faint">
+          <span className="flex items-center gap-1"><Move size={11} /> Clic droit = déplacer la vue</span>
+          {overlapIds.size > 0 && <span className="text-rose-500 font-medium">⚠ {overlapIds.size} chevauchement(s)</span>}
         </div>
-
-        {/* PDF Export */}
-        <button
-          onClick={exportToPDF}
-          disabled={isPdfExporting || floorRooms.length === 0}
-          title="Exporter en PDF"
-          className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-300 disabled:cursor-not-allowed text-white text-xs font-medium rounded-lg transition-colors"
-        >
-          <FileDown size={14} />
-          {isPdfExporting ? 'Export…' : 'Export PDF'}
+        <button onClick={exportToPDF} disabled={floorRooms.length === 0} className="btn-primary btn-sm">
+          <FileDown size={14} /> Export PDF
         </button>
       </div>
 
-      {/* ── Canvas ── */}
-      <div ref={containerRef} className="flex-1 relative overflow-hidden bg-slate-50 cursor-crosshair">
+      {/* Canvas */}
+      <div ref={containerRef} className="flex-1 relative overflow-hidden bg-[#fbfcfe]">
         {size.w > 0 && size.h > 0 && (
           <Stage
-            ref={stageRef}
-            width={size.w}
-            height={size.h}
-            scaleX={zoom}
-            scaleY={zoom}
-            x={pan.x}
-            y={pan.y}
-            onWheel={handleWheel}
-            onMouseDown={handleMouseDown}
-            onMouseMove={handleMouseMove}
-            onMouseUp={() => setIsPanning(false)}
+            ref={stageRef} width={size.w} height={size.h}
+            scaleX={zoom} scaleY={zoom} x={pan.x} y={pan.y}
+            onWheel={handleWheel} onMouseDown={handleMouseDown} onMouseMove={handleMouseMove}
+            onMouseUp={() => setIsPanning(false)} onMouseLeave={() => setIsPanning(false)}
             onClick={(e) => { if (e.target === e.target.getStage()) setSelectedRoom(null); }}
             onContextMenu={(e) => e.evt.preventDefault()}
             style={{ cursor: isPanning ? 'grabbing' : 'default' }}
           >
+            <Layer listening={false}>
+              {showGrid && <GridLayer width={CANVAS_LOGICAL.w} height={CANVAS_LOGICAL.h} />}
+            </Layer>
             <Layer>
-              <GridLayer width={CANVAS_LOGICAL.w} height={CANVAS_LOGICAL.h} spacing={GRID_PX} show={showGrid} />
               {floorRooms.map((room) => (
                 <RoomShape
-                  key={room.id}
-                  room={room}
+                  key={room.id} room={room}
                   isSelected={room.id === selectedRoomId}
+                  overlapping={overlapIds.has(room.id)}
+                  snapOn={snapOn}
                   onSelect={() => setSelectedRoom(room.id)}
-                  onDragEnd={(x, y) => updateRoom(room.id, { x, y })}
+                  onChange={(u) => updateRoom(room.id, u)}
                 />
               ))}
             </Layer>
           </Stage>
         )}
 
-        {/* Empty state overlay */}
         {floorRooms.length === 0 && (
           <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-slate-200 rounded-xl mx-auto mb-4 flex items-center justify-center">
-                <svg className="w-8 h-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                </svg>
-              </div>
-              <p className="text-slate-400 text-sm font-medium">Aucune pièce sur cet étage</p>
-              <p className="text-slate-300 text-xs mt-1">Utilisez le panneau gauche pour ajouter des pièces</p>
+            <div className="w-16 h-16 bg-slate-100 rounded-2xl mx-auto mb-4 flex items-center justify-center">
+              <Grid3x3 className="w-7 h-7 text-slate-300" />
             </div>
+            <p className="text-ink-faint text-sm font-medium">Aucune pièce sur cet étage</p>
+            <p className="text-slate-300 text-xs mt-1">Ajoutez des pièces depuis le panneau de gauche</p>
           </div>
         )}
       </div>
     </div>
   );
+}
+
+function GridLayer({ width, height }: { width: number; height: number }) {
+  const lines = [];
+  for (let x = 0; x <= width; x += GRID_PX) {
+    const major = (x / GRID_PX) % 2 === 0;
+    lines.push(<Line key={`v${x}`} points={[x, 0, x, height]} stroke={major ? '#e2e8f0' : '#eef2f7'} strokeWidth={major ? 1 : 0.5} listening={false} />);
+  }
+  for (let y = 0; y <= height; y += GRID_PX) {
+    const major = (y / GRID_PX) % 2 === 0;
+    lines.push(<Line key={`h${y}`} points={[0, y, width, y]} stroke={major ? '#e2e8f0' : '#eef2f7'} strokeWidth={major ? 1 : 0.5} listening={false} />);
+  }
+  return <>{lines}</>;
 }

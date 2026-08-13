@@ -95,12 +95,9 @@ export const ExportButton: React.FC = () => {
   };
 
   return (
-    <button
-      onClick={handleExport}
-      className="flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors font-medium"
-    >
-      <Download size={18} />
-      Exporter (CSV)
+    <button onClick={handleExport} className="btn-secondary btn-sm">
+      <Download size={15} />
+      Exporter CSV
     </button>
   );
 };

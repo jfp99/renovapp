@@ -7,9 +7,11 @@ import { Blueprint } from '@/types/blueprint';
 import BlueprintUpload from '@/components/blueprints/BlueprintUpload';
 import BlueprintGrid from '@/components/blueprints/BlueprintGrid';
 import BlueprintDetail from '@/components/blueprints/BlueprintDetail';
-import { Filter, X } from 'lucide-react';
+import { Filter, X, FileImage } from 'lucide-react';
+import { useHydrated } from '@/lib/useHydrated';
 
 export default function BlueprintsPage() {
+  const hydrated = useHydrated();
   const blueprints = useBlueprintStore((state) => state.blueprints);
   const rooms = usePlanStore((state) => state.rooms);
   const [selectedBlueprint, setSelectedBlueprint] = useState<Blueprint | null>(
@@ -49,45 +51,46 @@ export default function BlueprintsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-900">Blueprint Vault</h1>
-          <p className="text-gray-600 mt-2">
-            Upload and manage floor plans and design blueprints
+    <div className="min-h-screen">
+      <div className="bg-mesh border-b border-[var(--border)]">
+        <div className="max-w-7xl mx-auto px-8 py-7">
+          <p className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-brand-600">
+            <FileImage size={13} /> Plans techniques
+          </p>
+          <h1 className="mt-1 text-3xl font-bold text-ink tracking-tight">Coffre à blueprints</h1>
+          <p className="mt-1 text-sm text-ink-muted">
+            Importez et organisez vos plans techniques (électricité, plomberie, structure) et liez-les aux pièces.
           </p>
         </div>
+      </div>
 
+      <div className="max-w-7xl mx-auto px-8 py-8">
         {/* Upload Area */}
         <div className="mb-8">
           <BlueprintUpload />
         </div>
 
         {/* Filters */}
-        {(allTags.length > 0 || rooms.length > 0) && (
-          <div className="mb-6 bg-white p-4 rounded-lg border border-gray-200">
-            <div className="flex items-center gap-2 mb-4">
-              <Filter className="w-4 h-4 text-gray-600" />
-              <h3 className="font-semibold text-gray-900">Filters</h3>
+        {hydrated && (allTags.length > 0 || rooms.length > 0) && (
+          <div className="mb-6 card p-4">
+            <div className="mb-4 flex items-center gap-2">
+              <Filter className="h-4 w-4 text-ink-muted" />
+              <h3 className="font-semibold text-ink">Filtres</h3>
             </div>
 
             <div className="space-y-4">
-              {/* Tag filters */}
               {allTags.length > 0 && (
                 <div>
-                  <p className="text-sm font-medium text-gray-700 mb-2">
-                    Tags
-                  </p>
+                  <p className="label">Tags</p>
                   <div className="flex flex-wrap gap-2">
                     {allTags.map((tag) => (
                       <button
                         key={tag}
                         onClick={() => toggleTag(tag)}
-                        className={`px-3 py-1 text-sm rounded-full transition-colors ${
+                        className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
                           selectedTags.includes(tag)
-                            ? 'bg-blue-600 text-white'
-                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                            ? 'bg-brand-600 text-white'
+                            : 'bg-slate-100 text-ink-muted hover:bg-slate-200'
                         }`}
                       >
                         {tag}
@@ -97,38 +100,28 @@ export default function BlueprintsPage() {
                 </div>
               )}
 
-              {/* Room filters */}
               {rooms.length > 0 && (
                 <div>
-                  <p className="text-sm font-medium text-gray-700 mb-2">
-                    Rooms
-                  </p>
+                  <p className="label">Pièce liée</p>
                   <select
                     value={selectedRoomId || ''}
                     onChange={(e) => setSelectedRoomId(e.target.value || null)}
-                    className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                    className="input w-auto"
                   >
-                    <option value="">All Rooms</option>
+                    <option value="">Toutes les pièces</option>
                     {rooms.map((room) => (
-                      <option key={room.id} value={room.id}>
-                        {room.name}
-                      </option>
+                      <option key={room.id} value={room.id}>{room.name}</option>
                     ))}
                   </select>
                 </div>
               )}
 
-              {/* Clear filters */}
               {(selectedTags.length > 0 || selectedRoomId) && (
                 <button
-                  onClick={() => {
-                    setSelectedTags([]);
-                    setSelectedRoomId(null);
-                  }}
-                  className="text-sm text-blue-600 hover:text-blue-700 flex items-center gap-1"
+                  onClick={() => { setSelectedTags([]); setSelectedRoomId(null); }}
+                  className="flex items-center gap-1 text-sm font-medium text-brand-600 hover:text-brand-700"
                 >
-                  <X className="w-3 h-3" />
-                  Clear Filters
+                  <X className="h-3 w-3" /> Réinitialiser les filtres
                 </button>
               )}
             </div>
@@ -136,8 +129,8 @@ export default function BlueprintsPage() {
         )}
 
         {/* Results info */}
-        <div className="mb-4 text-sm text-gray-600">
-          {filteredBlueprints.length} of {blueprints.length} blueprints
+        <div className="mb-4 text-sm text-ink-muted">
+          {hydrated ? `${filteredBlueprints.length} sur ${blueprints.length} blueprint(s)` : '…'}
         </div>
 
         {/* Grid */}

@@ -1,10 +1,17 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import Sidebar from '@/components/Sidebar';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'RenovApp - Project Management',
-  description: 'Manage your renovation projects efficiently',
+  title: 'RenovApp — Pilotage de rénovation',
+  description:
+    'Hub central pour planifier, agencer et budgéter votre projet de rénovation : plans, meubles, blueprints, inspirations et suivi des coûts.',
+};
+
+export const viewport: Viewport = {
+  themeColor: '#4f46e5',
+  width: 'device-width',
+  initialScale: 1,
 };
 
 export default function RootLayout({
@@ -13,13 +20,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className="bg-slate-50 font-sans">
-        <div className="flex h-screen">
+    <html lang="fr">
+      <body className="font-sans">
+        <div className="flex h-screen overflow-hidden">
           <Sidebar />
-          <main className="ml-60 flex-1 overflow-auto bg-slate-50">
-            {children}
-          </main>
+          <main className="md:ml-[260px] flex-1 overflow-auto">{children}</main>
         </div>
       </body>
     </html>

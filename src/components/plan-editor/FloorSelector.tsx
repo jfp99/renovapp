@@ -19,15 +19,13 @@ export default function FloorSelector() {
   return (
     <div className="space-y-2">
       <div>
-        <label className="block text-sm font-semibold text-gray-700 mb-2">
-          Select Floor
-        </label>
+        <label className="label">Étage</label>
         <select
           value={selectedFloorId || ''}
           onChange={(e) => setSelectedFloor(e.target.value || null)}
-          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-sm"
+          className="input"
         >
-          <option value="">-- Choose a floor --</option>
+          <option value="">— Choisir un étage —</option>
           {floors.map((floor) => (
             <option key={floor.id} value={floor.id}>
               {floor.name}
@@ -42,35 +40,27 @@ export default function FloorSelector() {
             type="text"
             value={floorName}
             onChange={(e) => setFloorName(e.target.value)}
-            placeholder="Floor name"
-            className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-sm"
+            placeholder="Nom de l'étage"
+            className="input flex-1"
+            autoFocus
             onKeyDown={(e) => {
               if (e.key === 'Enter') handleAddFloor();
+              if (e.key === 'Escape') { setShowAddFloor(false); setFloorName(''); }
             }}
           />
-          <button
-            onClick={handleAddFloor}
-            className="px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium text-sm transition-colors"
-          >
-            Add
+          <button onClick={handleAddFloor} className="btn-primary btn-sm">
+            Ajouter
           </button>
           <button
-            onClick={() => {
-              setShowAddFloor(false);
-              setFloorName('');
-            }}
-            className="px-3 py-2 bg-gray-300 hover:bg-gray-400 text-gray-700 rounded-lg font-medium text-sm transition-colors"
+            onClick={() => { setShowAddFloor(false); setFloorName(''); }}
+            className="btn-secondary btn-sm"
           >
-            Cancel
+            Annuler
           </button>
         </div>
       ) : (
-        <button
-          onClick={() => setShowAddFloor(true)}
-          className="w-full flex items-center justify-center gap-2 px-3 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium text-sm transition-colors"
-        >
-          <Plus size={16} />
-          Add Floor
+        <button onClick={() => setShowAddFloor(true)} className="btn-secondary btn-sm w-full">
+          <Plus size={15} /> Ajouter un étage
         </button>
       )}
     </div>

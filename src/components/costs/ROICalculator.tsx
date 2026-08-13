@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import type { PieLabelRenderProps } from 'recharts';
 import {
   PieChart,
   Pie,
@@ -74,43 +73,28 @@ export const ROICalculator: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* ROI Configuration Form */}
-      <div className="bg-white rounded-lg shadow p-6">
-        <div className="flex justify-between items-center mb-6">
-          <h3 className="text-lg font-semibold text-gray-900">
-            Configuration ROI
-          </h3>
+      <div className="card p-6">
+        <div className="mb-6 flex items-center justify-between">
+          <h3 className="text-sm font-semibold text-ink">Configuration du ROI</h3>
           {isEditing ? (
             <div className="flex gap-2">
               <button
-                onClick={() => {
-                  setFormData(roiConfig);
-                  setIsEditing(false);
-                }}
-                className="px-4 py-2 text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50"
+                onClick={() => { setFormData(roiConfig); setIsEditing(false); }}
+                className="btn-secondary btn-sm"
               >
                 Annuler
               </button>
-              <button
-                onClick={handleSave}
-                className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
-              >
-                Enregistrer
-              </button>
+              <button onClick={handleSave} className="btn-primary btn-sm">Enregistrer</button>
             </div>
           ) : (
-            <button
-              onClick={() => setIsEditing(true)}
-              className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300"
-            >
-              Modifier
-            </button>
+            <button onClick={() => setIsEditing(true)} className="btn-secondary btn-sm">Modifier</button>
           )}
         </div>
 
         {isEditing ? (
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="label">
                 Budget Total Rénovation (₱)
               </label>
               <input
@@ -119,11 +103,11 @@ export const ROICalculator: React.FC = () => {
                 onChange={(e) =>
                   handleInputChange('totalRenovationBudget', parseFloat(e.target.value) || 0)
                 }
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                className="input"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="label">
                 Prix d'Achat Propriété (₱)
               </label>
               <input
@@ -132,11 +116,11 @@ export const ROICalculator: React.FC = () => {
                 onChange={(e) =>
                   handleInputChange('propertyPurchasePrice', parseFloat(e.target.value) || 0)
                 }
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                className="input"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="label">
                 Loyer par Lit (₱/mois)
               </label>
               <input
@@ -145,11 +129,11 @@ export const ROICalculator: React.FC = () => {
                 onChange={(e) =>
                   handleInputChange('monthlyRentPerBed', parseFloat(e.target.value) || 0)
                 }
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                className="input"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="label">
                 Nombre de Lits
               </label>
               <input
@@ -158,11 +142,11 @@ export const ROICalculator: React.FC = () => {
                 onChange={(e) =>
                   handleInputChange('numberOfBeds', parseFloat(e.target.value) || 0)
                 }
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                className="input"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="label">
                 Taux d'Occupation (%)
               </label>
               <input
@@ -173,11 +157,11 @@ export const ROICalculator: React.FC = () => {
                 }
                 min="0"
                 max="100"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                className="input"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="label">
                 Dépenses Mensuelles (₱)
               </label>
               <input
@@ -186,7 +170,7 @@ export const ROICalculator: React.FC = () => {
                 onChange={(e) =>
                   handleInputChange('monthlyExpenses', parseFloat(e.target.value) || 0)
                 }
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg"
+                className="input"
               />
             </div>
           </div>
@@ -228,45 +212,31 @@ export const ROICalculator: React.FC = () => {
 
       {/* ROI Results */}
       <div className="grid grid-cols-2 gap-4">
-        <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-6">
-          <p className="text-sm text-gray-600 font-medium flex items-center gap-2">
-            <TrendingUp size={16} /> Revenu Mensuel Brut
+        <div className="rounded-xl border border-brand-100 bg-brand-50/60 p-6">
+          <p className="flex items-center gap-2 text-sm font-medium text-ink-muted">
+            <TrendingUp size={16} /> Revenu mensuel brut
           </p>
-          <p className="text-3xl font-bold text-gray-900 mt-2">
-            ₱{(roiConfig.monthlyRentPerBed *
-              roiConfig.numberOfBeds *
-              roiConfig.occupancyRate).toLocaleString('fr-FR', {
-              minimumFractionDigits: 0,
-            })}
+          <p className="mt-2 text-3xl font-bold text-ink">
+            ₱{(roiConfig.monthlyRentPerBed * roiConfig.numberOfBeds * roiConfig.occupancyRate).toLocaleString('fr-FR', { maximumFractionDigits: 0 })}
           </p>
         </div>
 
-        <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-6">
-          <p className="text-sm text-gray-600 font-medium">
-            Revenu Mensuel Net
-          </p>
-          <p className="text-3xl font-bold text-gray-900 mt-2">
-            ₱{monthlyNetIncome.toLocaleString('fr-FR', {
-              minimumFractionDigits: 0,
-            })}
+        <div className="rounded-xl border border-sky-100 bg-sky-50/60 p-6">
+          <p className="text-sm font-medium text-ink-muted">Revenu mensuel net</p>
+          <p className="mt-2 text-3xl font-bold text-ink">
+            ₱{monthlyNetIncome.toLocaleString('fr-FR', { maximumFractionDigits: 0 })}
           </p>
         </div>
 
-        <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-6">
-          <p className="text-sm text-gray-600 font-medium">ROI Annuel</p>
-          <p className="text-3xl font-bold text-gray-900 mt-2">
-            {annualROI.toFixed(1)}%
-          </p>
+        <div className="rounded-xl border border-emerald-100 bg-emerald-50/60 p-6">
+          <p className="text-sm font-medium text-ink-muted">ROI annuel</p>
+          <p className="mt-2 text-3xl font-bold text-ink">{annualROI.toFixed(1)}%</p>
         </div>
 
-        <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg p-6">
-          <p className="text-sm text-gray-600 font-medium">
-            Retour sur Investissement
-          </p>
-          <p className="text-3xl font-bold text-gray-900 mt-2">
-            {roiMonths > 0
-              ? `${(roiMonths / 12).toFixed(1)} ans`
-              : 'N/A'}
+        <div className="rounded-xl border border-accent-200 bg-accent-50/60 p-6">
+          <p className="text-sm font-medium text-ink-muted">Retour sur investissement</p>
+          <p className="mt-2 text-3xl font-bold text-ink">
+            {roiMonths > 0 ? `${(roiMonths / 12).toFixed(1)} ans` : '—'}
           </p>
         </div>
       </div>
@@ -275,10 +245,8 @@ export const ROICalculator: React.FC = () => {
       {pieData.length > 0 && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Pie Chart */}
-          <div className="bg-white rounded-lg shadow p-6">
-            <h4 className="text-lg font-semibold text-gray-900 mb-4">
-              Répartition des Dépenses
-            </h4>
+          <div className="card p-6">
+            <h4 className="mb-4 text-sm font-semibold text-ink">Répartition des dépenses</h4>
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
                 <Pie
@@ -286,7 +254,7 @@ export const ROICalculator: React.FC = () => {
                   cx="50%"
                   cy="50%"
                   labelLine={false}
-                  label={(props: PieLabelRenderProps) => {
+                  label={(props: { name?: string | number; percent?: number }) => {
                     const n = typeof props.name === 'string' ? props.name : '';
                     const p = typeof props.percent === 'number' ? props.percent : 0;
                     return `${n} ${(p * 100).toFixed(0)}%`;
@@ -310,10 +278,8 @@ export const ROICalculator: React.FC = () => {
 
           {/* Bar Chart */}
           {budgetByCategory.length > 0 && (
-            <div className="bg-white rounded-lg shadow p-6">
-              <h4 className="text-lg font-semibold text-gray-900 mb-4">
-                Budget vs Réel
-              </h4>
+            <div className="card p-6">
+              <h4 className="mb-4 text-sm font-semibold text-ink">Budget vs Réel</h4>
               <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={budgetByCategory}>
                   <CartesianGrid strokeDasharray="3 3" />

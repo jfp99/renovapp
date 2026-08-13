@@ -15,38 +15,29 @@ export const BudgetOverview: React.FC = () => {
     <div className="space-y-6">
       {/* Summary */}
       <div className="grid grid-cols-3 gap-4">
-        <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-4">
-          <p className="text-sm text-gray-600 font-medium">Budget Total</p>
-          <p className="text-2xl font-bold text-gray-900 mt-2">
-            ₱{totalBudget.toLocaleString('fr-FR', {
-              minimumFractionDigits: 0,
-              maximumFractionDigits: 0,
-            })}
+        <div className="rounded-xl border border-brand-100 bg-brand-50/60 p-4">
+          <p className="text-xs font-medium text-ink-muted">Budget total</p>
+          <p className="mt-1.5 text-2xl font-bold text-ink">
+            ₱{totalBudget.toLocaleString('fr-FR', { maximumFractionDigits: 0 })}
           </p>
         </div>
-        <div className="bg-gradient-to-br from-red-50 to-red-100 rounded-lg p-4">
-          <p className="text-sm text-gray-600 font-medium">Dépenses</p>
-          <p className="text-2xl font-bold text-gray-900 mt-2">
-            ₱{totalSpent.toLocaleString('fr-FR', {
-              minimumFractionDigits: 0,
-              maximumFractionDigits: 0,
-            })}
+        <div className="rounded-xl border border-rose-100 bg-rose-50/60 p-4">
+          <p className="text-xs font-medium text-ink-muted">Dépenses</p>
+          <p className="mt-1.5 text-2xl font-bold text-ink">
+            ₱{totalSpent.toLocaleString('fr-FR', { maximumFractionDigits: 0 })}
           </p>
         </div>
-        <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-4">
-          <p className="text-sm text-gray-600 font-medium">Reste</p>
-          <p className="text-2xl font-bold text-gray-900 mt-2">
-            ₱{Math.max(0, totalBudget - totalSpent).toLocaleString('fr-FR', {
-              minimumFractionDigits: 0,
-              maximumFractionDigits: 0,
-            })}
+        <div className="rounded-xl border border-emerald-100 bg-emerald-50/60 p-4">
+          <p className="text-xs font-medium text-ink-muted">Reste</p>
+          <p className="mt-1.5 text-2xl font-bold text-ink">
+            ₱{Math.max(0, totalBudget - totalSpent).toLocaleString('fr-FR', { maximumFractionDigits: 0 })}
           </p>
         </div>
       </div>
 
       {/* Budget Bars */}
       <div className="space-y-4">
-        <h3 className="text-lg font-semibold text-gray-900">Par Catégorie</h3>
+        <h3 className="text-sm font-semibold text-ink">Par catégorie</h3>
         <div className="space-y-4">
           {categories.map((category) => {
             const spent = spentByCategory[category.id] || 0;

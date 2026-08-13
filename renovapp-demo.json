@@ -1,0 +1,1632 @@
+{
+  "app": "renovapp",
+  "version": 1,
+  "exportedAt": "2026-06-04T00:00:00",
+  "plans": {
+    "floors": [
+      {
+        "id": "floor-1",
+        "name": "Rez-de-chaussée",
+        "order": 0
+      },
+      {
+        "id": "floor-2",
+        "name": "1er étage",
+        "order": 1
+      }
+    ],
+    "rooms": [
+      {
+        "id": "room-da",
+        "floorId": "floor-1",
+        "name": "Dortoir A",
+        "type": "bedroom",
+        "x": 60,
+        "y": 60,
+        "width": 500,
+        "height": 400,
+        "color": "#dbeafe",
+        "doors": [
+          {
+            "id": "d-bottom-50",
+            "wall": "bottom",
+            "position": 0.5,
+            "width": 90
+          }
+        ],
+        "windows": [
+          {
+            "id": "w-top-30",
+            "wall": "top",
+            "position": 0.3,
+            "width": 120
+          },
+          {
+            "id": "w-top-70",
+            "wall": "top",
+            "position": 0.7,
+            "width": 120
+          }
+        ]
+      },
+      {
+        "id": "room-db",
+        "floorId": "floor-1",
+        "name": "Dortoir B",
+        "type": "bedroom",
+        "x": 1180,
+        "y": 60,
+        "width": 500,
+        "height": 400,
+        "color": "#dbeafe",
+        "doors": [
+          {
+            "id": "d-bottom-50",
+            "wall": "bottom",
+            "position": 0.5,
+            "width": 90
+          }
+        ],
+        "windows": [
+          {
+            "id": "w-top-30",
+            "wall": "top",
+            "position": 0.3,
+            "width": 120
+          },
+          {
+            "id": "w-top-70",
+            "wall": "top",
+            "position": 0.7,
+            "width": 120
+          }
+        ]
+      },
+      {
+        "id": "room-cuisine",
+        "floorId": "floor-1",
+        "name": "Cuisine commune",
+        "type": "kitchen",
+        "x": 60,
+        "y": 1000,
+        "width": 400,
+        "height": 300,
+        "color": "#fef3c7",
+        "doors": [
+          {
+            "id": "d-left-50",
+            "wall": "left",
+            "position": 0.5,
+            "width": 90
+          }
+        ],
+        "windows": [
+          {
+            "id": "w-bottom-50",
+            "wall": "bottom",
+            "position": 0.5,
+            "width": 100
+          }
+        ]
+      },
+      {
+        "id": "room-sdb",
+        "floorId": "floor-1",
+        "name": "Salle de bain F",
+        "type": "bathroom",
+        "x": 960,
+        "y": 1000,
+        "width": 300,
+        "height": 250,
+        "color": "#d1fae5",
+        "doors": [
+          {
+            "id": "d-left-50",
+            "wall": "left",
+            "position": 0.5,
+            "width": 80
+          }
+        ],
+        "windows": [
+          {
+            "id": "w-top-50",
+            "wall": "top",
+            "position": 0.5,
+            "width": 60
+          }
+        ]
+      },
+      {
+        "id": "room-etude",
+        "floorId": "floor-1",
+        "name": "Salle d'étude",
+        "type": "common",
+        "x": 1380,
+        "y": 1000,
+        "width": 450,
+        "height": 350,
+        "color": "#fce7f3",
+        "doors": [
+          {
+            "id": "d-left-50",
+            "wall": "left",
+            "position": 0.5,
+            "width": 90
+          }
+        ],
+        "windows": [
+          {
+            "id": "w-right-50",
+            "wall": "right",
+            "position": 0.5,
+            "width": 140
+          }
+        ]
+      },
+      {
+        "id": "room-dc",
+        "floorId": "floor-2",
+        "name": "Dortoir C",
+        "type": "bedroom",
+        "x": 60,
+        "y": 60,
+        "width": 500,
+        "height": 400,
+        "color": "#dbeafe",
+        "doors": [
+          {
+            "id": "d-bottom-50",
+            "wall": "bottom",
+            "position": 0.5,
+            "width": 90
+          }
+        ],
+        "windows": [
+          {
+            "id": "w-top-50",
+            "wall": "top",
+            "position": 0.5,
+            "width": 140
+          }
+        ]
+      },
+      {
+        "id": "room-dd",
+        "floorId": "floor-2",
+        "name": "Dortoir D",
+        "type": "bedroom",
+        "x": 1180,
+        "y": 60,
+        "width": 500,
+        "height": 400,
+        "color": "#dbeafe",
+        "doors": [
+          {
+            "id": "d-bottom-50",
+            "wall": "bottom",
+            "position": 0.5,
+            "width": 90
+          }
+        ],
+        "windows": [
+          {
+            "id": "w-top-50",
+            "wall": "top",
+            "position": 0.5,
+            "width": 140
+          }
+        ]
+      },
+      {
+        "id": "room-sdb2",
+        "floorId": "floor-2",
+        "name": "Salle de bain 1er",
+        "type": "bathroom",
+        "x": 60,
+        "y": 1000,
+        "width": 300,
+        "height": 250,
+        "color": "#d1fae5",
+        "doors": [
+          {
+            "id": "d-right-50",
+            "wall": "right",
+            "position": 0.5,
+            "width": 80
+          }
+        ],
+        "windows": [
+          {
+            "id": "w-top-50",
+            "wall": "top",
+            "position": 0.5,
+            "width": 60
+          }
+        ]
+      },
+      {
+        "id": "room-rangement",
+        "floorId": "floor-2",
+        "name": "Rangement / Buanderie",
+        "type": "storage",
+        "x": 640,
+        "y": 1000,
+        "width": 250,
+        "height": 250,
+        "color": "#f3e8ff",
+        "doors": [
+          {
+            "id": "d-top-50",
+            "wall": "top",
+            "position": 0.5,
+            "width": 80
+          }
+        ],
+        "windows": []
+      }
+    ]
+  },
+  "furniture": {
+    "placements": [
+      {
+        "id": "p1",
+        "roomId": "room-da",
+        "catalogItemId": "cat-lit-superpose",
+        "x": 20,
+        "y": 20,
+        "rotation": 0,
+        "width": 90,
+        "height": 200,
+        "customLabel": "Lit superposé 1"
+      },
+      {
+        "id": "p2",
+        "roomId": "room-da",
+        "catalogItemId": "cat-lit-superpose",
+        "x": 800,
+        "y": 20,
+        "rotation": 0,
+        "width": 90,
+        "height": 200,
+        "customLabel": "Lit superposé 2"
+      },
+      {
+        "id": "p3",
+        "roomId": "room-da",
+        "catalogItemId": "cat-casier",
+        "x": 400,
+        "y": 20,
+        "rotation": 0,
+        "width": 40,
+        "height": 50
+      },
+      {
+        "id": "p4",
+        "roomId": "room-da",
+        "catalogItemId": "cat-casier",
+        "x": 495,
+        "y": 20,
+        "rotation": 0,
+        "width": 40,
+        "height": 50
+      },
+      {
+        "id": "p5",
+        "roomId": "room-da",
+        "catalogItemId": "cat-casier",
+        "x": 590,
+        "y": 20,
+        "rotation": 0,
+        "width": 40,
+        "height": 50
+      },
+      {
+        "id": "p6",
+        "roomId": "room-da",
+        "catalogItemId": "cat-casier",
+        "x": 685,
+        "y": 20,
+        "rotation": 0,
+        "width": 40,
+        "height": 50
+      },
+      {
+        "id": "p7",
+        "roomId": "room-da",
+        "catalogItemId": "cat-bureau",
+        "x": 20,
+        "y": 660,
+        "rotation": 0,
+        "width": 120,
+        "height": 60
+      },
+      {
+        "id": "p8",
+        "roomId": "room-da",
+        "catalogItemId": "cat-bureau",
+        "x": 740,
+        "y": 660,
+        "rotation": 0,
+        "width": 120,
+        "height": 60
+      },
+      {
+        "id": "p9",
+        "roomId": "room-da",
+        "catalogItemId": "cat-chaise",
+        "x": 150,
+        "y": 545,
+        "rotation": 0,
+        "width": 45,
+        "height": 45
+      },
+      {
+        "id": "p10",
+        "roomId": "room-da",
+        "catalogItemId": "cat-chaise",
+        "x": 870,
+        "y": 545,
+        "rotation": 0,
+        "width": 45,
+        "height": 45
+      },
+      {
+        "id": "p11",
+        "roomId": "room-db",
+        "catalogItemId": "cat-lit-superpose",
+        "x": 20,
+        "y": 20,
+        "rotation": 0,
+        "width": 90,
+        "height": 200,
+        "customLabel": "Lit superposé 1"
+      },
+      {
+        "id": "p12",
+        "roomId": "room-db",
+        "catalogItemId": "cat-lit-superpose",
+        "x": 800,
+        "y": 20,
+        "rotation": 0,
+        "width": 90,
+        "height": 200,
+        "customLabel": "Lit superposé 2"
+      },
+      {
+        "id": "p13",
+        "roomId": "room-db",
+        "catalogItemId": "cat-casier",
+        "x": 400,
+        "y": 20,
+        "rotation": 0,
+        "width": 40,
+        "height": 50
+      },
+      {
+        "id": "p14",
+        "roomId": "room-db",
+        "catalogItemId": "cat-casier",
+        "x": 495,
+        "y": 20,
+        "rotation": 0,
+        "width": 40,
+        "height": 50
+      },
+      {
+        "id": "p15",
+        "roomId": "room-db",
+        "catalogItemId": "cat-casier",
+        "x": 590,
+        "y": 20,
+        "rotation": 0,
+        "width": 40,
+        "height": 50
+      },
+      {
+        "id": "p16",
+        "roomId": "room-db",
+        "catalogItemId": "cat-casier",
+        "x": 685,
+        "y": 20,
+        "rotation": 0,
+        "width": 40,
+        "height": 50
+      },
+      {
+        "id": "p17",
+        "roomId": "room-db",
+        "catalogItemId": "cat-bureau",
+        "x": 20,
+        "y": 660,
+        "rotation": 0,
+        "width": 120,
+        "height": 60
+      },
+      {
+        "id": "p18",
+        "roomId": "room-db",
+        "catalogItemId": "cat-bureau",
+        "x": 740,
+        "y": 660,
+        "rotation": 0,
+        "width": 120,
+        "height": 60
+      },
+      {
+        "id": "p19",
+        "roomId": "room-db",
+        "catalogItemId": "cat-chaise",
+        "x": 150,
+        "y": 545,
+        "rotation": 0,
+        "width": 45,
+        "height": 45
+      },
+      {
+        "id": "p20",
+        "roomId": "room-db",
+        "catalogItemId": "cat-chaise",
+        "x": 870,
+        "y": 545,
+        "rotation": 0,
+        "width": 45,
+        "height": 45
+      },
+      {
+        "id": "p21",
+        "roomId": "room-dc",
+        "catalogItemId": "cat-lit-superpose",
+        "x": 20,
+        "y": 20,
+        "rotation": 0,
+        "width": 90,
+        "height": 200,
+        "customLabel": "Lit superposé 1"
+      },
+      {
+        "id": "p22",
+        "roomId": "room-dc",
+        "catalogItemId": "cat-lit-superpose",
+        "x": 800,
+        "y": 20,
+        "rotation": 0,
+        "width": 90,
+        "height": 200,
+        "customLabel": "Lit superposé 2"
+      },
+      {
+        "id": "p23",
+        "roomId": "room-dc",
+        "catalogItemId": "cat-casier",
+        "x": 400,
+        "y": 20,
+        "rotation": 0,
+        "width": 40,
+        "height": 50
+      },
+      {
+        "id": "p24",
+        "roomId": "room-dc",
+        "catalogItemId": "cat-casier",
+        "x": 495,
+        "y": 20,
+        "rotation": 0,
+        "width": 40,
+        "height": 50
+      },
+      {
+        "id": "p25",
+        "roomId": "room-dc",
+        "catalogItemId": "cat-casier",
+        "x": 590,
+        "y": 20,
+        "rotation": 0,
+        "width": 40,
+        "height": 50
+      },
+      {
+        "id": "p26",
+        "roomId": "room-dc",
+        "catalogItemId": "cat-casier",
+        "x": 685,
+        "y": 20,
+        "rotation": 0,
+        "width": 40,
+        "height": 50
+      },
+      {
+        "id": "p27",
+        "roomId": "room-dc",
+        "catalogItemId": "cat-bureau",
+        "x": 20,
+        "y": 660,
+        "rotation": 0,
+        "width": 120,
+        "height": 60
+      },
+      {
+        "id": "p28",
+        "roomId": "room-dc",
+        "catalogItemId": "cat-bureau",
+        "x": 740,
+        "y": 660,
+        "rotation": 0,
+        "width": 120,
+        "height": 60
+      },
+      {
+        "id": "p29",
+        "roomId": "room-dc",
+        "catalogItemId": "cat-chaise",
+        "x": 150,
+        "y": 545,
+        "rotation": 0,
+        "width": 45,
+        "height": 45
+      },
+      {
+        "id": "p30",
+        "roomId": "room-dc",
+        "catalogItemId": "cat-chaise",
+        "x": 870,
+        "y": 545,
+        "rotation": 0,
+        "width": 45,
+        "height": 45
+      },
+      {
+        "id": "p31",
+        "roomId": "room-dd",
+        "catalogItemId": "cat-lit-superpose",
+        "x": 20,
+        "y": 20,
+        "rotation": 0,
+        "width": 90,
+        "height": 200,
+        "customLabel": "Lit superposé 1"
+      },
+      {
+        "id": "p32",
+        "roomId": "room-dd",
+        "catalogItemId": "cat-lit-superpose",
+        "x": 800,
+        "y": 20,
+        "rotation": 0,
+        "width": 90,
+        "height": 200,
+        "customLabel": "Lit superposé 2"
+      },
+      {
+        "id": "p33",
+        "roomId": "room-dd",
+        "catalogItemId": "cat-casier",
+        "x": 400,
+        "y": 20,
+        "rotation": 0,
+        "width": 40,
+        "height": 50
+      },
+      {
+        "id": "p34",
+        "roomId": "room-dd",
+        "catalogItemId": "cat-casier",
+        "x": 495,
+        "y": 20,
+        "rotation": 0,
+        "width": 40,
+        "height": 50
+      },
+      {
+        "id": "p35",
+        "roomId": "room-dd",
+        "catalogItemId": "cat-casier",
+        "x": 590,
+        "y": 20,
+        "rotation": 0,
+        "width": 40,
+        "height": 50
+      },
+      {
+        "id": "p36",
+        "roomId": "room-dd",
+        "catalogItemId": "cat-casier",
+        "x": 685,
+        "y": 20,
+        "rotation": 0,
+        "width": 40,
+        "height": 50
+      },
+      {
+        "id": "p37",
+        "roomId": "room-dd",
+        "catalogItemId": "cat-bureau",
+        "x": 20,
+        "y": 660,
+        "rotation": 0,
+        "width": 120,
+        "height": 60
+      },
+      {
+        "id": "p38",
+        "roomId": "room-dd",
+        "catalogItemId": "cat-bureau",
+        "x": 740,
+        "y": 660,
+        "rotation": 0,
+        "width": 120,
+        "height": 60
+      },
+      {
+        "id": "p39",
+        "roomId": "room-dd",
+        "catalogItemId": "cat-chaise",
+        "x": 150,
+        "y": 545,
+        "rotation": 0,
+        "width": 45,
+        "height": 45
+      },
+      {
+        "id": "p40",
+        "roomId": "room-dd",
+        "catalogItemId": "cat-chaise",
+        "x": 870,
+        "y": 545,
+        "rotation": 0,
+        "width": 45,
+        "height": 45
+      },
+      {
+        "id": "p41",
+        "roomId": "room-sdb",
+        "catalogItemId": "cat-wc",
+        "x": 20,
+        "y": 20,
+        "rotation": 0,
+        "width": 40,
+        "height": 60
+      },
+      {
+        "id": "p42",
+        "roomId": "room-sdb",
+        "catalogItemId": "cat-lavabo",
+        "x": 20,
+        "y": 380,
+        "rotation": 0,
+        "width": 60,
+        "height": 45
+      },
+      {
+        "id": "p43",
+        "roomId": "room-sdb",
+        "catalogItemId": "cat-douche",
+        "x": 400,
+        "y": 20,
+        "rotation": 0,
+        "width": 90,
+        "height": 90
+      },
+      {
+        "id": "p44",
+        "roomId": "room-sdb2",
+        "catalogItemId": "cat-wc",
+        "x": 20,
+        "y": 20,
+        "rotation": 0,
+        "width": 40,
+        "height": 60
+      },
+      {
+        "id": "p45",
+        "roomId": "room-sdb2",
+        "catalogItemId": "cat-lavabo",
+        "x": 20,
+        "y": 380,
+        "rotation": 0,
+        "width": 60,
+        "height": 45
+      },
+      {
+        "id": "p46",
+        "roomId": "room-sdb2",
+        "catalogItemId": "cat-douche",
+        "x": 400,
+        "y": 20,
+        "rotation": 0,
+        "width": 90,
+        "height": 90
+      },
+      {
+        "id": "p47",
+        "roomId": "room-cuisine",
+        "catalogItemId": "cat-evier",
+        "x": 20,
+        "y": 20,
+        "rotation": 0,
+        "width": 80,
+        "height": 60
+      },
+      {
+        "id": "p48",
+        "roomId": "room-cuisine",
+        "catalogItemId": "cat-plan",
+        "x": 200,
+        "y": 20,
+        "rotation": 0,
+        "width": 180,
+        "height": 60
+      },
+      {
+        "id": "p49",
+        "roomId": "room-cuisine",
+        "catalogItemId": "cat-frigo",
+        "x": 640,
+        "y": 20,
+        "rotation": 0,
+        "width": 60,
+        "height": 60
+      },
+      {
+        "id": "p50",
+        "roomId": "room-cuisine",
+        "catalogItemId": "cat-table",
+        "x": 280,
+        "y": 400,
+        "rotation": 0,
+        "width": 120,
+        "height": 80
+      },
+      {
+        "id": "p51",
+        "roomId": "room-etude",
+        "catalogItemId": "cat-table",
+        "x": 330,
+        "y": 270,
+        "rotation": 0,
+        "width": 120,
+        "height": 80
+      },
+      {
+        "id": "p52",
+        "roomId": "room-etude",
+        "catalogItemId": "cat-chaise",
+        "x": 345,
+        "y": 140,
+        "rotation": 0,
+        "width": 45,
+        "height": 45
+      },
+      {
+        "id": "p53",
+        "roomId": "room-etude",
+        "catalogItemId": "cat-chaise",
+        "x": 585,
+        "y": 140,
+        "rotation": 0,
+        "width": 45,
+        "height": 45
+      },
+      {
+        "id": "p54",
+        "roomId": "room-etude",
+        "catalogItemId": "cat-chaise",
+        "x": 345,
+        "y": 440,
+        "rotation": 0,
+        "width": 45,
+        "height": 45
+      },
+      {
+        "id": "p55",
+        "roomId": "room-etude",
+        "catalogItemId": "cat-chaise",
+        "x": 585,
+        "y": 440,
+        "rotation": 0,
+        "width": 45,
+        "height": 45
+      },
+      {
+        "id": "p56",
+        "roomId": "room-etude",
+        "catalogItemId": "cat-etagere",
+        "x": 20,
+        "y": 20,
+        "rotation": 0,
+        "width": 80,
+        "height": 30
+      },
+      {
+        "id": "p57",
+        "roomId": "room-rangement",
+        "catalogItemId": "cat-armoire",
+        "x": 20,
+        "y": 20,
+        "rotation": 0,
+        "width": 100,
+        "height": 60
+      },
+      {
+        "id": "p58",
+        "roomId": "room-rangement",
+        "catalogItemId": "cat-etagere",
+        "x": 20,
+        "y": 380,
+        "rotation": 0,
+        "width": 80,
+        "height": 30
+      },
+      {
+        "id": "p59",
+        "roomId": "room-rangement",
+        "catalogItemId": "cat-commode",
+        "x": 300,
+        "y": 380,
+        "rotation": 0,
+        "width": 80,
+        "height": 45
+      }
+    ],
+    "catalog": [
+      {
+        "id": "cat-lit-simple",
+        "name": "Lit simple",
+        "category": "bed",
+        "defaultWidth": 90,
+        "defaultHeight": 200,
+        "color": "#93c5fd"
+      },
+      {
+        "id": "cat-lit-superpose",
+        "name": "Lit superposé",
+        "category": "bed",
+        "defaultWidth": 90,
+        "defaultHeight": 200,
+        "color": "#60a5fa"
+      },
+      {
+        "id": "cat-lit-double",
+        "name": "Lit double",
+        "category": "bed",
+        "defaultWidth": 140,
+        "defaultHeight": 200,
+        "color": "#3b82f6"
+      },
+      {
+        "id": "cat-casier",
+        "name": "Casier / Locker",
+        "category": "storage",
+        "defaultWidth": 40,
+        "defaultHeight": 50,
+        "color": "#c4b5fd"
+      },
+      {
+        "id": "cat-armoire",
+        "name": "Armoire",
+        "category": "storage",
+        "defaultWidth": 100,
+        "defaultHeight": 60,
+        "color": "#a78bfa"
+      },
+      {
+        "id": "cat-commode",
+        "name": "Commode",
+        "category": "storage",
+        "defaultWidth": 80,
+        "defaultHeight": 45,
+        "color": "#8b5cf6"
+      },
+      {
+        "id": "cat-etagere",
+        "name": "Étagère",
+        "category": "storage",
+        "defaultWidth": 80,
+        "defaultHeight": 30,
+        "color": "#a78bfa"
+      },
+      {
+        "id": "cat-bureau",
+        "name": "Bureau",
+        "category": "desk",
+        "defaultWidth": 120,
+        "defaultHeight": 60,
+        "color": "#fdba74"
+      },
+      {
+        "id": "cat-chevet",
+        "name": "Table de chevet",
+        "category": "desk",
+        "defaultWidth": 40,
+        "defaultHeight": 40,
+        "color": "#fb923c"
+      },
+      {
+        "id": "cat-chaise",
+        "name": "Chaise",
+        "category": "chair",
+        "defaultWidth": 45,
+        "defaultHeight": 45,
+        "color": "#fcd34d"
+      },
+      {
+        "id": "cat-table",
+        "name": "Table",
+        "category": "table",
+        "defaultWidth": 120,
+        "defaultHeight": 80,
+        "color": "#f59e0b"
+      },
+      {
+        "id": "cat-lavabo",
+        "name": "Lavabo",
+        "category": "bathroom",
+        "defaultWidth": 60,
+        "defaultHeight": 45,
+        "color": "#67e8f9"
+      },
+      {
+        "id": "cat-wc",
+        "name": "WC",
+        "category": "bathroom",
+        "defaultWidth": 40,
+        "defaultHeight": 60,
+        "color": "#22d3ee"
+      },
+      {
+        "id": "cat-douche",
+        "name": "Douche",
+        "category": "bathroom",
+        "defaultWidth": 90,
+        "defaultHeight": 90,
+        "color": "#06b6d4"
+      },
+      {
+        "id": "cat-evier",
+        "name": "Évier cuisine",
+        "category": "kitchen",
+        "defaultWidth": 80,
+        "defaultHeight": 60,
+        "color": "#6ee7b7"
+      },
+      {
+        "id": "cat-plan",
+        "name": "Plan de travail",
+        "category": "kitchen",
+        "defaultWidth": 180,
+        "defaultHeight": 60,
+        "color": "#34d399"
+      },
+      {
+        "id": "cat-frigo",
+        "name": "Réfrigérateur",
+        "category": "kitchen",
+        "defaultWidth": 60,
+        "defaultHeight": 60,
+        "color": "#10b981"
+      }
+    ]
+  },
+  "blueprints": [
+    {
+      "id": "bp1",
+      "name": "Plan d'implantation — Dortoir A",
+      "description": "Disposition mobilier : 2 lits superposés, 4 casiers, 2 bureaux. Échelle 1:50.",
+      "fileType": "image",
+      "fileData": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iNDYwIiB2aWV3Qm94PSIwIDAgNjAwIDQ2MCI+CjxyZWN0IHdpZHRoPSI2MDAiIGhlaWdodD0iNDYwIiBmaWxsPSIjZmZmZmZmIi8+CjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSI2MDAiIGhlaWdodD0iNDYiIGZpbGw9IiM0ZjQ2ZTUiLz4KPHRleHQgeD0iMTYiIHk9IjIyIiBmb250LWZhbWlseT0iSW50ZXIsQXJpYWwiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiNmZmYiPlBsYW4gZCdpbXBsYW50YXRpb24g4oCUIERvcnRvaXIgQTwvdGV4dD4KPHRleHQgeD0iMTYiIHk9IjM4IiBmb250LWZhbWlseT0iSW50ZXIsQXJpYWwiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiNlMGU3ZmYiPlJlbm92QXBwIMK3IMOpY2hlbGxlIDE6NTAgwrcgNCDDqXR1ZGlhbnRlczwvdGV4dD4KPHJlY3QgeD0iOCIgeT0iNTQiIHdpZHRoPSI1ODQiIGhlaWdodD0iMzk4IiBmaWxsPSJub25lIiBzdHJva2U9IiNlMmU4ZjAiIHN0cm9rZS13aWR0aD0iMSIvPgo8bGluZSB4MT0iMjAiIHkxPSI2MCIgeDI9IjIwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSI0MCIgeTE9IjYwIiB4Mj0iNDAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjYwIiB5MT0iNjAiIHgyPSI2MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iODAiIHkxPSI2MCIgeDI9IjgwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIxMDAiIHkxPSI2MCIgeDI9IjEwMCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMTIwIiB5MT0iNjAiIHgyPSIxMjAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjE0MCIgeTE9IjYwIiB4Mj0iMTQwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIxNjAiIHkxPSI2MCIgeDI9IjE2MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMTgwIiB5MT0iNjAiIHgyPSIxODAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwMCIgeTE9IjYwIiB4Mj0iMjAwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMjAiIHkxPSI2MCIgeDI9IjIyMCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjQwIiB5MT0iNjAiIHgyPSIyNDAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjI2MCIgeTE9IjYwIiB4Mj0iMjYwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyODAiIHkxPSI2MCIgeDI9IjI4MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMzAwIiB5MT0iNjAiIHgyPSIzMDAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjMyMCIgeTE9IjYwIiB4Mj0iMzIwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIzNDAiIHkxPSI2MCIgeDI9IjM0MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMzYwIiB5MT0iNjAiIHgyPSIzNjAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjM4MCIgeTE9IjYwIiB4Mj0iMzgwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSI0MDAiIHkxPSI2MCIgeDI9IjQwMCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iNDIwIiB5MT0iNjAiIHgyPSI0MjAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjQ0MCIgeTE9IjYwIiB4Mj0iNDQwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSI0NjAiIHkxPSI2MCIgeDI9IjQ2MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iNDgwIiB5MT0iNjAiIHgyPSI0ODAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjUwMCIgeTE9IjYwIiB4Mj0iNTAwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSI1MjAiIHkxPSI2MCIgeDI9IjUyMCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iNTQwIiB5MT0iNjAiIHgyPSI1NDAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjU2MCIgeTE9IjYwIiB4Mj0iNTYwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSI1ODAiIHkxPSI2MCIgeDI9IjU4MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSI2MCIgeDI9IjU4MCIgeTI9IjYwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjgwIiB4Mj0iNTgwIiB5Mj0iODAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMTAwIiB4Mj0iNTgwIiB5Mj0iMTAwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjEyMCIgeDI9IjU4MCIgeTI9IjEyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIxNDAiIHgyPSI1ODAiIHkyPSIxNDAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMTYwIiB4Mj0iNTgwIiB5Mj0iMTYwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjE4MCIgeDI9IjU4MCIgeTI9IjE4MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIyMDAiIHgyPSI1ODAiIHkyPSIyMDAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMjIwIiB4Mj0iNTgwIiB5Mj0iMjIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjI0MCIgeDI9IjU4MCIgeTI9IjI0MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIyNjAiIHgyPSI1ODAiIHkyPSIyNjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMjgwIiB4Mj0iNTgwIiB5Mj0iMjgwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjMwMCIgeDI9IjU4MCIgeTI9IjMwMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIzMjAiIHgyPSI1ODAiIHkyPSIzMjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMzQwIiB4Mj0iNTgwIiB5Mj0iMzQwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjM2MCIgeDI9IjU4MCIgeTI9IjM2MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIzODAiIHgyPSI1ODAiIHkyPSIzODAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iNDAwIiB4Mj0iNTgwIiB5Mj0iNDAwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjQyMCIgeDI9IjU4MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz4KICAgIDwhLS0gcm9vbSBvdXRsaW5lIC0tPgogICAgPHJlY3QgeD0iNDAiIHk9IjgwIiB3aWR0aD0iNTIwIiBoZWlnaHQ9IjMyMCIgZmlsbD0iI2VlZjJmZiIgc3Ryb2tlPSIjMGYxNzJhIiBzdHJva2Utd2lkdGg9IjMiLz4KICAgIDwhLS0gYnVuayBiZWRzIC0tPgogICAgPHJlY3QgeD0iNTUiIHk9Ijk1IiB3aWR0aD0iOTUiIGhlaWdodD0iMjEwIiBmaWxsPSIjOTNjNWZkIiBzdHJva2U9IiMwZjE3MmEiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgICA8dGV4dCB4PSIxMDIiIHk9IjIwNSIgZm9udC1mYW1pbHk9IkludGVyIiBmb250LXNpemU9IjEwIiBmaWxsPSIjMGYxNzJhIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5MaXQgc3VwLjwvdGV4dD4KICAgIDxyZWN0IHg9IjQ1MCIgeT0iOTUiIHdpZHRoPSI5NSIgaGVpZ2h0PSIyMTAiIGZpbGw9IiM5M2M1ZmQiIHN0cm9rZT0iIzBmMTcyYSIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICAgIDx0ZXh0IHg9IjQ5NyIgeT0iMjA1IiBmb250LWZhbWlseT0iSW50ZXIiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiMwZjE3MmEiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkxpdCBzdXAuPC90ZXh0PgogICAgPCEtLSBsb2NrZXJzIC0tPgogICAgPHJlY3QgeD0iMjIwIiB5PSI5NSIgd2lkdGg9IjQwIiBoZWlnaHQ9IjU1IiBmaWxsPSIjYzRiNWZkIiBzdHJva2U9IiMwZjE3MmEiLz4KICAgIDxyZWN0IHg9IjI2NSIgeT0iOTUiIHdpZHRoPSI0MCIgaGVpZ2h0PSI1NSIgZmlsbD0iI2M0YjVmZCIgc3Ryb2tlPSIjMGYxNzJhIi8+CiAgICA8cmVjdCB4PSIzMTAiIHk9Ijk1IiB3aWR0aD0iNDAiIGhlaWdodD0iNTUiIGZpbGw9IiNjNGI1ZmQiIHN0cm9rZT0iIzBmMTcyYSIvPgogICAgPHJlY3QgeD0iMzU1IiB5PSI5NSIgd2lkdGg9IjQwIiBoZWlnaHQ9IjU1IiBmaWxsPSIjYzRiNWZkIiBzdHJva2U9IiMwZjE3MmEiLz4KICAgIDx0ZXh0IHg9IjMwNyIgeT0iMTY1IiBmb250LWZhbWlseT0iSW50ZXIiIGZvbnQtc2l6ZT0iOSIgZmlsbD0iIzY0NzQ4YiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+NCBjYXNpZXJzPC90ZXh0PgogICAgPCEtLSBkZXNrcyAtLT4KICAgIDxyZWN0IHg9IjU1IiB5PSIzMzAiIHdpZHRoPSIxMjAiIGhlaWdodD0iNTUiIGZpbGw9IiNmZGJhNzQiIHN0cm9rZT0iIzBmMTcyYSIvPgogICAgPHJlY3QgeD0iNDI1IiB5PSIzMzAiIHdpZHRoPSIxMjAiIGhlaWdodD0iNTUiIGZpbGw9IiNmZGJhNzQiIHN0cm9rZT0iIzBmMTcyYSIvPgogICAgPHRleHQgeD0iMzAwIiB5PSIzNjIiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSIxMCIgZmlsbD0iIzY0NzQ4YiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+MiBidXJlYXV4PC90ZXh0PgogICAgPCEtLSBkb29yIC0tPgogICAgPHBhdGggZD0iTTI3NSA0MDAgQTQwIDQwIDAgMCAxIDMxNSA0MDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2I0NTMwOSIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1kYXNoYXJyYXk9IjMgMyIvPgogICAgPHJlY3QgeD0iMjc1IiB5PSIzOTciIHdpZHRoPSI0MCIgaGVpZ2h0PSI2IiBmaWxsPSIjZmZmIiBzdHJva2U9IiNiNDUzMDkiLz4KICAgIDwhLS0gd2luZG93cyAtLT4KICAgIDxyZWN0IHg9IjE4MCIgeT0iNzciIHdpZHRoPSIxMjAiIGhlaWdodD0iNiIgZmlsbD0iI2ZmZiIgc3Ryb2tlPSIjNGY0NmU1Ii8+CiAgICA8cmVjdCB4PSIzNjAiIHk9Ijc3IiB3aWR0aD0iMTIwIiBoZWlnaHQ9IjYiIGZpbGw9IiNmZmYiIHN0cm9rZT0iIzRmNDZlNSIvPgogICAgPCEtLSBkaW1zIC0tPgogICAgPHRleHQgeD0iMzAwIiB5PSI3MiIgZm9udC1mYW1pbHk9IkludGVyIiBmb250LXNpemU9IjExIiBmaWxsPSIjNjQ3NDhiIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj41MDAgY208L3RleHQ+CiAgICA8dGV4dCB4PSIzMCIgeT0iMjQ1IiBmb250LWZhbWlseT0iSW50ZXIiIGZvbnQtc2l6ZT0iMTEiIGZpbGw9IiM2NDc0OGIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHRyYW5zZm9ybT0icm90YXRlKC05MCAzMCAyNDUpIj40MDAgY208L3RleHQ+CiAgICA8dGV4dCB4PSIzMDAiIHk9IjQzMCIgZm9udC1mYW1pbHk9IkludGVyIiBmb250LXNpemU9IjEwIiBmaWxsPSIjMGYxNzJhIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4yMCBtwrIgwrcgNCBjb3VjaGFnZXMgwrcgNCBjYXNpZXJzIMK3IDIgYnVyZWF1eDwvdGV4dD4KICAgIAo8L3N2Zz4=",
+      "thumbnailData": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iNDYwIiB2aWV3Qm94PSIwIDAgNjAwIDQ2MCI+CjxyZWN0IHdpZHRoPSI2MDAiIGhlaWdodD0iNDYwIiBmaWxsPSIjZmZmZmZmIi8+CjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSI2MDAiIGhlaWdodD0iNDYiIGZpbGw9IiM0ZjQ2ZTUiLz4KPHRleHQgeD0iMTYiIHk9IjIyIiBmb250LWZhbWlseT0iSW50ZXIsQXJpYWwiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiNmZmYiPlBsYW4gZCdpbXBsYW50YXRpb24g4oCUIERvcnRvaXIgQTwvdGV4dD4KPHRleHQgeD0iMTYiIHk9IjM4IiBmb250LWZhbWlseT0iSW50ZXIsQXJpYWwiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiNlMGU3ZmYiPlJlbm92QXBwIMK3IMOpY2hlbGxlIDE6NTAgwrcgNCDDqXR1ZGlhbnRlczwvdGV4dD4KPHJlY3QgeD0iOCIgeT0iNTQiIHdpZHRoPSI1ODQiIGhlaWdodD0iMzk4IiBmaWxsPSJub25lIiBzdHJva2U9IiNlMmU4ZjAiIHN0cm9rZS13aWR0aD0iMSIvPgo8bGluZSB4MT0iMjAiIHkxPSI2MCIgeDI9IjIwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSI0MCIgeTE9IjYwIiB4Mj0iNDAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjYwIiB5MT0iNjAiIHgyPSI2MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iODAiIHkxPSI2MCIgeDI9IjgwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIxMDAiIHkxPSI2MCIgeDI9IjEwMCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMTIwIiB5MT0iNjAiIHgyPSIxMjAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjE0MCIgeTE9IjYwIiB4Mj0iMTQwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIxNjAiIHkxPSI2MCIgeDI9IjE2MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMTgwIiB5MT0iNjAiIHgyPSIxODAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwMCIgeTE9IjYwIiB4Mj0iMjAwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMjAiIHkxPSI2MCIgeDI9IjIyMCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjQwIiB5MT0iNjAiIHgyPSIyNDAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjI2MCIgeTE9IjYwIiB4Mj0iMjYwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyODAiIHkxPSI2MCIgeDI9IjI4MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMzAwIiB5MT0iNjAiIHgyPSIzMDAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjMyMCIgeTE9IjYwIiB4Mj0iMzIwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIzNDAiIHkxPSI2MCIgeDI9IjM0MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMzYwIiB5MT0iNjAiIHgyPSIzNjAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjM4MCIgeTE9IjYwIiB4Mj0iMzgwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSI0MDAiIHkxPSI2MCIgeDI9IjQwMCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iNDIwIiB5MT0iNjAiIHgyPSI0MjAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjQ0MCIgeTE9IjYwIiB4Mj0iNDQwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSI0NjAiIHkxPSI2MCIgeDI9IjQ2MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iNDgwIiB5MT0iNjAiIHgyPSI0ODAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjUwMCIgeTE9IjYwIiB4Mj0iNTAwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSI1MjAiIHkxPSI2MCIgeDI9IjUyMCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iNTQwIiB5MT0iNjAiIHgyPSI1NDAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjU2MCIgeTE9IjYwIiB4Mj0iNTYwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSI1ODAiIHkxPSI2MCIgeDI9IjU4MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSI2MCIgeDI9IjU4MCIgeTI9IjYwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjgwIiB4Mj0iNTgwIiB5Mj0iODAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMTAwIiB4Mj0iNTgwIiB5Mj0iMTAwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjEyMCIgeDI9IjU4MCIgeTI9IjEyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIxNDAiIHgyPSI1ODAiIHkyPSIxNDAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMTYwIiB4Mj0iNTgwIiB5Mj0iMTYwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjE4MCIgeDI9IjU4MCIgeTI9IjE4MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIyMDAiIHgyPSI1ODAiIHkyPSIyMDAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMjIwIiB4Mj0iNTgwIiB5Mj0iMjIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjI0MCIgeDI9IjU4MCIgeTI9IjI0MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIyNjAiIHgyPSI1ODAiIHkyPSIyNjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMjgwIiB4Mj0iNTgwIiB5Mj0iMjgwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjMwMCIgeDI9IjU4MCIgeTI9IjMwMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIzMjAiIHgyPSI1ODAiIHkyPSIzMjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMzQwIiB4Mj0iNTgwIiB5Mj0iMzQwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjM2MCIgeDI9IjU4MCIgeTI9IjM2MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIzODAiIHgyPSI1ODAiIHkyPSIzODAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iNDAwIiB4Mj0iNTgwIiB5Mj0iNDAwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjQyMCIgeDI9IjU4MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz4KICAgIDwhLS0gcm9vbSBvdXRsaW5lIC0tPgogICAgPHJlY3QgeD0iNDAiIHk9IjgwIiB3aWR0aD0iNTIwIiBoZWlnaHQ9IjMyMCIgZmlsbD0iI2VlZjJmZiIgc3Ryb2tlPSIjMGYxNzJhIiBzdHJva2Utd2lkdGg9IjMiLz4KICAgIDwhLS0gYnVuayBiZWRzIC0tPgogICAgPHJlY3QgeD0iNTUiIHk9Ijk1IiB3aWR0aD0iOTUiIGhlaWdodD0iMjEwIiBmaWxsPSIjOTNjNWZkIiBzdHJva2U9IiMwZjE3MmEiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgICA8dGV4dCB4PSIxMDIiIHk9IjIwNSIgZm9udC1mYW1pbHk9IkludGVyIiBmb250LXNpemU9IjEwIiBmaWxsPSIjMGYxNzJhIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5MaXQgc3VwLjwvdGV4dD4KICAgIDxyZWN0IHg9IjQ1MCIgeT0iOTUiIHdpZHRoPSI5NSIgaGVpZ2h0PSIyMTAiIGZpbGw9IiM5M2M1ZmQiIHN0cm9rZT0iIzBmMTcyYSIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICAgIDx0ZXh0IHg9IjQ5NyIgeT0iMjA1IiBmb250LWZhbWlseT0iSW50ZXIiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiMwZjE3MmEiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkxpdCBzdXAuPC90ZXh0PgogICAgPCEtLSBsb2NrZXJzIC0tPgogICAgPHJlY3QgeD0iMjIwIiB5PSI5NSIgd2lkdGg9IjQwIiBoZWlnaHQ9IjU1IiBmaWxsPSIjYzRiNWZkIiBzdHJva2U9IiMwZjE3MmEiLz4KICAgIDxyZWN0IHg9IjI2NSIgeT0iOTUiIHdpZHRoPSI0MCIgaGVpZ2h0PSI1NSIgZmlsbD0iI2M0YjVmZCIgc3Ryb2tlPSIjMGYxNzJhIi8+CiAgICA8cmVjdCB4PSIzMTAiIHk9Ijk1IiB3aWR0aD0iNDAiIGhlaWdodD0iNTUiIGZpbGw9IiNjNGI1ZmQiIHN0cm9rZT0iIzBmMTcyYSIvPgogICAgPHJlY3QgeD0iMzU1IiB5PSI5NSIgd2lkdGg9IjQwIiBoZWlnaHQ9IjU1IiBmaWxsPSIjYzRiNWZkIiBzdHJva2U9IiMwZjE3MmEiLz4KICAgIDx0ZXh0IHg9IjMwNyIgeT0iMTY1IiBmb250LWZhbWlseT0iSW50ZXIiIGZvbnQtc2l6ZT0iOSIgZmlsbD0iIzY0NzQ4YiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+NCBjYXNpZXJzPC90ZXh0PgogICAgPCEtLSBkZXNrcyAtLT4KICAgIDxyZWN0IHg9IjU1IiB5PSIzMzAiIHdpZHRoPSIxMjAiIGhlaWdodD0iNTUiIGZpbGw9IiNmZGJhNzQiIHN0cm9rZT0iIzBmMTcyYSIvPgogICAgPHJlY3QgeD0iNDI1IiB5PSIzMzAiIHdpZHRoPSIxMjAiIGhlaWdodD0iNTUiIGZpbGw9IiNmZGJhNzQiIHN0cm9rZT0iIzBmMTcyYSIvPgogICAgPHRleHQgeD0iMzAwIiB5PSIzNjIiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSIxMCIgZmlsbD0iIzY0NzQ4YiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+MiBidXJlYXV4PC90ZXh0PgogICAgPCEtLSBkb29yIC0tPgogICAgPHBhdGggZD0iTTI3NSA0MDAgQTQwIDQwIDAgMCAxIDMxNSA0MDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2I0NTMwOSIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1kYXNoYXJyYXk9IjMgMyIvPgogICAgPHJlY3QgeD0iMjc1IiB5PSIzOTciIHdpZHRoPSI0MCIgaGVpZ2h0PSI2IiBmaWxsPSIjZmZmIiBzdHJva2U9IiNiNDUzMDkiLz4KICAgIDwhLS0gd2luZG93cyAtLT4KICAgIDxyZWN0IHg9IjE4MCIgeT0iNzciIHdpZHRoPSIxMjAiIGhlaWdodD0iNiIgZmlsbD0iI2ZmZiIgc3Ryb2tlPSIjNGY0NmU1Ii8+CiAgICA8cmVjdCB4PSIzNjAiIHk9Ijc3IiB3aWR0aD0iMTIwIiBoZWlnaHQ9IjYiIGZpbGw9IiNmZmYiIHN0cm9rZT0iIzRmNDZlNSIvPgogICAgPCEtLSBkaW1zIC0tPgogICAgPHRleHQgeD0iMzAwIiB5PSI3MiIgZm9udC1mYW1pbHk9IkludGVyIiBmb250LXNpemU9IjExIiBmaWxsPSIjNjQ3NDhiIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj41MDAgY208L3RleHQ+CiAgICA8dGV4dCB4PSIzMCIgeT0iMjQ1IiBmb250LWZhbWlseT0iSW50ZXIiIGZvbnQtc2l6ZT0iMTEiIGZpbGw9IiM2NDc0OGIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHRyYW5zZm9ybT0icm90YXRlKC05MCAzMCAyNDUpIj40MDAgY208L3RleHQ+CiAgICA8dGV4dCB4PSIzMDAiIHk9IjQzMCIgZm9udC1mYW1pbHk9IkludGVyIiBmb250LXNpemU9IjEwIiBmaWxsPSIjMGYxNzJhIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4yMCBtwrIgwrcgNCBjb3VjaGFnZXMgwrcgNCBjYXNpZXJzIMK3IDIgYnVyZWF1eDwvdGV4dD4KICAgIAo8L3N2Zz4=",
+      "tags": [
+        "implantation",
+        "dortoir-A",
+        "mobilier"
+      ],
+      "linkedRoomIds": [
+        "room-da"
+      ],
+      "annotations": [
+        {
+          "id": "a1",
+          "type": "text",
+          "x": 40,
+          "y": 40,
+          "content": "Prévoir prise près de chaque bureau",
+          "color": "#ea580c"
+        },
+        {
+          "id": "a2",
+          "type": "text",
+          "x": 40,
+          "y": 80,
+          "content": "Fenêtres orientées Nord (moins de chaleur)",
+          "color": "#2563eb"
+        }
+      ],
+      "createdAt": "2026-06-04T00:00:00"
+    },
+    {
+      "id": "bp2",
+      "name": "Plan électrique — Rez-de-chaussée",
+      "description": "Circuits éclairage et prises, tableau central, disjoncteurs 16A/20A.",
+      "fileType": "image",
+      "fileData": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iNDYwIiB2aWV3Qm94PSIwIDAgNjAwIDQ2MCI+CjxyZWN0IHdpZHRoPSI2MDAiIGhlaWdodD0iNDYwIiBmaWxsPSIjZmZmZmZmIi8+CjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSI2MDAiIGhlaWdodD0iNDYiIGZpbGw9IiNlYTU4MGMiLz4KPHRleHQgeD0iMTYiIHk9IjIyIiBmb250LWZhbWlseT0iSW50ZXIsQXJpYWwiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiNmZmYiPlBsYW4gw6lsZWN0cmlxdWUg4oCUIFJlei1kZS1jaGF1c3PDqWU8L3RleHQ+Cjx0ZXh0IHg9IjE2IiB5PSIzOCIgZm9udC1mYW1pbHk9IkludGVyLEFyaWFsIiBmb250LXNpemU9IjEwIiBmaWxsPSIjZTBlN2ZmIj5SZW5vdkFwcCDCtyBjaXJjdWl0cyAmIHBvaW50cyBsdW1pbmV1eDwvdGV4dD4KPHJlY3QgeD0iOCIgeT0iNTQiIHdpZHRoPSI1ODQiIGhlaWdodD0iMzk4IiBmaWxsPSJub25lIiBzdHJva2U9IiNlMmU4ZjAiIHN0cm9rZS13aWR0aD0iMSIvPgo8bGluZSB4MT0iMjAiIHkxPSI2MCIgeDI9IjIwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSI0MCIgeTE9IjYwIiB4Mj0iNDAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjYwIiB5MT0iNjAiIHgyPSI2MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iODAiIHkxPSI2MCIgeDI9IjgwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIxMDAiIHkxPSI2MCIgeDI9IjEwMCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMTIwIiB5MT0iNjAiIHgyPSIxMjAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjE0MCIgeTE9IjYwIiB4Mj0iMTQwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIxNjAiIHkxPSI2MCIgeDI9IjE2MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMTgwIiB5MT0iNjAiIHgyPSIxODAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwMCIgeTE9IjYwIiB4Mj0iMjAwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMjAiIHkxPSI2MCIgeDI9IjIyMCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjQwIiB5MT0iNjAiIHgyPSIyNDAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjI2MCIgeTE9IjYwIiB4Mj0iMjYwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyODAiIHkxPSI2MCIgeDI9IjI4MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMzAwIiB5MT0iNjAiIHgyPSIzMDAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjMyMCIgeTE9IjYwIiB4Mj0iMzIwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIzNDAiIHkxPSI2MCIgeDI9IjM0MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMzYwIiB5MT0iNjAiIHgyPSIzNjAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjM4MCIgeTE9IjYwIiB4Mj0iMzgwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSI0MDAiIHkxPSI2MCIgeDI9IjQwMCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iNDIwIiB5MT0iNjAiIHgyPSI0MjAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjQ0MCIgeTE9IjYwIiB4Mj0iNDQwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSI0NjAiIHkxPSI2MCIgeDI9IjQ2MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iNDgwIiB5MT0iNjAiIHgyPSI0ODAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjUwMCIgeTE9IjYwIiB4Mj0iNTAwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSI1MjAiIHkxPSI2MCIgeDI9IjUyMCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iNTQwIiB5MT0iNjAiIHgyPSI1NDAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjU2MCIgeTE9IjYwIiB4Mj0iNTYwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSI1ODAiIHkxPSI2MCIgeDI9IjU4MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSI2MCIgeDI9IjU4MCIgeTI9IjYwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjgwIiB4Mj0iNTgwIiB5Mj0iODAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMTAwIiB4Mj0iNTgwIiB5Mj0iMTAwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjEyMCIgeDI9IjU4MCIgeTI9IjEyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIxNDAiIHgyPSI1ODAiIHkyPSIxNDAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMTYwIiB4Mj0iNTgwIiB5Mj0iMTYwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjE4MCIgeDI9IjU4MCIgeTI9IjE4MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIyMDAiIHgyPSI1ODAiIHkyPSIyMDAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMjIwIiB4Mj0iNTgwIiB5Mj0iMjIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjI0MCIgeDI9IjU4MCIgeTI9IjI0MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIyNjAiIHgyPSI1ODAiIHkyPSIyNjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMjgwIiB4Mj0iNTgwIiB5Mj0iMjgwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjMwMCIgeDI9IjU4MCIgeTI9IjMwMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIzMjAiIHgyPSI1ODAiIHkyPSIzMjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMzQwIiB4Mj0iNTgwIiB5Mj0iMzQwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjM2MCIgeDI9IjU4MCIgeTI9IjM2MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIzODAiIHgyPSI1ODAiIHkyPSIzODAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iNDAwIiB4Mj0iNTgwIiB5Mj0iNDAwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjQyMCIgeDI9IjU4MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz4KICAgIDxyZWN0IHg9IjQwIiB5PSI4MCIgd2lkdGg9IjUyMCIgaGVpZ2h0PSIzMjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzBmMTcyYSIgc3Ryb2tlLXdpZHRoPSIyLjUiLz4KICAgIDxsaW5lIHgxPSI0MCIgeTE9IjgwIiB4Mj0iMzAwIiB5Mj0iMjQwIiBzdHJva2U9IiNmOTczMTYiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgICA8bGluZSB4MT0iMzAwIiB5MT0iMjQwIiB4Mj0iNTYwIiB5Mj0iODAiIHN0cm9rZT0iI2Y5NzMxNiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICAgIDxsaW5lIHgxPSIzMDAiIHkxPSIyNDAiIHgyPSIzMDAiIHkyPSI0MDAiIHN0cm9rZT0iI2Y5NzMxNiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICAgIDxsaW5lIHgxPSIzMDAiIHkxPSIyNDAiIHgyPSIxMjAiIHkyPSI0MDAiIHN0cm9rZT0iI2Y5NzMxNiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICAgIDxsaW5lIHgxPSIzMDAiIHkxPSIyNDAiIHgyPSI0ODAiIHkyPSI0MDAiIHN0cm9rZT0iI2Y5NzMxNiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICAgIDxjaXJjbGUgY3g9IjMwMCIgY3k9IjI0MCIgcj0iMTQiIGZpbGw9IiNmZmY3ZWQiIHN0cm9rZT0iI2VhNTgwYyIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgICA8dGV4dCB4PSIzMDAiIHk9IjI0NCIgZm9udC1mYW1pbHk9IkludGVyIiBmb250LXNpemU9IjExIiBmaWxsPSIjZWE1ODBjIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7imqE8L3RleHQ+CiAgICA8dGV4dCB4PSIzMDAiIHk9IjI3MCIgZm9udC1mYW1pbHk9IkludGVyIiBmb250LXNpemU9IjkiIGZpbGw9IiM2NDc0OGIiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlRhYmxlYXU8L3RleHQ+CiAgICA8Y2lyY2xlIGN4PSI3MCIgY3k9IjExMCIgcj0iOSIgZmlsbD0iI2ZmZiIgc3Ryb2tlPSIjZWE1ODBjIiBzdHJva2Utd2lkdGg9IjEuNSIvPjx0ZXh0IHg9IjcwIiB5PSIxMTMiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSI5IiBmaWxsPSIjZWE1ODBjIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7il4s8L3RleHQ+PGNpcmNsZSBjeD0iNTMwIiBjeT0iMTEwIiByPSI5IiBmaWxsPSIjZmZmIiBzdHJva2U9IiNlYTU4MGMiIHN0cm9rZS13aWR0aD0iMS41Ii8+PHRleHQgeD0iNTMwIiB5PSIxMTMiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSI5IiBmaWxsPSIjZWE1ODBjIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7il4s8L3RleHQ+PGNpcmNsZSBjeD0iMTIwIiBjeT0iMzgwIiByPSI5IiBmaWxsPSIjZmZmIiBzdHJva2U9IiNlYTU4MGMiIHN0cm9rZS13aWR0aD0iMS41Ii8+PHRleHQgeD0iMTIwIiB5PSIzODMiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSI5IiBmaWxsPSIjZWE1ODBjIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7il4s8L3RleHQ+PGNpcmNsZSBjeD0iNDgwIiBjeT0iMzgwIiByPSI5IiBmaWxsPSIjZmZmIiBzdHJva2U9IiNlYTU4MGMiIHN0cm9rZS13aWR0aD0iMS41Ii8+PHRleHQgeD0iNDgwIiB5PSIzODMiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSI5IiBmaWxsPSIjZWE1ODBjIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7il4s8L3RleHQ+PGNpcmNsZSBjeD0iMzAwIiBjeT0iMzgwIiByPSI5IiBmaWxsPSIjZmZmIiBzdHJva2U9IiNlYTU4MGMiIHN0cm9rZS13aWR0aD0iMS41Ii8+PHRleHQgeD0iMzAwIiB5PSIzODMiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSI5IiBmaWxsPSIjZWE1ODBjIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7il4s8L3RleHQ+CiAgICA8dGV4dCB4PSIzMDAiIHk9IjQzMCIgZm9udC1mYW1pbHk9IkludGVyIiBmb250LXNpemU9IjEwIiBmaWxsPSIjMGYxNzJhIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj41IHBvaW50cyBsdW1pbmV1eCDCtyBwcmlzZXMgdmVudGlsYXRldXJzIMK3IGRpc2pvbmN0ZXVycyAxNkEvMjBBPC90ZXh0PgogICAgCjwvc3ZnPg==",
+      "thumbnailData": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iNDYwIiB2aWV3Qm94PSIwIDAgNjAwIDQ2MCI+CjxyZWN0IHdpZHRoPSI2MDAiIGhlaWdodD0iNDYwIiBmaWxsPSIjZmZmZmZmIi8+CjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSI2MDAiIGhlaWdodD0iNDYiIGZpbGw9IiNlYTU4MGMiLz4KPHRleHQgeD0iMTYiIHk9IjIyIiBmb250LWZhbWlseT0iSW50ZXIsQXJpYWwiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiNmZmYiPlBsYW4gw6lsZWN0cmlxdWUg4oCUIFJlei1kZS1jaGF1c3PDqWU8L3RleHQ+Cjx0ZXh0IHg9IjE2IiB5PSIzOCIgZm9udC1mYW1pbHk9IkludGVyLEFyaWFsIiBmb250LXNpemU9IjEwIiBmaWxsPSIjZTBlN2ZmIj5SZW5vdkFwcCDCtyBjaXJjdWl0cyAmIHBvaW50cyBsdW1pbmV1eDwvdGV4dD4KPHJlY3QgeD0iOCIgeT0iNTQiIHdpZHRoPSI1ODQiIGhlaWdodD0iMzk4IiBmaWxsPSJub25lIiBzdHJva2U9IiNlMmU4ZjAiIHN0cm9rZS13aWR0aD0iMSIvPgo8bGluZSB4MT0iMjAiIHkxPSI2MCIgeDI9IjIwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSI0MCIgeTE9IjYwIiB4Mj0iNDAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjYwIiB5MT0iNjAiIHgyPSI2MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iODAiIHkxPSI2MCIgeDI9IjgwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIxMDAiIHkxPSI2MCIgeDI9IjEwMCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMTIwIiB5MT0iNjAiIHgyPSIxMjAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjE0MCIgeTE9IjYwIiB4Mj0iMTQwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIxNjAiIHkxPSI2MCIgeDI9IjE2MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMTgwIiB5MT0iNjAiIHgyPSIxODAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwMCIgeTE9IjYwIiB4Mj0iMjAwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMjAiIHkxPSI2MCIgeDI9IjIyMCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjQwIiB5MT0iNjAiIHgyPSIyNDAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjI2MCIgeTE9IjYwIiB4Mj0iMjYwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyODAiIHkxPSI2MCIgeDI9IjI4MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMzAwIiB5MT0iNjAiIHgyPSIzMDAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjMyMCIgeTE9IjYwIiB4Mj0iMzIwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIzNDAiIHkxPSI2MCIgeDI9IjM0MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMzYwIiB5MT0iNjAiIHgyPSIzNjAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjM4MCIgeTE9IjYwIiB4Mj0iMzgwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSI0MDAiIHkxPSI2MCIgeDI9IjQwMCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iNDIwIiB5MT0iNjAiIHgyPSI0MjAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjQ0MCIgeTE9IjYwIiB4Mj0iNDQwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSI0NjAiIHkxPSI2MCIgeDI9IjQ2MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iNDgwIiB5MT0iNjAiIHgyPSI0ODAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjUwMCIgeTE9IjYwIiB4Mj0iNTAwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSI1MjAiIHkxPSI2MCIgeDI9IjUyMCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iNTQwIiB5MT0iNjAiIHgyPSI1NDAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjU2MCIgeTE9IjYwIiB4Mj0iNTYwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSI1ODAiIHkxPSI2MCIgeDI9IjU4MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSI2MCIgeDI9IjU4MCIgeTI9IjYwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjgwIiB4Mj0iNTgwIiB5Mj0iODAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMTAwIiB4Mj0iNTgwIiB5Mj0iMTAwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjEyMCIgeDI9IjU4MCIgeTI9IjEyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIxNDAiIHgyPSI1ODAiIHkyPSIxNDAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMTYwIiB4Mj0iNTgwIiB5Mj0iMTYwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjE4MCIgeDI9IjU4MCIgeTI9IjE4MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIyMDAiIHgyPSI1ODAiIHkyPSIyMDAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMjIwIiB4Mj0iNTgwIiB5Mj0iMjIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjI0MCIgeDI9IjU4MCIgeTI9IjI0MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIyNjAiIHgyPSI1ODAiIHkyPSIyNjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMjgwIiB4Mj0iNTgwIiB5Mj0iMjgwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjMwMCIgeDI9IjU4MCIgeTI9IjMwMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIzMjAiIHgyPSI1ODAiIHkyPSIzMjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMzQwIiB4Mj0iNTgwIiB5Mj0iMzQwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjM2MCIgeDI9IjU4MCIgeTI9IjM2MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIzODAiIHgyPSI1ODAiIHkyPSIzODAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iNDAwIiB4Mj0iNTgwIiB5Mj0iNDAwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjQyMCIgeDI9IjU4MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz4KICAgIDxyZWN0IHg9IjQwIiB5PSI4MCIgd2lkdGg9IjUyMCIgaGVpZ2h0PSIzMjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzBmMTcyYSIgc3Ryb2tlLXdpZHRoPSIyLjUiLz4KICAgIDxsaW5lIHgxPSI0MCIgeTE9IjgwIiB4Mj0iMzAwIiB5Mj0iMjQwIiBzdHJva2U9IiNmOTczMTYiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgICA8bGluZSB4MT0iMzAwIiB5MT0iMjQwIiB4Mj0iNTYwIiB5Mj0iODAiIHN0cm9rZT0iI2Y5NzMxNiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICAgIDxsaW5lIHgxPSIzMDAiIHkxPSIyNDAiIHgyPSIzMDAiIHkyPSI0MDAiIHN0cm9rZT0iI2Y5NzMxNiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICAgIDxsaW5lIHgxPSIzMDAiIHkxPSIyNDAiIHgyPSIxMjAiIHkyPSI0MDAiIHN0cm9rZT0iI2Y5NzMxNiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICAgIDxsaW5lIHgxPSIzMDAiIHkxPSIyNDAiIHgyPSI0ODAiIHkyPSI0MDAiIHN0cm9rZT0iI2Y5NzMxNiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICAgIDxjaXJjbGUgY3g9IjMwMCIgY3k9IjI0MCIgcj0iMTQiIGZpbGw9IiNmZmY3ZWQiIHN0cm9rZT0iI2VhNTgwYyIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgICA8dGV4dCB4PSIzMDAiIHk9IjI0NCIgZm9udC1mYW1pbHk9IkludGVyIiBmb250LXNpemU9IjExIiBmaWxsPSIjZWE1ODBjIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7imqE8L3RleHQ+CiAgICA8dGV4dCB4PSIzMDAiIHk9IjI3MCIgZm9udC1mYW1pbHk9IkludGVyIiBmb250LXNpemU9IjkiIGZpbGw9IiM2NDc0OGIiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlRhYmxlYXU8L3RleHQ+CiAgICA8Y2lyY2xlIGN4PSI3MCIgY3k9IjExMCIgcj0iOSIgZmlsbD0iI2ZmZiIgc3Ryb2tlPSIjZWE1ODBjIiBzdHJva2Utd2lkdGg9IjEuNSIvPjx0ZXh0IHg9IjcwIiB5PSIxMTMiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSI5IiBmaWxsPSIjZWE1ODBjIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7il4s8L3RleHQ+PGNpcmNsZSBjeD0iNTMwIiBjeT0iMTEwIiByPSI5IiBmaWxsPSIjZmZmIiBzdHJva2U9IiNlYTU4MGMiIHN0cm9rZS13aWR0aD0iMS41Ii8+PHRleHQgeD0iNTMwIiB5PSIxMTMiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSI5IiBmaWxsPSIjZWE1ODBjIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7il4s8L3RleHQ+PGNpcmNsZSBjeD0iMTIwIiBjeT0iMzgwIiByPSI5IiBmaWxsPSIjZmZmIiBzdHJva2U9IiNlYTU4MGMiIHN0cm9rZS13aWR0aD0iMS41Ii8+PHRleHQgeD0iMTIwIiB5PSIzODMiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSI5IiBmaWxsPSIjZWE1ODBjIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7il4s8L3RleHQ+PGNpcmNsZSBjeD0iNDgwIiBjeT0iMzgwIiByPSI5IiBmaWxsPSIjZmZmIiBzdHJva2U9IiNlYTU4MGMiIHN0cm9rZS13aWR0aD0iMS41Ii8+PHRleHQgeD0iNDgwIiB5PSIzODMiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSI5IiBmaWxsPSIjZWE1ODBjIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7il4s8L3RleHQ+PGNpcmNsZSBjeD0iMzAwIiBjeT0iMzgwIiByPSI5IiBmaWxsPSIjZmZmIiBzdHJva2U9IiNlYTU4MGMiIHN0cm9rZS13aWR0aD0iMS41Ii8+PHRleHQgeD0iMzAwIiB5PSIzODMiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSI5IiBmaWxsPSIjZWE1ODBjIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj7il4s8L3RleHQ+CiAgICA8dGV4dCB4PSIzMDAiIHk9IjQzMCIgZm9udC1mYW1pbHk9IkludGVyIiBmb250LXNpemU9IjEwIiBmaWxsPSIjMGYxNzJhIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj41IHBvaW50cyBsdW1pbmV1eCDCtyBwcmlzZXMgdmVudGlsYXRldXJzIMK3IGRpc2pvbmN0ZXVycyAxNkEvMjBBPC90ZXh0PgogICAgCjwvc3ZnPg==",
+      "tags": [
+        "électricité",
+        "RDC",
+        "sécurité"
+      ],
+      "linkedRoomIds": [
+        "room-da",
+        "room-db",
+        "room-cuisine",
+        "room-sdb",
+        "room-etude"
+      ],
+      "annotations": [
+        {
+          "id": "a3",
+          "type": "text",
+          "x": 40,
+          "y": 40,
+          "content": "Différentiel 30mA obligatoire salle de bain",
+          "color": "#ea580c"
+        }
+      ],
+      "createdAt": "2026-06-04T00:00:00"
+    },
+    {
+      "id": "bp3",
+      "name": "Plan plomberie — Salle de bain",
+      "description": "Alimentation eau froide + évacuation Ø100, pente 2%. WC, lavabo, douche.",
+      "fileType": "image",
+      "fileData": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iNDYwIiB2aWV3Qm94PSIwIDAgNjAwIDQ2MCI+CjxyZWN0IHdpZHRoPSI2MDAiIGhlaWdodD0iNDYwIiBmaWxsPSIjZmZmZmZmIi8+CjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSI2MDAiIGhlaWdodD0iNDYiIGZpbGw9IiMwODkxYjIiLz4KPHRleHQgeD0iMTYiIHk9IjIyIiBmb250LWZhbWlseT0iSW50ZXIsQXJpYWwiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiNmZmYiPlBsYW4gcGxvbWJlcmllIOKAlCBTYWxsZSBkZSBiYWluPC90ZXh0Pgo8dGV4dCB4PSIxNiIgeT0iMzgiIGZvbnQtZmFtaWx5PSJJbnRlcixBcmlhbCIgZm9udC1zaXplPSIxMCIgZmlsbD0iI2UwZTdmZiI+UmVub3ZBcHAgwrcgYWxpbWVudGF0aW9uICYgw6l2YWN1YXRpb248L3RleHQ+CjxyZWN0IHg9IjgiIHk9IjU0IiB3aWR0aD0iNTg0IiBoZWlnaHQ9IjM5OCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZTJlOGYwIiBzdHJva2Utd2lkdGg9IjEiLz4KPGxpbmUgeDE9IjIwIiB5MT0iNjAiIHgyPSIyMCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iNDAiIHkxPSI2MCIgeDI9IjQwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSI2MCIgeTE9IjYwIiB4Mj0iNjAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjgwIiB5MT0iNjAiIHgyPSI4MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMTAwIiB5MT0iNjAiIHgyPSIxMDAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjEyMCIgeTE9IjYwIiB4Mj0iMTIwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIxNDAiIHkxPSI2MCIgeDI9IjE0MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMTYwIiB5MT0iNjAiIHgyPSIxNjAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjE4MCIgeTE9IjYwIiB4Mj0iMTgwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMDAiIHkxPSI2MCIgeDI9IjIwMCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjIwIiB5MT0iNjAiIHgyPSIyMjAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjI0MCIgeTE9IjYwIiB4Mj0iMjQwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyNjAiIHkxPSI2MCIgeDI9IjI2MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjgwIiB5MT0iNjAiIHgyPSIyODAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjMwMCIgeTE9IjYwIiB4Mj0iMzAwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIzMjAiIHkxPSI2MCIgeDI9IjMyMCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMzQwIiB5MT0iNjAiIHgyPSIzNDAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjM2MCIgeTE9IjYwIiB4Mj0iMzYwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIzODAiIHkxPSI2MCIgeDI9IjM4MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iNDAwIiB5MT0iNjAiIHgyPSI0MDAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjQyMCIgeTE9IjYwIiB4Mj0iNDIwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSI0NDAiIHkxPSI2MCIgeDI9IjQ0MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iNDYwIiB5MT0iNjAiIHgyPSI0NjAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjQ4MCIgeTE9IjYwIiB4Mj0iNDgwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSI1MDAiIHkxPSI2MCIgeDI9IjUwMCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iNTIwIiB5MT0iNjAiIHgyPSI1MjAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjU0MCIgeTE9IjYwIiB4Mj0iNTQwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSI1NjAiIHkxPSI2MCIgeDI9IjU2MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iNTgwIiB5MT0iNjAiIHgyPSI1ODAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iNjAiIHgyPSI1ODAiIHkyPSI2MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSI4MCIgeDI9IjU4MCIgeTI9IjgwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjEwMCIgeDI9IjU4MCIgeTI9IjEwMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIxMjAiIHgyPSI1ODAiIHkyPSIxMjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMTQwIiB4Mj0iNTgwIiB5Mj0iMTQwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjE2MCIgeDI9IjU4MCIgeTI9IjE2MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIxODAiIHgyPSI1ODAiIHkyPSIxODAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMjAwIiB4Mj0iNTgwIiB5Mj0iMjAwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjIyMCIgeDI9IjU4MCIgeTI9IjIyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIyNDAiIHgyPSI1ODAiIHkyPSIyNDAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMjYwIiB4Mj0iNTgwIiB5Mj0iMjYwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjI4MCIgeDI9IjU4MCIgeTI9IjI4MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIzMDAiIHgyPSI1ODAiIHkyPSIzMDAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMzIwIiB4Mj0iNTgwIiB5Mj0iMzIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjM0MCIgeDI9IjU4MCIgeTI9IjM0MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIzNjAiIHgyPSI1ODAiIHkyPSIzNjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMzgwIiB4Mj0iNTgwIiB5Mj0iMzgwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjQwMCIgeDI9IjU4MCIgeTI9IjQwMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSI0MjAiIHgyPSI1ODAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+CiAgICA8cmVjdCB4PSI0MCIgeT0iODAiIHdpZHRoPSI1MjAiIGhlaWdodD0iMzIwIiBmaWxsPSIjZWNmZWZmIiBzdHJva2U9IiMwZjE3MmEiIHN0cm9rZS13aWR0aD0iMi41Ii8+CiAgICA8IS0tIHBpcGVzIC0tPgogICAgPHBhdGggZD0iTTQwIDEyMCBINTIwIFYzNjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzA2YjZkNCIgc3Ryb2tlLXdpZHRoPSIzIi8+CiAgICA8cGF0aCBkPSJNNDAgMzgwIEg1MjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzA4OTFiMiIgc3Ryb2tlLXdpZHRoPSIzIiBzdHJva2UtZGFzaGFycmF5PSI2IDQiLz4KICAgIDwhLS0gV0MgLS0+CiAgICA8cmVjdCB4PSI3MCIgeT0iOTUiIHdpZHRoPSI1NSIgaGVpZ2h0PSI4MCIgcng9IjYiIGZpbGw9IiM2N2U4ZjkiIHN0cm9rZT0iIzBmMTcyYSIvPgogICAgPHRleHQgeD0iOTciIHk9IjE0MCIgZm9udC1mYW1pbHk9IkludGVyIiBmb250LXNpemU9IjEwIiBmaWxsPSIjMGYxNzJhIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5XQzwvdGV4dD4KICAgIDwhLS0gbGF2YWJvIC0tPgogICAgPGVsbGlwc2UgY3g9IjEwMCIgY3k9IjMzMCIgcng9IjM0IiByeT0iMjIiIGZpbGw9IiNhNWYzZmMiIHN0cm9rZT0iIzBmMTcyYSIvPgogICAgPHRleHQgeD0iMTAwIiB5PSIzMzQiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSI5IiBmaWxsPSIjMGYxNzJhIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5MYXZhYm88L3RleHQ+CiAgICA8IS0tIGRvdWNoZSAtLT4KICAgIDxyZWN0IHg9IjQyMCIgeT0iOTUiIHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiBmaWxsPSIjY2ZmYWZlIiBzdHJva2U9IiMwZjE3MmEiLz4KICAgIDxjaXJjbGUgY3g9IjQ4MCIgY3k9IjEyMCIgcj0iNiIgZmlsbD0iIzA4OTFiMiIvPgogICAgPHRleHQgeD0iNDgwIiB5PSIxNjAiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSIxMCIgZmlsbD0iIzBmMTcyYSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+RG91Y2hlPC90ZXh0PgogICAgPHRleHQgeD0iMzAwIiB5PSIxMTAiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSI5IiBmaWxsPSIjMDg5MWIyIj7igJQgRWF1IGZyb2lkZTwvdGV4dD4KICAgIDx0ZXh0IHg9IjMwMCIgeT0iMzc1IiBmb250LWZhbWlseT0iSW50ZXIiIGZvbnQtc2l6ZT0iOSIgZmlsbD0iIzA4OTFiMiI+LS0tIMOJdmFjdWF0aW9uIMOYMTAwPC90ZXh0PgogICAgPHRleHQgeD0iMzAwIiB5PSI0MzAiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSIxMCIgZmlsbD0iIzBmMTcyYSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+U2FsbGUgZGUgYmFpbiBmw6ltaW5pbmUgwrcgMyBwb3N0ZXMgwrcgcGVudGUgw6l2YWMuIDIlPC90ZXh0PgogICAgCjwvc3ZnPg==",
+      "thumbnailData": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iNDYwIiB2aWV3Qm94PSIwIDAgNjAwIDQ2MCI+CjxyZWN0IHdpZHRoPSI2MDAiIGhlaWdodD0iNDYwIiBmaWxsPSIjZmZmZmZmIi8+CjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSI2MDAiIGhlaWdodD0iNDYiIGZpbGw9IiMwODkxYjIiLz4KPHRleHQgeD0iMTYiIHk9IjIyIiBmb250LWZhbWlseT0iSW50ZXIsQXJpYWwiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiNmZmYiPlBsYW4gcGxvbWJlcmllIOKAlCBTYWxsZSBkZSBiYWluPC90ZXh0Pgo8dGV4dCB4PSIxNiIgeT0iMzgiIGZvbnQtZmFtaWx5PSJJbnRlcixBcmlhbCIgZm9udC1zaXplPSIxMCIgZmlsbD0iI2UwZTdmZiI+UmVub3ZBcHAgwrcgYWxpbWVudGF0aW9uICYgw6l2YWN1YXRpb248L3RleHQ+CjxyZWN0IHg9IjgiIHk9IjU0IiB3aWR0aD0iNTg0IiBoZWlnaHQ9IjM5OCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZTJlOGYwIiBzdHJva2Utd2lkdGg9IjEiLz4KPGxpbmUgeDE9IjIwIiB5MT0iNjAiIHgyPSIyMCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iNDAiIHkxPSI2MCIgeDI9IjQwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSI2MCIgeTE9IjYwIiB4Mj0iNjAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjgwIiB5MT0iNjAiIHgyPSI4MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMTAwIiB5MT0iNjAiIHgyPSIxMDAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjEyMCIgeTE9IjYwIiB4Mj0iMTIwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIxNDAiIHkxPSI2MCIgeDI9IjE0MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMTYwIiB5MT0iNjAiIHgyPSIxNjAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjE4MCIgeTE9IjYwIiB4Mj0iMTgwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMDAiIHkxPSI2MCIgeDI9IjIwMCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjIwIiB5MT0iNjAiIHgyPSIyMjAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjI0MCIgeTE9IjYwIiB4Mj0iMjQwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyNjAiIHkxPSI2MCIgeDI9IjI2MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjgwIiB5MT0iNjAiIHgyPSIyODAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjMwMCIgeTE9IjYwIiB4Mj0iMzAwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIzMjAiIHkxPSI2MCIgeDI9IjMyMCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMzQwIiB5MT0iNjAiIHgyPSIzNDAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjM2MCIgeTE9IjYwIiB4Mj0iMzYwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIzODAiIHkxPSI2MCIgeDI9IjM4MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iNDAwIiB5MT0iNjAiIHgyPSI0MDAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjQyMCIgeTE9IjYwIiB4Mj0iNDIwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSI0NDAiIHkxPSI2MCIgeDI9IjQ0MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iNDYwIiB5MT0iNjAiIHgyPSI0NjAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjQ4MCIgeTE9IjYwIiB4Mj0iNDgwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSI1MDAiIHkxPSI2MCIgeDI9IjUwMCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iNTIwIiB5MT0iNjAiIHgyPSI1MjAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjU0MCIgeTE9IjYwIiB4Mj0iNTQwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSI1NjAiIHkxPSI2MCIgeDI9IjU2MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iNTgwIiB5MT0iNjAiIHgyPSI1ODAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iNjAiIHgyPSI1ODAiIHkyPSI2MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSI4MCIgeDI9IjU4MCIgeTI9IjgwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjEwMCIgeDI9IjU4MCIgeTI9IjEwMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIxMjAiIHgyPSI1ODAiIHkyPSIxMjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMTQwIiB4Mj0iNTgwIiB5Mj0iMTQwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjE2MCIgeDI9IjU4MCIgeTI9IjE2MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIxODAiIHgyPSI1ODAiIHkyPSIxODAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMjAwIiB4Mj0iNTgwIiB5Mj0iMjAwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjIyMCIgeDI9IjU4MCIgeTI9IjIyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIyNDAiIHgyPSI1ODAiIHkyPSIyNDAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMjYwIiB4Mj0iNTgwIiB5Mj0iMjYwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjI4MCIgeDI9IjU4MCIgeTI9IjI4MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIzMDAiIHgyPSI1ODAiIHkyPSIzMDAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMzIwIiB4Mj0iNTgwIiB5Mj0iMzIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjM0MCIgeDI9IjU4MCIgeTI9IjM0MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIzNjAiIHgyPSI1ODAiIHkyPSIzNjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMzgwIiB4Mj0iNTgwIiB5Mj0iMzgwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjQwMCIgeDI9IjU4MCIgeTI9IjQwMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSI0MjAiIHgyPSI1ODAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+CiAgICA8cmVjdCB4PSI0MCIgeT0iODAiIHdpZHRoPSI1MjAiIGhlaWdodD0iMzIwIiBmaWxsPSIjZWNmZWZmIiBzdHJva2U9IiMwZjE3MmEiIHN0cm9rZS13aWR0aD0iMi41Ii8+CiAgICA8IS0tIHBpcGVzIC0tPgogICAgPHBhdGggZD0iTTQwIDEyMCBINTIwIFYzNjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzA2YjZkNCIgc3Ryb2tlLXdpZHRoPSIzIi8+CiAgICA8cGF0aCBkPSJNNDAgMzgwIEg1MjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzA4OTFiMiIgc3Ryb2tlLXdpZHRoPSIzIiBzdHJva2UtZGFzaGFycmF5PSI2IDQiLz4KICAgIDwhLS0gV0MgLS0+CiAgICA8cmVjdCB4PSI3MCIgeT0iOTUiIHdpZHRoPSI1NSIgaGVpZ2h0PSI4MCIgcng9IjYiIGZpbGw9IiM2N2U4ZjkiIHN0cm9rZT0iIzBmMTcyYSIvPgogICAgPHRleHQgeD0iOTciIHk9IjE0MCIgZm9udC1mYW1pbHk9IkludGVyIiBmb250LXNpemU9IjEwIiBmaWxsPSIjMGYxNzJhIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5XQzwvdGV4dD4KICAgIDwhLS0gbGF2YWJvIC0tPgogICAgPGVsbGlwc2UgY3g9IjEwMCIgY3k9IjMzMCIgcng9IjM0IiByeT0iMjIiIGZpbGw9IiNhNWYzZmMiIHN0cm9rZT0iIzBmMTcyYSIvPgogICAgPHRleHQgeD0iMTAwIiB5PSIzMzQiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSI5IiBmaWxsPSIjMGYxNzJhIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5MYXZhYm88L3RleHQ+CiAgICA8IS0tIGRvdWNoZSAtLT4KICAgIDxyZWN0IHg9IjQyMCIgeT0iOTUiIHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiBmaWxsPSIjY2ZmYWZlIiBzdHJva2U9IiMwZjE3MmEiLz4KICAgIDxjaXJjbGUgY3g9IjQ4MCIgY3k9IjEyMCIgcj0iNiIgZmlsbD0iIzA4OTFiMiIvPgogICAgPHRleHQgeD0iNDgwIiB5PSIxNjAiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSIxMCIgZmlsbD0iIzBmMTcyYSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+RG91Y2hlPC90ZXh0PgogICAgPHRleHQgeD0iMzAwIiB5PSIxMTAiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSI5IiBmaWxsPSIjMDg5MWIyIj7igJQgRWF1IGZyb2lkZTwvdGV4dD4KICAgIDx0ZXh0IHg9IjMwMCIgeT0iMzc1IiBmb250LWZhbWlseT0iSW50ZXIiIGZvbnQtc2l6ZT0iOSIgZmlsbD0iIzA4OTFiMiI+LS0tIMOJdmFjdWF0aW9uIMOYMTAwPC90ZXh0PgogICAgPHRleHQgeD0iMzAwIiB5PSI0MzAiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSIxMCIgZmlsbD0iIzBmMTcyYSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+U2FsbGUgZGUgYmFpbiBmw6ltaW5pbmUgwrcgMyBwb3N0ZXMgwrcgcGVudGUgw6l2YWMuIDIlPC90ZXh0PgogICAgCjwvc3ZnPg==",
+      "tags": [
+        "plomberie",
+        "sanitaire",
+        "salle-de-bain"
+      ],
+      "linkedRoomIds": [
+        "room-sdb",
+        "room-sdb2"
+      ],
+      "annotations": [
+        {
+          "id": "a4",
+          "type": "text",
+          "x": 40,
+          "y": 40,
+          "content": "Vérifier ventilation (VMC) anti-humidité",
+          "color": "#0891b2"
+        }
+      ],
+      "createdAt": "2026-06-04T00:00:00"
+    },
+    {
+      "id": "bp4",
+      "name": "Détail menuiserie — Lit superposé bois",
+      "description": "Ossature bois lamellé, échelle intégrée, charge 250 kg. 90×200, H 165 cm.",
+      "fileType": "image",
+      "fileData": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iNDYwIiB2aWV3Qm94PSIwIDAgNjAwIDQ2MCI+CjxyZWN0IHdpZHRoPSI2MDAiIGhlaWdodD0iNDYwIiBmaWxsPSIjZmZmZmZmIi8+CjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSI2MDAiIGhlaWdodD0iNDYiIGZpbGw9IiNiNDUzMDkiLz4KPHRleHQgeD0iMTYiIHk9IjIyIiBmb250LWZhbWlseT0iSW50ZXIsQXJpYWwiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiNmZmYiPkTDqXRhaWwgbWVudWlzZXJpZSDigJQgTGl0IHN1cGVycG9zw6kgYm9pczwvdGV4dD4KPHRleHQgeD0iMTYiIHk9IjM4IiBmb250LWZhbWlseT0iSW50ZXIsQXJpYWwiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiNlMGU3ZmYiPlJlbm92QXBwIMK3IG9zc2F0dXJlIGJvaXMgbGFtZWxsw6kgwrcgY2hhcmdlIDI1MCBrZzwvdGV4dD4KPHJlY3QgeD0iOCIgeT0iNTQiIHdpZHRoPSI1ODQiIGhlaWdodD0iMzk4IiBmaWxsPSJub25lIiBzdHJva2U9IiNlMmU4ZjAiIHN0cm9rZS13aWR0aD0iMSIvPgoKICAgIDxyZWN0IHg9IjQwIiB5PSI3MCIgd2lkdGg9IjUyMCIgaGVpZ2h0PSIzNjAiIGZpbGw9IiNmZmZiZWIiIHN0cm9rZT0iIzkyNDAwZSIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICAgIDwhLS0gZWxldmF0aW9uIG9mIGJ1bmsgYmVkIC0tPgogICAgPHJlY3QgeD0iMTIwIiB5PSIxMTAiIHdpZHRoPSIyNjAiIGhlaWdodD0iMTQiIGZpbGw9IiNiNDUzMDkiLz4KICAgIDxyZWN0IHg9IjEyMCIgeT0iMjUwIiB3aWR0aD0iMjYwIiBoZWlnaHQ9IjE0IiBmaWxsPSIjYjQ1MzA5Ii8+CiAgICA8cmVjdCB4PSIxMjAiIHk9IjExMCIgd2lkdGg9IjE0IiBoZWlnaHQ9IjI3MCIgZmlsbD0iIzkyNDAwZSIvPgogICAgPHJlY3QgeD0iMzY2IiB5PSIxMTAiIHdpZHRoPSIxNCIgaGVpZ2h0PSIyNzAiIGZpbGw9IiM5MjQwMGUiLz4KICAgIDxyZWN0IHg9IjI0MCIgeT0iMTI0IiB3aWR0aD0iMTQiIGhlaWdodD0iMjcwIiBmaWxsPSIjOTI0MDBlIi8+CiAgICA8IS0tIGxhZGRlciAtLT4KICAgIDxsaW5lIHgxPSI0MDAiIHkxPSIxMjQiIHgyPSI0MDAiIHkyPSIzODAiIHN0cm9rZT0iIzkyNDAwZSIgc3Ryb2tlLXdpZHRoPSI2Ii8+CiAgICA8bGluZSB4MT0iNDMwIiB5MT0iMTI0IiB4Mj0iNDMwIiB5Mj0iMzgwIiBzdHJva2U9IiM5MjQwMGUiIHN0cm9rZS13aWR0aD0iNiIvPgogICAgPGxpbmUgeDE9IjQwMCIgeTE9IjE1MCIgeDI9IjQzMCIgeTI9IjE1MCIgc3Ryb2tlPSIjOTI0MDBlIiBzdHJva2Utd2lkdGg9IjUiLz48bGluZSB4MT0iNDAwIiB5MT0iMTg4IiB4Mj0iNDMwIiB5Mj0iMTg4IiBzdHJva2U9IiM5MjQwMGUiIHN0cm9rZS13aWR0aD0iNSIvPjxsaW5lIHgxPSI0MDAiIHkxPSIyMjYiIHgyPSI0MzAiIHkyPSIyMjYiIHN0cm9rZT0iIzkyNDAwZSIgc3Ryb2tlLXdpZHRoPSI1Ii8+PGxpbmUgeDE9IjQwMCIgeTE9IjI2NCIgeDI9IjQzMCIgeTI9IjI2NCIgc3Ryb2tlPSIjOTI0MDBlIiBzdHJva2Utd2lkdGg9IjUiLz48bGluZSB4MT0iNDAwIiB5MT0iMzAyIiB4Mj0iNDMwIiB5Mj0iMzAyIiBzdHJva2U9IiM5MjQwMGUiIHN0cm9rZS13aWR0aD0iNSIvPjxsaW5lIHgxPSI0MDAiIHkxPSIzNDAiIHgyPSI0MzAiIHkyPSIzNDAiIHN0cm9rZT0iIzkyNDAwZSIgc3Ryb2tlLXdpZHRoPSI1Ii8+PGxpbmUgeDE9IjQwMCIgeTE9IjM3OCIgeDI9IjQzMCIgeTI9IjM3OCIgc3Ryb2tlPSIjOTI0MDBlIiBzdHJva2Utd2lkdGg9IjUiLz4KICAgIDwhLS0gbWF0dHJlc3NlcyAtLT4KICAgIDxyZWN0IHg9IjEzOCIgeT0iOTIiIHdpZHRoPSIyMjgiIGhlaWdodD0iMjAiIHJ4PSI2IiBmaWxsPSIjZTBlN2ZmIiBzdHJva2U9IiM5NGEzYjgiLz4KICAgIDxyZWN0IHg9IjEzOCIgeT0iMjMyIiB3aWR0aD0iMjI4IiBoZWlnaHQ9IjIwIiByeD0iNiIgZmlsbD0iI2UwZTdmZiIgc3Ryb2tlPSIjOTRhM2I4Ii8+CiAgICA8IS0tIGRpbXMgLS0+CiAgICA8dGV4dCB4PSIyNTAiIHk9IjQyMCIgZm9udC1mYW1pbHk9IkludGVyIiBmb250LXNpemU9IjExIiBmaWxsPSIjOTI0MDBlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5MYXJnZXVyIDkwIGNtIMK3IExvbmd1ZXVyIDIwMCBjbSDCtyBIYXV0ZXVyIDE2NSBjbTwvdGV4dD4KICAgIDx0ZXh0IHg9IjQ3MCIgeT0iMjAwIiBmb250LWZhbWlseT0iSW50ZXIiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiM5MjQwMGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHRyYW5zZm9ybT0icm90YXRlKC05MCA0NzAgMjAwKSI+w4ljaGVsbGUgaW50w6lncsOpZTwvdGV4dD4KICAgIDx0ZXh0IHg9IjI1MCIgeT0iOTAiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSI5IiBmaWxsPSIjNjQ3NDhiIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5NYXRlbGFzIG1vdXNzZSA0IHBvPC90ZXh0PgogICAgCjwvc3ZnPg==",
+      "thumbnailData": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iNDYwIiB2aWV3Qm94PSIwIDAgNjAwIDQ2MCI+CjxyZWN0IHdpZHRoPSI2MDAiIGhlaWdodD0iNDYwIiBmaWxsPSIjZmZmZmZmIi8+CjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSI2MDAiIGhlaWdodD0iNDYiIGZpbGw9IiNiNDUzMDkiLz4KPHRleHQgeD0iMTYiIHk9IjIyIiBmb250LWZhbWlseT0iSW50ZXIsQXJpYWwiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiNmZmYiPkTDqXRhaWwgbWVudWlzZXJpZSDigJQgTGl0IHN1cGVycG9zw6kgYm9pczwvdGV4dD4KPHRleHQgeD0iMTYiIHk9IjM4IiBmb250LWZhbWlseT0iSW50ZXIsQXJpYWwiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiNlMGU3ZmYiPlJlbm92QXBwIMK3IG9zc2F0dXJlIGJvaXMgbGFtZWxsw6kgwrcgY2hhcmdlIDI1MCBrZzwvdGV4dD4KPHJlY3QgeD0iOCIgeT0iNTQiIHdpZHRoPSI1ODQiIGhlaWdodD0iMzk4IiBmaWxsPSJub25lIiBzdHJva2U9IiNlMmU4ZjAiIHN0cm9rZS13aWR0aD0iMSIvPgoKICAgIDxyZWN0IHg9IjQwIiB5PSI3MCIgd2lkdGg9IjUyMCIgaGVpZ2h0PSIzNjAiIGZpbGw9IiNmZmZiZWIiIHN0cm9rZT0iIzkyNDAwZSIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICAgIDwhLS0gZWxldmF0aW9uIG9mIGJ1bmsgYmVkIC0tPgogICAgPHJlY3QgeD0iMTIwIiB5PSIxMTAiIHdpZHRoPSIyNjAiIGhlaWdodD0iMTQiIGZpbGw9IiNiNDUzMDkiLz4KICAgIDxyZWN0IHg9IjEyMCIgeT0iMjUwIiB3aWR0aD0iMjYwIiBoZWlnaHQ9IjE0IiBmaWxsPSIjYjQ1MzA5Ii8+CiAgICA8cmVjdCB4PSIxMjAiIHk9IjExMCIgd2lkdGg9IjE0IiBoZWlnaHQ9IjI3MCIgZmlsbD0iIzkyNDAwZSIvPgogICAgPHJlY3QgeD0iMzY2IiB5PSIxMTAiIHdpZHRoPSIxNCIgaGVpZ2h0PSIyNzAiIGZpbGw9IiM5MjQwMGUiLz4KICAgIDxyZWN0IHg9IjI0MCIgeT0iMTI0IiB3aWR0aD0iMTQiIGhlaWdodD0iMjcwIiBmaWxsPSIjOTI0MDBlIi8+CiAgICA8IS0tIGxhZGRlciAtLT4KICAgIDxsaW5lIHgxPSI0MDAiIHkxPSIxMjQiIHgyPSI0MDAiIHkyPSIzODAiIHN0cm9rZT0iIzkyNDAwZSIgc3Ryb2tlLXdpZHRoPSI2Ii8+CiAgICA8bGluZSB4MT0iNDMwIiB5MT0iMTI0IiB4Mj0iNDMwIiB5Mj0iMzgwIiBzdHJva2U9IiM5MjQwMGUiIHN0cm9rZS13aWR0aD0iNiIvPgogICAgPGxpbmUgeDE9IjQwMCIgeTE9IjE1MCIgeDI9IjQzMCIgeTI9IjE1MCIgc3Ryb2tlPSIjOTI0MDBlIiBzdHJva2Utd2lkdGg9IjUiLz48bGluZSB4MT0iNDAwIiB5MT0iMTg4IiB4Mj0iNDMwIiB5Mj0iMTg4IiBzdHJva2U9IiM5MjQwMGUiIHN0cm9rZS13aWR0aD0iNSIvPjxsaW5lIHgxPSI0MDAiIHkxPSIyMjYiIHgyPSI0MzAiIHkyPSIyMjYiIHN0cm9rZT0iIzkyNDAwZSIgc3Ryb2tlLXdpZHRoPSI1Ii8+PGxpbmUgeDE9IjQwMCIgeTE9IjI2NCIgeDI9IjQzMCIgeTI9IjI2NCIgc3Ryb2tlPSIjOTI0MDBlIiBzdHJva2Utd2lkdGg9IjUiLz48bGluZSB4MT0iNDAwIiB5MT0iMzAyIiB4Mj0iNDMwIiB5Mj0iMzAyIiBzdHJva2U9IiM5MjQwMGUiIHN0cm9rZS13aWR0aD0iNSIvPjxsaW5lIHgxPSI0MDAiIHkxPSIzNDAiIHgyPSI0MzAiIHkyPSIzNDAiIHN0cm9rZT0iIzkyNDAwZSIgc3Ryb2tlLXdpZHRoPSI1Ii8+PGxpbmUgeDE9IjQwMCIgeTE9IjM3OCIgeDI9IjQzMCIgeTI9IjM3OCIgc3Ryb2tlPSIjOTI0MDBlIiBzdHJva2Utd2lkdGg9IjUiLz4KICAgIDwhLS0gbWF0dHJlc3NlcyAtLT4KICAgIDxyZWN0IHg9IjEzOCIgeT0iOTIiIHdpZHRoPSIyMjgiIGhlaWdodD0iMjAiIHJ4PSI2IiBmaWxsPSIjZTBlN2ZmIiBzdHJva2U9IiM5NGEzYjgiLz4KICAgIDxyZWN0IHg9IjEzOCIgeT0iMjMyIiB3aWR0aD0iMjI4IiBoZWlnaHQ9IjIwIiByeD0iNiIgZmlsbD0iI2UwZTdmZiIgc3Ryb2tlPSIjOTRhM2I4Ii8+CiAgICA8IS0tIGRpbXMgLS0+CiAgICA8dGV4dCB4PSIyNTAiIHk9IjQyMCIgZm9udC1mYW1pbHk9IkludGVyIiBmb250LXNpemU9IjExIiBmaWxsPSIjOTI0MDBlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5MYXJnZXVyIDkwIGNtIMK3IExvbmd1ZXVyIDIwMCBjbSDCtyBIYXV0ZXVyIDE2NSBjbTwvdGV4dD4KICAgIDx0ZXh0IHg9IjQ3MCIgeT0iMjAwIiBmb250LWZhbWlseT0iSW50ZXIiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiM5MjQwMGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIHRyYW5zZm9ybT0icm90YXRlKC05MCA0NzAgMjAwKSI+w4ljaGVsbGUgaW50w6lncsOpZTwvdGV4dD4KICAgIDx0ZXh0IHg9IjI1MCIgeT0iOTAiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSI5IiBmaWxsPSIjNjQ3NDhiIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5NYXRlbGFzIG1vdXNzZSA0IHBvPC90ZXh0PgogICAgCjwvc3ZnPg==",
+      "tags": [
+        "menuiserie",
+        "lit-superposé",
+        "bois"
+      ],
+      "linkedRoomIds": [
+        "room-da",
+        "room-db",
+        "room-dc",
+        "room-dd"
+      ],
+      "annotations": [
+        {
+          "id": "a5",
+          "type": "text",
+          "x": 40,
+          "y": 40,
+          "content": "Barrière de sécurité lit du haut",
+          "color": "#b45309"
+        }
+      ],
+      "createdAt": "2026-06-04T00:00:00"
+    },
+    {
+      "id": "bp5",
+      "name": "Plan de masse — Bâtiment",
+      "description": "Implantation générale du rez-de-chaussée, ~95 m² bâtis, accès rue au sud.",
+      "fileType": "image",
+      "fileData": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iNDYwIiB2aWV3Qm94PSIwIDAgNjAwIDQ2MCI+CjxyZWN0IHdpZHRoPSI2MDAiIGhlaWdodD0iNDYwIiBmaWxsPSIjZmZmZmZmIi8+CjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSI2MDAiIGhlaWdodD0iNDYiIGZpbGw9IiM0ZjQ2ZTUiLz4KPHRleHQgeD0iMTYiIHk9IjIyIiBmb250LWZhbWlseT0iSW50ZXIsQXJpYWwiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiNmZmYiPlBsYW4gZGUgbWFzc2Ug4oCUIELDonRpbWVudDwvdGV4dD4KPHRleHQgeD0iMTYiIHk9IjM4IiBmb250LWZhbWlseT0iSW50ZXIsQXJpYWwiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiNlMGU3ZmYiPlJlbm92QXBwIMK3IGltcGxhbnRhdGlvbiBnw6luw6lyYWxlPC90ZXh0Pgo8cmVjdCB4PSI4IiB5PSI1NCIgd2lkdGg9IjU4NCIgaGVpZ2h0PSIzOTgiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2UyZThmMCIgc3Ryb2tlLXdpZHRoPSIxIi8+CjxsaW5lIHgxPSIyMCIgeTE9IjYwIiB4Mj0iMjAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjQwIiB5MT0iNjAiIHgyPSI0MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iNjAiIHkxPSI2MCIgeDI9IjYwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSI4MCIgeTE9IjYwIiB4Mj0iODAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjEwMCIgeTE9IjYwIiB4Mj0iMTAwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIxMjAiIHkxPSI2MCIgeDI9IjEyMCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMTQwIiB5MT0iNjAiIHgyPSIxNDAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjE2MCIgeTE9IjYwIiB4Mj0iMTYwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIxODAiIHkxPSI2MCIgeDI9IjE4MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAwIiB5MT0iNjAiIHgyPSIyMDAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIyMCIgeTE9IjYwIiB4Mj0iMjIwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyNDAiIHkxPSI2MCIgeDI9IjI0MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjYwIiB5MT0iNjAiIHgyPSIyNjAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjI4MCIgeTE9IjYwIiB4Mj0iMjgwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIzMDAiIHkxPSI2MCIgeDI9IjMwMCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMzIwIiB5MT0iNjAiIHgyPSIzMjAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjM0MCIgeTE9IjYwIiB4Mj0iMzQwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIzNjAiIHkxPSI2MCIgeDI9IjM2MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMzgwIiB5MT0iNjAiIHgyPSIzODAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjQwMCIgeTE9IjYwIiB4Mj0iNDAwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSI0MjAiIHkxPSI2MCIgeDI9IjQyMCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iNDQwIiB5MT0iNjAiIHgyPSI0NDAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjQ2MCIgeTE9IjYwIiB4Mj0iNDYwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSI0ODAiIHkxPSI2MCIgeDI9IjQ4MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iNTAwIiB5MT0iNjAiIHgyPSI1MDAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjUyMCIgeTE9IjYwIiB4Mj0iNTIwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSI1NDAiIHkxPSI2MCIgeDI9IjU0MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iNTYwIiB5MT0iNjAiIHgyPSI1NjAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjU4MCIgeTE9IjYwIiB4Mj0iNTgwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjYwIiB4Mj0iNTgwIiB5Mj0iNjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iODAiIHgyPSI1ODAiIHkyPSI4MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIxMDAiIHgyPSI1ODAiIHkyPSIxMDAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMTIwIiB4Mj0iNTgwIiB5Mj0iMTIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjE0MCIgeDI9IjU4MCIgeTI9IjE0MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIxNjAiIHgyPSI1ODAiIHkyPSIxNjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMTgwIiB4Mj0iNTgwIiB5Mj0iMTgwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjIwMCIgeDI9IjU4MCIgeTI9IjIwMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIyMjAiIHgyPSI1ODAiIHkyPSIyMjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMjQwIiB4Mj0iNTgwIiB5Mj0iMjQwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjI2MCIgeDI9IjU4MCIgeTI9IjI2MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIyODAiIHgyPSI1ODAiIHkyPSIyODAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMzAwIiB4Mj0iNTgwIiB5Mj0iMzAwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjMyMCIgeDI9IjU4MCIgeTI9IjMyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIzNDAiIHgyPSI1ODAiIHkyPSIzNDAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMzYwIiB4Mj0iNTgwIiB5Mj0iMzYwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjM4MCIgeDI9IjU4MCIgeTI9IjM4MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSI0MDAiIHgyPSI1ODAiIHkyPSI0MDAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iNDIwIiB4Mj0iNTgwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPgogICAgPHJlY3QgeD0iNjAiIHk9IjkwIiB3aWR0aD0iMjQwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iI2VlZjJmZiIgc3Ryb2tlPSIjMGYxNzJhIiBzdHJva2Utd2lkdGg9IjIuNSIvPgogICAgPHJlY3QgeD0iMzIwIiB5PSI5MCIgd2lkdGg9IjIyMCIgaGVpZ2h0PSIxNDAiIGZpbGw9IiNlY2ZlZmYiIHN0cm9rZT0iIzBmMTcyYSIgc3Ryb2tlLXdpZHRoPSIyLjUiLz4KICAgIDxyZWN0IHg9IjMyMCIgeT0iMjUwIiB3aWR0aD0iMjIwIiBoZWlnaHQ9IjE0MCIgZmlsbD0iI2ZlZjNjNyIgc3Ryb2tlPSIjMGYxNzJhIiBzdHJva2Utd2lkdGg9IjIuNSIvPgogICAgPHRleHQgeD0iMTgwIiB5PSIyNDUiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzBmMTcyYSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC13ZWlnaHQ9IjcwMCI+RG9ydG9pcnMgQSAmIEI8L3RleHQ+CiAgICA8dGV4dCB4PSI0MzAiIHk9IjE2NSIgZm9udC1mYW1pbHk9IkludGVyIiBmb250LXNpemU9IjExIiBmaWxsPSIjMGYxNzJhIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5TYW5pdGFpcmVzPC90ZXh0PgogICAgPHRleHQgeD0iNDMwIiB5PSIzMjUiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSIxMSIgZmlsbD0iIzBmMTcyYSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+Q3Vpc2luZSAvIMOJdHVkZTwvdGV4dD4KICAgIDxsaW5lIHgxPSI2MCIgeTE9IjQwMCIgeDI9IjU0MCIgeTI9IjQwMCIgc3Ryb2tlPSIjMGYxNzJhIiBzdHJva2Utd2lkdGg9IjMiLz4KICAgIDx0ZXh0IHg9IjMwMCIgeT0iNDI0IiBmb250LWZhbWlseT0iSW50ZXIiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiM2NDc0OGIiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlJlei1kZS1jaGF1c3PDqWUgwrcgc3VyZmFjZSBiw6J0aWUg4omIIDk1IG3CsiDCtyBhY2PDqHMgcnVlIGF1IHN1ZDwvdGV4dD4KICAgIAo8L3N2Zz4=",
+      "thumbnailData": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iNDYwIiB2aWV3Qm94PSIwIDAgNjAwIDQ2MCI+CjxyZWN0IHdpZHRoPSI2MDAiIGhlaWdodD0iNDYwIiBmaWxsPSIjZmZmZmZmIi8+CjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSI2MDAiIGhlaWdodD0iNDYiIGZpbGw9IiM0ZjQ2ZTUiLz4KPHRleHQgeD0iMTYiIHk9IjIyIiBmb250LWZhbWlseT0iSW50ZXIsQXJpYWwiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiNmZmYiPlBsYW4gZGUgbWFzc2Ug4oCUIELDonRpbWVudDwvdGV4dD4KPHRleHQgeD0iMTYiIHk9IjM4IiBmb250LWZhbWlseT0iSW50ZXIsQXJpYWwiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiNlMGU3ZmYiPlJlbm92QXBwIMK3IGltcGxhbnRhdGlvbiBnw6luw6lyYWxlPC90ZXh0Pgo8cmVjdCB4PSI4IiB5PSI1NCIgd2lkdGg9IjU4NCIgaGVpZ2h0PSIzOTgiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2UyZThmMCIgc3Ryb2tlLXdpZHRoPSIxIi8+CjxsaW5lIHgxPSIyMCIgeTE9IjYwIiB4Mj0iMjAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjQwIiB5MT0iNjAiIHgyPSI0MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iNjAiIHkxPSI2MCIgeDI9IjYwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSI4MCIgeTE9IjYwIiB4Mj0iODAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjEwMCIgeTE9IjYwIiB4Mj0iMTAwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIxMjAiIHkxPSI2MCIgeDI9IjEyMCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMTQwIiB5MT0iNjAiIHgyPSIxNDAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjE2MCIgeTE9IjYwIiB4Mj0iMTYwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIxODAiIHkxPSI2MCIgeDI9IjE4MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAwIiB5MT0iNjAiIHgyPSIyMDAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIyMCIgeTE9IjYwIiB4Mj0iMjIwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyNDAiIHkxPSI2MCIgeDI9IjI0MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjYwIiB5MT0iNjAiIHgyPSIyNjAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjI4MCIgeTE9IjYwIiB4Mj0iMjgwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIzMDAiIHkxPSI2MCIgeDI9IjMwMCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMzIwIiB5MT0iNjAiIHgyPSIzMjAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjM0MCIgeTE9IjYwIiB4Mj0iMzQwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIzNjAiIHkxPSI2MCIgeDI9IjM2MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMzgwIiB5MT0iNjAiIHgyPSIzODAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjQwMCIgeTE9IjYwIiB4Mj0iNDAwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSI0MjAiIHkxPSI2MCIgeDI9IjQyMCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iNDQwIiB5MT0iNjAiIHgyPSI0NDAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjQ2MCIgeTE9IjYwIiB4Mj0iNDYwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSI0ODAiIHkxPSI2MCIgeDI9IjQ4MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iNTAwIiB5MT0iNjAiIHgyPSI1MDAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjUyMCIgeTE9IjYwIiB4Mj0iNTIwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSI1NDAiIHkxPSI2MCIgeDI9IjU0MCIgeTI9IjQyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iNTYwIiB5MT0iNjAiIHgyPSI1NjAiIHkyPSI0MjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjU4MCIgeTE9IjYwIiB4Mj0iNTgwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjYwIiB4Mj0iNTgwIiB5Mj0iNjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iODAiIHgyPSI1ODAiIHkyPSI4MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIxMDAiIHgyPSI1ODAiIHkyPSIxMDAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMTIwIiB4Mj0iNTgwIiB5Mj0iMTIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjE0MCIgeDI9IjU4MCIgeTI9IjE0MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIxNjAiIHgyPSI1ODAiIHkyPSIxNjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMTgwIiB4Mj0iNTgwIiB5Mj0iMTgwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjIwMCIgeDI9IjU4MCIgeTI9IjIwMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIyMjAiIHgyPSI1ODAiIHkyPSIyMjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMjQwIiB4Mj0iNTgwIiB5Mj0iMjQwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjI2MCIgeDI9IjU4MCIgeTI9IjI2MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIyODAiIHgyPSI1ODAiIHkyPSIyODAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMzAwIiB4Mj0iNTgwIiB5Mj0iMzAwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjMyMCIgeDI9IjU4MCIgeTI9IjMyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIzNDAiIHgyPSI1ODAiIHkyPSIzNDAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMzYwIiB4Mj0iNTgwIiB5Mj0iMzYwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjM4MCIgeDI9IjU4MCIgeTI9IjM4MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSI0MDAiIHgyPSI1ODAiIHkyPSI0MDAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iNDIwIiB4Mj0iNTgwIiB5Mj0iNDIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPgogICAgPHJlY3QgeD0iNjAiIHk9IjkwIiB3aWR0aD0iMjQwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iI2VlZjJmZiIgc3Ryb2tlPSIjMGYxNzJhIiBzdHJva2Utd2lkdGg9IjIuNSIvPgogICAgPHJlY3QgeD0iMzIwIiB5PSI5MCIgd2lkdGg9IjIyMCIgaGVpZ2h0PSIxNDAiIGZpbGw9IiNlY2ZlZmYiIHN0cm9rZT0iIzBmMTcyYSIgc3Ryb2tlLXdpZHRoPSIyLjUiLz4KICAgIDxyZWN0IHg9IjMyMCIgeT0iMjUwIiB3aWR0aD0iMjIwIiBoZWlnaHQ9IjE0MCIgZmlsbD0iI2ZlZjNjNyIgc3Ryb2tlPSIjMGYxNzJhIiBzdHJva2Utd2lkdGg9IjIuNSIvPgogICAgPHRleHQgeD0iMTgwIiB5PSIyNDUiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzBmMTcyYSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC13ZWlnaHQ9IjcwMCI+RG9ydG9pcnMgQSAmIEI8L3RleHQ+CiAgICA8dGV4dCB4PSI0MzAiIHk9IjE2NSIgZm9udC1mYW1pbHk9IkludGVyIiBmb250LXNpemU9IjExIiBmaWxsPSIjMGYxNzJhIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5TYW5pdGFpcmVzPC90ZXh0PgogICAgPHRleHQgeD0iNDMwIiB5PSIzMjUiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSIxMSIgZmlsbD0iIzBmMTcyYSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+Q3Vpc2luZSAvIMOJdHVkZTwvdGV4dD4KICAgIDxsaW5lIHgxPSI2MCIgeTE9IjQwMCIgeDI9IjU0MCIgeTI9IjQwMCIgc3Ryb2tlPSIjMGYxNzJhIiBzdHJva2Utd2lkdGg9IjMiLz4KICAgIDx0ZXh0IHg9IjMwMCIgeT0iNDI0IiBmb250LWZhbWlseT0iSW50ZXIiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiM2NDc0OGIiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlJlei1kZS1jaGF1c3PDqWUgwrcgc3VyZmFjZSBiw6J0aWUg4omIIDk1IG3CsiDCtyBhY2PDqHMgcnVlIGF1IHN1ZDwvdGV4dD4KICAgIAo8L3N2Zz4=",
+      "tags": [
+        "plan-de-masse",
+        "structure"
+      ],
+      "linkedRoomIds": [],
+      "annotations": [],
+      "createdAt": "2026-06-04T00:00:00"
+    }
+  ],
+  "inspiration": {
+    "images": [
+      {
+        "id": "img1",
+        "fileData": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NDAiIGhlaWdodD0iNDQwIiB2aWV3Qm94PSIwIDAgNjQwIDQ0MCI+CjxyZWN0IHdpZHRoPSI2NDAiIGhlaWdodD0iNDQwIiBmaWxsPSIjZmZmZmZmIi8+CjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSI2NDAiIGhlaWdodD0iNDYiIGZpbGw9IiNiNDUzMDkiLz4KPHRleHQgeD0iMTYiIHk9IjIyIiBmb250LWZhbWlseT0iSW50ZXIsQXJpYWwiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiNmZmYiPkluc3BpcmF0aW9uIMK3IExpdCBzdXBlcnBvc8OpIMOpdHVkaWFudDwvdGV4dD4KPHRleHQgeD0iMTYiIHk9IjM4IiBmb250LWZhbWlseT0iSW50ZXIsQXJpYWwiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiNlMGU3ZmYiPkJvaXMgbWFzc2lmIMK3IGVyZ29ub21pcXVlIMK3IMOpY29ub21pcXVlPC90ZXh0Pgo8cmVjdCB4PSI4IiB5PSI1NCIgd2lkdGg9IjYyNCIgaGVpZ2h0PSIzNzgiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2UyZThmMCIgc3Ryb2tlLXdpZHRoPSIxIi8+CgogICAgPHJlY3QgeD0iNDAiIHk9IjcwIiB3aWR0aD0iMzAwIiBoZWlnaHQ9IjMzMCIgcng9IjEwIiBmaWxsPSIjZmRlNjhhIiBvcGFjaXR5PSIwLjI1Ii8+CiAgICA8cmVjdCB4PSI3MCIgeT0iMTEwIiB3aWR0aD0iMjQwIiBoZWlnaHQ9IjE4IiBmaWxsPSIjYjQ1MzA5Ii8+CiAgICA8cmVjdCB4PSI3MCIgeT0iMjUwIiB3aWR0aD0iMjQwIiBoZWlnaHQ9IjE4IiBmaWxsPSIjYjQ1MzA5Ii8+CiAgICA8cmVjdCB4PSI3MCIgeT0iMTEwIiB3aWR0aD0iMTYiIGhlaWdodD0iMjcwIiBmaWxsPSIjOTI0MDBlIi8+CiAgICA8cmVjdCB4PSIyOTQiIHk9IjExMCIgd2lkdGg9IjE2IiBoZWlnaHQ9IjI3MCIgZmlsbD0iIzkyNDAwZSIvPgogICAgPHJlY3QgeD0iODYiIHk9IjkyIiB3aWR0aD0iMjA4IiBoZWlnaHQ9IjIwIiByeD0iNiIgZmlsbD0iI2JmZGJmZSIvPgogICAgPHJlY3QgeD0iODYiIHk9IjIzMiIgd2lkdGg9IjIwOCIgaGVpZ2h0PSIyMCIgcng9IjYiIGZpbGw9IiNiZmRiZmUiLz4KICAgIDxsaW5lIHgxPSIzMjAiIHkxPSIxNTAiIHgyPSIzNTAiIHkyPSIxNTAiIHN0cm9rZT0iIzkyNDAwZSIgc3Ryb2tlLXdpZHRoPSI1Ii8+PGxpbmUgeDE9IjMyMCIgeTE9IjE5MCIgeDI9IjM1MCIgeTI9IjE5MCIgc3Ryb2tlPSIjOTI0MDBlIiBzdHJva2Utd2lkdGg9IjUiLz48bGluZSB4MT0iMzIwIiB5MT0iMjMwIiB4Mj0iMzUwIiB5Mj0iMjMwIiBzdHJva2U9IiM5MjQwMGUiIHN0cm9rZS13aWR0aD0iNSIvPjxsaW5lIHgxPSIzMjAiIHkxPSIyNzAiIHgyPSIzNTAiIHkyPSIyNzAiIHN0cm9rZT0iIzkyNDAwZSIgc3Ryb2tlLXdpZHRoPSI1Ii8+PGxpbmUgeDE9IjMyMCIgeTE9IjMxMCIgeDI9IjM1MCIgeTI9IjMxMCIgc3Ryb2tlPSIjOTI0MDBlIiBzdHJva2Utd2lkdGg9IjUiLz48bGluZSB4MT0iMzIwIiB5MT0iMzUwIiB4Mj0iMzUwIiB5Mj0iMzUwIiBzdHJva2U9IiM5MjQwMGUiIHN0cm9rZS13aWR0aD0iNSIvPgogICAgPGxpbmUgeDE9IjMyMCIgeTE9IjEyMCIgeDI9IjMyMCIgeTI9IjM4MCIgc3Ryb2tlPSIjOTI0MDBlIiBzdHJva2Utd2lkdGg9IjYiLz4KICAgIDxsaW5lIHgxPSIzNTAiIHkxPSIxMjAiIHgyPSIzNTAiIHkyPSIzODAiIHN0cm9rZT0iIzkyNDAwZSIgc3Ryb2tlLXdpZHRoPSI2Ii8+CiAgICA8dGV4dCB4PSIzODAiIHk9IjEyMCIgZm9udC1mYW1pbHk9IkludGVyIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSIjMGYxNzJhIj5MaXQgc3VwZXJwb3PDqSBib2lzPC90ZXh0PgogICAgPHRleHQgeD0iMzgwIiB5PSIxNDYiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzY0NzQ4YiI+U29saWRlLCBkb3J0b2lyLCBjaGFyZ2UgMjUwIGtnPC90ZXh0PgogICAgPHRleHQgeD0iMzgwIiB5PSIxODAiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSIyMiIgZm9udC13ZWlnaHQ9IjcwMCIgZmlsbD0iIzE2YTM0YSI+4omIIOKCsTkgNTAwPC90ZXh0PgogICAgPHRleHQgeD0iMzgwIiB5PSIyMDYiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSIxMSIgZmlsbD0iIzY0NzQ4YiI+MiBjb3VjaGFnZXMgwrcgZ2FpbiBkZSBwbGFjZTwvdGV4dD4KICAgIDx0ZXh0IHg9IjM4MCIgeT0iMjUwIiBmb250LWZhbWlseT0iSW50ZXIiIGZvbnQtc2l6ZT0iMTEiIGZpbGw9IiM0ZjQ2ZTUiPkxhemFkYSDCtyBXb29kZW4gQmVkIERvdWJsZSBEZWNrPC90ZXh0PgogICAgCjwvc3ZnPg==",
+        "thumbnailData": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NDAiIGhlaWdodD0iNDQwIiB2aWV3Qm94PSIwIDAgNjQwIDQ0MCI+CjxyZWN0IHdpZHRoPSI2NDAiIGhlaWdodD0iNDQwIiBmaWxsPSIjZmZmZmZmIi8+CjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSI2NDAiIGhlaWdodD0iNDYiIGZpbGw9IiNiNDUzMDkiLz4KPHRleHQgeD0iMTYiIHk9IjIyIiBmb250LWZhbWlseT0iSW50ZXIsQXJpYWwiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiNmZmYiPkluc3BpcmF0aW9uIMK3IExpdCBzdXBlcnBvc8OpIMOpdHVkaWFudDwvdGV4dD4KPHRleHQgeD0iMTYiIHk9IjM4IiBmb250LWZhbWlseT0iSW50ZXIsQXJpYWwiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiNlMGU3ZmYiPkJvaXMgbWFzc2lmIMK3IGVyZ29ub21pcXVlIMK3IMOpY29ub21pcXVlPC90ZXh0Pgo8cmVjdCB4PSI4IiB5PSI1NCIgd2lkdGg9IjYyNCIgaGVpZ2h0PSIzNzgiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2UyZThmMCIgc3Ryb2tlLXdpZHRoPSIxIi8+CgogICAgPHJlY3QgeD0iNDAiIHk9IjcwIiB3aWR0aD0iMzAwIiBoZWlnaHQ9IjMzMCIgcng9IjEwIiBmaWxsPSIjZmRlNjhhIiBvcGFjaXR5PSIwLjI1Ii8+CiAgICA8cmVjdCB4PSI3MCIgeT0iMTEwIiB3aWR0aD0iMjQwIiBoZWlnaHQ9IjE4IiBmaWxsPSIjYjQ1MzA5Ii8+CiAgICA8cmVjdCB4PSI3MCIgeT0iMjUwIiB3aWR0aD0iMjQwIiBoZWlnaHQ9IjE4IiBmaWxsPSIjYjQ1MzA5Ii8+CiAgICA8cmVjdCB4PSI3MCIgeT0iMTEwIiB3aWR0aD0iMTYiIGhlaWdodD0iMjcwIiBmaWxsPSIjOTI0MDBlIi8+CiAgICA8cmVjdCB4PSIyOTQiIHk9IjExMCIgd2lkdGg9IjE2IiBoZWlnaHQ9IjI3MCIgZmlsbD0iIzkyNDAwZSIvPgogICAgPHJlY3QgeD0iODYiIHk9IjkyIiB3aWR0aD0iMjA4IiBoZWlnaHQ9IjIwIiByeD0iNiIgZmlsbD0iI2JmZGJmZSIvPgogICAgPHJlY3QgeD0iODYiIHk9IjIzMiIgd2lkdGg9IjIwOCIgaGVpZ2h0PSIyMCIgcng9IjYiIGZpbGw9IiNiZmRiZmUiLz4KICAgIDxsaW5lIHgxPSIzMjAiIHkxPSIxNTAiIHgyPSIzNTAiIHkyPSIxNTAiIHN0cm9rZT0iIzkyNDAwZSIgc3Ryb2tlLXdpZHRoPSI1Ii8+PGxpbmUgeDE9IjMyMCIgeTE9IjE5MCIgeDI9IjM1MCIgeTI9IjE5MCIgc3Ryb2tlPSIjOTI0MDBlIiBzdHJva2Utd2lkdGg9IjUiLz48bGluZSB4MT0iMzIwIiB5MT0iMjMwIiB4Mj0iMzUwIiB5Mj0iMjMwIiBzdHJva2U9IiM5MjQwMGUiIHN0cm9rZS13aWR0aD0iNSIvPjxsaW5lIHgxPSIzMjAiIHkxPSIyNzAiIHgyPSIzNTAiIHkyPSIyNzAiIHN0cm9rZT0iIzkyNDAwZSIgc3Ryb2tlLXdpZHRoPSI1Ii8+PGxpbmUgeDE9IjMyMCIgeTE9IjMxMCIgeDI9IjM1MCIgeTI9IjMxMCIgc3Ryb2tlPSIjOTI0MDBlIiBzdHJva2Utd2lkdGg9IjUiLz48bGluZSB4MT0iMzIwIiB5MT0iMzUwIiB4Mj0iMzUwIiB5Mj0iMzUwIiBzdHJva2U9IiM5MjQwMGUiIHN0cm9rZS13aWR0aD0iNSIvPgogICAgPGxpbmUgeDE9IjMyMCIgeTE9IjEyMCIgeDI9IjMyMCIgeTI9IjM4MCIgc3Ryb2tlPSIjOTI0MDBlIiBzdHJva2Utd2lkdGg9IjYiLz4KICAgIDxsaW5lIHgxPSIzNTAiIHkxPSIxMjAiIHgyPSIzNTAiIHkyPSIzODAiIHN0cm9rZT0iIzkyNDAwZSIgc3Ryb2tlLXdpZHRoPSI2Ii8+CiAgICA8dGV4dCB4PSIzODAiIHk9IjEyMCIgZm9udC1mYW1pbHk9IkludGVyIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSIjMGYxNzJhIj5MaXQgc3VwZXJwb3PDqSBib2lzPC90ZXh0PgogICAgPHRleHQgeD0iMzgwIiB5PSIxNDYiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzY0NzQ4YiI+U29saWRlLCBkb3J0b2lyLCBjaGFyZ2UgMjUwIGtnPC90ZXh0PgogICAgPHRleHQgeD0iMzgwIiB5PSIxODAiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSIyMiIgZm9udC13ZWlnaHQ9IjcwMCIgZmlsbD0iIzE2YTM0YSI+4omIIOKCsTkgNTAwPC90ZXh0PgogICAgPHRleHQgeD0iMzgwIiB5PSIyMDYiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSIxMSIgZmlsbD0iIzY0NzQ4YiI+MiBjb3VjaGFnZXMgwrcgZ2FpbiBkZSBwbGFjZTwvdGV4dD4KICAgIDx0ZXh0IHg9IjM4MCIgeT0iMjUwIiBmb250LWZhbWlseT0iSW50ZXIiIGZvbnQtc2l6ZT0iMTEiIGZpbGw9IiM0ZjQ2ZTUiPkxhemFkYSDCtyBXb29kZW4gQmVkIERvdWJsZSBEZWNrPC90ZXh0PgogICAgCjwvc3ZnPg==",
+        "tags": [
+          "lit-superposé",
+          "bois",
+          "dortoir",
+          "économique"
+        ],
+        "linkedRoomIds": [
+          "room-da",
+          "room-db",
+          "room-dc",
+          "room-dd"
+        ],
+        "note": "Lit superposé en bois massif, idéal dortoir. ~₱9 500 pièce. Robuste, gain de place pour 4 étudiantes par chambre.",
+        "source": "https://www.lazada.com.ph/tag/wooden-bed-double-deck/",
+        "createdAt": "2026-06-04T00:00:00"
+      },
+      {
+        "id": "img2",
+        "fileData": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NDAiIGhlaWdodD0iNDQwIiB2aWV3Qm94PSIwIDAgNjQwIDQ0MCI+CjxyZWN0IHdpZHRoPSI2NDAiIGhlaWdodD0iNDQwIiBmaWxsPSIjZmZmZmZmIi8+CjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSI2NDAiIGhlaWdodD0iNDYiIGZpbGw9IiM4YjVjZjYiLz4KPHRleHQgeD0iMTYiIHk9IjIyIiBmb250LWZhbWlseT0iSW50ZXIsQXJpYWwiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiNmZmYiPkluc3BpcmF0aW9uIMK3IFJhbmdlbWVudCBpbmRpdmlkdWVsPC90ZXh0Pgo8dGV4dCB4PSIxNiIgeT0iMzgiIGZvbnQtZmFtaWx5PSJJbnRlcixBcmlhbCIgZm9udC1zaXplPSIxMCIgZmlsbD0iI2UwZTdmZiI+U8OpY3VyaXTDqSAmIGludGltaXTDqSBwb3VyIGNoYXF1ZSDDqXR1ZGlhbnRlPC90ZXh0Pgo8cmVjdCB4PSI4IiB5PSI1NCIgd2lkdGg9IjYyNCIgaGVpZ2h0PSIzNzgiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2UyZThmMCIgc3Ryb2tlLXdpZHRoPSIxIi8+CjxyZWN0IHg9IjcwIiB5PSIxMTAiIHdpZHRoPSI1MiIgaGVpZ2h0PSIyNjAiIHJ4PSI0IiBmaWxsPSIjYTc4YmZhIiBzdHJva2U9IiMwZjE3MmEiLz48Y2lyY2xlIGN4PSIxMTAiIGN5PSIxODAiIHI9IjMiIGZpbGw9IiMwZjE3MmEiLz48cmVjdCB4PSIxMzAiIHk9IjExMCIgd2lkdGg9IjUyIiBoZWlnaHQ9IjI2MCIgcng9IjQiIGZpbGw9IiNhNzhiZmEiIHN0cm9rZT0iIzBmMTcyYSIvPjxjaXJjbGUgY3g9IjE3MCIgY3k9IjE4MCIgcj0iMyIgZmlsbD0iIzBmMTcyYSIvPjxyZWN0IHg9IjE5MCIgeT0iMTEwIiB3aWR0aD0iNTIiIGhlaWdodD0iMjYwIiByeD0iNCIgZmlsbD0iI2E3OGJmYSIgc3Ryb2tlPSIjMGYxNzJhIi8+PGNpcmNsZSBjeD0iMjMwIiBjeT0iMTgwIiByPSIzIiBmaWxsPSIjMGYxNzJhIi8+PHJlY3QgeD0iMjUwIiB5PSIxMTAiIHdpZHRoPSI1MiIgaGVpZ2h0PSIyNjAiIHJ4PSI0IiBmaWxsPSIjYTc4YmZhIiBzdHJva2U9IiMwZjE3MmEiLz48Y2lyY2xlIGN4PSIyOTAiIGN5PSIxODAiIHI9IjMiIGZpbGw9IiMwZjE3MmEiLz4KICAgIDx0ZXh0IHg9IjM0MCIgeT0iMTIwIiBmb250LWZhbWlseT0iSW50ZXIiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiMwZjE3MmEiPkNhc2llcnMgLyBsb2NrZXJzIGJvaXM8L3RleHQ+CiAgICA8dGV4dCB4PSIzNDAiIHk9IjE0NiIgZm9udC1mYW1pbHk9IkludGVyIiBmb250LXNpemU9IjEyIiBmaWxsPSIjNjQ3NDhiIj4xIHBhciDDqXR1ZGlhbnRlIMK3IHNlcnJ1cmUgw6AgY2zDqTwvdGV4dD4KICAgIDx0ZXh0IHg9IjM0MCIgeT0iMTgwIiBmb250LWZhbWlseT0iSW50ZXIiIGZvbnQtc2l6ZT0iMjIiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiMxNmEzNGEiPuKJiCDigrEyIDgwMDwvdGV4dD4KICAgIDx0ZXh0IHg9IjM0MCIgeT0iMjE0IiBmb250LWZhbWlseT0iSW50ZXIiIGZvbnQtc2l6ZT0iMTEiIGZpbGw9IiM0ZjQ2ZTUiPk1hbmlsYSBPZmZpY2UgRnVybml0dXJlIERlbjwvdGV4dD4KICAgIAo8L3N2Zz4=",
+        "thumbnailData": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NDAiIGhlaWdodD0iNDQwIiB2aWV3Qm94PSIwIDAgNjQwIDQ0MCI+CjxyZWN0IHdpZHRoPSI2NDAiIGhlaWdodD0iNDQwIiBmaWxsPSIjZmZmZmZmIi8+CjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSI2NDAiIGhlaWdodD0iNDYiIGZpbGw9IiM4YjVjZjYiLz4KPHRleHQgeD0iMTYiIHk9IjIyIiBmb250LWZhbWlseT0iSW50ZXIsQXJpYWwiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiNmZmYiPkluc3BpcmF0aW9uIMK3IFJhbmdlbWVudCBpbmRpdmlkdWVsPC90ZXh0Pgo8dGV4dCB4PSIxNiIgeT0iMzgiIGZvbnQtZmFtaWx5PSJJbnRlcixBcmlhbCIgZm9udC1zaXplPSIxMCIgZmlsbD0iI2UwZTdmZiI+U8OpY3VyaXTDqSAmIGludGltaXTDqSBwb3VyIGNoYXF1ZSDDqXR1ZGlhbnRlPC90ZXh0Pgo8cmVjdCB4PSI4IiB5PSI1NCIgd2lkdGg9IjYyNCIgaGVpZ2h0PSIzNzgiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2UyZThmMCIgc3Ryb2tlLXdpZHRoPSIxIi8+CjxyZWN0IHg9IjcwIiB5PSIxMTAiIHdpZHRoPSI1MiIgaGVpZ2h0PSIyNjAiIHJ4PSI0IiBmaWxsPSIjYTc4YmZhIiBzdHJva2U9IiMwZjE3MmEiLz48Y2lyY2xlIGN4PSIxMTAiIGN5PSIxODAiIHI9IjMiIGZpbGw9IiMwZjE3MmEiLz48cmVjdCB4PSIxMzAiIHk9IjExMCIgd2lkdGg9IjUyIiBoZWlnaHQ9IjI2MCIgcng9IjQiIGZpbGw9IiNhNzhiZmEiIHN0cm9rZT0iIzBmMTcyYSIvPjxjaXJjbGUgY3g9IjE3MCIgY3k9IjE4MCIgcj0iMyIgZmlsbD0iIzBmMTcyYSIvPjxyZWN0IHg9IjE5MCIgeT0iMTEwIiB3aWR0aD0iNTIiIGhlaWdodD0iMjYwIiByeD0iNCIgZmlsbD0iI2E3OGJmYSIgc3Ryb2tlPSIjMGYxNzJhIi8+PGNpcmNsZSBjeD0iMjMwIiBjeT0iMTgwIiByPSIzIiBmaWxsPSIjMGYxNzJhIi8+PHJlY3QgeD0iMjUwIiB5PSIxMTAiIHdpZHRoPSI1MiIgaGVpZ2h0PSIyNjAiIHJ4PSI0IiBmaWxsPSIjYTc4YmZhIiBzdHJva2U9IiMwZjE3MmEiLz48Y2lyY2xlIGN4PSIyOTAiIGN5PSIxODAiIHI9IjMiIGZpbGw9IiMwZjE3MmEiLz4KICAgIDx0ZXh0IHg9IjM0MCIgeT0iMTIwIiBmb250LWZhbWlseT0iSW50ZXIiIGZvbnQtc2l6ZT0iMTQiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiMwZjE3MmEiPkNhc2llcnMgLyBsb2NrZXJzIGJvaXM8L3RleHQ+CiAgICA8dGV4dCB4PSIzNDAiIHk9IjE0NiIgZm9udC1mYW1pbHk9IkludGVyIiBmb250LXNpemU9IjEyIiBmaWxsPSIjNjQ3NDhiIj4xIHBhciDDqXR1ZGlhbnRlIMK3IHNlcnJ1cmUgw6AgY2zDqTwvdGV4dD4KICAgIDx0ZXh0IHg9IjM0MCIgeT0iMTgwIiBmb250LWZhbWlseT0iSW50ZXIiIGZvbnQtc2l6ZT0iMjIiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiMxNmEzNGEiPuKJiCDigrEyIDgwMDwvdGV4dD4KICAgIDx0ZXh0IHg9IjM0MCIgeT0iMjE0IiBmb250LWZhbWlseT0iSW50ZXIiIGZvbnQtc2l6ZT0iMTEiIGZpbGw9IiM0ZjQ2ZTUiPk1hbmlsYSBPZmZpY2UgRnVybml0dXJlIERlbjwvdGV4dD4KICAgIAo8L3N2Zz4=",
+        "tags": [
+          "casier",
+          "rangement",
+          "sécurité"
+        ],
+        "linkedRoomIds": [
+          "room-da",
+          "room-db",
+          "room-dc",
+          "room-dd"
+        ],
+        "note": "Casier individuel à serrure, ~₱2 800. Intimité et sécurité pour chaque étudiante.",
+        "source": "https://www.manilaofficefurnitureden.ph/product-category/cabinets/lockers/",
+        "createdAt": "2026-06-04T00:00:00"
+      },
+      {
+        "id": "img3",
+        "fileData": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NDAiIGhlaWdodD0iNDQwIiB2aWV3Qm94PSIwIDAgNjQwIDQ0MCI+CjxyZWN0IHdpZHRoPSI2NDAiIGhlaWdodD0iNDQwIiBmaWxsPSIjZmZmZmZmIi8+CjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSI2NDAiIGhlaWdodD0iNDYiIGZpbGw9IiNmOTczMTYiLz4KPHRleHQgeD0iMTYiIHk9IjIyIiBmb250LWZhbWlseT0iSW50ZXIsQXJpYWwiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiNmZmYiPkluc3BpcmF0aW9uIMK3IENvaW4gw6l0dWRlIGVyZ29ub21pcXVlPC90ZXh0Pgo8dGV4dCB4PSIxNiIgeT0iMzgiIGZvbnQtZmFtaWx5PSJJbnRlcixBcmlhbCIgZm9udC1zaXplPSIxMCIgZmlsbD0iI2UwZTdmZiI+UG9zdHVyZSwgbHVtacOocmUsIHJhbmdlbWVudDwvdGV4dD4KPHJlY3QgeD0iOCIgeT0iNTQiIHdpZHRoPSI2MjQiIGhlaWdodD0iMzc4IiBmaWxsPSJub25lIiBzdHJva2U9IiNlMmU4ZjAiIHN0cm9rZS13aWR0aD0iMSIvPgoKICAgIDxyZWN0IHg9IjcwIiB5PSIyNTAiIHdpZHRoPSIyMjAiIGhlaWdodD0iMTYiIGZpbGw9IiNmZGJhNzQiLz4KICAgIDxyZWN0IHg9Ijc4IiB5PSIyNjYiIHdpZHRoPSIxNCIgaGVpZ2h0PSIxMjAiIGZpbGw9IiNjMjQxMGMiLz4KICAgIDxyZWN0IHg9IjI2OCIgeT0iMjY2IiB3aWR0aD0iMTQiIGhlaWdodD0iMTIwIiBmaWxsPSIjYzI0MTBjIi8+CiAgICA8cmVjdCB4PSIyMDAiIHk9IjI2NiIgd2lkdGg9Ijg4IiBoZWlnaHQ9IjEyMCIgZmlsbD0iI2ZlZDdhYSIgc3Ryb2tlPSIjYzI0MTBjIi8+CiAgICA8cmVjdCB4PSIxMjAiIHk9IjE1MCIgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iNiIgZmlsbD0iI2ZiOTIzYyIvPgogICAgPHRleHQgeD0iMTUyIiB5PSIyNDAiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSI5IiBmaWxsPSIjNjQ3NDhiIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5jaGFpc2U8L3RleHQ+CiAgICA8dGV4dCB4PSIzNDAiIHk9IjEyMCIgZm9udC1mYW1pbHk9IkludGVyIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSIjMGYxNzJhIj5CdXJlYXUgKyBjaGFpc2UgZXJnb25vbWlxdWU8L3RleHQ+CiAgICA8dGV4dCB4PSIzNDAiIHk9IjE0NiIgZm9udC1mYW1pbHk9IkludGVyIiBmb250LXNpemU9IjEyIiBmaWxsPSIjNjQ3NDhiIj5Cb2lzLCBoYXV0ZXVyIGFkYXB0w6llLCB0aXJvaXI8L3RleHQ+CiAgICA8dGV4dCB4PSIzNDAiIHk9IjE4MCIgZm9udC1mYW1pbHk9IkludGVyIiBmb250LXNpemU9IjIyIiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSIjMTZhMzRhIj7iiYgg4oKxMiA1MDA8L3RleHQ+CiAgICA8dGV4dCB4PSIzNDAiIHk9IjIxNCIgZm9udC1mYW1pbHk9IkludGVyIiBmb250LXNpemU9IjExIiBmaWxsPSIjNGY0NmU1Ij5MYXphZGEgwrcgU3R1ZGVudCBEZXNrIHdpdGggQ2hhaXI8L3RleHQ+CiAgICAKPC9zdmc+",
+        "thumbnailData": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NDAiIGhlaWdodD0iNDQwIiB2aWV3Qm94PSIwIDAgNjQwIDQ0MCI+CjxyZWN0IHdpZHRoPSI2NDAiIGhlaWdodD0iNDQwIiBmaWxsPSIjZmZmZmZmIi8+CjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSI2NDAiIGhlaWdodD0iNDYiIGZpbGw9IiNmOTczMTYiLz4KPHRleHQgeD0iMTYiIHk9IjIyIiBmb250LWZhbWlseT0iSW50ZXIsQXJpYWwiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiNmZmYiPkluc3BpcmF0aW9uIMK3IENvaW4gw6l0dWRlIGVyZ29ub21pcXVlPC90ZXh0Pgo8dGV4dCB4PSIxNiIgeT0iMzgiIGZvbnQtZmFtaWx5PSJJbnRlcixBcmlhbCIgZm9udC1zaXplPSIxMCIgZmlsbD0iI2UwZTdmZiI+UG9zdHVyZSwgbHVtacOocmUsIHJhbmdlbWVudDwvdGV4dD4KPHJlY3QgeD0iOCIgeT0iNTQiIHdpZHRoPSI2MjQiIGhlaWdodD0iMzc4IiBmaWxsPSJub25lIiBzdHJva2U9IiNlMmU4ZjAiIHN0cm9rZS13aWR0aD0iMSIvPgoKICAgIDxyZWN0IHg9IjcwIiB5PSIyNTAiIHdpZHRoPSIyMjAiIGhlaWdodD0iMTYiIGZpbGw9IiNmZGJhNzQiLz4KICAgIDxyZWN0IHg9Ijc4IiB5PSIyNjYiIHdpZHRoPSIxNCIgaGVpZ2h0PSIxMjAiIGZpbGw9IiNjMjQxMGMiLz4KICAgIDxyZWN0IHg9IjI2OCIgeT0iMjY2IiB3aWR0aD0iMTQiIGhlaWdodD0iMTIwIiBmaWxsPSIjYzI0MTBjIi8+CiAgICA8cmVjdCB4PSIyMDAiIHk9IjI2NiIgd2lkdGg9Ijg4IiBoZWlnaHQ9IjEyMCIgZmlsbD0iI2ZlZDdhYSIgc3Ryb2tlPSIjYzI0MTBjIi8+CiAgICA8cmVjdCB4PSIxMjAiIHk9IjE1MCIgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iNiIgZmlsbD0iI2ZiOTIzYyIvPgogICAgPHRleHQgeD0iMTUyIiB5PSIyNDAiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSI5IiBmaWxsPSIjNjQ3NDhiIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5jaGFpc2U8L3RleHQ+CiAgICA8dGV4dCB4PSIzNDAiIHk9IjEyMCIgZm9udC1mYW1pbHk9IkludGVyIiBmb250LXNpemU9IjE0IiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSIjMGYxNzJhIj5CdXJlYXUgKyBjaGFpc2UgZXJnb25vbWlxdWU8L3RleHQ+CiAgICA8dGV4dCB4PSIzNDAiIHk9IjE0NiIgZm9udC1mYW1pbHk9IkludGVyIiBmb250LXNpemU9IjEyIiBmaWxsPSIjNjQ3NDhiIj5Cb2lzLCBoYXV0ZXVyIGFkYXB0w6llLCB0aXJvaXI8L3RleHQ+CiAgICA8dGV4dCB4PSIzNDAiIHk9IjE4MCIgZm9udC1mYW1pbHk9IkludGVyIiBmb250LXNpemU9IjIyIiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSIjMTZhMzRhIj7iiYgg4oKxMiA1MDA8L3RleHQ+CiAgICA8dGV4dCB4PSIzNDAiIHk9IjIxNCIgZm9udC1mYW1pbHk9IkludGVyIiBmb250LXNpemU9IjExIiBmaWxsPSIjNGY0NmU1Ij5MYXphZGEgwrcgU3R1ZGVudCBEZXNrIHdpdGggQ2hhaXI8L3RleHQ+CiAgICAKPC9zdmc+",
+        "tags": [
+          "bureau",
+          "ergonomie",
+          "étude"
+        ],
+        "linkedRoomIds": [
+          "room-da",
+          "room-etude"
+        ],
+        "note": "Bureau + chaise bois, hauteur adaptée, tiroir. ~₱2 500 le set. Bon pour la posture et l'étude.",
+        "source": "https://www.lazada.com.ph/tag/student-desk-with-chair/",
+        "createdAt": "2026-06-04T00:00:00"
+      },
+      {
+        "id": "img4",
+        "fileData": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NDAiIGhlaWdodD0iNDQwIiB2aWV3Qm94PSIwIDAgNjQwIDQ0MCI+CjxyZWN0IHdpZHRoPSI2NDAiIGhlaWdodD0iNDQwIiBmaWxsPSIjZmZmZmZmIi8+CjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSI2NDAiIGhlaWdodD0iNDYiIGZpbGw9IiM2MzY2ZjEiLz4KPHRleHQgeD0iMTYiIHk9IjIyIiBmb250LWZhbWlseT0iSW50ZXIsQXJpYWwiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiNmZmYiPkluc3BpcmF0aW9uIMK3IExpdGVyaWU8L3RleHQ+Cjx0ZXh0IHg9IjE2IiB5PSIzOCIgZm9udC1mYW1pbHk9IkludGVyLEFyaWFsIiBmb250LXNpemU9IjEwIiBmaWxsPSIjZTBlN2ZmIj5Db25mb3J0ICYgaHlnacOobmUgwrcgaG91c3NlIGxhdmFibGU8L3RleHQ+CjxyZWN0IHg9IjgiIHk9IjU0IiB3aWR0aD0iNjI0IiBoZWlnaHQ9IjM3OCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZTJlOGYwIiBzdHJva2Utd2lkdGg9IjEiLz4KCiAgICA8cmVjdCB4PSI3MCIgeT0iMTYwIiB3aWR0aD0iMzAwIiBoZWlnaHQ9IjEyMCIgcng9IjE0IiBmaWxsPSIjZTBlN2ZmIiBzdHJva2U9IiM5NGEzYjgiLz4KICAgIDxsaW5lIHgxPSI5MCIgeTE9IjE3MCIgeDI9IjkwIiB5Mj0iMjcwIiBzdHJva2U9IiNjYmQ1ZTEiLz48bGluZSB4MT0iMTMwIiB5MT0iMTcwIiB4Mj0iMTMwIiB5Mj0iMjcwIiBzdHJva2U9IiNjYmQ1ZTEiLz48bGluZSB4MT0iMTcwIiB5MT0iMTcwIiB4Mj0iMTcwIiB5Mj0iMjcwIiBzdHJva2U9IiNjYmQ1ZTEiLz48bGluZSB4MT0iMjEwIiB5MT0iMTcwIiB4Mj0iMjEwIiB5Mj0iMjcwIiBzdHJva2U9IiNjYmQ1ZTEiLz48bGluZSB4MT0iMjUwIiB5MT0iMTcwIiB4Mj0iMjUwIiB5Mj0iMjcwIiBzdHJva2U9IiNjYmQ1ZTEiLz48bGluZSB4MT0iMjkwIiB5MT0iMTcwIiB4Mj0iMjkwIiB5Mj0iMjcwIiBzdHJva2U9IiNjYmQ1ZTEiLz48bGluZSB4MT0iMzMwIiB5MT0iMTcwIiB4Mj0iMzMwIiB5Mj0iMjcwIiBzdHJva2U9IiNjYmQ1ZTEiLz4KICAgIDx0ZXh0IHg9IjIyMCIgeT0iMjI2IiBmb250LWZhbWlseT0iSW50ZXIiIGZvbnQtc2l6ZT0iMTEiIGZpbGw9IiM2NDc0OGIiIHRleHQtYW5jaG9yPSJtaWRkbGUiPjkwIMOXIDIwMCBjbSDCtyA0IHBvPC90ZXh0PgogICAgPHRleHQgeD0iNDAwIiB5PSIxNTAiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSIxNCIgZm9udC13ZWlnaHQ9IjcwMCIgZmlsbD0iIzBmMTcyYSI+TWF0ZWxhcyBtb3Vzc2UgVXJhdGV4PC90ZXh0PgogICAgPHRleHQgeD0iNDAwIiB5PSIxNzYiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzY0NzQ4YiI+U2ltcGxlLCBmZXJtZSwgZHVyYWJsZTwvdGV4dD4KICAgIDx0ZXh0IHg9IjQwMCIgeT0iMjEwIiBmb250LWZhbWlseT0iSW50ZXIiIGZvbnQtc2l6ZT0iMjIiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiMxNmEzNGEiPuKJiCDigrEyIDIwMDwvdGV4dD4KICAgIDx0ZXh0IHg9IjQwMCIgeT0iMjQ0IiBmb250LWZhbWlseT0iSW50ZXIiIGZvbnQtc2l6ZT0iMTEiIGZpbGw9IiM0ZjQ2ZTUiPnVyYXRleC5jb20ucGg8L3RleHQ+CiAgICAKPC9zdmc+",
+        "thumbnailData": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NDAiIGhlaWdodD0iNDQwIiB2aWV3Qm94PSIwIDAgNjQwIDQ0MCI+CjxyZWN0IHdpZHRoPSI2NDAiIGhlaWdodD0iNDQwIiBmaWxsPSIjZmZmZmZmIi8+CjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSI2NDAiIGhlaWdodD0iNDYiIGZpbGw9IiM2MzY2ZjEiLz4KPHRleHQgeD0iMTYiIHk9IjIyIiBmb250LWZhbWlseT0iSW50ZXIsQXJpYWwiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiNmZmYiPkluc3BpcmF0aW9uIMK3IExpdGVyaWU8L3RleHQ+Cjx0ZXh0IHg9IjE2IiB5PSIzOCIgZm9udC1mYW1pbHk9IkludGVyLEFyaWFsIiBmb250LXNpemU9IjEwIiBmaWxsPSIjZTBlN2ZmIj5Db25mb3J0ICYgaHlnacOobmUgwrcgaG91c3NlIGxhdmFibGU8L3RleHQ+CjxyZWN0IHg9IjgiIHk9IjU0IiB3aWR0aD0iNjI0IiBoZWlnaHQ9IjM3OCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZTJlOGYwIiBzdHJva2Utd2lkdGg9IjEiLz4KCiAgICA8cmVjdCB4PSI3MCIgeT0iMTYwIiB3aWR0aD0iMzAwIiBoZWlnaHQ9IjEyMCIgcng9IjE0IiBmaWxsPSIjZTBlN2ZmIiBzdHJva2U9IiM5NGEzYjgiLz4KICAgIDxsaW5lIHgxPSI5MCIgeTE9IjE3MCIgeDI9IjkwIiB5Mj0iMjcwIiBzdHJva2U9IiNjYmQ1ZTEiLz48bGluZSB4MT0iMTMwIiB5MT0iMTcwIiB4Mj0iMTMwIiB5Mj0iMjcwIiBzdHJva2U9IiNjYmQ1ZTEiLz48bGluZSB4MT0iMTcwIiB5MT0iMTcwIiB4Mj0iMTcwIiB5Mj0iMjcwIiBzdHJva2U9IiNjYmQ1ZTEiLz48bGluZSB4MT0iMjEwIiB5MT0iMTcwIiB4Mj0iMjEwIiB5Mj0iMjcwIiBzdHJva2U9IiNjYmQ1ZTEiLz48bGluZSB4MT0iMjUwIiB5MT0iMTcwIiB4Mj0iMjUwIiB5Mj0iMjcwIiBzdHJva2U9IiNjYmQ1ZTEiLz48bGluZSB4MT0iMjkwIiB5MT0iMTcwIiB4Mj0iMjkwIiB5Mj0iMjcwIiBzdHJva2U9IiNjYmQ1ZTEiLz48bGluZSB4MT0iMzMwIiB5MT0iMTcwIiB4Mj0iMzMwIiB5Mj0iMjcwIiBzdHJva2U9IiNjYmQ1ZTEiLz4KICAgIDx0ZXh0IHg9IjIyMCIgeT0iMjI2IiBmb250LWZhbWlseT0iSW50ZXIiIGZvbnQtc2l6ZT0iMTEiIGZpbGw9IiM2NDc0OGIiIHRleHQtYW5jaG9yPSJtaWRkbGUiPjkwIMOXIDIwMCBjbSDCtyA0IHBvPC90ZXh0PgogICAgPHRleHQgeD0iNDAwIiB5PSIxNTAiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSIxNCIgZm9udC13ZWlnaHQ9IjcwMCIgZmlsbD0iIzBmMTcyYSI+TWF0ZWxhcyBtb3Vzc2UgVXJhdGV4PC90ZXh0PgogICAgPHRleHQgeD0iNDAwIiB5PSIxNzYiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzY0NzQ4YiI+U2ltcGxlLCBmZXJtZSwgZHVyYWJsZTwvdGV4dD4KICAgIDx0ZXh0IHg9IjQwMCIgeT0iMjEwIiBmb250LWZhbWlseT0iSW50ZXIiIGZvbnQtc2l6ZT0iMjIiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiMxNmEzNGEiPuKJiCDigrEyIDIwMDwvdGV4dD4KICAgIDx0ZXh0IHg9IjQwMCIgeT0iMjQ0IiBmb250LWZhbWlseT0iSW50ZXIiIGZvbnQtc2l6ZT0iMTEiIGZpbGw9IiM0ZjQ2ZTUiPnVyYXRleC5jb20ucGg8L3RleHQ+CiAgICAKPC9zdmc+",
+        "tags": [
+          "matelas",
+          "literie",
+          "hygiène"
+        ],
+        "linkedRoomIds": [
+          "room-da",
+          "room-db",
+          "room-dc",
+          "room-dd"
+        ],
+        "note": "Matelas mousse Uratex 90×200, 4 pouces. ~₱2 200. Housse lavable, durable.",
+        "source": "https://uratex.com.ph/collections/mattresses",
+        "createdAt": "2026-06-04T00:00:00"
+      },
+      {
+        "id": "img5",
+        "fileData": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iNDAwIiB2aWV3Qm94PSIwIDAgNjAwIDQwMCI+CjxyZWN0IHdpZHRoPSI2MDAiIGhlaWdodD0iNDAwIiBmaWxsPSIjZmZmZmZmIi8+CjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSI2MDAiIGhlaWdodD0iNDYiIGZpbGw9IiM0ZjQ2ZTUiLz4KPHRleHQgeD0iMTYiIHk9IjIyIiBmb250LWZhbWlseT0iSW50ZXIsQXJpYWwiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiNmZmYiPkluc3BpcmF0aW9uIMK3IEFtYmlhbmNlICYgY291bGV1cnM8L3RleHQ+Cjx0ZXh0IHg9IjE2IiB5PSIzOCIgZm9udC1mYW1pbHk9IkludGVyLEFyaWFsIiBmb250LXNpemU9IjEwIiBmaWxsPSIjZTBlN2ZmIj5MdW1pbmV1eCwgY2FsbWUsIHByb3BpY2Ugw6AgbCfDqXR1ZGU8L3RleHQ+CjxyZWN0IHg9IjgiIHk9IjU0IiB3aWR0aD0iNTg0IiBoZWlnaHQ9IjMzOCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZTJlOGYwIiBzdHJva2Utd2lkdGg9IjEiLz4KPHJlY3QgeD0iNjAiIHk9IjEyMCIgd2lkdGg9Ijc4IiBoZWlnaHQ9IjE2MCIgcng9IjEwIiBmaWxsPSIjZGJlYWZlIiBzdHJva2U9IiNlMmU4ZjAiLz48cmVjdCB4PSIxNTAiIHk9IjEyMCIgd2lkdGg9Ijc4IiBoZWlnaHQ9IjE2MCIgcng9IjEwIiBmaWxsPSIjZTBlN2ZmIiBzdHJva2U9IiNlMmU4ZjAiLz48cmVjdCB4PSIyNDAiIHk9IjEyMCIgd2lkdGg9Ijc4IiBoZWlnaHQ9IjE2MCIgcng9IjEwIiBmaWxsPSIjZmRlNjhhIiBzdHJva2U9IiNlMmU4ZjAiLz48cmVjdCB4PSIzMzAiIHk9IjEyMCIgd2lkdGg9Ijc4IiBoZWlnaHQ9IjE2MCIgcng9IjEwIiBmaWxsPSIjYmJmN2QwIiBzdHJva2U9IiNlMmU4ZjAiLz48cmVjdCB4PSI0MjAiIHk9IjEyMCIgd2lkdGg9Ijc4IiBoZWlnaHQ9IjE2MCIgcng9IjEwIiBmaWxsPSIjZmJjZmU4IiBzdHJva2U9IiNlMmU4ZjAiLz48cmVjdCB4PSI1MTAiIHk9IjEyMCIgd2lkdGg9Ijc4IiBoZWlnaHQ9IjE2MCIgcng9IjEwIiBmaWxsPSIjZjVmNWY0IiBzdHJva2U9IiNlMmU4ZjAiLz4KICAgIDx0ZXh0IHg9IjMwMCIgeT0iMzIwIiBmb250LWZhbWlseT0iSW50ZXIiIGZvbnQtc2l6ZT0iMTMiIGZpbGw9IiMwZjE3MmEiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtd2VpZ2h0PSI3MDAiPlBhbGV0dGUgZG91Y2Ug4oCUIGRvcnRvaXIgZsOpbWluaW48L3RleHQ+CiAgICA8dGV4dCB4PSIzMDAiIHk9IjM0NCIgZm9udC1mYW1pbHk9IkludGVyIiBmb250LXNpemU9IjExIiBmaWxsPSIjNjQ3NDhiIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5CbGV1IGFwYWlzYW50IMK3IGxhdmFuZGUgwrcgdG91Y2hlcyBjaGF1ZGVzIMK3IGJvaXMgY2xhaXI8L3RleHQ+CiAgICAKPC9zdmc+",
+        "thumbnailData": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iNDAwIiB2aWV3Qm94PSIwIDAgNjAwIDQwMCI+CjxyZWN0IHdpZHRoPSI2MDAiIGhlaWdodD0iNDAwIiBmaWxsPSIjZmZmZmZmIi8+CjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSI2MDAiIGhlaWdodD0iNDYiIGZpbGw9IiM0ZjQ2ZTUiLz4KPHRleHQgeD0iMTYiIHk9IjIyIiBmb250LWZhbWlseT0iSW50ZXIsQXJpYWwiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiNmZmYiPkluc3BpcmF0aW9uIMK3IEFtYmlhbmNlICYgY291bGV1cnM8L3RleHQ+Cjx0ZXh0IHg9IjE2IiB5PSIzOCIgZm9udC1mYW1pbHk9IkludGVyLEFyaWFsIiBmb250LXNpemU9IjEwIiBmaWxsPSIjZTBlN2ZmIj5MdW1pbmV1eCwgY2FsbWUsIHByb3BpY2Ugw6AgbCfDqXR1ZGU8L3RleHQ+CjxyZWN0IHg9IjgiIHk9IjU0IiB3aWR0aD0iNTg0IiBoZWlnaHQ9IjMzOCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZTJlOGYwIiBzdHJva2Utd2lkdGg9IjEiLz4KPHJlY3QgeD0iNjAiIHk9IjEyMCIgd2lkdGg9Ijc4IiBoZWlnaHQ9IjE2MCIgcng9IjEwIiBmaWxsPSIjZGJlYWZlIiBzdHJva2U9IiNlMmU4ZjAiLz48cmVjdCB4PSIxNTAiIHk9IjEyMCIgd2lkdGg9Ijc4IiBoZWlnaHQ9IjE2MCIgcng9IjEwIiBmaWxsPSIjZTBlN2ZmIiBzdHJva2U9IiNlMmU4ZjAiLz48cmVjdCB4PSIyNDAiIHk9IjEyMCIgd2lkdGg9Ijc4IiBoZWlnaHQ9IjE2MCIgcng9IjEwIiBmaWxsPSIjZmRlNjhhIiBzdHJva2U9IiNlMmU4ZjAiLz48cmVjdCB4PSIzMzAiIHk9IjEyMCIgd2lkdGg9Ijc4IiBoZWlnaHQ9IjE2MCIgcng9IjEwIiBmaWxsPSIjYmJmN2QwIiBzdHJva2U9IiNlMmU4ZjAiLz48cmVjdCB4PSI0MjAiIHk9IjEyMCIgd2lkdGg9Ijc4IiBoZWlnaHQ9IjE2MCIgcng9IjEwIiBmaWxsPSIjZmJjZmU4IiBzdHJva2U9IiNlMmU4ZjAiLz48cmVjdCB4PSI1MTAiIHk9IjEyMCIgd2lkdGg9Ijc4IiBoZWlnaHQ9IjE2MCIgcng9IjEwIiBmaWxsPSIjZjVmNWY0IiBzdHJva2U9IiNlMmU4ZjAiLz4KICAgIDx0ZXh0IHg9IjMwMCIgeT0iMzIwIiBmb250LWZhbWlseT0iSW50ZXIiIGZvbnQtc2l6ZT0iMTMiIGZpbGw9IiMwZjE3MmEiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtd2VpZ2h0PSI3MDAiPlBhbGV0dGUgZG91Y2Ug4oCUIGRvcnRvaXIgZsOpbWluaW48L3RleHQ+CiAgICA8dGV4dCB4PSIzMDAiIHk9IjM0NCIgZm9udC1mYW1pbHk9IkludGVyIiBmb250LXNpemU9IjExIiBmaWxsPSIjNjQ3NDhiIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5CbGV1IGFwYWlzYW50IMK3IGxhdmFuZGUgwrcgdG91Y2hlcyBjaGF1ZGVzIMK3IGJvaXMgY2xhaXI8L3RleHQ+CiAgICAKPC9zdmc+",
+        "tags": [
+          "couleurs",
+          "ambiance",
+          "peinture"
+        ],
+        "linkedRoomIds": [
+          "room-da",
+          "room-db",
+          "room-etude"
+        ],
+        "note": "Palette douce pour dortoir féminin : bleu apaisant, lavande, bois clair. Calme et propice à l'étude.",
+        "source": null,
+        "createdAt": "2026-06-04T00:00:00"
+      },
+      {
+        "id": "img6",
+        "fileData": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NDAiIGhlaWdodD0iNDAwIiB2aWV3Qm94PSIwIDAgNjQwIDQwMCI+CjxyZWN0IHdpZHRoPSI2NDAiIGhlaWdodD0iNDAwIiBmaWxsPSIjZmZmZmZmIi8+CjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSI2NDAiIGhlaWdodD0iNDYiIGZpbGw9IiM0ZjQ2ZTUiLz4KPHRleHQgeD0iMTYiIHk9IjIyIiBmb250LWZhbWlseT0iSW50ZXIsQXJpYWwiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiNmZmYiPkluc3BpcmF0aW9uIMK3IEFnZW5jZW1lbnQgZG9ydG9pcjwvdGV4dD4KPHRleHQgeD0iMTYiIHk9IjM4IiBmb250LWZhbWlseT0iSW50ZXIsQXJpYWwiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiNlMGU3ZmYiPk9wdGltaXNlciAyMCBtwrIgcG91ciA0IMOpdHVkaWFudGVzPC90ZXh0Pgo8cmVjdCB4PSI4IiB5PSI1NCIgd2lkdGg9IjYyNCIgaGVpZ2h0PSIzMzgiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2UyZThmMCIgc3Ryb2tlLXdpZHRoPSIxIi8+CjxsaW5lIHgxPSIyMCIgeTE9IjYwIiB4Mj0iMjAiIHkyPSIzNjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjQwIiB5MT0iNjAiIHgyPSI0MCIgeTI9IjM2MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iNjAiIHkxPSI2MCIgeDI9IjYwIiB5Mj0iMzYwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSI4MCIgeTE9IjYwIiB4Mj0iODAiIHkyPSIzNjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjEwMCIgeTE9IjYwIiB4Mj0iMTAwIiB5Mj0iMzYwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIxMjAiIHkxPSI2MCIgeDI9IjEyMCIgeTI9IjM2MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMTQwIiB5MT0iNjAiIHgyPSIxNDAiIHkyPSIzNjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjE2MCIgeTE9IjYwIiB4Mj0iMTYwIiB5Mj0iMzYwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIxODAiIHkxPSI2MCIgeDI9IjE4MCIgeTI9IjM2MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAwIiB5MT0iNjAiIHgyPSIyMDAiIHkyPSIzNjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIyMCIgeTE9IjYwIiB4Mj0iMjIwIiB5Mj0iMzYwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyNDAiIHkxPSI2MCIgeDI9IjI0MCIgeTI9IjM2MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjYwIiB5MT0iNjAiIHgyPSIyNjAiIHkyPSIzNjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjI4MCIgeTE9IjYwIiB4Mj0iMjgwIiB5Mj0iMzYwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIzMDAiIHkxPSI2MCIgeDI9IjMwMCIgeTI9IjM2MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMzIwIiB5MT0iNjAiIHgyPSIzMjAiIHkyPSIzNjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjM0MCIgeTE9IjYwIiB4Mj0iMzQwIiB5Mj0iMzYwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIzNjAiIHkxPSI2MCIgeDI9IjM2MCIgeTI9IjM2MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMzgwIiB5MT0iNjAiIHgyPSIzODAiIHkyPSIzNjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iNjAiIHgyPSIzODAiIHkyPSI2MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSI4MCIgeDI9IjM4MCIgeTI9IjgwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjEwMCIgeDI9IjM4MCIgeTI9IjEwMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIxMjAiIHgyPSIzODAiIHkyPSIxMjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMTQwIiB4Mj0iMzgwIiB5Mj0iMTQwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjE2MCIgeDI9IjM4MCIgeTI9IjE2MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIxODAiIHgyPSIzODAiIHkyPSIxODAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMjAwIiB4Mj0iMzgwIiB5Mj0iMjAwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjIyMCIgeDI9IjM4MCIgeTI9IjIyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIyNDAiIHgyPSIzODAiIHkyPSIyNDAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMjYwIiB4Mj0iMzgwIiB5Mj0iMjYwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjI4MCIgeDI9IjM4MCIgeTI9IjI4MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIzMDAiIHgyPSIzODAiIHkyPSIzMDAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMzIwIiB4Mj0iMzgwIiB5Mj0iMzIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjM0MCIgeDI9IjM4MCIgeTI9IjM0MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIzNjAiIHgyPSIzODAiIHkyPSIzNjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+CiAgICA8cmVjdCB4PSI0MCIgeT0iODAiIHdpZHRoPSIzNDAiIGhlaWdodD0iMjYwIiBmaWxsPSIjZWVmMmZmIiBzdHJva2U9IiMwZjE3MmEiIHN0cm9rZS13aWR0aD0iMiIvPgogICAgPHJlY3QgeD0iNTIiIHk9IjkyIiB3aWR0aD0iNzAiIGhlaWdodD0iMTUwIiBmaWxsPSIjOTNjNWZkIiBzdHJva2U9IiMwZjE3MmEiLz4KICAgIDxyZWN0IHg9IjI5OCIgeT0iOTIiIHdpZHRoPSI3MCIgaGVpZ2h0PSIxNTAiIGZpbGw9IiM5M2M1ZmQiIHN0cm9rZT0iIzBmMTcyYSIvPgogICAgPHJlY3QgeD0iMTUwIiB5PSI5MiIgd2lkdGg9IjEyMCIgaGVpZ2h0PSI0MCIgZmlsbD0iI2M0YjVmZCIgc3Ryb2tlPSIjMGYxNzJhIi8+CiAgICA8cmVjdCB4PSI1MiIgeT0iMjcwIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjUwIiBmaWxsPSIjZmRiYTc0IiBzdHJva2U9IiMwZjE3MmEiLz4KICAgIDxyZWN0IHg9IjI2OCIgeT0iMjcwIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjUwIiBmaWxsPSIjZmRiYTc0IiBzdHJva2U9IiMwZjE3MmEiLz4KICAgIDx0ZXh0IHg9IjIxMCIgeT0iMTgwIiBmb250LWZhbWlseT0iSW50ZXIiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiM2NDc0OGIiIHRleHQtYW5jaG9yPSJtaWRkbGUiPmNpcmN1bGF0aW9uIGNlbnRyYWxlPC90ZXh0PgogICAgPHRleHQgeD0iNDMwIiB5PSIxNDAiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSIxMyIgZm9udC13ZWlnaHQ9IjcwMCIgZmlsbD0iIzBmMTcyYSI+QWdlbmNlbWVudCA0IGxpdHM8L3RleHQ+CiAgICA8dGV4dCB4PSI0MzAiIHk9IjE2NiIgZm9udC1mYW1pbHk9IkludGVyIiBmb250LXNpemU9IjExIiBmaWxsPSIjNjQ3NDhiIj5MaXRzIGF1eCBtdXJzLCBjYXNpZXJzPC90ZXh0PgogICAgPHRleHQgeD0iNDMwIiB5PSIxODYiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSIxMSIgZmlsbD0iIzY0NzQ4YiI+Y2VudHJhdXgsIGJ1cmVhdXggY8O0dMOpPC90ZXh0PgogICAgPHRleHQgeD0iNDMwIiB5PSIyMDYiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSIxMSIgZmlsbD0iIzY0NzQ4YiI+ZmVuw6p0cmVzLiBTdXJmYWNlIG9wdGltaXPDqWUuPC90ZXh0PgogICAgCjwvc3ZnPg==",
+        "thumbnailData": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NDAiIGhlaWdodD0iNDAwIiB2aWV3Qm94PSIwIDAgNjQwIDQwMCI+CjxyZWN0IHdpZHRoPSI2NDAiIGhlaWdodD0iNDAwIiBmaWxsPSIjZmZmZmZmIi8+CjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSI2NDAiIGhlaWdodD0iNDYiIGZpbGw9IiM0ZjQ2ZTUiLz4KPHRleHQgeD0iMTYiIHk9IjIyIiBmb250LWZhbWlseT0iSW50ZXIsQXJpYWwiIGZvbnQtc2l6ZT0iMTUiIGZvbnQtd2VpZ2h0PSI3MDAiIGZpbGw9IiNmZmYiPkluc3BpcmF0aW9uIMK3IEFnZW5jZW1lbnQgZG9ydG9pcjwvdGV4dD4KPHRleHQgeD0iMTYiIHk9IjM4IiBmb250LWZhbWlseT0iSW50ZXIsQXJpYWwiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiNlMGU3ZmYiPk9wdGltaXNlciAyMCBtwrIgcG91ciA0IMOpdHVkaWFudGVzPC90ZXh0Pgo8cmVjdCB4PSI4IiB5PSI1NCIgd2lkdGg9IjYyNCIgaGVpZ2h0PSIzMzgiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2UyZThmMCIgc3Ryb2tlLXdpZHRoPSIxIi8+CjxsaW5lIHgxPSIyMCIgeTE9IjYwIiB4Mj0iMjAiIHkyPSIzNjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjQwIiB5MT0iNjAiIHgyPSI0MCIgeTI9IjM2MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iNjAiIHkxPSI2MCIgeDI9IjYwIiB5Mj0iMzYwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSI4MCIgeTE9IjYwIiB4Mj0iODAiIHkyPSIzNjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjEwMCIgeTE9IjYwIiB4Mj0iMTAwIiB5Mj0iMzYwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIxMjAiIHkxPSI2MCIgeDI9IjEyMCIgeTI9IjM2MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMTQwIiB5MT0iNjAiIHgyPSIxNDAiIHkyPSIzNjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjE2MCIgeTE9IjYwIiB4Mj0iMTYwIiB5Mj0iMzYwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIxODAiIHkxPSI2MCIgeDI9IjE4MCIgeTI9IjM2MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAwIiB5MT0iNjAiIHgyPSIyMDAiIHkyPSIzNjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIyMCIgeTE9IjYwIiB4Mj0iMjIwIiB5Mj0iMzYwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyNDAiIHkxPSI2MCIgeDI9IjI0MCIgeTI9IjM2MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjYwIiB5MT0iNjAiIHgyPSIyNjAiIHkyPSIzNjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjI4MCIgeTE9IjYwIiB4Mj0iMjgwIiB5Mj0iMzYwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIzMDAiIHkxPSI2MCIgeDI9IjMwMCIgeTI9IjM2MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMzIwIiB5MT0iNjAiIHgyPSIzMjAiIHkyPSIzNjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjM0MCIgeTE9IjYwIiB4Mj0iMzQwIiB5Mj0iMzYwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIzNjAiIHkxPSI2MCIgeDI9IjM2MCIgeTI9IjM2MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMzgwIiB5MT0iNjAiIHgyPSIzODAiIHkyPSIzNjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iNjAiIHgyPSIzODAiIHkyPSI2MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSI4MCIgeDI9IjM4MCIgeTI9IjgwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjEwMCIgeDI9IjM4MCIgeTI9IjEwMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIxMjAiIHgyPSIzODAiIHkyPSIxMjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMTQwIiB4Mj0iMzgwIiB5Mj0iMTQwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjE2MCIgeDI9IjM4MCIgeTI9IjE2MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIxODAiIHgyPSIzODAiIHkyPSIxODAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMjAwIiB4Mj0iMzgwIiB5Mj0iMjAwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjIyMCIgeDI9IjM4MCIgeTI9IjIyMCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIyNDAiIHgyPSIzODAiIHkyPSIyNDAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMjYwIiB4Mj0iMzgwIiB5Mj0iMjYwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjI4MCIgeDI9IjM4MCIgeTI9IjI4MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIzMDAiIHgyPSIzODAiIHkyPSIzMDAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+PGxpbmUgeDE9IjIwIiB5MT0iMzIwIiB4Mj0iMzgwIiB5Mj0iMzIwIiBzdHJva2U9IiNlZWYyZjciIHN0cm9rZS13aWR0aD0iMSIvPjxsaW5lIHgxPSIyMCIgeTE9IjM0MCIgeDI9IjM4MCIgeTI9IjM0MCIgc3Ryb2tlPSIjZWVmMmY3IiBzdHJva2Utd2lkdGg9IjEiLz48bGluZSB4MT0iMjAiIHkxPSIzNjAiIHgyPSIzODAiIHkyPSIzNjAiIHN0cm9rZT0iI2VlZjJmNyIgc3Ryb2tlLXdpZHRoPSIxIi8+CiAgICA8cmVjdCB4PSI0MCIgeT0iODAiIHdpZHRoPSIzNDAiIGhlaWdodD0iMjYwIiBmaWxsPSIjZWVmMmZmIiBzdHJva2U9IiMwZjE3MmEiIHN0cm9rZS13aWR0aD0iMiIvPgogICAgPHJlY3QgeD0iNTIiIHk9IjkyIiB3aWR0aD0iNzAiIGhlaWdodD0iMTUwIiBmaWxsPSIjOTNjNWZkIiBzdHJva2U9IiMwZjE3MmEiLz4KICAgIDxyZWN0IHg9IjI5OCIgeT0iOTIiIHdpZHRoPSI3MCIgaGVpZ2h0PSIxNTAiIGZpbGw9IiM5M2M1ZmQiIHN0cm9rZT0iIzBmMTcyYSIvPgogICAgPHJlY3QgeD0iMTUwIiB5PSI5MiIgd2lkdGg9IjEyMCIgaGVpZ2h0PSI0MCIgZmlsbD0iI2M0YjVmZCIgc3Ryb2tlPSIjMGYxNzJhIi8+CiAgICA8cmVjdCB4PSI1MiIgeT0iMjcwIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjUwIiBmaWxsPSIjZmRiYTc0IiBzdHJva2U9IiMwZjE3MmEiLz4KICAgIDxyZWN0IHg9IjI2OCIgeT0iMjcwIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjUwIiBmaWxsPSIjZmRiYTc0IiBzdHJva2U9IiMwZjE3MmEiLz4KICAgIDx0ZXh0IHg9IjIxMCIgeT0iMTgwIiBmb250LWZhbWlseT0iSW50ZXIiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiM2NDc0OGIiIHRleHQtYW5jaG9yPSJtaWRkbGUiPmNpcmN1bGF0aW9uIGNlbnRyYWxlPC90ZXh0PgogICAgPHRleHQgeD0iNDMwIiB5PSIxNDAiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSIxMyIgZm9udC13ZWlnaHQ9IjcwMCIgZmlsbD0iIzBmMTcyYSI+QWdlbmNlbWVudCA0IGxpdHM8L3RleHQ+CiAgICA8dGV4dCB4PSI0MzAiIHk9IjE2NiIgZm9udC1mYW1pbHk9IkludGVyIiBmb250LXNpemU9IjExIiBmaWxsPSIjNjQ3NDhiIj5MaXRzIGF1eCBtdXJzLCBjYXNpZXJzPC90ZXh0PgogICAgPHRleHQgeD0iNDMwIiB5PSIxODYiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSIxMSIgZmlsbD0iIzY0NzQ4YiI+Y2VudHJhdXgsIGJ1cmVhdXggY8O0dMOpPC90ZXh0PgogICAgPHRleHQgeD0iNDMwIiB5PSIyMDYiIGZvbnQtZmFtaWx5PSJJbnRlciIgZm9udC1zaXplPSIxMSIgZmlsbD0iIzY0NzQ4YiI+ZmVuw6p0cmVzLiBTdXJmYWNlIG9wdGltaXPDqWUuPC90ZXh0PgogICAgCjwvc3ZnPg==",
+        "tags": [
+          "agencement",
+          "dortoir",
+          "optimisation"
+        ],
+        "linkedRoomIds": [
+          "room-da",
+          "room-db"
+        ],
+        "note": "Agencement type : lits superposés contre les murs, casiers centraux, bureaux côté fenêtres. Optimise 20 m².",
+        "source": null,
+        "createdAt": "2026-06-04T00:00:00"
+      }
+    ],
+    "boards": [
+      {
+        "id": "board-mobilier",
+        "name": "Mobilier dortoir",
+        "imageIds": [
+          "img1",
+          "img2",
+          "img3",
+          "img4"
+        ]
+      },
+      {
+        "id": "board-ambiance",
+        "name": "Ambiance & agencement",
+        "imageIds": [
+          "img5",
+          "img6"
+        ]
+      }
+    ]
+  },
+  "costs": {
+    "categories": [
+      {
+        "id": "cm",
+        "name": "Matériaux",
+        "color": "#f59e0b",
+        "budgetAllocation": 120000
+      },
+      {
+        "id": "cl",
+        "name": "Main d'œuvre",
+        "color": "#3b82f6",
+        "budgetAllocation": 90000
+      },
+      {
+        "id": "cf",
+        "name": "Meubles",
+        "color": "#10b981",
+        "budgetAllocation": 170000
+      },
+      {
+        "id": "cp",
+        "name": "Permis & Admin",
+        "color": "#8b5cf6",
+        "budgetAllocation": 20000
+      },
+      {
+        "id": "cpl",
+        "name": "Plomberie",
+        "color": "#06b6d4",
+        "budgetAllocation": 45000
+      },
+      {
+        "id": "ce",
+        "name": "Électricité",
+        "color": "#f97316",
+        "budgetAllocation": 35000
+      },
+      {
+        "id": "cd",
+        "name": "Divers",
+        "color": "#6b7280",
+        "budgetAllocation": 25000
+      }
+    ],
+    "entries": [
+      {
+        "id": "e1",
+        "categoryId": "cf",
+        "description": "8 lits superposés bois massif",
+        "amount": 76000,
+        "currency": "PHP",
+        "exchangeRate": 1,
+        "date": "2026-02-12",
+        "vendor": "Lazada / menuisier local",
+        "linkedRoomIds": [
+          "room-da",
+          "room-db",
+          "room-dc",
+          "room-dd"
+        ],
+        "status": "paid"
+      },
+      {
+        "id": "e2",
+        "categoryId": "cf",
+        "description": "16 matelas mousse Uratex 90×200",
+        "amount": 35200,
+        "currency": "PHP",
+        "exchangeRate": 1,
+        "date": "2026-02-20",
+        "vendor": "Uratex",
+        "linkedRoomIds": [
+          "room-da",
+          "room-db",
+          "room-dc",
+          "room-dd"
+        ],
+        "status": "paid"
+      },
+      {
+        "id": "e3",
+        "categoryId": "cf",
+        "description": "16 casiers individuels à serrure",
+        "amount": 44800,
+        "currency": "PHP",
+        "exchangeRate": 1,
+        "date": "2026-06-01",
+        "vendor": "Manila Office Furniture Den",
+        "linkedRoomIds": [
+          "room-da",
+          "room-db",
+          "room-dc",
+          "room-dd"
+        ],
+        "status": "planned"
+      },
+      {
+        "id": "e4",
+        "categoryId": "cf",
+        "description": "8 sets bureau + chaise",
+        "amount": 20000,
+        "currency": "PHP",
+        "exchangeRate": 1,
+        "date": "2026-06-10",
+        "vendor": "Lazada",
+        "linkedRoomIds": [
+          "room-da",
+          "room-db",
+          "room-dc",
+          "room-dd",
+          "room-etude"
+        ],
+        "status": "planned"
+      },
+      {
+        "id": "e5",
+        "categoryId": "cm",
+        "description": "Peinture intérieure (palette douce)",
+        "amount": 18000,
+        "currency": "PHP",
+        "exchangeRate": 1,
+        "date": "2026-03-02",
+        "vendor": "Davies Paints",
+        "linkedRoomIds": [
+          "room-da",
+          "room-db",
+          "room-dc",
+          "room-dd"
+        ],
+        "status": "paid"
+      },
+      {
+        "id": "e6",
+        "categoryId": "cm",
+        "description": "Carrelage 2 salles de bain",
+        "amount": 22000,
+        "currency": "PHP",
+        "exchangeRate": 1,
+        "date": "2026-03-15",
+        "vendor": "Wilcon Depot",
+        "linkedRoomIds": [
+          "room-sdb",
+          "room-sdb2"
+        ],
+        "status": "paid"
+      },
+      {
+        "id": "e7",
+        "categoryId": "cpl",
+        "description": "Réfection plomberie sanitaires",
+        "amount": 28000,
+        "currency": "PHP",
+        "exchangeRate": 1,
+        "date": "2026-03-20",
+        "vendor": "Plombier local",
+        "linkedRoomIds": [
+          "room-sdb",
+          "room-sdb2"
+        ],
+        "status": "paid"
+      },
+      {
+        "id": "e8",
+        "categoryId": "ce",
+        "description": "Réfection électricité + tableau",
+        "amount": 30000,
+        "currency": "PHP",
+        "exchangeRate": 1,
+        "date": "2026-03-25",
+        "vendor": "Électricien local",
+        "linkedRoomIds": [],
+        "status": "paid"
+      },
+      {
+        "id": "e9",
+        "categoryId": "cl",
+        "description": "Maçonnerie & cloisons",
+        "amount": 45000,
+        "currency": "PHP",
+        "exchangeRate": 1,
+        "date": "2026-02-28",
+        "vendor": "Équipe maçon",
+        "linkedRoomIds": [],
+        "status": "paid"
+      },
+      {
+        "id": "e10",
+        "categoryId": "cp",
+        "description": "Permis municipal & inspection",
+        "amount": 12000,
+        "currency": "PHP",
+        "exchangeRate": 1,
+        "date": "2026-01-30",
+        "vendor": "Barangay / LGU",
+        "linkedRoomIds": [],
+        "status": "paid"
+      },
+      {
+        "id": "e11",
+        "categoryId": "cm",
+        "description": "Ciment, sable, gravier",
+        "amount": 15000,
+        "currency": "PHP",
+        "exchangeRate": 1,
+        "date": "2026-02-05",
+        "vendor": "Quincaillerie",
+        "linkedRoomIds": [],
+        "status": "paid"
+      },
+      {
+        "id": "e12",
+        "categoryId": "cf",
+        "description": "Évier + plan de travail cuisine",
+        "amount": 16000,
+        "currency": "PHP",
+        "exchangeRate": 1,
+        "date": "2026-06-15",
+        "vendor": "Wilcon Depot",
+        "linkedRoomIds": [
+          "room-cuisine"
+        ],
+        "status": "planned"
+      },
+      {
+        "id": "e13",
+        "categoryId": "cf",
+        "description": "Réfrigérateur commun",
+        "amount": 14000,
+        "currency": "PHP",
+        "exchangeRate": 1,
+        "date": "2026-06-18",
+        "vendor": "Abenson",
+        "linkedRoomIds": [
+          "room-cuisine"
+        ],
+        "status": "planned"
+      },
+      {
+        "id": "e14",
+        "categoryId": "cpl",
+        "description": "WC + lavabo + douche (2 SDB)",
+        "amount": 18000,
+        "currency": "PHP",
+        "exchangeRate": 1,
+        "date": "2026-06-20",
+        "vendor": "Wilcon Depot",
+        "linkedRoomIds": [
+          "room-sdb",
+          "room-sdb2"
+        ],
+        "status": "planned"
+      },
+      {
+        "id": "e15",
+        "categoryId": "ce",
+        "description": "6 ventilateurs de plafond",
+        "amount": 12000,
+        "currency": "PHP",
+        "exchangeRate": 1,
+        "date": "2026-04-02",
+        "vendor": "Hanabishi",
+        "linkedRoomIds": [
+          "room-da",
+          "room-db",
+          "room-dc",
+          "room-dd",
+          "room-etude"
+        ],
+        "status": "paid"
+      },
+      {
+        "id": "e16",
+        "categoryId": "cd",
+        "description": "Rideaux + literie + déco",
+        "amount": 9000,
+        "currency": "PHP",
+        "exchangeRate": 1,
+        "date": "2026-06-25",
+        "vendor": "SM Home",
+        "linkedRoomIds": [
+          "room-da",
+          "room-db",
+          "room-dc",
+          "room-dd"
+        ],
+        "status": "planned"
+      },
+      {
+        "id": "e17",
+        "categoryId": "cd",
+        "description": "Extincteurs + détecteurs fumée",
+        "amount": 6000,
+        "currency": "PHP",
+        "exchangeRate": 1,
+        "date": "2026-04-10",
+        "vendor": "Sécurité incendie",
+        "linkedRoomIds": [],
+        "status": "paid"
+      },
+      {
+        "id": "e18",
+        "categoryId": "cm",
+        "description": "Quincaillerie importée (vis, ferrures)",
+        "amount": 300,
+        "currency": "EUR",
+        "exchangeRate": 58,
+        "date": "2026-03-08",
+        "vendor": "Fournisseur EU",
+        "linkedRoomIds": [],
+        "status": "paid"
+      },
+      {
+        "id": "e19",
+        "categoryId": "cf",
+        "description": "Outils électroportatifs (perceuse)",
+        "amount": 180,
+        "currency": "USD",
+        "exchangeRate": 56,
+        "date": "2026-02-15",
+        "vendor": "Importé US",
+        "linkedRoomIds": [],
+        "status": "paid"
+      },
+      {
+        "id": "e20",
+        "categoryId": "cd",
+        "description": "Climatiseur split (reporté)",
+        "amount": 25000,
+        "currency": "PHP",
+        "exchangeRate": 1,
+        "date": "2026-05-01",
+        "vendor": "Annulé — budget",
+        "linkedRoomIds": [
+          "room-etude"
+        ],
+        "status": "cancelled"
+      }
+    ],
+    "roiConfig": {
+      "totalRenovationBudget": 480000,
+      "monthlyRentPerBed": 3000,
+      "numberOfBeds": 16,
+      "occupancyRate": 0.85,
+      "monthlyExpenses": 9000,
+      "propertyPurchasePrice": 0
+    }
+  }
+}
