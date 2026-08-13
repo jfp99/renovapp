@@ -1,5 +1,6 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { persist, createJSONStorage } from 'zustand/middleware';
+import { safeStorage } from '@/lib/safeStorage';
 import { v4 as uuidv4 } from 'uuid';
 import { CatalogItem, FurniturePlacement } from '@/types/furniture';
 
@@ -99,6 +100,7 @@ export const useFurnitureStore = create<FurnitureState>()(
     }),
     {
       name: 'renovapp-furniture',
+      storage: createJSONStorage(() => safeStorage),
     }
   )
 );

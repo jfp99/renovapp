@@ -4,11 +4,11 @@ import React from 'react';
 import { useCostStore } from '@/stores/costStore';
 
 export const BudgetOverview: React.FC = () => {
-  const { categories, getSpentByCategory, getTotalSpent, getTotalBudget } =
+  const { categories, getSpentByCategory, getTotalPaid, getTotalBudget } =
     useCostStore();
 
   const spentByCategory = getSpentByCategory();
-  const totalSpent = getTotalSpent();
+  const totalSpent = getTotalPaid();
   const totalBudget = getTotalBudget();
 
   return (
@@ -22,7 +22,7 @@ export const BudgetOverview: React.FC = () => {
           </p>
         </div>
         <div className="rounded-xl border border-rose-100 bg-rose-50/60 p-4">
-          <p className="text-xs font-medium text-ink-muted">Dépenses</p>
+          <p className="text-xs font-medium text-ink-muted">Payé</p>
           <p className="mt-1.5 text-2xl font-bold text-ink">
             ₱{totalSpent.toLocaleString('fr-FR', { maximumFractionDigits: 0 })}
           </p>

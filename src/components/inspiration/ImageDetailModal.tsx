@@ -5,6 +5,7 @@ import { InspirationImage } from '@/types/inspiration';
 import { Room } from '@/types/plan';
 import { useInspirationStore } from '@/stores/inspirationStore';
 import { X, Trash2 } from 'lucide-react';
+import { useMediaUrl } from '@/lib/useMediaUrl';
 
 interface ImageDetailModalProps {
   image: InspirationImage;
@@ -17,6 +18,7 @@ export default function ImageDetailModal({
   rooms,
   onClose,
 }: ImageDetailModalProps) {
+  const fileUrl = useMediaUrl(image.fileId, image.fileData);
   const [note, setNote] = useState(image.note);
   const [tags, setTags] = useState(image.tags);
   const [tagInput, setTagInput] = useState('');
@@ -83,7 +85,7 @@ export default function ImageDetailModal({
             {/* Image */}
             <div>
               <div className="overflow-hidden rounded-xl border border-[var(--border)] bg-slate-100">
-                <img src={image.fileData} alt="Inspiration" className="h-auto max-h-96 w-full object-contain" />
+                <img src={fileUrl} alt="Inspiration" className="h-auto max-h-96 w-full object-contain" />
               </div>
             </div>
 

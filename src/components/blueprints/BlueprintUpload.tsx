@@ -4,7 +4,8 @@ import { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Cloud, Upload } from 'lucide-react';
 import { useBlueprintStore } from '@/stores/blueprintStore';
-import { generateThumbnail, fileToBase64, getBaseFilename } from '@/lib/imageUtils';
+import { generateThumbnail, getBaseFilename } from '@/lib/imageUtils';
+import { putMediaBlob } from '@/lib/mediaDb';
 
 export default function BlueprintUpload() {
   const addBlueprint = useBlueprintStore((state) => state.addBlueprint);
@@ -13,15 +14,16 @@ export default function BlueprintUpload() {
     async (acceptedFiles: File[]) => {
       for (const file of acceptedFiles) {
         try {
-          const fileData = await fileToBase64(file);
-          const thumbnailData = await generateThumbnail(file);
           const baseName = getBaseFilename(file.name);
+          // Full-resolution file goes to IndexedDB; only the thumbnail is kept inline.
+          const fileId = await putMediaBlob(file, file.name);
+          const thumbnailData = await generateThumbnail(file);
 
           addBlueprint({
             name: baseName,
             description: '',
             fileType: 'image',
-            fileData,
+            fileId,
             thumbnailData,
             tags: [],
             linkedRoomIds: [],

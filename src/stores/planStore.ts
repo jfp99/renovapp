@@ -1,5 +1,6 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { persist, createJSONStorage } from 'zustand/middleware';
+import { safeStorage } from '@/lib/safeStorage';
 import { v4 as uuidv4 } from 'uuid';
 import { Floor, Room, DoorPlacement, WindowPlacement } from '@/types/plan';
 
@@ -168,6 +169,7 @@ export const usePlanStore = create<PlanState>()(
     }),
     {
       name: 'renovapp-plans',
+      storage: createJSONStorage(() => safeStorage),
     }
   )
 );

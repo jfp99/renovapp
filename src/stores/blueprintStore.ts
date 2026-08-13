@@ -1,5 +1,7 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { persist, createJSONStorage } from 'zustand/middleware';
+import { safeStorage } from '@/lib/safeStorage';
+import { deleteMedia } from '@/lib/mediaDb';
 import { v4 as uuidv4 } from 'uuid';
 import { Blueprint } from '@/types/blueprint';
 
@@ -34,10 +36,13 @@ export const useBlueprintStore = create<BlueprintState>()(
           ),
         })),
 
-      removeBlueprint: (id: string) =>
+      removeBlueprint: (id: string) => {
+        const target = get().blueprints.find((b) => b.id === id);
+        if (target?.fileId) void deleteMedia(target.fileId);
         set((state) => ({
           blueprints: state.blueprints.filter((b) => b.id !== id),
-        })),
+        }));
+      },
 
       getBlueprintsByRoom: (roomId: string) => {
         return get().blueprints.filter((b) =>
@@ -47,6 +52,11 @@ export const useBlueprintStore = create<BlueprintState>()(
     }),
     {
       name: 'renovapp-blueprints',
+      storage: createJSONStorage(() => safeStorage),
+      // Never let full-resolution payloads reach localStorage.
+      partialize: (state) => ({
+        blueprints: state.blueprints.map(({ fileData: _fileData, ...rest }) => rest),
+      }),
     }
   )
 );

@@ -7,19 +7,30 @@ import { downloadProjectExport, importProjectExport } from '@/lib/projectData';
 export default function ProjectActions() {
   const fileRef = useRef<HTMLInputElement>(null);
   const [done, setDone] = useState(false);
+  const [busy, setBusy] = useState(false);
 
-  const handleExport = () => {
-    downloadProjectExport();
-    setDone(true);
-    setTimeout(() => setDone(false), 1800);
+  const handleExport = async () => {
+    setBusy(true);
+    try {
+      await downloadProjectExport();
+      setDone(true);
+      setTimeout(() => setDone(false), 1800);
+    } catch (error) {
+      console.error('[RenovApp] Export impossible :', error);
+      alert("La sauvegarde a échoué. Consultez la console pour le détail.");
+    } finally {
+      setBusy(false);
+    }
   };
 
   const handleImport = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
     const reader = new FileReader();
-    reader.onload = () => {
-      const err = importProjectExport(reader.result as string);
+    reader.onload = async () => {
+      setBusy(true);
+      const err = await importProjectExport(reader.result as string);
+      setBusy(false);
       if (err) {
         alert(err);
       } else {
@@ -44,9 +55,9 @@ export default function ProjectActions() {
         <Upload size={15} />
         Importer
       </button>
-      <button onClick={handleExport} className="btn-primary btn-sm">
+      <button onClick={handleExport} disabled={busy} className="btn-primary btn-sm disabled:opacity-60">
         {done ? <Check size={15} /> : <Download size={15} />}
-        {done ? 'Sauvegardé' : 'Sauvegarder'}
+        {busy ? 'Sauvegarde…' : done ? 'Sauvegardé' : 'Sauvegarder'}
       </button>
     </div>
   );

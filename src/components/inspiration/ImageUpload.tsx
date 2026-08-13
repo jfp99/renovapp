@@ -4,7 +4,8 @@ import { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Cloud, Upload } from 'lucide-react';
 import { useInspirationStore } from '@/stores/inspirationStore';
-import { generateThumbnail, fileToBase64, getBaseFilename } from '@/lib/imageUtils';
+import { generateThumbnail } from '@/lib/imageUtils';
+import { putMediaBlob } from '@/lib/mediaDb';
 
 export default function ImageUpload() {
   const addImage = useInspirationStore((state) => state.addImage);
@@ -13,11 +14,12 @@ export default function ImageUpload() {
     async (acceptedFiles: File[]) => {
       for (const file of acceptedFiles) {
         try {
-          const fileData = await fileToBase64(file);
+          // Full-resolution file goes to IndexedDB; only the thumbnail is kept inline.
+          const fileId = await putMediaBlob(file, file.name);
           const thumbnailData = await generateThumbnail(file);
 
           addImage({
-            fileData,
+            fileId,
             thumbnailData,
             tags: [],
             linkedRoomIds: [],

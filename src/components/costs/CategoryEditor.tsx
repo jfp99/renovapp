@@ -39,7 +39,7 @@ export const CategoryEditor: React.FC = () => {
       alert('Veuillez remplir tous les champs');
       return;
     }
-    addCategory(formData.name, formData.color, formData.budgetAllocation);
+    addCategory(formData.name, formData.color, formData.budgetAllocation, 'capex');
     setFormData({
       name: '',
       color: COLOR_PRESETS[0],

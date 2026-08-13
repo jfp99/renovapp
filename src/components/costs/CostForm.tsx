@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { X } from 'lucide-react';
 import { useCostStore } from '@/stores/costStore';
 import { usePlanStore } from '@/stores/planStore';
-import { CostEntry, CostStatus, Currency } from '@/types/cost';
+import { CostEntry, CostNature, CostStatus, Currency } from '@/types/cost';
 
 interface CostFormProps {
   isOpen: boolean;
@@ -41,6 +41,7 @@ export const CostForm: React.FC<CostFormProps> = ({
     vendor: '',
     linkedRoomIds: [] as string[],
     status: 'planned' as CostStatus,
+    nature: 'capex' as CostNature,
   });
 
   useEffect(() => {
@@ -55,6 +56,7 @@ export const CostForm: React.FC<CostFormProps> = ({
         vendor: editingEntry.vendor || '',
         linkedRoomIds: editingEntry.linkedRoomIds,
         status: editingEntry.status,
+        nature: editingEntry.nature ?? 'capex',
       });
     } else {
       setFormData({
@@ -67,6 +69,7 @@ export const CostForm: React.FC<CostFormProps> = ({
         vendor: '',
         linkedRoomIds: [],
         status: 'planned',
+        nature: categories[0]?.defaultNature ?? 'capex',
       });
     }
   }, [editingEntry, isOpen, categories]);
@@ -156,6 +159,33 @@ export const CostForm: React.FC<CostFormProps> = ({
                   </option>
                 ))}
               </select>
+            </div>
+
+            {/* Nature: CAPEX vs OPEX — drives where the amount lands in the ROI */}
+            <div className="col-span-2">
+              <label className="label">Nature de la dépense</label>
+              <div className="mt-1 flex gap-2">
+                {(
+                  [
+                    ['capex', 'Investissement', 'Rénovation, mobilier — à rentabiliser'],
+                    ['opex', 'Charge récurrente', 'Loyer, électricité, salaire — mensuel'],
+                  ] as Array<[CostNature, string, string]>
+                ).map(([value, label, hint]) => (
+                  <button
+                    key={value}
+                    type="button"
+                    onClick={() => setFormData({ ...formData, nature: value })}
+                    className={`flex-1 rounded-lg border px-3 py-2 text-left text-sm transition-colors ${
+                      formData.nature === value
+                        ? 'border-brand-500 bg-brand-50 text-brand-700'
+                        : 'border-[var(--border)] text-ink-muted hover:bg-slate-50'
+                    }`}
+                  >
+                    <span className="block font-medium">{label}</span>
+                    <span className="block text-xs text-ink-faint">{hint}</span>
+                  </button>
+                ))}
+              </div>
             </div>
 
             {/* Status */}

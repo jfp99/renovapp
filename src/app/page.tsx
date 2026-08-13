@@ -105,11 +105,12 @@ export default function Dashboard() {
   }
 
   // ── Real metrics ──
-  const totalSpent = cost.getTotalSpent();
+  const totalSpent = cost.getTotalPaid();
   const totalBudget = cost.getTotalBudget() || cost.roiConfig.totalRenovationBudget;
   const budgetPct = totalBudget > 0 ? (totalSpent / totalBudget) * 100 : 0;
-  const monthlyNet = cost.getMonthlyNetIncome();
-  const roiMonths = cost.getROIMonths();
+  const roiMetrics = cost.getRoiMetrics('actual');
+  const monthlyNet = roiMetrics.netMonthlyIncome;
+  const roiMonths = roiMetrics.paybackMonths ?? 0;
   const spentByCategory = cost.getSpentByCategory();
 
   const totalAreaM2 = rooms.reduce((s, r) => s + areaM2(r.width, r.height), 0);

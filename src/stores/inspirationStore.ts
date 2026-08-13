@@ -1,5 +1,7 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { persist, createJSONStorage } from 'zustand/middleware';
+import { safeStorage } from '@/lib/safeStorage';
+import { deleteMedia } from '@/lib/mediaDb';
 import { v4 as uuidv4 } from 'uuid';
 import { InspirationImage, InspirationBoard } from '@/types/inspiration';
 
@@ -16,7 +18,7 @@ interface InspirationState {
 
 export const useInspirationStore = create<InspirationState>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       images: [],
       boards: [],
 
@@ -31,14 +33,17 @@ export const useInspirationStore = create<InspirationState>()(
           ],
         })),
 
-      removeImage: (id: string) =>
+      removeImage: (id: string) => {
+        const target = get().images.find((img) => img.id === id);
+        if (target?.fileId) void deleteMedia(target.fileId);
         set((state) => ({
           images: state.images.filter((img) => img.id !== id),
           boards: state.boards.map((board) => ({
             ...board,
             imageIds: board.imageIds.filter((imgId) => imgId !== id),
           })),
-        })),
+        }));
+      },
 
       updateImage: (id: string, updates: Partial<InspirationImage>) =>
         set((state) => ({
@@ -80,6 +85,12 @@ export const useInspirationStore = create<InspirationState>()(
     }),
     {
       name: 'renovapp-inspiration',
+      storage: createJSONStorage(() => safeStorage),
+      // Never let full-resolution payloads reach localStorage.
+      partialize: (state) => ({
+        images: state.images.map(({ fileData: _fileData, ...rest }) => rest),
+        boards: state.boards,
+      }),
     }
   )
 );

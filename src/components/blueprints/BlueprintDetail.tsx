@@ -5,6 +5,7 @@ import { Blueprint } from '@/types/blueprint';
 import { Room } from '@/types/plan';
 import { useBlueprintStore } from '@/stores/blueprintStore';
 import { X, Trash2, ZoomIn, ZoomOut } from 'lucide-react';
+import { useMediaUrl } from '@/lib/useMediaUrl';
 
 interface BlueprintDetailProps {
   blueprint: Blueprint;
@@ -23,6 +24,7 @@ export default function BlueprintDetail({
   const [tagInput, setTagInput] = useState('');
   const [linkedRoomIds, setLinkedRoomIds] = useState(blueprint.linkedRoomIds);
   const [zoom, setZoom] = useState(1);
+  const fileUrl = useMediaUrl(blueprint.fileId, blueprint.fileData);
 
   const updateBlueprint = useBlueprintStore((state) => state.updateBlueprint);
   const removeBlueprint = useBlueprintStore((state) => state.removeBlueprint);
@@ -86,7 +88,7 @@ export default function BlueprintDetail({
               <div className="relative overflow-hidden rounded-xl border border-[var(--border)] bg-slate-100">
                 <div className="flex min-h-[400px] items-center justify-center">
                   <div style={{ transform: `scale(${zoom})`, transformOrigin: 'center' }} className="transition-transform">
-                    <img src={blueprint.fileData} alt={blueprint.name} className="h-auto max-h-[400px] max-w-full" />
+                    <img src={fileUrl} alt={blueprint.name} className="h-auto max-h-[400px] max-w-full" />
                   </div>
                 </div>
                 <div className="absolute bottom-4 right-4 flex items-center gap-1 rounded-xl bg-white p-1 shadow-card">

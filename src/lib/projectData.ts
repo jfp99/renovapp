@@ -5,6 +5,9 @@ import { useFurnitureStore } from '@/stores/furnitureStore';
 import { useBlueprintStore } from '@/stores/blueprintStore';
 import { useInspirationStore } from '@/stores/inspirationStore';
 import { useCostStore } from '@/stores/costStore';
+import { getMediaDataUrl, putMediaDataUrl } from '@/lib/mediaDb';
+import type { Blueprint } from '@/types/blueprint';
+import type { InspirationImage } from '@/types/inspiration';
 
 export interface ProjectExport {
   app: 'renovapp';
@@ -17,15 +20,34 @@ export interface ProjectExport {
   costs: { categories: unknown; entries: unknown; roiConfig: unknown };
 }
 
-const EXPORT_VERSION = 1;
+/**
+ * v2: media payloads live in IndexedDB, so the export has to inline them again
+ * as base64 — otherwise the backup file would reference blobs it doesn't carry
+ * and restoring on another machine would produce an album of broken images.
+ */
+const EXPORT_VERSION = 2;
 
-/** Snapshot every store into a single serialisable object. */
-export function buildProjectExport(): ProjectExport {
+/** Snapshot every store into a single serialisable object, media included. */
+export async function buildProjectExport(): Promise<ProjectExport> {
   const plan = usePlanStore.getState();
   const furniture = useFurnitureStore.getState();
   const blueprint = useBlueprintStore.getState();
   const inspiration = useInspirationStore.getState();
   const cost = useCostStore.getState();
+
+  const blueprints = await Promise.all(
+    blueprint.blueprints.map(async (item) => ({
+      ...item,
+      fileData: item.fileData ?? (item.fileId ? await getMediaDataUrl(item.fileId) : undefined),
+    }))
+  );
+
+  const images = await Promise.all(
+    inspiration.images.map(async (item) => ({
+      ...item,
+      fileData: item.fileData ?? (item.fileId ? await getMediaDataUrl(item.fileId) : undefined),
+    }))
+  );
 
   return {
     app: 'renovapp',
@@ -33,15 +55,15 @@ export function buildProjectExport(): ProjectExport {
     exportedAt: new Date().toISOString(),
     plans: { floors: plan.floors, rooms: plan.rooms },
     furniture: { placements: furniture.placements, catalog: furniture.catalog },
-    blueprints: blueprint.blueprints,
-    inspiration: { images: inspiration.images, boards: inspiration.boards },
+    blueprints,
+    inspiration: { images, boards: inspiration.boards },
     costs: { categories: cost.categories, entries: cost.entries, roiConfig: cost.roiConfig },
   };
 }
 
 /** Trigger a download of the full project as JSON. */
-export function downloadProjectExport(): void {
-  const data = buildProjectExport();
+export async function downloadProjectExport(): Promise<void> {
+  const data = await buildProjectExport();
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
@@ -54,8 +76,27 @@ export function downloadProjectExport(): void {
   URL.revokeObjectURL(url);
 }
 
+/** Move any inlined base64 back into IndexedDB and keep only the reference. */
+async function rehydrateMedia<T extends { fileId?: string; fileData?: string }>(
+  items: T[],
+  label: string
+): Promise<T[]> {
+  return Promise.all(
+    items.map(async (item) => {
+      if (!item.fileData) return item;
+      try {
+        const fileId = await putMediaDataUrl(item.fileData, label);
+        return { ...item, fileId, fileData: undefined };
+      } catch {
+        // Storing failed — keep the inline copy so the image is at least visible.
+        return item;
+      }
+    })
+  );
+}
+
 /** Restore every store from a previously exported file. Returns an error string or null. */
-export function importProjectExport(json: string): string | null {
+export async function importProjectExport(json: string): Promise<string | null> {
   let data: Partial<ProjectExport>;
   try {
     data = JSON.parse(json);
@@ -80,11 +121,16 @@ export function importProjectExport(json: string): string | null {
       });
     }
     if (data.blueprints) {
-      useBlueprintStore.setState({ blueprints: (data.blueprints as never) ?? [] });
+      const restored = await rehydrateMedia((data.blueprints as Blueprint[]) ?? [], 'blueprint');
+      useBlueprintStore.setState({ blueprints: restored as never });
     }
     if (data.inspiration) {
+      const restored = await rehydrateMedia(
+        (data.inspiration.images as InspirationImage[]) ?? [],
+        'inspiration'
+      );
       useInspirationStore.setState({
-        images: (data.inspiration.images as never) ?? [],
+        images: restored as never,
         boards: (data.inspiration.boards as never) ?? [],
       });
     }
