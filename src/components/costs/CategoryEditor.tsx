@@ -95,7 +95,7 @@ export const CategoryEditor: React.FC = () => {
 
       {/* Add/Edit Form */}
       {(isAddingNew || editingId) && (
-        <div className="rounded-xl border border-[var(--border)] bg-slate-50 p-4">
+        <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-app)] p-4">
           <div className="space-y-4">
             <div>
               <label className="label">Nom</label>

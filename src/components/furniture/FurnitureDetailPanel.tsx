@@ -44,7 +44,7 @@ export default function FurnitureDetailPanel({ placementId, onClose }: Props) {
 
       {/* Content */}
       <div className="flex-1 overflow-y-auto p-4 space-y-5">
-        <div className="rounded-xl bg-slate-50 p-3">
+        <div className="rounded-xl bg-[var(--bg-app)] p-3">
           <p className="text-xs text-ink-faint">Modèle · {CATEGORY_LABELS[item.category]}</p>
           <p className="text-sm font-semibold text-ink">{item.name}</p>
         </div>
@@ -103,7 +103,7 @@ export default function FurnitureDetailPanel({ placementId, onClose }: Props) {
                 key={r}
                 onClick={() => set({ rotation: r })}
                 className={`rounded-lg py-1.5 text-xs font-medium transition-colors ${
-                  placement.rotation === r ? 'bg-brand-600 text-white' : 'bg-slate-100 text-ink-muted hover:bg-slate-200'
+                  placement.rotation === r ? 'bg-brand-600 text-white' : 'bg-[var(--bg-app)] text-ink-muted hover:bg-[var(--border)]'
                 }`}
               >
                 {r}°
@@ -118,7 +118,7 @@ export default function FurnitureDetailPanel({ placementId, onClose }: Props) {
           </button>
         </div>
 
-        <div className="rounded-xl bg-slate-50 p-3 text-xs text-ink-muted">
+        <div className="rounded-xl bg-[var(--bg-app)] p-3 text-xs text-ink-muted">
           Position : X {Math.round(placement.x / 2)} cm · Y {Math.round(placement.y / 2)} cm
         </div>
       </div>

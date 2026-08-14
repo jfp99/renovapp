@@ -114,7 +114,7 @@ export const ROICalculator: React.FC = () => {
                     className={`rounded-lg border px-3 py-2 text-sm transition-colors ${
                       formData.propertyMode === mode
                         ? 'border-brand-500 bg-brand-50 font-medium text-brand-700'
-                        : 'border-[var(--border)] text-ink-muted hover:bg-slate-50'
+                        : 'border-[var(--border)] text-ink-muted hover:bg-[var(--bg-app)]'
                     }`}
                   >
                     {label}
@@ -192,7 +192,7 @@ export const ROICalculator: React.FC = () => {
                     className={`flex items-center gap-1.5 rounded-lg border px-3 py-2 text-sm transition-colors ${
                       formData.bedCountSource === 'plan'
                         ? 'border-brand-500 bg-brand-50 font-medium text-brand-700'
-                        : 'border-[var(--border)] text-ink-muted hover:bg-slate-50'
+                        : 'border-[var(--border)] text-ink-muted hover:bg-[var(--bg-app)]'
                     }`}
                   >
                     <Link2 size={14} /> Depuis le plan ({planBedCount})
@@ -203,7 +203,7 @@ export const ROICalculator: React.FC = () => {
                     className={`flex items-center gap-1.5 rounded-lg border px-3 py-2 text-sm transition-colors ${
                       formData.bedCountSource === 'manual'
                         ? 'border-brand-500 bg-brand-50 font-medium text-brand-700'
-                        : 'border-[var(--border)] text-ink-muted hover:bg-slate-50'
+                        : 'border-[var(--border)] text-ink-muted hover:bg-[var(--bg-app)]'
                     }`}
                   >
                     <PencilLine size={14} /> Saisie manuelle
@@ -259,9 +259,9 @@ export const ROICalculator: React.FC = () => {
 
         {/* Capacity mismatch warning — the 6-vs-8 trap. */}
         {roiConfig.bedCountSource === 'manual' && planBedCount !== roiConfig.numberOfBeds && (
-          <div className="mt-5 flex items-start gap-2 rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm">
-            <Info className="mt-0.5 h-4 w-4 shrink-0 text-amber-600" />
-            <p className="text-amber-800">
+          <div className="mt-5 flex items-start gap-2 rounded-xl border border-accent-200 bg-accent-50 p-3 text-sm">
+            <Info className="mt-0.5 h-4 w-4 shrink-0 text-accent-600" />
+            <p className="text-accent-700">
               Le modèle utilise <strong>{roiConfig.numberOfBeds} lits</strong> alors que le plan en
               contient <strong>{planBedCount}</strong>. Vérifiez lequel fait foi avant de vous
               appuyer sur ces chiffres.
@@ -316,7 +316,7 @@ export const ROICalculator: React.FC = () => {
         </div>
 
         {actual.netMonthlyIncome <= 0 && (
-          <p className="mt-4 rounded-lg bg-slate-50 px-3 py-2 text-xs text-ink-muted">
+          <p className="mt-4 rounded-lg bg-[var(--bg-app)] px-3 py-2 text-xs text-ink-muted">
             Revenu net négatif ou nul : aucun retour sur investissement n&apos;est calculable en
             l&apos;état.
           </p>

@@ -104,7 +104,7 @@ export default function StorageGuard() {
 
   if (migrated > 0) {
     return (
-      <div className="fixed bottom-5 right-5 z-[100] rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800 shadow-card">
+      <div className="fixed bottom-5 right-5 z-[100] rounded-xl border border-pine-100 bg-pine-50 px-4 py-3 text-sm text-pine-700 shadow-card">
         {migrated} fichier{migrated > 1 ? 's' : ''} déplacé{migrated > 1 ? 's' : ''} vers le stockage
         durable.
       </div>

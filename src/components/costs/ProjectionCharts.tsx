@@ -19,15 +19,18 @@ import { Table2, LineChart as LineChartIcon } from 'lucide-react';
 import type { ProjectionResult, SensitivityEntry } from '@/types/scenario';
 
 /**
- * Palette: validated categorical slots (light mode).
- * Aqua sits below 3:1 on the light surface, so every chart using it ships a
- * table view — the relief rule, not an optional extra.
+ * Palette drawn from the "Atelier" design tokens, then validated against the
+ * cream chart surface (#fbf7ef): lightness band, chroma floor, colour-vision
+ * separation, normal-vision separation and contrast all pass as a pair.
+ *
+ * The design's own pine (#3E7C6B) reads as grey once measured — its chroma
+ * falls under the floor — so the green is stepped up to the nearest passing
+ * value while staying in the same hue family.
  */
-const SERIES_1 = '#2a78d6'; // blue   — cash position
-const SERIES_2 = '#eb6834'; // orange — unfavourable side
-const SERIES_3 = '#1baf7a'; // aqua   — occupancy
-const GRID = '#e7e5e4';
-const AXIS_TEXT = '#52514e';
+const SERIES_1 = '#B4552F'; // terracotta (brand 600) — cash position, unfavourable side
+const SERIES_2 = '#0B8F6E'; // pine, stepped up      — occupancy, favourable side
+const GRID = '#e3d8c4';     // --border
+const AXIS_TEXT = '#6B5E49'; // ink.muted
 
 const peso = (v: number) => `₱${Math.round(v).toLocaleString('fr-FR')}`;
 const compact = (v: number) => {
@@ -39,9 +42,9 @@ const compact = (v: number) => {
 
 const tooltipStyle = {
   borderRadius: 12,
-  border: '1px solid #e7e5e4',
+  border: '1px solid #e3d8c4',
   fontSize: 13,
-  boxShadow: '0 4px 16px rgba(0,0,0,0.08)',
+  boxShadow: '0 4px 16px rgba(34,28,21,0.10)',
 } as const;
 
 interface Props {
@@ -93,7 +96,7 @@ export const ProjectionCharts: React.FC<Props> = ({ projection, sensitivity }) =
         {showTable ? (
           <div className="mt-4 max-h-96 overflow-auto">
             <table className="w-full text-sm">
-              <thead className="sticky top-0 bg-white">
+              <thead className="sticky top-0 bg-[var(--bg-surface)]">
                 <tr className="border-b border-[var(--border)] text-left text-xs uppercase tracking-wide text-ink-faint">
                   <th className="py-2 font-medium">Mois</th>
                   <th className="py-2 text-right font-medium">Occupation</th>
@@ -109,7 +112,7 @@ export const ProjectionCharts: React.FC<Props> = ({ projection, sensitivity }) =
                     <td className="py-1.5 text-right tabular-nums">{peso(row.net)}</td>
                     <td
                       className={`py-1.5 text-right font-medium tabular-nums ${
-                        row.cumulative >= 0 ? 'text-emerald-700' : 'text-ink'
+                        row.cumulative >= 0 ? 'text-pine-600' : 'text-ink'
                       }`}
                     >
                       {peso(row.cumulative)}
@@ -124,7 +127,7 @@ export const ProjectionCharts: React.FC<Props> = ({ projection, sensitivity }) =
             <AreaChart data={cashData} margin={{ top: 16, right: 8, bottom: 0, left: 8 }}>
               <defs>
                 <linearGradient id="cashFill" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor={SERIES_1} stopOpacity={0.22} />
+                  <stop offset="0%" stopColor={SERIES_1} stopOpacity={0.20} />
                   <stop offset="100%" stopColor={SERIES_1} stopOpacity={0.02} />
                 </linearGradient>
               </defs>
@@ -153,7 +156,7 @@ export const ProjectionCharts: React.FC<Props> = ({ projection, sensitivity }) =
               {projection.paybackMonth && (
                 <ReferenceLine
                   x={cashData[projection.paybackMonth - 1]?.label}
-                  stroke={SERIES_3}
+                  stroke={SERIES_2}
                   strokeWidth={2}
                   strokeDasharray="4 4"
                   label={{
@@ -171,7 +174,7 @@ export const ProjectionCharts: React.FC<Props> = ({ projection, sensitivity }) =
                 strokeWidth={2}
                 fill="url(#cashFill)"
                 dot={false}
-                activeDot={{ r: 4, strokeWidth: 2, stroke: '#fff' }}
+                activeDot={{ r: 4, strokeWidth: 2, stroke: 'var(--bg-surface)' }}
               />
             </AreaChart>
           </ResponsiveContainer>
@@ -208,9 +211,9 @@ export const ProjectionCharts: React.FC<Props> = ({ projection, sensitivity }) =
                 contentStyle={tooltipStyle}
                 formatter={(value) => [`${value} %`, 'Occupation']}
                 labelFormatter={(label) => `Mois : ${label}`}
-                cursor={{ fill: 'rgba(0,0,0,0.04)' }}
+                cursor={{ fill: 'rgba(34,28,21,0.05)' }}
               />
-              <Bar dataKey="occupancy" fill={SERIES_3} radius={[4, 4, 0, 0]} />
+              <Bar dataKey="occupancy" fill={SERIES_2} radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -247,19 +250,19 @@ export const ProjectionCharts: React.FC<Props> = ({ projection, sensitivity }) =
               <Tooltip
                 contentStyle={tooltipStyle}
                 formatter={(value, name) => [peso(value as number), name === 'bas' ? '− 20 %' : '+ 20 %']}
-                cursor={{ fill: 'rgba(0,0,0,0.04)' }}
+                cursor={{ fill: 'rgba(34,28,21,0.05)' }}
               />
               <Legend
                 wrapperStyle={{ fontSize: 12 }}
                 formatter={(value) => (value === 'bas' ? '− 20 %' : '+ 20 %')}
               />
               <ReferenceLine x={0} stroke={AXIS_TEXT} strokeWidth={1} />
-              <Bar dataKey="bas" fill={SERIES_2} radius={[4, 4, 4, 4]}>
+              <Bar dataKey="bas" fill={SERIES_1} radius={[4, 4, 4, 4]}>
                 {tornadoData.map((_, i) => (
                   <Cell key={`low-${i}`} />
                 ))}
               </Bar>
-              <Bar dataKey="haut" fill={SERIES_1} radius={[4, 4, 4, 4]} />
+              <Bar dataKey="haut" fill={SERIES_2} radius={[4, 4, 4, 4]} />
             </BarChart>
           </ResponsiveContainer>
         </div>

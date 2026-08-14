@@ -54,7 +54,7 @@ export default function FurniturePage() {
         )}
 
         {selectedRoom && hydrated && (
-          <div className="p-4 border-t border-[var(--border)] bg-slate-50/60">
+          <div className="p-4 border-t border-[var(--border)] bg-[var(--bg-app)]/60">
             <div className="flex items-center justify-between text-sm">
               <span className="text-ink-muted">Meubles placés</span>
               <span className="font-bold text-ink">{roomPlacements.length}</span>
@@ -99,7 +99,7 @@ export default function FurniturePage() {
         ) : (
           <div className="flex-1 flex flex-col items-center justify-center text-center">
             <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-white shadow-card">
-              <Armchair className="h-7 w-7 text-slate-300" />
+              <Armchair className="h-7 w-7 text-[var(--border-strong)]" />
             </div>
             <p className="text-ink-muted font-medium">Sélectionnez une pièce pour commencer</p>
             <p className="text-sm text-ink-faint mt-1">Les pièces sont créées dans l&apos;onglet Plans</p>

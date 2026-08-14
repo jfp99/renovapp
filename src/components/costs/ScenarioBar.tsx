@@ -33,7 +33,7 @@ export const ScenarioBar: React.FC = () => {
             className={`rounded-lg border px-3 py-1.5 text-sm transition-colors ${
               scenario.id === activeId
                 ? 'border-brand-500 bg-brand-50 font-medium text-brand-700'
-                : 'border-[var(--border)] text-ink-muted hover:bg-slate-50'
+                : 'border-[var(--border)] text-ink-muted hover:bg-[var(--bg-app)]'
             }`}
           >
             {scenario.name}

@@ -33,7 +33,7 @@ export default function InspirationGrid({
             onClick={() => onSelectImage(image)}
             className="block w-full break-inside-avoid"
           >
-            <div className="group relative overflow-hidden rounded-xl border border-[var(--border)] bg-slate-100 transition-all hover:shadow-card-hover">
+            <div className="group relative overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg-app)] transition-all hover:shadow-card-hover">
               <img
                 src={image.thumbnailData}
                 alt="Inspiration"

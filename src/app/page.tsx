@@ -55,8 +55,8 @@ function StatCard({
       <div className="flex items-start justify-between">
         <div>
           <p className="text-sm font-medium text-ink-muted">{title}</p>
-          <p className="mt-1.5 text-3xl font-bold text-ink tracking-tight">{value}</p>
-          {sub && <p className="mt-1 text-xs text-ink-faint">{sub}</p>}
+          <p className="mt-1.5 text-3xl font-display font-bold text-ink tracking-tight">{value}</p>
+          {sub && <p className="mt-1 text-xs font-mono text-ink-faint">{sub}</p>}
         </div>
         <div className={`flex h-11 w-11 items-center justify-center rounded-xl ${tint}`}>
           {icon}
@@ -72,8 +72,8 @@ function StatCard({
 function Milestone({ done, label }: { done: boolean; label: string }) {
   return (
     <span
-      className={`inline-flex items-center gap-1 text-[11px] font-medium ${
-        done ? 'text-emerald-600' : 'text-ink-faint'
+      className={`inline-flex items-center gap-1 text-[11px] font-mono font-medium ${
+        done ? 'text-pine-500' : 'text-ink-faint'
       }`}
     >
       {done ? <CheckCircle2 size={13} /> : <Circle size={13} />}
@@ -151,11 +151,11 @@ export default function Dashboard() {
       <div className="bg-mesh border-b border-[var(--border)]">
         <div className="px-8 py-7 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-brand-600">
+            <p className="text-xs font-mono font-semibold uppercase tracking-wider text-brand-600">
               Maison Philippines · Dortoirs étudiants
             </p>
-            <h1 className="mt-1 text-3xl font-bold text-ink tracking-tight">Tableau de bord</h1>
-            <p className="mt-1 text-sm text-ink-muted">
+            <h1 className="mt-1 text-3xl font-display font-bold text-ink tracking-tight">Tableau de bord</h1>
+            <p className="mt-1 text-sm font-mono text-ink-muted">
               {rooms.length} pièce{rooms.length > 1 ? 's' : ''} ·{' '}
               {floors.length} étage{floors.length > 1 ? 's' : ''} ·{' '}
               {totalAreaM2.toLocaleString('fr-FR', { maximumFractionDigits: 1 })} m² planifiés
@@ -171,7 +171,7 @@ export default function Dashboard() {
             <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-50">
               <PencilRuler className="h-7 w-7 text-brand-600" />
             </div>
-            <h2 className="text-lg font-semibold text-ink">Commencez votre projet</h2>
+            <h2 className="text-lg font-display font-semibold text-ink">Commencez votre projet</h2>
             <p className="mt-1 text-sm text-ink-muted">
               Créez vos premières pièces dans l&apos;éditeur de plan, puis aménagez-les et suivez les coûts.
             </p>
@@ -203,8 +203,8 @@ export default function Dashboard() {
             title="Budget dépensé"
             value={formatPHP(totalSpent, { compact: true })}
             sub={totalBudget > 0 ? `sur ${formatPHP(totalBudget, { compact: true })} (${formatPct(budgetPct)})` : 'Budget non défini'}
-            icon={<Wallet className="h-5 w-5 text-emerald-600" />}
-            tint="bg-emerald-50"
+            icon={<Wallet className="h-5 w-5 text-pine-500" />}
+            tint="bg-pine-50"
             href="/costs"
           />
           <StatCard
@@ -224,7 +224,7 @@ export default function Dashboard() {
             <div className="flex items-center justify-between mb-5">
               <div className="flex items-center gap-2">
                 <Target className="h-4 w-4 text-ink-faint" />
-                <h2 className="font-semibold text-ink">Avancement du budget</h2>
+                <h2 className="font-display font-semibold text-ink">Avancement du budget</h2>
               </div>
               <Link href="/costs" className="text-xs font-medium text-brand-600 hover:underline">
                 Détails →
@@ -232,12 +232,12 @@ export default function Dashboard() {
             </div>
 
             <div className="flex items-end justify-between mb-2">
-              <p className="text-2xl font-bold text-ink">{formatPHP(totalSpent)}</p>
-              <p className="text-sm text-ink-muted">
+              <p className="text-2xl font-display font-bold text-ink">{formatPHP(totalSpent)}</p>
+              <p className="text-sm font-mono text-ink-muted">
                 {totalBudget > 0 ? `/ ${formatPHP(totalBudget)}` : 'budget non défini'}
               </p>
             </div>
-            <div className="h-3 w-full overflow-hidden rounded-full bg-slate-100">
+            <div className="h-3 w-full overflow-hidden rounded-full bg-[var(--bg-app)]">
               <div
                 className={`h-full rounded-full transition-all ${
                   budgetPct > 100 ? 'bg-rose-500' : 'bg-gradient-to-r from-brand-500 to-brand-600'
@@ -245,7 +245,7 @@ export default function Dashboard() {
                 style={{ width: `${Math.min(budgetPct, 100)}%` }}
               />
             </div>
-            <div className="mt-2 flex items-center justify-between text-xs">
+            <div className="mt-2 flex items-center justify-between text-xs font-mono">
               <span className={budgetPct > 100 ? 'text-rose-600 font-medium' : 'text-ink-muted'}>
                 {formatPct(budgetPct)} utilisé
               </span>
@@ -257,16 +257,16 @@ export default function Dashboard() {
             {/* secondary metrics */}
             <div className="mt-6 grid grid-cols-3 gap-4 border-t border-[var(--border)] pt-5">
               <div>
-                <p className="text-xs text-ink-faint">Dépenses</p>
-                <p className="mt-0.5 text-lg font-bold text-ink">{cost.entries.length}</p>
+                <p className="text-xs font-mono text-ink-faint">Dépenses</p>
+                <p className="mt-0.5 text-lg font-display font-bold text-ink">{cost.entries.length}</p>
               </div>
               <div>
-                <p className="text-xs text-ink-faint">Revenu net / mois</p>
-                <p className="mt-0.5 text-lg font-bold text-ink">{formatPHP(Math.max(0, monthlyNet), { compact: true })}</p>
+                <p className="text-xs font-mono text-ink-faint">Revenu net / mois</p>
+                <p className="mt-0.5 text-lg font-display font-bold text-ink">{formatPHP(Math.max(0, monthlyNet), { compact: true })}</p>
               </div>
               <div>
-                <p className="text-xs text-ink-faint">Avancement moyen</p>
-                <p className="mt-0.5 text-lg font-bold text-ink">{formatPct(avgCompletion)}</p>
+                <p className="text-xs font-mono text-ink-faint">Avancement moyen</p>
+                <p className="mt-0.5 text-lg font-display font-bold text-ink">{formatPct(avgCompletion)}</p>
               </div>
             </div>
           </div>
@@ -275,7 +275,7 @@ export default function Dashboard() {
           <div className="card p-6">
             <div className="flex items-center gap-2 mb-4">
               <Layers className="h-4 w-4 text-ink-faint" />
-              <h2 className="font-semibold text-ink">Répartition des coûts</h2>
+              <h2 className="font-display font-semibold text-ink">Répartition des coûts</h2>
             </div>
             {pieData.length > 0 ? (
               <>
@@ -297,8 +297,8 @@ export default function Dashboard() {
                     </PieChart>
                   </ResponsiveContainer>
                   <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                    <span className="text-[11px] text-ink-faint">Total</span>
-                    <span className="text-sm font-bold text-ink">
+                    <span className="text-[11px] font-mono text-ink-faint">Total</span>
+                    <span className="text-sm font-display font-bold text-ink">
                       {formatPHP(totalSpent, { compact: true })}
                     </span>
                   </div>
@@ -310,14 +310,14 @@ export default function Dashboard() {
                         <span className="h-2.5 w-2.5 rounded-sm" style={{ background: d.color }} />
                         {d.name}
                       </span>
-                      <span className="font-medium text-ink">{formatPHP(d.value, { compact: true })}</span>
+                      <span className="font-mono font-medium text-ink">{formatPHP(d.value, { compact: true })}</span>
                     </div>
                   ))}
                 </div>
               </>
             ) : (
               <div className="flex h-48 flex-col items-center justify-center text-center">
-                <Wallet className="h-8 w-8 text-slate-300 mb-2" />
+                <Wallet className="h-8 w-8 text-[var(--border-strong)] mb-2" />
                 <p className="text-sm text-ink-faint">Aucune dépense enregistrée</p>
                 <Link href="/costs" className="mt-2 text-xs font-medium text-brand-600 hover:underline">
                   Ajouter une dépense
@@ -331,8 +331,8 @@ export default function Dashboard() {
         {roomData.length > 0 && (
           <div className="card p-6">
             <div className="flex items-center justify-between mb-5">
-              <h2 className="font-semibold text-ink">Avancement par pièce</h2>
-              <span className="badge-muted">{roomData.length} pièces</span>
+              <h2 className="font-display font-semibold text-ink">Avancement par pièce</h2>
+              <span className="badge-muted font-mono">{roomData.length} pièces</span>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5">
               {roomData.map(({ room, completion }) => (
@@ -344,15 +344,15 @@ export default function Dashboard() {
                         style={{ background: ROOM_ACCENT[room.type] }}
                       />
                       {room.name}
-                      <span className="text-xs font-normal text-ink-faint">
+                      <span className="text-xs font-mono font-normal text-ink-faint">
                         {ROOM_TYPE_LABELS[room.type]}
                       </span>
                     </span>
-                    <span className="text-xs font-semibold text-ink-muted">
+                    <span className="text-xs font-mono font-semibold text-ink-muted">
                       {formatPct(completion.percent)}
                     </span>
                   </div>
-                  <div className="h-2 w-full overflow-hidden rounded-full bg-slate-100">
+                  <div className="h-2 w-full overflow-hidden rounded-full bg-[var(--bg-app)]">
                     <div
                       className="h-full rounded-full transition-all"
                       style={{

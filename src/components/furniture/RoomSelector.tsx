@@ -32,7 +32,7 @@ export default function RoomSelector() {
       </div>
 
       {selectedRoom && (
-        <div className="mt-3 flex items-center gap-3 rounded-xl border border-[var(--border)] bg-slate-50/60 p-3">
+        <div className="mt-3 flex items-center gap-3 rounded-xl border border-[var(--border)] bg-[var(--bg-app)]/60 p-3">
           <span className="h-9 w-9 flex-shrink-0 rounded-lg" style={{ background: ROOM_ACCENT[selectedRoom.type] }} />
           <div className="min-w-0">
             <p className="truncate text-sm font-semibold text-ink">{selectedRoom.name}</p>

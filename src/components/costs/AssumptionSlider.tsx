@@ -42,7 +42,7 @@ export const AssumptionSlider: React.FC<AssumptionSliderProps> = ({
           <button
             type="button"
             onClick={onToggleLock}
-            className="rounded p-1 text-ink-faint transition-colors hover:bg-slate-100 hover:text-ink-soft"
+            className="rounded p-1 text-ink-faint transition-colors hover:bg-[var(--bg-app)] hover:text-ink-soft"
             aria-label={locked ? `Déverrouiller ${label}` : `Verrouiller ${label}`}
             title={locked ? 'Déverrouiller' : 'Figer cette hypothèse'}
           >
@@ -61,7 +61,7 @@ export const AssumptionSlider: React.FC<AssumptionSliderProps> = ({
         value={value}
         disabled={locked}
         onChange={(e) => onChange(parseFloat(e.target.value))}
-        className="h-1.5 flex-1 cursor-pointer appearance-none rounded-full bg-slate-200 accent-brand-600 disabled:cursor-not-allowed"
+        className="h-1.5 flex-1 cursor-pointer appearance-none rounded-full bg-[var(--border)] accent-brand-600 disabled:cursor-not-allowed"
       />
       <input
         type="number"

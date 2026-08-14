@@ -107,7 +107,7 @@ export default function LocationPage() {
               {occupancy.occupied} / {occupancy.total} lits
             </p>
           </div>
-          <div className="rounded-xl border border-emerald-100 bg-emerald-50/60 p-5">
+          <div className="rounded-xl border border-pine-100 bg-pine-50/60 p-5">
             <p className="text-xs font-medium text-ink-muted">Encaissé ce mois</p>
             <p className="mt-1.5 text-2xl font-bold tabular-nums text-ink">{peso(collectedThisMonth)}</p>
           </div>
@@ -124,7 +124,7 @@ export default function LocationPage() {
               </p>
             )}
           </div>
-          <div className="rounded-xl border border-amber-100 bg-amber-50/60 p-5">
+          <div className="rounded-xl border border-accent-100 bg-accent-50/60 p-5">
             <p className="text-xs font-medium text-ink-muted">Dépôts détenus</p>
             <p className="mt-1.5 text-2xl font-bold tabular-nums text-ink">
               {peso(heldDeposits(tenancies))}
@@ -260,7 +260,7 @@ export default function LocationPage() {
             )}
 
             {selectedBlock && (
-              <p className="mt-4 rounded-lg bg-slate-50 px-3 py-2 text-sm text-ink-muted">
+              <p className="mt-4 rounded-lg bg-[var(--bg-app)] px-3 py-2 text-sm text-ink-muted">
                 En maintenance depuis le{' '}
                 {new Date(selectedBlock.startDate).toLocaleDateString('fr-FR')} — {selectedBlock.reason}
               </p>

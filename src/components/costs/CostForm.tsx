@@ -32,7 +32,7 @@ const ReceiptPreview: React.FC<{ fileId: string }> = ({ fileId }) => {
       rel="noreferrer"
       className="flex items-center gap-2 text-sm text-brand-600 underline"
     >
-      <span className="h-9 w-9 overflow-hidden rounded border border-[var(--border)] bg-slate-100">
+      <span className="h-9 w-9 overflow-hidden rounded border border-[var(--border)] bg-[var(--bg-app)]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={url} alt="" className="h-full w-full object-cover" />
       </span>
@@ -216,7 +216,7 @@ export const CostForm: React.FC<CostFormProps> = ({
                     className={`flex-1 rounded-lg border px-3 py-2 text-left text-sm transition-colors ${
                       formData.nature === value
                         ? 'border-brand-500 bg-brand-50 text-brand-700'
-                        : 'border-[var(--border)] text-ink-muted hover:bg-slate-50'
+                        : 'border-[var(--border)] text-ink-muted hover:bg-[var(--bg-app)]'
                     }`}
                   >
                     <span className="block font-medium">{label}</span>
@@ -285,7 +285,7 @@ export const CostForm: React.FC<CostFormProps> = ({
                     className={`flex-1 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
                       formData.currency === curr
                         ? 'bg-brand-600 text-white'
-                        : 'bg-slate-100 text-ink-muted hover:bg-slate-200'
+                        : 'bg-[var(--bg-app)] text-ink-muted hover:bg-[var(--border)]'
                     }`}
                   >
                     {curr} ({CurrencySymbols[curr]})
@@ -353,7 +353,7 @@ export const CostForm: React.FC<CostFormProps> = ({
                 <option value="other">Autre</option>
               </select>
               {formData.paymentMethod === 'cash' && (
-                <p className="mt-1 text-xs text-amber-700">
+                <p className="mt-1 text-xs text-accent-700">
                   Les espèces ne laissent aucune trace : joignez le reçu.
                 </p>
               )}
@@ -379,7 +379,7 @@ export const CostForm: React.FC<CostFormProps> = ({
                   </button>
                 </div>
               ) : (
-                <label className="mt-1 flex cursor-pointer items-center gap-2 rounded-lg border border-dashed border-[var(--border-strong)] px-3 py-2 text-sm text-ink-muted hover:bg-slate-50">
+                <label className="mt-1 flex cursor-pointer items-center gap-2 rounded-lg border border-dashed border-[var(--border-strong)] px-3 py-2 text-sm text-ink-muted hover:bg-[var(--bg-app)]">
                   <Paperclip size={15} />
                   {uploading ? 'Ajout…' : 'Joindre une photo ou un PDF'}
                   <input
@@ -409,7 +409,7 @@ export const CostForm: React.FC<CostFormProps> = ({
 
           {/* Recurrence */}
           {!editingEntry?.recurrenceParentId && (
-            <div className="rounded-xl border border-[var(--border)] bg-slate-50/60 p-4">
+            <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-app)]/60 p-4">
               <div className="flex items-center gap-2">
                 <Repeat size={15} className="text-brand-600" />
                 <label className="text-sm font-medium text-ink-soft">Dépense récurrente</label>
@@ -452,7 +452,7 @@ export const CostForm: React.FC<CostFormProps> = ({
 
           {/* Exchange rate — project-wide, so two expenses can't disagree */}
           {formData.currency !== 'PHP' && (
-            <div className="rounded-xl border border-[var(--border)] bg-slate-50/60 p-4">
+            <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-app)]/60 p-4">
               <label className="text-sm font-medium text-ink-soft">
                 Taux de référence du projet — 1 {formData.currency} =
               </label>
@@ -491,12 +491,12 @@ export const CostForm: React.FC<CostFormProps> = ({
               </label>
               <div className="grid grid-cols-2 gap-2">
                 {rooms.map((room) => (
-                  <label key={room.id} className="flex cursor-pointer items-center gap-2 rounded-lg px-1 py-0.5 hover:bg-slate-50">
+                  <label key={room.id} className="flex cursor-pointer items-center gap-2 rounded-lg px-1 py-0.5 hover:bg-[var(--bg-app)]">
                     <input
                       type="checkbox"
                       checked={formData.linkedRoomIds.includes(room.id)}
                       onChange={() => handleRoomToggle(room.id)}
-                      className="h-4 w-4 rounded border-slate-300 accent-brand-600"
+                      className="h-4 w-4 rounded border-[var(--border-strong)] accent-brand-600"
                     />
                     <span className="text-sm text-ink-soft">{room.name}</span>
                   </label>

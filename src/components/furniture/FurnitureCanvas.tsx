@@ -6,7 +6,7 @@ import { Room } from '@/types/plan';
 const FurnitureCanvasClient = dynamic(() => import('./FurnitureCanvasClient'), {
   ssr: false,
   loading: () => (
-    <div className="w-full h-full flex items-center justify-center bg-gray-50 rounded-lg border border-slate-200">
+    <div className="w-full h-full flex items-center justify-center bg-gray-50 rounded-lg border border-[var(--border)]">
       <div className="text-slate-400 text-sm">Chargement du canvas...</div>
     </div>
   ),

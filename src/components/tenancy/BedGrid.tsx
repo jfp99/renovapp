@@ -16,9 +16,9 @@ interface Props {
 }
 
 const STATE_STYLES = {
-  occupied: 'border-emerald-300 bg-emerald-50',
-  reserved: 'border-amber-300 bg-amber-50',
-  maintenance: 'border-slate-300 bg-slate-100',
+  occupied: 'border-pine-300 bg-pine-50',
+  reserved: 'border-accent-300 bg-accent-50',
+  maintenance: 'border-[var(--border-strong)] bg-[var(--bg-app)]',
   free: 'border-dashed border-[var(--border-strong)] bg-white',
 } as const;
 

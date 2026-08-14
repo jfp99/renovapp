@@ -127,7 +127,7 @@ export default function FurnitureCanvasClient({ room, selectedPlacementId, onSel
         </span>
         <span
           className={`badge pointer-events-none w-fit ${
-            usedPct > 85 ? 'bg-rose-50 text-rose-700' : usedPct > 60 ? 'bg-amber-50 text-amber-700' : 'bg-emerald-50 text-emerald-700'
+            usedPct > 85 ? 'bg-rose-50 text-rose-700' : usedPct > 60 ? 'bg-accent-50 text-accent-700' : 'bg-pine-50 text-pine-600'
           }`}
         >
           {usedPct}% de surface occupée

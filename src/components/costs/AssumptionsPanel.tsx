@@ -60,7 +60,7 @@ export const AssumptionsPanel: React.FC<Props> = ({ scenario }) => {
               className={`flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm transition-colors ${
                 a.bedCountSource === 'plan'
                   ? 'border-brand-500 bg-brand-50 font-medium text-brand-700'
-                  : 'border-[var(--border)] text-ink-muted hover:bg-slate-50'
+                  : 'border-[var(--border)] text-ink-muted hover:bg-[var(--bg-app)]'
               }`}
             >
               <Link2 size={13} /> Depuis le plan ({planBeds})
@@ -71,7 +71,7 @@ export const AssumptionsPanel: React.FC<Props> = ({ scenario }) => {
               className={`flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm transition-colors ${
                 a.bedCountSource === 'manual'
                   ? 'border-brand-500 bg-brand-50 font-medium text-brand-700'
-                  : 'border-[var(--border)] text-ink-muted hover:bg-slate-50'
+                  : 'border-[var(--border)] text-ink-muted hover:bg-[var(--bg-app)]'
               }`}
             >
               <PencilLine size={13} /> Manuel
@@ -143,7 +143,7 @@ export const AssumptionsPanel: React.FC<Props> = ({ scenario }) => {
             className={`flex-1 rounded-lg border px-3 py-2 text-left text-sm transition-colors ${
               a.occupancy.mode === 'academic'
                 ? 'border-brand-500 bg-brand-50 text-brand-700'
-                : 'border-[var(--border)] text-ink-muted hover:bg-slate-50'
+                : 'border-[var(--border)] text-ink-muted hover:bg-[var(--bg-app)]'
             }`}
           >
             <span className="block font-medium">Année scolaire PH</span>
@@ -155,7 +155,7 @@ export const AssumptionsPanel: React.FC<Props> = ({ scenario }) => {
             className={`flex-1 rounded-lg border px-3 py-2 text-left text-sm transition-colors ${
               a.occupancy.mode === 'flat'
                 ? 'border-brand-500 bg-brand-50 text-brand-700'
-                : 'border-[var(--border)] text-ink-muted hover:bg-slate-50'
+                : 'border-[var(--border)] text-ink-muted hover:bg-[var(--bg-app)]'
             }`}
           >
             <span className="block font-medium">Taux constant</span>
@@ -234,7 +234,7 @@ export const AssumptionsPanel: React.FC<Props> = ({ scenario }) => {
             className={`flex-1 rounded-lg border px-3 py-2 text-sm transition-colors ${
               a.propertyMode === 'lease'
                 ? 'border-brand-500 bg-brand-50 font-medium text-brand-700'
-                : 'border-[var(--border)] text-ink-muted hover:bg-slate-50'
+                : 'border-[var(--border)] text-ink-muted hover:bg-[var(--bg-app)]'
             }`}
           >
             Loué
@@ -245,7 +245,7 @@ export const AssumptionsPanel: React.FC<Props> = ({ scenario }) => {
             className={`flex-1 rounded-lg border px-3 py-2 text-sm transition-colors ${
               a.propertyMode === 'purchase'
                 ? 'border-brand-500 bg-brand-50 font-medium text-brand-700'
-                : 'border-[var(--border)] text-ink-muted hover:bg-slate-50'
+                : 'border-[var(--border)] text-ink-muted hover:bg-[var(--bg-app)]'
             }`}
           >
             Acheté

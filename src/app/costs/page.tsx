@@ -100,7 +100,7 @@ export default function CostsPage() {
               </div>
 
               {generated > 0 && (
-                <div className="rounded-xl border border-sky-200 bg-sky-50 px-4 py-3 text-sm text-sky-900">
+                <div className="rounded-xl border border-brand-200 bg-brand-50 px-4 py-3 text-sm text-brand-800">
                   {generated} échéance{generated > 1 ? 's' : ''} récurrente
                   {generated > 1 ? 's' : ''} ajoutée{generated > 1 ? 's' : ''} en statut
                   &laquo;&nbsp;prévu&nbsp;&raquo;. Passez-les en &laquo;&nbsp;payé&nbsp;&raquo; une

@@ -84,7 +84,7 @@ export default function ImageDetailModal({
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             {/* Image */}
             <div>
-              <div className="overflow-hidden rounded-xl border border-[var(--border)] bg-slate-100">
+              <div className="overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg-app)]">
                 <img src={fileUrl} alt="Inspiration" className="h-auto max-h-96 w-full object-contain" />
               </div>
             </div>
@@ -131,12 +131,12 @@ export default function ImageDetailModal({
                     <p className="text-sm text-ink-faint">Aucune pièce créée</p>
                   ) : (
                     rooms.map((room) => (
-                      <label key={room.id} className="flex cursor-pointer items-center gap-2 rounded-lg px-1 py-0.5 hover:bg-slate-50">
+                      <label key={room.id} className="flex cursor-pointer items-center gap-2 rounded-lg px-1 py-0.5 hover:bg-[var(--bg-app)]">
                         <input
                           type="checkbox"
                           checked={linkedRoomIds.includes(room.id)}
                           onChange={() => handleRoomToggle(room.id)}
-                          className="h-4 w-4 rounded border-slate-300 accent-brand-600"
+                          className="h-4 w-4 rounded border-[var(--border-strong)] accent-brand-600"
                         />
                         <span className="text-sm text-ink-soft">{room.name}</span>
                       </label>
@@ -152,7 +152,7 @@ export default function ImageDetailModal({
         </div>
 
         {/* Footer */}
-        <div className="flex justify-between border-t border-[var(--border)] bg-slate-50 px-6 py-4">
+        <div className="flex justify-between border-t border-[var(--border)] bg-[var(--bg-app)] px-6 py-4">
           <button onClick={handleDelete} className="btn-danger btn-sm">
             <Trash2 className="h-4 w-4" /> Retirer
           </button>

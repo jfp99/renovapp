@@ -1,8 +1,43 @@
 import type { Metadata, Viewport } from 'next';
+import localFont from 'next/font/local';
 import Sidebar from '@/components/Sidebar';
 import StorageGuard from '@/components/StorageGuard';
 import ServiceWorkerRegistrar from '@/components/ServiceWorkerRegistrar';
 import './globals.css';
+
+/**
+ * Fonts are committed to the repo and loaded from disk, not fetched from Google
+ * at build time. `next/font/google` needs network access during `next build` —
+ * and this app rebuilds itself whenever `out/` is missing, so a build on a bad
+ * connection would leave you unable to open it at all. Offline-first has to
+ * hold for the build too, not just the runtime.
+ */
+const display = localFont({
+  variable: '--font-display-atelier',
+  display: 'swap',
+  src: [
+    { path: '../fonts/bricolage-grotesque-latin-600-normal.woff2', weight: '600', style: 'normal' },
+    { path: '../fonts/bricolage-grotesque-latin-700-normal.woff2', weight: '700', style: 'normal' },
+    { path: '../fonts/bricolage-grotesque-latin-800-normal.woff2', weight: '800', style: 'normal' },
+  ],
+});
+
+const sans = localFont({
+  variable: '--font-sans-atelier',
+  display: 'swap',
+  src: [
+    { path: '../fonts/hanken-grotesk-latin-400-normal.woff2', weight: '400', style: 'normal' },
+    { path: '../fonts/hanken-grotesk-latin-500-normal.woff2', weight: '500', style: 'normal' },
+    { path: '../fonts/hanken-grotesk-latin-600-normal.woff2', weight: '600', style: 'normal' },
+    { path: '../fonts/hanken-grotesk-latin-700-normal.woff2', weight: '700', style: 'normal' },
+  ],
+});
+
+const mono = localFont({
+  variable: '--font-mono-atelier',
+  display: 'swap',
+  src: [{ path: '../fonts/space-mono-latin-400-normal.woff2', weight: '400', style: 'normal' }],
+});
 
 export const metadata: Metadata = {
   title: 'RenovApp — Pilotage de rénovation',
@@ -22,7 +57,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#4f46e5',
+  themeColor: '#B4552F',
   width: 'device-width',
   initialScale: 1,
 };
@@ -33,7 +68,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fr">
+    <html lang="fr" className={`${display.variable} ${sans.variable} ${mono.variable}`}>
       <body className="font-sans">
         <StorageGuard />
         <ServiceWorkerRegistrar />

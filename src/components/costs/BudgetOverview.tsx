@@ -27,7 +27,7 @@ export const BudgetOverview: React.FC = () => {
             ₱{totalSpent.toLocaleString('fr-FR', { maximumFractionDigits: 0 })}
           </p>
         </div>
-        <div className="rounded-xl border border-emerald-100 bg-emerald-50/60 p-4">
+        <div className="rounded-xl border border-pine-100 bg-pine-50/60 p-4">
           <p className="text-xs font-medium text-ink-muted">Reste</p>
           <p className="mt-1.5 text-2xl font-bold text-ink">
             ₱{Math.max(0, totalBudget - totalSpent).toLocaleString('fr-FR', { maximumFractionDigits: 0 })}

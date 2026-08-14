@@ -38,7 +38,7 @@ export default function RoomPanel({ room }: { room: Room }) {
 
       <div className="flex-1 space-y-6 overflow-y-auto p-4">
         {/* area badge */}
-        <div className="flex items-center justify-between rounded-xl bg-slate-50 px-3 py-2.5">
+        <div className="flex items-center justify-between rounded-xl bg-[var(--bg-app)] px-3 py-2.5">
           <span className="text-xs text-ink-muted">Surface</span>
           <span className="text-sm font-bold text-ink">{formatArea(room.width, room.height)}</span>
         </div>
@@ -113,7 +113,7 @@ export default function RoomPanel({ room }: { room: Room }) {
           ) : (
             <div className="space-y-1.5">
               {room.doors.map((d) => (
-                <div key={d.id} className="flex items-center justify-between rounded-lg bg-slate-50 px-2.5 py-1.5 text-xs">
+                <div key={d.id} className="flex items-center justify-between rounded-lg bg-[var(--bg-app)] px-2.5 py-1.5 text-xs">
                   <span className="text-ink-muted">Mur {WALL_LABELS[d.wall].toLowerCase()} · {d.width} cm · {(d.position * 100).toFixed(0)}%</span>
                   <button onClick={() => removeDoor(room.id, d.id)} className="text-rose-500 hover:text-rose-700"><X size={14} /></button>
                 </div>
@@ -140,7 +140,7 @@ export default function RoomPanel({ room }: { room: Room }) {
           ) : (
             <div className="space-y-1.5">
               {room.windows.map((w) => (
-                <div key={w.id} className="flex items-center justify-between rounded-lg bg-slate-50 px-2.5 py-1.5 text-xs">
+                <div key={w.id} className="flex items-center justify-between rounded-lg bg-[var(--bg-app)] px-2.5 py-1.5 text-xs">
                   <span className="text-ink-muted">Mur {WALL_LABELS[w.wall].toLowerCase()} · {w.width} cm · {(w.position * 100).toFixed(0)}%</span>
                   <button onClick={() => removeWindow(room.id, w.id)} className="text-rose-500 hover:text-rose-700"><X size={14} /></button>
                 </div>
@@ -191,7 +191,7 @@ function OpeningForm({
   onAdd: () => void; onCancel: () => void;
 }) {
   return (
-    <div className="mt-3 space-y-2.5 rounded-xl border border-[var(--border)] bg-slate-50 p-3">
+    <div className="mt-3 space-y-2.5 rounded-xl border border-[var(--border)] bg-[var(--bg-app)] p-3">
       <div>
         <label className="label">Mur</label>
         <select value={form.wall} onChange={(e) => setForm({ ...form, wall: e.target.value as Wall })} className="input py-1.5 text-xs">

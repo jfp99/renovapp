@@ -28,7 +28,7 @@ export default function BlueprintGrid({
           onClick={() => onSelectBlueprint(blueprint)}
           className="group text-left"
         >
-          <div className="relative mb-3 aspect-square overflow-hidden rounded-xl border border-[var(--border)] bg-slate-100 transition-all group-hover:border-brand-300 group-hover:shadow-card-hover">
+          <div className="relative mb-3 aspect-square overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg-app)] transition-all group-hover:border-brand-300 group-hover:shadow-card-hover">
             <img
               src={blueprint.thumbnailData}
               alt={blueprint.name}

@@ -5,41 +5,53 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-inter)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        mono: ['var(--font-mono)', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+        sans: ['var(--font-sans-atelier)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['var(--font-display-atelier)', 'var(--font-sans-atelier)', 'sans-serif'],
+        mono: ['var(--font-mono-atelier)', 'ui-monospace', 'SFMono-Regular', 'monospace'],
       },
       colors: {
-        // Brand — refined indigo/blue
+        // Brand — terracotta, "Atelier" direction
         brand: {
-          50: '#eef2ff',
-          100: '#e0e7ff',
-          200: '#c7d2fe',
-          300: '#a5b4fc',
-          400: '#818cf8',
-          500: '#6366f1',
-          600: '#4f46e5',
-          700: '#4338ca',
-          800: '#3730a3',
-          900: '#312e81',
+          50: '#FBF1EA',
+          100: '#F6E1D2',
+          200: '#EEC3B0',
+          300: '#DDA186',
+          400: '#C97A55',
+          500: '#C2643C',
+          600: '#B4552F',
+          700: '#8F4324',
+          800: '#743620',
+          900: '#5C2B19',
         },
-        // Warm accent — renovation/construction feel
+        // Ocre accent — chantier / matière
         accent: {
-          50: '#fff7ed',
-          100: '#ffedd5',
-          200: '#fed7aa',
-          300: '#fdba74',
-          400: '#fb923c',
-          500: '#f97316',
-          600: '#ea580c',
-          700: '#c2410c',
+          50: '#FDF6EA',
+          100: '#FAEBD1',
+          200: '#F3D6A3',
+          300: '#E9BC71',
+          400: '#DCA24B',
+          500: '#C98A2E',
+          600: '#A86F22',
+          700: '#8A5B1C',
+        },
+        // Pin green — deuxième accent (salle de bain, commun, succès)
+        pine: {
+          50: '#E7EFE9',
+          100: '#CFE0D6',
+          300: '#6E9C8B',
+          400: '#3E7C6B',
+          500: '#2E5A4E',
+          600: '#254A40',
+          700: '#1E3A32',
         },
         // keep `primary` alias for backwards compat
-        primary: { 50: '#eef2ff', 100: '#e0e7ff', 200: '#c7d2fe', 300: '#a5b4fc', 400: '#818cf8', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca', 800: '#3730a3', 900: '#312e81' },
+        primary: { 50: '#FBF1EA', 100: '#F6E1D2', 200: '#EEC3B0', 300: '#DDA186', 400: '#C97A55', 500: '#C2643C', 600: '#B4552F', 700: '#8F4324', 800: '#743620', 900: '#5C2B19' },
         ink: {
-          DEFAULT: '#0f172a',
-          soft: '#1e293b',
-          muted: '#64748b',
-          faint: '#94a3b8',
+          DEFAULT: '#221C15',
+          soft: '#4A4034',
+          muted: '#6B5E49',
+          faint: '#8A7C66',
+          pale: '#A89A82',
         },
       },
       borderRadius: {
@@ -47,10 +59,10 @@ const config: Config = {
         '2xl': '1.125rem',
       },
       boxShadow: {
-        card: '0 1px 2px 0 rgba(15,23,42,0.04), 0 1px 3px 0 rgba(15,23,42,0.06)',
-        'card-hover': '0 4px 12px -2px rgba(15,23,42,0.10), 0 2px 6px -2px rgba(15,23,42,0.06)',
-        float: '0 12px 32px -8px rgba(15,23,42,0.18), 0 4px 12px -4px rgba(15,23,42,0.10)',
-        glow: '0 0 0 4px rgba(99,102,241,0.12)',
+        card: '0 1px 2px 0 rgba(34,28,21,0.04), 0 1px 3px 0 rgba(34,28,21,0.06)',
+        'card-hover': '0 4px 12px -2px rgba(34,28,21,0.10), 0 2px 6px -2px rgba(34,28,21,0.06)',
+        float: '0 12px 32px -8px rgba(34,28,21,0.20), 0 4px 12px -4px rgba(34,28,21,0.10)',
+        glow: '0 0 0 4px rgba(180,85,47,0.14)',
       },
       keyframes: {
         'fade-in': {

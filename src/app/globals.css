@@ -6,13 +6,11 @@
    Design tokens
    ============================================================ */
 :root {
-  --bg-app: #f6f7fb;
-  --bg-surface: #ffffff;
-  --border: #e8ebf2;
-  --border-strong: #d6dbe6;
-  /* System font stack (uses Inter if installed locally, else native UI font) — no network fetch */
-  --font-inter: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+  --bg-app: #f4eee2;
+  --bg-surface: #fbf7ef;
+  --border: #e3d8c4;
+  --border-strong: #d8c9b0;
+  /* Font vars are injected by next/font (layout.tsx) — self-hosted at build time, no runtime fetch */
 }
 
 @layer base {
@@ -25,7 +23,7 @@
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
   }
   ::selection {
-    background: rgba(99, 102, 241, 0.18);
+    background: rgba(180, 85, 47, 0.18);
   }
   h1, h2, h3, h4 {
     @apply tracking-[-0.011em];
@@ -43,18 +41,18 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #d8c9b0;
   border: 3px solid transparent;
   background-clip: content-box;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #c2b092;
   background-clip: content-box;
 }
 * {
   scrollbar-width: thin;
-  scrollbar-color: #cbd5e1 transparent;
+  scrollbar-color: #d8c9b0 transparent;
 }
 
 /* ============================================================
@@ -145,9 +143,9 @@
 /* Gradient mesh for hero areas */
 .bg-mesh {
   background-image:
-    radial-gradient(at 0% 0%, rgba(99,102,241,0.10) 0px, transparent 50%),
-    radial-gradient(at 98% 0%, rgba(249,115,22,0.07) 0px, transparent 45%),
-    radial-gradient(at 50% 100%, rgba(99,102,241,0.05) 0px, transparent 55%);
+    radial-gradient(at 0% 0%, rgba(180,85,47,0.10) 0px, transparent 50%),
+    radial-gradient(at 98% 0%, rgba(201,138,46,0.08) 0px, transparent 45%),
+    radial-gradient(at 50% 100%, rgba(180,85,47,0.05) 0px, transparent 55%);
 }
 
 .text-balance {

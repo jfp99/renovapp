@@ -85,18 +85,18 @@ export default function BlueprintDetail({
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
             {/* Image viewer */}
             <div className="lg:col-span-2">
-              <div className="relative overflow-hidden rounded-xl border border-[var(--border)] bg-slate-100">
+              <div className="relative overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg-app)]">
                 <div className="flex min-h-[400px] items-center justify-center">
                   <div style={{ transform: `scale(${zoom})`, transformOrigin: 'center' }} className="transition-transform">
                     <img src={fileUrl} alt={blueprint.name} className="h-auto max-h-[400px] max-w-full" />
                   </div>
                 </div>
                 <div className="absolute bottom-4 right-4 flex items-center gap-1 rounded-xl bg-white p-1 shadow-card">
-                  <button onClick={() => setZoom((z) => Math.max(0.5, z - 0.2))} className="rounded-lg p-2 text-ink-muted hover:bg-slate-100">
+                  <button onClick={() => setZoom((z) => Math.max(0.5, z - 0.2))} className="rounded-lg p-2 text-ink-muted hover:bg-[var(--bg-app)]">
                     <ZoomOut className="h-4 w-4" />
                   </button>
                   <span className="w-12 text-center font-mono text-sm text-ink-muted">{Math.round(zoom * 100)}%</span>
-                  <button onClick={() => setZoom((z) => Math.min(2.5, z + 0.2))} className="rounded-lg p-2 text-ink-muted hover:bg-slate-100">
+                  <button onClick={() => setZoom((z) => Math.min(2.5, z + 0.2))} className="rounded-lg p-2 text-ink-muted hover:bg-[var(--bg-app)]">
                     <ZoomIn className="h-4 w-4" />
                   </button>
                 </div>
@@ -139,12 +139,12 @@ export default function BlueprintDetail({
                     <p className="text-sm text-ink-faint">Aucune pièce créée</p>
                   ) : (
                     rooms.map((room) => (
-                      <label key={room.id} className="flex cursor-pointer items-center gap-2 rounded-lg px-1 py-0.5 hover:bg-slate-50">
+                      <label key={room.id} className="flex cursor-pointer items-center gap-2 rounded-lg px-1 py-0.5 hover:bg-[var(--bg-app)]">
                         <input
                           type="checkbox"
                           checked={linkedRoomIds.includes(room.id)}
                           onChange={() => handleRoomToggle(room.id)}
-                          className="h-4 w-4 rounded border-slate-300 accent-brand-600"
+                          className="h-4 w-4 rounded border-[var(--border-strong)] accent-brand-600"
                         />
                         <span className="text-sm text-ink-soft">{room.name}</span>
                       </label>
@@ -164,7 +164,7 @@ export default function BlueprintDetail({
               <h3 className="mb-3 font-semibold text-ink">Annotations</h3>
               <div className="space-y-2">
                 {blueprint.annotations.map((annotation) => (
-                  <div key={annotation.id} className="rounded-xl border border-[var(--border)] bg-slate-50 p-3">
+                  <div key={annotation.id} className="rounded-xl border border-[var(--border)] bg-[var(--bg-app)] p-3">
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
                         <p className="text-xs font-semibold uppercase text-ink-faint">{annotation.type}</p>
@@ -180,7 +180,7 @@ export default function BlueprintDetail({
         </div>
 
         {/* Footer */}
-        <div className="flex justify-between border-t border-[var(--border)] bg-slate-50 px-6 py-4">
+        <div className="flex justify-between border-t border-[var(--border)] bg-[var(--bg-app)] px-6 py-4">
           <button onClick={handleDelete} className="btn-danger btn-sm">
             <Trash2 className="h-4 w-4" /> Supprimer
           </button>

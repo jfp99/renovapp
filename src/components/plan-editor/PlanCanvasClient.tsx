@@ -278,7 +278,7 @@ export default function PlanCanvasClient() {
 
   const ToolBtn = ({ active, onClick, title, children }: { active?: boolean; onClick: () => void; title: string; children: React.ReactNode }) => (
     <button onClick={onClick} title={title}
-      className={`flex h-8 w-8 items-center justify-center rounded-lg transition-colors ${active ? 'bg-brand-50 text-brand-600' : 'text-ink-muted hover:bg-slate-100'}`}>
+      className={`flex h-8 w-8 items-center justify-center rounded-lg transition-colors ${active ? 'bg-brand-50 text-brand-600' : 'text-ink-muted hover:bg-[var(--bg-app)]'}`}>
       {children}
     </button>
   );
@@ -290,11 +290,11 @@ export default function PlanCanvasClient() {
         <ToolBtn onClick={() => setZoom((z) => Math.min(z + 0.2, 4))} title="Zoom avant"><ZoomIn size={16} /></ToolBtn>
         <span className="text-xs text-ink-faint w-11 text-center font-mono">{Math.round(zoom * 100)}%</span>
         <ToolBtn onClick={() => setZoom((z) => Math.max(z - 0.2, 0.2))} title="Zoom arrière"><ZoomOut size={16} /></ToolBtn>
-        <div className="w-px h-5 bg-slate-200 mx-1" />
+        <div className="w-px h-5 bg-[var(--border)] mx-1" />
         <ToolBtn onClick={fitRooms} title="Ajuster la vue"><Maximize2 size={16} /></ToolBtn>
         <ToolBtn active={showGrid} onClick={() => setShowGrid((g) => !g)} title="Grille"><Grid3x3 size={16} /></ToolBtn>
         <ToolBtn active={snapOn} onClick={() => setSnapOn((s) => !s)} title="Aimant (snap 10 cm)"><Magnet size={16} /></ToolBtn>
-        <div className="w-px h-5 bg-slate-200 mx-1" />
+        <div className="w-px h-5 bg-[var(--border)] mx-1" />
         <ToolBtn onClick={() => selectedRoomId && duplicateRoom(selectedRoomId)} title="Dupliquer (Ctrl+D)"><Copy size={16} /></ToolBtn>
         <ToolBtn onClick={() => selectedRoomId && removeRoom(selectedRoomId)} title="Supprimer (Suppr)"><Trash2 size={16} /></ToolBtn>
 
@@ -340,11 +340,11 @@ export default function PlanCanvasClient() {
 
         {floorRooms.length === 0 && (
           <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-            <div className="w-16 h-16 bg-slate-100 rounded-2xl mx-auto mb-4 flex items-center justify-center">
-              <Grid3x3 className="w-7 h-7 text-slate-300" />
+            <div className="w-16 h-16 bg-[var(--bg-app)] rounded-2xl mx-auto mb-4 flex items-center justify-center">
+              <Grid3x3 className="w-7 h-7 text-[var(--border-strong)]" />
             </div>
             <p className="text-ink-faint text-sm font-medium">Aucune pièce sur cet étage</p>
-            <p className="text-slate-300 text-xs mt-1">Ajoutez des pièces depuis le panneau de gauche</p>
+            <p className="text-[var(--border-strong)] text-xs mt-1">Ajoutez des pièces depuis le panneau de gauche</p>
           </div>
         )}
       </div>

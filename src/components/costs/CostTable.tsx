@@ -22,8 +22,8 @@ interface CostTableProps {
 }
 
 const StatusBadges: Record<CostStatus, { cls: string; label: string }> = {
-  planned: { cls: 'bg-amber-50 text-amber-700', label: 'Prévu' },
-  paid: { cls: 'bg-emerald-50 text-emerald-700', label: 'Payé' },
+  planned: { cls: 'bg-accent-50 text-accent-700', label: 'Prévu' },
+  paid: { cls: 'bg-pine-50 text-pine-600', label: 'Payé' },
   cancelled: { cls: 'bg-rose-50 text-rose-700', label: 'Annulé' },
 };
 
@@ -74,7 +74,7 @@ export const CostTable: React.FC<CostTableProps> = ({ entries, onEdit }) => {
               </span>
             )}
             {entry.receiptFileId && (
-              <span title="Reçu joint" className="text-emerald-600">
+              <span title="Reçu joint" className="text-pine-500">
                 <Paperclip size={12} />
               </span>
             )}
@@ -198,13 +198,13 @@ export const CostTable: React.FC<CostTableProps> = ({ entries, onEdit }) => {
       {/* Table */}
       <div className="overflow-x-auto rounded-xl border border-[var(--border)]">
         <table className="w-full">
-          <thead className="border-b border-[var(--border)] bg-slate-50">
+          <thead className="border-b border-[var(--border)] bg-[var(--bg-app)]">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
                   <th
                     key={header.id}
-                    className="cursor-pointer px-5 py-3 text-left text-xs font-semibold uppercase tracking-wide text-ink-muted hover:bg-slate-100"
+                    className="cursor-pointer px-5 py-3 text-left text-xs font-semibold uppercase tracking-wide text-ink-muted hover:bg-[var(--bg-app)]"
                     onClick={header.column.getToggleSortingHandler()}
                   >
                     <div className="flex items-center gap-1.5">
@@ -220,7 +220,7 @@ export const CostTable: React.FC<CostTableProps> = ({ entries, onEdit }) => {
           </thead>
           <tbody>
             {table.getRowModel().rows.map((row) => (
-              <tr key={row.id} className="border-b border-[var(--border)] last:border-0 hover:bg-slate-50/60">
+              <tr key={row.id} className="border-b border-[var(--border)] last:border-0 hover:bg-[var(--bg-app)]/60">
                 {row.getVisibleCells().map((cell) => (
                   <td key={cell.id} className="px-5 py-3.5 text-sm text-ink-soft">
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}

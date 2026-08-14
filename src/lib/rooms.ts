@@ -20,22 +20,22 @@ export const ROOM_TYPE_LABELS: Record<RoomType, string> = {
 
 /** Soft fill colours used on canvases. */
 export const ROOM_COLORS: Record<RoomType, string> = {
-  bedroom: '#dbeafe',
-  bathroom: '#d1fae5',
-  kitchen: '#fef3c7',
-  common: '#fce7f3',
-  storage: '#f3e8ff',
-  hallway: '#f1f5f9',
+  bedroom: '#F0DDC9',
+  bathroom: '#DCEBE4',
+  kitchen: '#F7E8C9',
+  common: '#DCEBE6',
+  storage: '#EFE9DD',
+  hallway: '#ECE3D2',
 };
 
 /** Stronger accent colour matching each type (borders, dots). */
 export const ROOM_ACCENT: Record<RoomType, string> = {
-  bedroom: '#3b82f6',
-  bathroom: '#10b981',
-  kitchen: '#f59e0b',
-  common: '#ec4899',
-  storage: '#a855f7',
-  hallway: '#64748b',
+  bedroom: '#B4552F',
+  bathroom: '#2E5A4E',
+  kitchen: '#C98A2E',
+  common: '#3E7C6B',
+  storage: '#A89A82',
+  hallway: '#8A7C66',
 };
 
 export function roomLabel(type: RoomType): string {

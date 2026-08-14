@@ -49,9 +49,9 @@ export const ROIProjection: React.FC = () => {
       <ScenarioBar />
 
       {noRevenue && (
-        <div className="flex items-start gap-2 rounded-xl border border-sky-200 bg-sky-50 p-4 text-sm">
-          <Info className="mt-0.5 h-4 w-4 shrink-0 text-sky-600" />
-          <p className="text-sky-900">
+        <div className="flex items-start gap-2 rounded-xl border border-brand-200 bg-brand-50 p-4 text-sm">
+          <Info className="mt-0.5 h-4 w-4 shrink-0 text-brand-600" />
+          <p className="text-brand-800">
             Renseignez au moins le nombre de lits et le loyer par lit pour que la projection ait du
             sens. Placez des lits sur le plan, ou passez la capacité en saisie manuelle.
           </p>
@@ -74,9 +74,9 @@ export const ROIProjection: React.FC = () => {
       )}
 
       {projection.paybackMonth === null && !noRevenue && (
-        <div className="flex items-start gap-2 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm">
-          <TrendingDown className="mt-0.5 h-4 w-4 shrink-0 text-amber-600" />
-          <p className="text-amber-800">
+        <div className="flex items-start gap-2 rounded-xl border border-accent-200 bg-accent-50 p-4 text-sm">
+          <TrendingDown className="mt-0.5 h-4 w-4 shrink-0 text-accent-600" />
+          <p className="text-accent-700">
             Sur {Math.round(assumptions.horizonMonths / 12)} ans, ce scénario ne rembourse jamais
             l&apos;investissement. Le levier le plus efficace ici :{' '}
             <strong>{sensitivity[0]?.label.toLowerCase()}</strong>.
@@ -187,9 +187,9 @@ export const ROIProjection: React.FC = () => {
 };
 
 const TONES = {
-  positive: 'border-emerald-100 bg-emerald-50/60',
+  positive: 'border-pine-100 bg-pine-50/60',
   negative: 'border-red-100 bg-red-50/60',
-  warning: 'border-amber-100 bg-amber-50/60',
+  warning: 'border-accent-100 bg-accent-50/60',
   neutral: 'border-[var(--border)] bg-white',
 } as const;
 

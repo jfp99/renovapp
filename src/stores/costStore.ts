@@ -65,14 +65,14 @@ const mkCategory = (
 });
 
 const defaultCategories: CostCategory[] = [
-  mkCategory('Matériaux', '#f59e0b', 'capex'),
-  mkCategory("Main d'œuvre", '#3b82f6', 'capex'),
-  mkCategory('Meubles', '#10b981', 'capex'),
-  mkCategory('Permis & Admin', '#8b5cf6', 'capex'),
-  mkCategory('Plomberie', '#06b6d4', 'capex'),
-  mkCategory('Électricité', '#f97316', 'capex'),
-  mkCategory('Charges courantes', '#14b8a6', 'opex'),
-  mkCategory('Divers', '#6b7280', 'capex'),
+  mkCategory('Matériaux', '#B4552F', 'capex'),
+  mkCategory("Main d'œuvre", '#C98A2E', 'capex'),
+  mkCategory('Meubles', '#2E5A4E', 'capex'),
+  mkCategory('Permis & Admin', '#A89A82', 'capex'),
+  mkCategory('Plomberie', '#3E7C6B', 'capex'),
+  mkCategory('Électricité', '#C97A55', 'capex'),
+  mkCategory('Charges courantes', '#DCA24B', 'opex'),
+  mkCategory('Divers', '#6B5E49', 'capex'),
 ];
 
 const defaultSettings: CostSettings = {

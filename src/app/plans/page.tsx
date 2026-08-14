@@ -108,7 +108,7 @@ export default function PlansPage() {
       {showAddRoomForm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink/40 backdrop-blur-sm animate-fade-in">
           <div className="w-full max-w-md mx-4 overflow-hidden rounded-2xl bg-white shadow-float animate-scale-in">
-            <div className="flex items-center justify-between border-b border-[var(--border)] bg-slate-50 px-6 py-4">
+            <div className="flex items-center justify-between border-b border-[var(--border)] bg-[var(--bg-app)] px-6 py-4">
               <h3 className="text-base font-semibold text-ink">Nouvelle pièce</h3>
               <button onClick={() => setShowAddRoomForm(false)} className="text-ink-faint hover:text-ink-soft">
                 <X size={20} />
@@ -138,7 +138,7 @@ export default function PlansPage() {
                       className={`rounded-xl border-2 px-3 py-2 text-xs font-medium transition-all ${
                         formData.type === type
                           ? 'border-brand-500 bg-brand-50 text-brand-700'
-                          : 'border-[var(--border)] text-ink-muted hover:border-slate-300'
+                          : 'border-[var(--border)] text-ink-muted hover:border-[var(--border-strong)]'
                       }`}
                     >
                       {ROOM_TYPE_LABELS[type]}
@@ -186,7 +186,7 @@ export default function PlansPage() {
               </div>
             </div>
 
-            <div className="flex gap-3 border-t border-[var(--border)] bg-slate-50 px-6 py-4">
+            <div className="flex gap-3 border-t border-[var(--border)] bg-[var(--bg-app)] px-6 py-4">
               <button onClick={() => setShowAddRoomForm(false)} className="btn-secondary flex-1">
                 Annuler
               </button>

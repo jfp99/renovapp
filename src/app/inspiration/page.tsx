@@ -90,7 +90,7 @@ export default function InspirationPage() {
                         className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
                           selectedTags.includes(tag)
                             ? 'bg-brand-600 text-white'
-                            : 'bg-slate-100 text-ink-muted hover:bg-slate-200'
+                            : 'bg-[var(--bg-app)] text-ink-muted hover:bg-[var(--border)]'
                         }`}
                       >
                         {tag}
