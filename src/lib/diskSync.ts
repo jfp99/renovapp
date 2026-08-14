@@ -17,6 +17,7 @@ export function hasLocalData(): boolean {
     'renovapp-costs',
     'renovapp-tenancy',
     'renovapp-scenarios',
+    'renovapp-compliance',
   ];
 
   return keys.some((key) => {

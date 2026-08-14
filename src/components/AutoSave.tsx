@@ -9,6 +9,7 @@ import { useInspirationStore } from '@/stores/inspirationStore';
 import { useCostStore } from '@/stores/costStore';
 import { useTenancyStore } from '@/stores/tenancyStore';
 import { useScenarioStore } from '@/stores/scenarioStore';
+import { useComplianceStore } from '@/stores/complianceStore';
 import {
   hasContent,
   hasLocalData,
@@ -110,6 +111,7 @@ export default function AutoSave() {
       useCostStore.subscribe(schedule),
       useTenancyStore.subscribe(schedule),
       useScenarioStore.subscribe(schedule),
+      useComplianceStore.subscribe(schedule),
     ];
 
     // A pending save must not be lost when the window closes. fetch would be

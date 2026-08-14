@@ -194,15 +194,20 @@ export function computeIrr(investment: number, cashFlows: number[]): number | nu
 
   if (low === null || high === null) return null;
 
+  // Narrow to plain numbers: reassigning `low`/`high` in the loop would keep
+  // their nullable type and make the arithmetic below untypable.
+  let lower = low;
+  let upper = high;
+
   for (let i = 0; i < 200; i += 1) {
-    const mid = (low + high) / 2;
+    const mid = (lower + upper) / 2;
     const value = npvAt(mid);
     if (Math.abs(value) < 1e-6) return Math.pow(1 + mid, 12) - 1;
-    if (npvAt(low) * value < 0) high = mid;
-    else low = mid;
+    if (npvAt(lower) * value < 0) upper = mid;
+    else lower = mid;
   }
 
-  return Math.pow(1 + (low + high) / 2, 12) - 1;
+  return Math.pow(1 + (lower + upper) / 2, 12) - 1;
 }
 
 interface Driver {

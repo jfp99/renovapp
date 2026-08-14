@@ -7,6 +7,7 @@ import { useInspirationStore } from '@/stores/inspirationStore';
 import { useCostStore } from '@/stores/costStore';
 import { useTenancyStore } from '@/stores/tenancyStore';
 import { useScenarioStore } from '@/stores/scenarioStore';
+import { useComplianceStore } from '@/stores/complianceStore';
 import { getMediaDataUrl, putMediaDataUrl } from '@/lib/mediaDb';
 import type { Blueprint } from '@/types/blueprint';
 import type { InspirationImage } from '@/types/inspiration';
@@ -22,6 +23,7 @@ export interface ProjectExport {
   costs: { categories: unknown; entries: unknown; roiConfig: unknown; settings?: unknown };
   tenancy?: { tenants: unknown; tenancies: unknown; payments: unknown; maintenance: unknown };
   scenarios?: { scenarios: unknown; activeId: unknown };
+  compliance?: { permits: unknown; settings: unknown };
 }
 
 /**
@@ -29,8 +31,8 @@ export interface ProjectExport {
  * as base64 — otherwise the backup file would reference blobs it doesn't carry
  * and restoring on another machine would produce an album of broken images.
  */
-/** v3 adds tenancy and ROI scenarios — v2 exports silently dropped both. */
-const EXPORT_VERSION = 3;
+/** v4 adds compliance tracking; v3 added tenancy and ROI scenarios. */
+const EXPORT_VERSION = 4;
 
 /** Snapshot every store into a single serialisable object, media included. */
 export async function buildProjectExport(): Promise<ProjectExport> {
@@ -41,6 +43,7 @@ export async function buildProjectExport(): Promise<ProjectExport> {
   const cost = useCostStore.getState();
   const tenancy = useTenancyStore.getState();
   const scenario = useScenarioStore.getState();
+  const compliance = useComplianceStore.getState();
 
   const blueprints = await Promise.all(
     blueprint.blueprints.map(async (item) => ({
@@ -77,6 +80,7 @@ export async function buildProjectExport(): Promise<ProjectExport> {
       maintenance: tenancy.maintenance,
     },
     scenarios: { scenarios: scenario.scenarios, activeId: scenario.activeId },
+    compliance: { permits: compliance.permits, settings: compliance.settings },
   };
 }
 
@@ -167,6 +171,12 @@ export async function importProjectExport(json: string): Promise<string | null> 
         tenancies: (data.tenancy.tenancies as never) ?? [],
         payments: (data.tenancy.payments as never) ?? [],
         maintenance: (data.tenancy.maintenance as never) ?? [],
+      });
+    }
+    if (data.compliance) {
+      useComplianceStore.setState({
+        permits: (data.compliance.permits as never) ?? [],
+        ...(data.compliance.settings ? { settings: data.compliance.settings as never } : {}),
       });
     }
     if (data.scenarios) {

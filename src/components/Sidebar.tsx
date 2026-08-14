@@ -11,6 +11,7 @@ import {
   Hammer,
   LayoutDashboard,
   PencilRuler,
+  ShieldCheck,
 } from 'lucide-react';
 
 interface NavLink {
@@ -27,6 +28,7 @@ const navLinks: NavLink[] = [
   { name: 'Inspiration', href: '/inspiration', icon: <Camera className="w-[18px] h-[18px]" /> },
   { name: 'Coûts & ROI', href: '/costs', icon: <Calculator className="w-[18px] h-[18px]" /> },
   { name: 'Location', href: '/location', icon: <BedDouble className="w-[18px] h-[18px]" /> },
+  { name: 'Conformité', href: '/conformite', icon: <ShieldCheck className="w-[18px] h-[18px]" /> },
 ];
 
 export default function Sidebar() {
