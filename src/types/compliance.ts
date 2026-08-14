@@ -44,6 +44,12 @@ export interface ComplianceCheck {
   detail: string;
 }
 
+/** Where the operator stands on Philippine citizenship. */
+export type CitizenshipStatus = 'foreign' | 'recognition_pending' | 'citizen';
+
+/** On what basis the building is occupied. */
+export type PropertyTitle = 'own' | 'family' | 'lease';
+
 export interface ComplianceSettings {
   /** Occupants planned, used by the area-per-occupant check. */
   plannedOccupants: number;
@@ -51,8 +57,12 @@ export interface ComplianceSettings {
   areaBasis: 'bedrooms' | 'all';
   /** Rent charged per bed, for the rent-control check. */
   monthlyRentPerBed: number;
-  /** Operator is a foreign national — triggers the ownership warnings. */
-  operatorIsForeign: boolean;
+  citizenshipStatus: CitizenshipStatus;
+  propertyTitle: PropertyTitle;
+  /** Is the right to occupy and to invest written down? */
+  writtenAgreement: boolean;
+  /** Amount invested in a building the operator does not own. */
+  investedAmount: number;
   /** Women-only reduces gender-mix constraints. */
   womenOnly: boolean;
 }

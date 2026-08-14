@@ -20,7 +20,12 @@ import {
   remainingPermitCost,
   runChecks,
 } from '@/lib/compliance';
-import type { CheckSeverity, PermitStatus } from '@/types/compliance';
+import type {
+  CheckSeverity,
+  CitizenshipStatus,
+  PermitStatus,
+  PropertyTitle,
+} from '@/types/compliance';
 
 const peso = (v: number) => `₱${Math.round(v).toLocaleString('fr-FR')}`;
 
@@ -104,7 +109,7 @@ export default function ConformitePage() {
         {/* ── Hypotheses feeding the checks ── */}
         <div className="card p-6">
           <h2 className="mb-5 text-sm font-semibold text-ink">Votre situation</h2>
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
             <div>
               <label className="label">Occupants prévus</label>
               <input
@@ -143,6 +148,50 @@ export default function ConformitePage() {
                 <option value="all">Toutes les pièces louées</option>
               </select>
             </div>
+            <div>
+              <label className="label">Statut de l&apos;exploitant</label>
+              <select
+                value={settings.citizenshipStatus}
+                onChange={(e) =>
+                  updateSettings({ citizenshipStatus: e.target.value as CitizenshipStatus })
+                }
+                className="input"
+              >
+                <option value="foreign">Étranger</option>
+                <option value="recognition_pending">Reconnaissance en cours</option>
+                <option value="citizen">Citoyen philippin</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="label">Le bâtiment est…</label>
+              <select
+                value={settings.propertyTitle}
+                onChange={(e) => updateSettings({ propertyTitle: e.target.value as PropertyTitle })}
+                className="input"
+              >
+                <option value="own">À vous</option>
+                <option value="family">À un proche</option>
+                <option value="lease">Loué à un tiers</option>
+              </select>
+            </div>
+
+            {settings.propertyTitle !== 'own' && (
+              <div>
+                <label className="label">Montant que vous investissez (₱)</label>
+                <input
+                  type="number"
+                  min={0}
+                  step={10000}
+                  value={settings.investedAmount}
+                  onChange={(e) =>
+                    updateSettings({ investedAmount: parseFloat(e.target.value) || 0 })
+                  }
+                  className="input"
+                />
+              </div>
+            )}
+
             <div className="space-y-2">
               <label className="flex items-center gap-2 text-sm text-ink-soft">
                 <input
@@ -153,15 +202,17 @@ export default function ConformitePage() {
                 />
                 Étudiantes uniquement
               </label>
-              <label className="flex items-center gap-2 text-sm text-ink-soft">
-                <input
-                  type="checkbox"
-                  checked={settings.operatorIsForeign}
-                  onChange={(e) => updateSettings({ operatorIsForeign: e.target.checked })}
-                  className="h-4 w-4 rounded border-[var(--border-strong)] accent-brand-600"
-                />
-                Exploitant étranger
-              </label>
+              {settings.propertyTitle !== 'own' && (
+                <label className="flex items-center gap-2 text-sm text-ink-soft">
+                  <input
+                    type="checkbox"
+                    checked={settings.writtenAgreement}
+                    onChange={(e) => updateSettings({ writtenAgreement: e.target.checked })}
+                    className="h-4 w-4 rounded border-[var(--border-strong)] accent-brand-600"
+                  />
+                  Accord écrit signé
+                </label>
+              )}
             </div>
           </div>
         </div>

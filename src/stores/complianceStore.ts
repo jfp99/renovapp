@@ -19,7 +19,10 @@ const defaultSettings: ComplianceSettings = {
   plannedOccupants: 0,
   areaBasis: 'bedrooms',
   monthlyRentPerBed: 0,
-  operatorIsForeign: false,
+  citizenshipStatus: 'foreign',
+  propertyTitle: 'own',
+  writtenAgreement: false,
+  investedAmount: 0,
   womenOnly: false,
 };
 

@@ -129,8 +129,9 @@ export function runChecks(
     });
   } else {
     const perOccupant = area / occupants;
-    const severity = perOccupant >= 6 ? 'ok' : perOccupant >= 4 ? 'warning' : 'blocking';
+    const severity = perOccupant >= 8 ? 'ok' : perOccupant >= 6 ? 'warning' : 'blocking';
     const maxOccupants = Math.floor(area / 6);
+    const maxComfortable = Math.floor(area / 8);
     checks.push({
       key: 'area',
       label: 'Surface par occupant',
@@ -138,9 +139,14 @@ export function runChecks(
       value: `${perOccupant.toFixed(1)} m²`,
       requirement: '6 à 8 m² par occupant',
       detail:
-        severity === 'ok'
-          ? `${area.toFixed(1)} m² pour ${occupants} occupants.`
-          : `${area.toFixed(1)} m² pour ${occupants} occupants. Sur cette base, le maximum conforme est de ${maxOccupants} occupant${maxOccupants > 1 ? 's' : ''}. Le standard varie selon la LGU : à confirmer auprès de l'Office of the Building Official.`,
+        `${area.toFixed(1)} m² pour ${occupants} occupants. ` +
+        `Au seuil bas de 6 m² : ${maxOccupants} occupant${maxOccupants > 1 ? 's' : ''} maximum. ` +
+        `Au seuil haut de 8 m² : ${maxComfortable}. ` +
+        (severity === 'ok'
+          ? 'Vous êtes dans la fourchette confortable.'
+          : severity === 'warning'
+            ? "Vous tenez au seuil bas seulement : la décision dépendra de l'interprétation locale, notamment de la prise en compte des communs. À confirmer auprès de l'Office of the Building Official avant d'acheter le mobilier."
+            : "En dessous du seuil bas. Réduisez la capacité ou augmentez la surface louée avant d'engager quoi que ce soit."),
     });
   }
 
@@ -192,16 +198,52 @@ export function runChecks(
     });
   }
 
-  // ── Foreign operator ──
-  if (settings.operatorIsForeign) {
+  // ── Citizenship of the operator ──
+  if (settings.citizenshipStatus === 'foreign') {
     checks.push({
-      key: 'foreign',
-      label: 'Exploitant étranger',
+      key: 'citizenship',
+      label: 'Statut de l’exploitant',
       severity: 'blocking',
-      value: 'À trancher',
+      value: 'Étranger',
       requirement: 'Terrain interdit aux étrangers · capital minimum pour une société à capitaux étrangers',
       detail:
-        "Un ressortissant étranger ne peut pas détenir de terrain aux Philippines, et une entreprise à capitaux étrangers orientée marché intérieur est soumise à un capital minimum hors de portée d'un dortoir de cette taille. À clarifier avec un avocat philippin : au nom de qui sont le bien et l'exploitation. Les montages de prête-nom sont expressément interdits.",
+        "Tant que la citoyenneté n'est pas reconnue, n'ouvrez ni le business permit ni l'enregistrement BIR à votre nom : faites-les porter par un résident philippin. Les montages de prête-nom sont expressément interdits.",
+    });
+  } else if (settings.citizenshipStatus === 'recognition_pending') {
+    checks.push({
+      key: 'citizenship',
+      label: 'Statut de l’exploitant',
+      severity: 'warning',
+      value: 'Reconnaissance en cours',
+      requirement: 'Attendre le document officiel avant d’enregistrer à votre nom',
+      detail:
+        "Un enfant né d'une mère philippine est philippin par filiation, mais le droit ne s'exerce qu'une fois la reconnaissance obtenue (Bureau of Immigration ou consulat). D'ici là, faites porter les démarches par un tiers philippin — et non par vous.",
+    });
+  } else {
+    checks.push({
+      key: 'citizenship',
+      label: 'Statut de l’exploitant',
+      severity: 'ok',
+      value: 'Citoyen philippin',
+      requirement: 'Aucune restriction de propriété ni de capital',
+      detail:
+        'La reconnaissance lève les restrictions sur la propriété foncière et le capital minimum. Conservez le document : les administrations le redemanderont.',
+    });
+  }
+
+  // ── Title to occupy, and money sunk into someone else's building ──
+  if (settings.propertyTitle !== 'own') {
+    const amount = settings.investedAmount;
+    const familyTitle = settings.propertyTitle === 'family';
+    checks.push({
+      key: 'title',
+      label: 'Titre d’occupation',
+      severity: settings.writtenAgreement ? 'warning' : 'blocking',
+      value: settings.writtenAgreement ? 'Accord écrit' : 'Rien d’écrit',
+      requirement: 'Un écrit qui couvre la durée et l’investissement',
+      detail: settings.writtenAgreement
+        ? `Vérifiez que l'écrit couvre trois choses : la durée d'occupation, l'autorisation expresse de sous-louer, et le sort de votre investissement${amount > 0 ? ` de ${Math.round(amount).toLocaleString('fr-FR')} ₱` : ''} en cas de vente, de décès ou de succession.`
+        : `Vous vous apprêtez à investir${amount > 0 ? ` ${Math.round(amount).toLocaleString('fr-FR')} ₱` : ''} dans un bien qui ne vous appartient pas${familyTitle ? ', même s\'il est familial' : ''}. Sans écrit, une vente, une succession ou un simple désaccord vous fait tout perdre. C'est le même risque qu'un bail non sécurisé : le mobilier reste, vous non. À régler avant le premier peso engagé.`,
     });
   }
 
