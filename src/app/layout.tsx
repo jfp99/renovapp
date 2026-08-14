@@ -3,6 +3,7 @@ import localFont from 'next/font/local';
 import Sidebar from '@/components/Sidebar';
 import StorageGuard from '@/components/StorageGuard';
 import ServiceWorkerRegistrar from '@/components/ServiceWorkerRegistrar';
+import AutoSave from '@/components/AutoSave';
 import './globals.css';
 
 /**
@@ -72,6 +73,7 @@ export default function RootLayout({
       <body className="font-sans">
         <StorageGuard />
         <ServiceWorkerRegistrar />
+        <AutoSave />
         <div className="flex h-screen overflow-hidden">
           <Sidebar />
           <main className="md:ml-[260px] flex-1 overflow-auto">{children}</main>

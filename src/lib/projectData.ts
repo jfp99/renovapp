@@ -5,6 +5,8 @@ import { useFurnitureStore } from '@/stores/furnitureStore';
 import { useBlueprintStore } from '@/stores/blueprintStore';
 import { useInspirationStore } from '@/stores/inspirationStore';
 import { useCostStore } from '@/stores/costStore';
+import { useTenancyStore } from '@/stores/tenancyStore';
+import { useScenarioStore } from '@/stores/scenarioStore';
 import { getMediaDataUrl, putMediaDataUrl } from '@/lib/mediaDb';
 import type { Blueprint } from '@/types/blueprint';
 import type { InspirationImage } from '@/types/inspiration';
@@ -17,7 +19,9 @@ export interface ProjectExport {
   furniture: { placements: unknown; catalog: unknown };
   blueprints: unknown;
   inspiration: { images: unknown; boards: unknown };
-  costs: { categories: unknown; entries: unknown; roiConfig: unknown };
+  costs: { categories: unknown; entries: unknown; roiConfig: unknown; settings?: unknown };
+  tenancy?: { tenants: unknown; tenancies: unknown; payments: unknown; maintenance: unknown };
+  scenarios?: { scenarios: unknown; activeId: unknown };
 }
 
 /**
@@ -25,7 +29,8 @@ export interface ProjectExport {
  * as base64 — otherwise the backup file would reference blobs it doesn't carry
  * and restoring on another machine would produce an album of broken images.
  */
-const EXPORT_VERSION = 2;
+/** v3 adds tenancy and ROI scenarios — v2 exports silently dropped both. */
+const EXPORT_VERSION = 3;
 
 /** Snapshot every store into a single serialisable object, media included. */
 export async function buildProjectExport(): Promise<ProjectExport> {
@@ -34,6 +39,8 @@ export async function buildProjectExport(): Promise<ProjectExport> {
   const blueprint = useBlueprintStore.getState();
   const inspiration = useInspirationStore.getState();
   const cost = useCostStore.getState();
+  const tenancy = useTenancyStore.getState();
+  const scenario = useScenarioStore.getState();
 
   const blueprints = await Promise.all(
     blueprint.blueprints.map(async (item) => ({
@@ -57,7 +64,19 @@ export async function buildProjectExport(): Promise<ProjectExport> {
     furniture: { placements: furniture.placements, catalog: furniture.catalog },
     blueprints,
     inspiration: { images, boards: inspiration.boards },
-    costs: { categories: cost.categories, entries: cost.entries, roiConfig: cost.roiConfig },
+    costs: {
+      categories: cost.categories,
+      entries: cost.entries,
+      roiConfig: cost.roiConfig,
+      settings: cost.settings,
+    },
+    tenancy: {
+      tenants: tenancy.tenants,
+      tenancies: tenancy.tenancies,
+      payments: tenancy.payments,
+      maintenance: tenancy.maintenance,
+    },
+    scenarios: { scenarios: scenario.scenarios, activeId: scenario.activeId },
   };
 }
 
@@ -139,7 +158,25 @@ export async function importProjectExport(json: string): Promise<string | null> 
         categories: (data.costs.categories as never) ?? [],
         entries: (data.costs.entries as never) ?? [],
         ...(data.costs.roiConfig ? { roiConfig: data.costs.roiConfig as never } : {}),
+        ...(data.costs.settings ? { settings: data.costs.settings as never } : {}),
       });
+    }
+    if (data.tenancy) {
+      useTenancyStore.setState({
+        tenants: (data.tenancy.tenants as never) ?? [],
+        tenancies: (data.tenancy.tenancies as never) ?? [],
+        payments: (data.tenancy.payments as never) ?? [],
+        maintenance: (data.tenancy.maintenance as never) ?? [],
+      });
+    }
+    if (data.scenarios) {
+      const list = (data.scenarios.scenarios as Array<{ id: string }>) ?? [];
+      if (list.length > 0) {
+        useScenarioStore.setState({
+          scenarios: list as never,
+          activeId: (data.scenarios.activeId as string) ?? list[0].id,
+        });
+      }
     }
   } catch {
     return "Erreur lors de l'import des données.";
