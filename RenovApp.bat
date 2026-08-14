@@ -29,13 +29,25 @@ if defined NEEDS_INSTALL (
   call npm install || goto :failed
 )
 
-rem Rebuild whenever the export is missing. Delete out\ to force a refresh.
-if not exist "out\index.html" (
-  echo.
-  echo   Construction de l'application ^(quelques instants^)...
-  echo.
-  call npm run build || goto :failed
-)
+rem Rebuild when the export is missing OR older than the source. Without the
+rem freshness check, editing the code left the shortcut serving a stale build.
+rem The comparison lives in a .ps1: PowerShell parentheses inside a batch
+rem if-block close it early, which is a nasty way to break a launcher.
+set "NEEDS_BUILD="
+if not exist "out\index.html" set "NEEDS_BUILD=1"
+if defined NEEDS_BUILD goto :dobuild
+
+powershell -NoProfile -ExecutionPolicy Bypass -File "scripts\Test-BuildStale.ps1"
+if errorlevel 1 set "NEEDS_BUILD=1"
+if not defined NEEDS_BUILD goto :buildready
+
+:dobuild
+echo.
+echo   Construction de l'application ^(quelques instants^)...
+echo.
+call npm run build || goto :failed
+
+:buildready
 
 rem Already running? Just reopen the window.
 powershell -NoProfile -Command "try { $c = New-Object Net.Sockets.TcpClient; $c.Connect('127.0.0.1', %PORT%); $c.Close(); exit 1 } catch { exit 0 }" >nul 2>nul

@@ -10,7 +10,7 @@
  * Bump CACHE_VERSION after a rebuild to evict the previous bundle.
  */
 
-const CACHE_VERSION = 'renovapp-v2';
+const CACHE_VERSION = 'renovapp-v1';
 const PRECACHE = [
   './',
   './index.html',
