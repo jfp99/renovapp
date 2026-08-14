@@ -4,7 +4,12 @@ import { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Cloud, Upload } from 'lucide-react';
 import { useBlueprintStore } from '@/stores/blueprintStore';
-import { generateThumbnail, getBaseFilename } from '@/lib/imageUtils';
+import {
+  detectFileType,
+  generatePdfThumbnail,
+  generateThumbnail,
+  getBaseFilename,
+} from '@/lib/imageUtils';
 import { putMediaBlob } from '@/lib/mediaDb';
 
 export default function BlueprintUpload() {
@@ -15,14 +20,16 @@ export default function BlueprintUpload() {
       for (const file of acceptedFiles) {
         try {
           const baseName = getBaseFilename(file.name);
+          const fileType = detectFileType(file);
           // Full-resolution file goes to IndexedDB; only the thumbnail is kept inline.
           const fileId = await putMediaBlob(file, file.name);
-          const thumbnailData = await generateThumbnail(file);
+          const thumbnailData =
+            fileType === 'pdf' ? generatePdfThumbnail(file.name) : await generateThumbnail(file);
 
           addBlueprint({
             name: baseName,
             description: '',
-            fileType: 'image',
+            fileType,
             fileId,
             thumbnailData,
             tags: [],
@@ -42,6 +49,7 @@ export default function BlueprintUpload() {
     onDrop,
     accept: {
       'image/*': ['.jpg', '.jpeg', '.png', '.gif', '.webp'],
+      'application/pdf': ['.pdf'],
     },
   });
 
@@ -61,9 +69,9 @@ export default function BlueprintUpload() {
         </div>
         <div>
           <p className="font-semibold text-ink">
-            {isDragActive ? 'Déposez vos blueprints ici' : 'Glissez vos blueprints ici, ou cliquez pour parcourir'}
+            {isDragActive ? 'Déposez vos plans ici' : 'Glissez vos plans ici, ou cliquez pour parcourir'}
           </p>
-          <p className="mt-0.5 text-sm text-ink-faint">Formats acceptés : JPG, PNG, GIF, WebP</p>
+          <p className="mt-0.5 text-sm text-ink-faint">Formats acceptés : PDF, JPG, PNG, GIF, WebP</p>
         </div>
       </div>
     </div>

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Blueprint } from '@/types/blueprint';
 import { Room } from '@/types/plan';
 import { useBlueprintStore } from '@/stores/blueprintStore';
-import { X, Trash2, ZoomIn, ZoomOut } from 'lucide-react';
+import { ExternalLink, Trash2, X, ZoomIn, ZoomOut } from 'lucide-react';
 import { useMediaUrl } from '@/lib/useMediaUrl';
 
 interface BlueprintDetailProps {
@@ -85,22 +85,57 @@ export default function BlueprintDetail({
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
             {/* Image viewer */}
             <div className="lg:col-span-2">
-              <div className="relative overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg-app)]">
-                <div className="flex min-h-[400px] items-center justify-center">
-                  <div style={{ transform: `scale(${zoom})`, transformOrigin: 'center' }} className="transition-transform">
-                    <img src={fileUrl} alt={blueprint.name} className="h-auto max-h-[400px] max-w-full" />
+              {blueprint.fileType === 'pdf' ? (
+                /* The browser's built-in PDF reader already gives pages, zoom,
+                   search and printing — far better than anything worth
+                   rebuilding here, and it costs no extra dependency. */
+                <div className="overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg-app)]">
+                  {fileUrl ? (
+                    <iframe
+                      src={fileUrl}
+                      title={blueprint.name}
+                      className="h-[70vh] min-h-[420px] w-full"
+                    />
+                  ) : (
+                    <div className="flex min-h-[420px] items-center justify-center text-sm text-ink-faint">
+                      Chargement du document…
+                    </div>
+                  )}
+                  <div className="flex items-center justify-between gap-3 border-t border-[var(--border)] px-4 py-2.5">
+                    <span className="text-xs text-ink-faint">
+                      Document PDF — utilisez le lecteur pour naviguer entre les pages.
+                    </span>
+                    {fileUrl && (
+                      <a
+                        href={fileUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="btn-secondary btn-sm shrink-0"
+                      >
+                        <ExternalLink className="h-3.5 w-3.5" />
+                        Ouvrir en plein écran
+                      </a>
+                    )}
                   </div>
                 </div>
-                <div className="absolute bottom-4 right-4 flex items-center gap-1 rounded-xl bg-white p-1 shadow-card">
-                  <button onClick={() => setZoom((z) => Math.max(0.5, z - 0.2))} className="rounded-lg p-2 text-ink-muted hover:bg-[var(--bg-app)]">
-                    <ZoomOut className="h-4 w-4" />
-                  </button>
-                  <span className="w-12 text-center font-mono text-sm text-ink-muted">{Math.round(zoom * 100)}%</span>
-                  <button onClick={() => setZoom((z) => Math.min(2.5, z + 0.2))} className="rounded-lg p-2 text-ink-muted hover:bg-[var(--bg-app)]">
-                    <ZoomIn className="h-4 w-4" />
-                  </button>
+              ) : (
+                <div className="relative overflow-hidden rounded-xl border border-[var(--border)] bg-[var(--bg-app)]">
+                  <div className="flex min-h-[400px] items-center justify-center">
+                    <div style={{ transform: `scale(${zoom})`, transformOrigin: 'center' }} className="transition-transform">
+                      <img src={fileUrl} alt={blueprint.name} className="h-auto max-h-[400px] max-w-full" />
+                    </div>
+                  </div>
+                  <div className="absolute bottom-4 right-4 flex items-center gap-1 rounded-xl bg-[var(--bg-surface)] p-1 shadow-card">
+                    <button onClick={() => setZoom((z) => Math.max(0.5, z - 0.2))} className="rounded-lg p-2 text-ink-muted hover:bg-[var(--bg-app)]">
+                      <ZoomOut className="h-4 w-4" />
+                    </button>
+                    <span className="w-12 text-center font-mono text-sm text-ink-muted">{Math.round(zoom * 100)}%</span>
+                    <button onClick={() => setZoom((z) => Math.min(2.5, z + 0.2))} className="rounded-lg p-2 text-ink-muted hover:bg-[var(--bg-app)]">
+                      <ZoomIn className="h-4 w-4" />
+                    </button>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
 
             {/* Sidebar */}

@@ -1,7 +1,7 @@
 'use client';
 
 import { Blueprint } from '@/types/blueprint';
-import { Calendar, Tag } from 'lucide-react';
+import { Calendar, FileText, Tag } from 'lucide-react';
 
 interface BlueprintGridProps {
   blueprints: Blueprint[];
@@ -35,6 +35,12 @@ export default function BlueprintGrid({
               className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-ink/0 transition-all group-hover:bg-ink/10" />
+            {blueprint.fileType === 'pdf' && (
+              <span className="absolute right-2 top-2 inline-flex items-center gap-1 rounded-md bg-brand-600 px-1.5 py-0.5 text-[10px] font-semibold text-brand-50">
+                <FileText className="h-3 w-3" />
+                PDF
+              </span>
+            )}
           </div>
           <h3 className="line-clamp-2 text-sm font-semibold text-ink transition-colors group-hover:text-brand-600">
             {blueprint.name}
