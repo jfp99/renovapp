@@ -10,6 +10,8 @@
     "out/",
     ".next/",
     "node_modules/",
-    "scripts/serve.mjs"
+    "scripts/serve.mjs",
+    "tests/",
+    "playwright.config.ts"
   ]
 }

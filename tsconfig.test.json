@@ -1,0 +1,18 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": [
+      "node"
+    ],
+    "incremental": false
+  },
+  "include": [
+    "tests/**/*.ts",
+    "playwright.config.ts",
+    "vitest.config.ts",
+    "src/**/__tests__/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
