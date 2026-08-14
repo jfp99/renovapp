@@ -157,8 +157,15 @@ export function projectScenario(a: ScenarioAssumptions): ProjectionResult {
 }
 
 /**
- * Monthly IRR by bisection, annualised. Returns null when the cash-flow series
- * never crosses zero — an IRR would be meaningless there.
+ * Monthly IRR, annualised. Returns null only when an IRR is genuinely
+ * meaningless (nothing invested, or the project never repays itself).
+ *
+ * The first implementation bracketed the root between -0.9 and 1 and gave up
+ * when both ends shared a sign. With a seasonal profile the final month can be
+ * a loss, which flips the sign at the low end and made the function abandon
+ * perfectly profitable projects. It also evaluated rates close to -1, where
+ * dividing by (1+r)^60 overflows. Now we scan a sane grid for an actual sign
+ * change, then bisect inside it.
  */
 export function computeIrr(investment: number, cashFlows: number[]): number | null {
   if (investment <= 0 || cashFlows.length === 0) return null;
@@ -167,22 +174,35 @@ export function computeIrr(investment: number, cashFlows: number[]): number | nu
   const npvAt = (rate: number): number =>
     cashFlows.reduce((sum, cf, i) => sum + cf / Math.pow(1 + rate, i + 1), -investment);
 
-  let low = -0.9;
-  let high = 1;
-  if (npvAt(low) * npvAt(high) > 0) return null;
+  // Monthly rates from -50% to +300% cover anything a real project can show.
+  const STEP = 0.005;
+  let low: number | null = null;
+  let high: number | null = null;
+  let prevRate = -0.5;
+  let prevValue = npvAt(prevRate);
+
+  for (let rate = -0.5 + STEP; rate <= 3; rate += STEP) {
+    const value = npvAt(rate);
+    if (Number.isFinite(prevValue) && Number.isFinite(value) && prevValue * value <= 0) {
+      low = prevRate;
+      high = rate;
+      break;
+    }
+    prevRate = rate;
+    prevValue = value;
+  }
+
+  if (low === null || high === null) return null;
 
   for (let i = 0; i < 200; i += 1) {
     const mid = (low + high) / 2;
     const value = npvAt(mid);
-    if (Math.abs(value) < 1e-7) {
-      return Math.pow(1 + mid, 12) - 1;
-    }
+    if (Math.abs(value) < 1e-6) return Math.pow(1 + mid, 12) - 1;
     if (npvAt(low) * value < 0) high = mid;
     else low = mid;
   }
 
-  const monthly = (low + high) / 2;
-  return Math.pow(1 + monthly, 12) - 1;
+  return Math.pow(1 + (low + high) / 2, 12) - 1;
 }
 
 interface Driver {

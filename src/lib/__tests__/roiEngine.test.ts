@@ -169,6 +169,31 @@ describe('computeIrr', () => {
   it('returns null when the project never repays itself', () => {
     expect(computeIrr(1000, Array(12).fill(10))).toBeNull();
   });
+
+  it('still solves when the last month is a seasonal loss', () => {
+    // Regression: a negative final month used to flip the sign at the low
+    // bracket, and a profitable project reported no IRR at all.
+    const flows = Array.from({ length: 60 }, (_, i) => (i % 12 === 10 ? -3000 : 11000));
+    const irr = computeIrr(325000, flows);
+    expect(irr).not.toBeNull();
+    expect(irr!).toBeGreaterThan(0);
+  });
+
+  it('reports an IRR whenever the NPV is clearly positive', () => {
+    const result = projectScenario({
+      ...base,
+      occupancy: { mode: 'academic', flatRate: 1, monthly: ACADEMIC_PH_PROFILE },
+      numberOfBeds: 6,
+      monthlyRentPerBed: 5000,
+      monthlyBaseRent: 0,
+      propertyMode: 'purchase',
+      utilitiesPerOccupiedBed: 800,
+      fixedMonthlyCosts: 8000,
+      renovationBudget: 325000,
+    });
+    expect(result.npv).toBeGreaterThan(0);
+    expect(result.irrAnnual, 'un projet a VAN positive doit avoir un TRI').not.toBeNull();
+  });
 });
 
 describe('computeSensitivity', () => {
