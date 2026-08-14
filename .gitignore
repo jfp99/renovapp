@@ -15,3 +15,5 @@ npm-debug.log*
 .vercel
 out/
 data/
+tests/report/
+test-results/

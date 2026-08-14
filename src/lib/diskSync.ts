@@ -16,6 +16,7 @@ export function hasLocalData(): boolean {
     'renovapp-inspiration',
     'renovapp-costs',
     'renovapp-tenancy',
+    'renovapp-scenarios',
   ];
 
   return keys.some((key) => {
@@ -30,6 +31,22 @@ export function hasLocalData(): boolean {
       return false;
     }
   });
+}
+
+/** Does a disk snapshot actually carry anything worth restoring? */
+export function hasContent(data: ProjectExport | null): data is ProjectExport {
+  if (!data) return false;
+  const sections: unknown[] = [
+    (data.plans as { rooms?: unknown[] })?.rooms,
+    (data.plans as { floors?: unknown[] })?.floors,
+    (data.furniture as { placements?: unknown[] })?.placements,
+    data.blueprints,
+    (data.inspiration as { images?: unknown[] })?.images,
+    (data.costs as { entries?: unknown[] })?.entries,
+    (data.tenancy as { tenants?: unknown[] })?.tenants,
+    (data.tenancy as { tenancies?: unknown[] })?.tenancies,
+  ];
+  return sections.some((section) => Array.isArray(section) && section.length > 0);
 }
 
 /** Fetch the project saved on disk. Returns null when there is none. */
@@ -60,6 +77,24 @@ export async function saveToDisk(): Promise<string> {
 
   const result = await response.json();
   return result.savedAt as string;
+}
+
+/**
+ * Fire-and-forget save for page unload.
+ *
+ * A normal fetch is cancelled when the window closes, so the last edit before
+ * closing could be lost — precisely the moment the data matters most.
+ * sendBeacon is queued by the browser and delivered regardless.
+ */
+export async function saveToDiskOnUnload(): Promise<boolean> {
+  if (typeof navigator === 'undefined' || !navigator.sendBeacon) return false;
+  try {
+    const data = await buildProjectExport();
+    const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+    return navigator.sendBeacon(ENDPOINT, blob);
+  } catch {
+    return false;
+  }
 }
 
 /** Restore the browser stores from a disk snapshot. */

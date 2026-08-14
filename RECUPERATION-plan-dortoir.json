@@ -1,0 +1,297 @@
+{
+  "app": "renovapp",
+  "version": 3,
+  "exportedAt": "2026-08-14T07:35:52.524501",
+  "plans": {
+    "floors": [
+      {
+        "id": "floor-1",
+        "name": "Rez-de-chausse",
+        "order": 0
+      }
+    ],
+    "rooms": [
+      {
+        "floorId": "floor-1",
+        "name": "CHAMBRE 1",
+        "type": "bedroom",
+        "x": -720,
+        "y": 80,
+        "width": 320,
+        "height": 260,
+        "color": "#F0DDC9",
+        "doors": [],
+        "windows": [],
+        "id": "4b909b1c-76ac-4c8d-8d32-97ed5735a51f"
+      },
+      {
+        "floorId": "floor-1",
+        "name": "CHAMBRE 2",
+        "type": "bedroom",
+        "x": 260,
+        "y": 0,
+        "width": 330,
+        "height": 310,
+        "color": "#F0DDC9",
+        "doors": [],
+        "windows": [],
+        "id": "10a76fd3-d8bb-4c0a-a868-f0198baa1799"
+      },
+      {
+        "floorId": "floor-1",
+        "name": "CUISINE",
+        "type": "kitchen",
+        "x": 140,
+        "y": -240,
+        "width": 450,
+        "height": 100,
+        "color": "#F7E8C9",
+        "doors": [],
+        "windows": [],
+        "id": "dc7c83d8-8283-4cea-82e2-3a12005ebc30"
+      },
+      {
+        "floorId": "floor-1",
+        "name": "WC1",
+        "type": "bathroom",
+        "x": -840,
+        "y": -240,
+        "width": 150,
+        "height": 140,
+        "color": "#DCEBE4",
+        "doors": [],
+        "windows": [],
+        "id": "527648b4-c67e-4947-8f9e-41def90c05de"
+      },
+      {
+        "floorId": "floor-1",
+        "name": "WC2",
+        "type": "bathroom",
+        "x": 940,
+        "y": 0,
+        "width": 60,
+        "height": 305,
+        "color": "#DCEBE4",
+        "doors": [],
+        "windows": [],
+        "id": "a2b356a8-d4e0-4005-8ed6-5ccb68b96d7f"
+      },
+      {
+        "floorId": "floor-1",
+        "name": "DINING ROOM",
+        "type": "common",
+        "x": 260,
+        "y": 640,
+        "width": 400,
+        "height": 300,
+        "color": "#DCEBE6",
+        "doors": [],
+        "windows": [],
+        "id": "e4874ada-8041-4a57-8ef0-ac54b942d810"
+      },
+      {
+        "floorId": "floor-1",
+        "name": "CLOSET",
+        "type": "storage",
+        "x": -520,
+        "y": -240,
+        "width": 320,
+        "height": 80,
+        "color": "#EFE9DD",
+        "doors": [],
+        "windows": [],
+        "id": "ae3180ec-dff3-4197-b0d0-2c705d157a1e"
+      },
+      {
+        "floorId": "floor-1",
+        "name": "RANGEMENT SOUS ESC",
+        "type": "storage",
+        "x": -400,
+        "y": 640,
+        "width": 150,
+        "height": 150,
+        "color": "#EFE9DD",
+        "doors": [],
+        "windows": [],
+        "id": "4bcb12f2-ee38-4dcb-aefd-4203993b974b"
+      }
+    ]
+  },
+  "furniture": {
+    "placements": [
+      {
+        "roomId": "4b909b1c-76ac-4c8d-8d32-97ed5735a51f",
+        "catalogItemId": "38cd45ea-f2f9-40b2-8428-049c5479b60b",
+        "x": 100,
+        "y": -90,
+        "rotation": 90,
+        "width": 90,
+        "height": 185,
+        "id": "8273a0a5-4328-4d94-8070-0d6722ac6cf4"
+      },
+      {
+        "roomId": "4b909b1c-76ac-4c8d-8d32-97ed5735a51f",
+        "catalogItemId": "38cd45ea-f2f9-40b2-8428-049c5479b60b",
+        "x": 360,
+        "y": 240,
+        "rotation": 90,
+        "width": 90,
+        "height": 185,
+        "id": "d8dfa66c-d4d2-4eee-910c-6b0fc2ed3660"
+      }
+    ],
+    "catalog": [
+      {
+        "id": "ad04ce0e-8a00-4e04-b514-3df7218b06db",
+        "name": "Lit simple",
+        "category": "bed",
+        "defaultWidth": 90,
+        "defaultHeight": 200,
+        "color": "#93c5fd"
+      },
+      {
+        "id": "38cd45ea-f2f9-40b2-8428-049c5479b60b",
+        "name": "Lit superpos",
+        "category": "bed",
+        "defaultWidth": 90,
+        "defaultHeight": 200,
+        "color": "#60a5fa"
+      },
+      {
+        "id": "e1e3509c-b752-419a-9142-af36627ecef0",
+        "name": "Lit double",
+        "category": "bed",
+        "defaultWidth": 140,
+        "defaultHeight": 200,
+        "color": "#3b82f6"
+      },
+      {
+        "id": "a86d47a0-9cee-4a2d-8485-0e5ca2215934",
+        "name": "Casier / Locker",
+        "category": "storage",
+        "defaultWidth": 40,
+        "defaultHeight": 50,
+        "color": "#c4b5fd"
+      },
+      {
+        "id": "47aa67f8-6bce-4b50-83e4-c70acfbd203e",
+        "name": "Armoire",
+        "category": "storage",
+        "defaultWidth": 100,
+        "defaultHeight": 60,
+        "color": "#a78bfa"
+      },
+      {
+        "id": "af9bbbdd-a4dd-4f60-abb0-3d3ef8833566",
+        "name": "Commode",
+        "category": "storage",
+        "defaultWidth": 80,
+        "defaultHeight": 45,
+        "color": "#8b5cf6"
+      },
+      {
+        "id": "f74c7247-5107-4d62-abd6-102ba07ef499",
+        "name": "tagre",
+        "category": "storage",
+        "defaultWidth": 80,
+        "defaultHeight": 30,
+        "color": "#a78bfa"
+      },
+      {
+        "id": "3b363a27-b0fb-4023-b0d3-f932fa11433d",
+        "name": "Bureau",
+        "category": "desk",
+        "defaultWidth": 120,
+        "defaultHeight": 60,
+        "color": "#fdba74"
+      },
+      {
+        "id": "a8b15c8b-d779-4472-9f14-6a399a9d4993",
+        "name": "Table de chevet",
+        "category": "desk",
+        "defaultWidth": 40,
+        "defaultHeight": 40,
+        "color": "#fb923c"
+      },
+      {
+        "id": "666c14ff-0251-47d0-803c-116e248115a7",
+        "name": "Chaise",
+        "category": "chair",
+        "defaultWidth": 45,
+        "defaultHeight": 45,
+        "color": "#fcd34d"
+      },
+      {
+        "id": "4b756c1d-a202-42ee-8db1-6863bc926bea",
+        "name": "Table",
+        "category": "table",
+        "defaultWidth": 120,
+        "defaultHeight": 80,
+        "color": "#f59e0b"
+      },
+      {
+        "id": "5cb3915b-8144-47b9-b96c-37334411b565",
+        "name": "Lavabo",
+        "category": "bathroom",
+        "defaultWidth": 60,
+        "defaultHeight": 45,
+        "color": "#67e8f9"
+      },
+      {
+        "id": "606f3945-61a8-4e3a-b27c-8f0b3656a9b9",
+        "name": "WC",
+        "category": "bathroom",
+        "defaultWidth": 40,
+        "defaultHeight": 60,
+        "color": "#22d3ee"
+      },
+      {
+        "id": "71e52287-3fb4-4031-98b5-9eb52390de53",
+        "name": "Douche",
+        "category": "bathroom",
+        "defaultWidth": 90,
+        "defaultHeight": 90,
+        "color": "#06b6d4"
+      },
+      {
+        "id": "23565d70-d048-4578-af25-086c8d58198a",
+        "name": "vier cuisine",
+        "category": "kitchen",
+        "defaultWidth": 80,
+        "defaultHeight": 60,
+        "color": "#6ee7b7"
+      },
+      {
+        "id": "d111ff77-3d27-497f-b24f-ffc72bdee21e",
+        "name": "Plan de travail",
+        "category": "kitchen",
+        "defaultWidth": 180,
+        "defaultHeight": 60,
+        "color": "#34d399"
+      },
+      {
+        "id": "99563eac-1e07-4fbe-a42d-365f28f2cef8",
+        "name": "Rfrigrateur",
+        "category": "kitchen",
+        "defaultWidth": 60,
+        "defaultHeight": 60,
+        "color": "#10b981"
+      }
+    ]
+  },
+  "blueprints": [],
+  "inspiration": {
+    "images": [],
+    "boards": []
+  },
+  "costs": {
+    "categories": [],
+    "entries": []
+  },
+  "tenancy": {
+    "tenants": [],
+    "tenancies": [],
+    "payments": [],
+    "maintenance": []
+  }
+}

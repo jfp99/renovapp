@@ -10,11 +10,13 @@ import { useCostStore } from '@/stores/costStore';
 import { useTenancyStore } from '@/stores/tenancyStore';
 import { useScenarioStore } from '@/stores/scenarioStore';
 import {
+  hasContent,
   hasLocalData,
   isDiskSyncAvailable,
   loadFromDisk,
   restoreFromDisk,
   saveToDisk,
+  saveToDiskOnUnload,
   type SyncState,
 } from '@/lib/diskSync';
 
@@ -66,7 +68,9 @@ export default function AutoSave() {
       if (!hasLocalData()) {
         const disk = await loadFromDisk();
         if (cancelled) return;
-        if (disk) {
+        // Restoring an empty snapshot is pointless and costs a page reload
+        // that would discard anything typed in the meantime.
+        if (hasContent(disk)) {
           const error = await restoreFromDisk(disk);
           if (!error) {
             setRestored(true);
@@ -108,11 +112,12 @@ export default function AutoSave() {
       useScenarioStore.subscribe(schedule),
     ];
 
-    // A pending save must not be lost when the window closes.
+    // A pending save must not be lost when the window closes. fetch would be
+    // cancelled by the unload; sendBeacon is delivered anyway.
     const onHide = () => {
       if (!ready.current) return;
       window.clearTimeout(timer.current);
-      void flush();
+      void saveToDiskOnUnload();
     };
     window.addEventListener('pagehide', onHide);
 

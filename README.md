@@ -40,10 +40,19 @@ De même, chaque dépense enregistrée met à jour le ROI *réel*, affiché à c
 
 Tout reste sur cette machine, rien n'est envoyé sur Internet.
 
-- **Textes et chiffres** (pièces, dépenses, contrats) : `localStorage` du navigateur.
-- **Images et PDF** (blueprints, inspirations, reçus) : IndexedDB, qui accepte des centaines de Mo.
+- **Copie de référence : `data/projet.json`**, écrit à chaque modification, avec
+  20 versions horodatées dans `data/backups/`. C'est cette copie qui fait foi.
+- Le navigateur (`localStorage` + IndexedDB) sert de cache de travail devant elle.
 
-Un bandeau rouge apparaît si une écriture échoue — dans ce cas, sauvegardez immédiatement.
+Si le navigateur est vidé, l'app se restaure depuis le disque au démarrage. La
+restauration ne s'active que si le navigateur est vide : elle ne peut donc jamais
+écraser un travail en cours.
+
+Un indicateur en bas à gauche affiche « Sauvegardé à … » après chaque écriture.
+Un bandeau rouge apparaît si une écriture échoue.
+
+⚠️ Tout est sur le même disque. Pour une vraie sauvegarde, utilisez le bouton
+**Sauvegarder** de temps en temps et déposez le fichier ailleurs.
 
 ### Sauvegarder
 
@@ -54,12 +63,20 @@ navigateur efface les données textuelles.
 ## Commandes
 
 ```bash
-npm run dev        # développement
+npm run verify     # TOUT : types, lint, tests, build, parcours end-to-end
+npm run dev        # développement (même adresse que le raccourci : 127.0.0.1:4321)
 npm run build      # export statique dans out/
-npm run test       # tests unitaires (moteur financier, récurrences, location)
+npm run test       # tests unitaires (moteur financier, récurrences, location, garde-fous)
+npm run test:e2e   # parcours end-to-end dans un vrai navigateur
 npm run lint       # ESLint
 npm run typecheck  # TypeScript
 ```
+
+**Lancez `npm run verify` avant et après toute modification importante.** La suite
+compte 77 tests et couvre ce qui fait perdre des données : sauvegarde, restauration,
+quota, hors ligne, et le câblage de chaque store.
+
+Première utilisation des tests end-to-end : `npx playwright install chromium`.
 
 `python3 scripts/generate-icons.py` régénère les icônes après un changement de couleurs.
 
