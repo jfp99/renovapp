@@ -18,6 +18,7 @@ interface ComplianceState {
 const defaultSettings: ComplianceSettings = {
   plannedOccupants: 0,
   areaBasis: 'bedrooms',
+  ceilingHeight: 2.7,
   monthlyRentPerBed: 0,
   citizenshipStatus: 'foreign',
   propertyTitle: 'own',

@@ -55,6 +55,8 @@ export interface ComplianceSettings {
   plannedOccupants: number;
   /** Count common areas in the area check, or bedrooms only. */
   areaBasis: 'bedrooms' | 'all';
+  /** Clear ceiling height in metres — drives the air-space rule. */
+  ceilingHeight: number;
   /** Rent charged per bed, for the rent-control check. */
   monthlyRentPerBed: number;
   citizenshipStatus: CitizenshipStatus;

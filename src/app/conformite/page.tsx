@@ -136,6 +136,24 @@ export default function ConformitePage() {
               />
             </div>
             <div>
+              <label className="label">Hauteur sous plafond (m)</label>
+              <input
+                type="number"
+                min={2}
+                max={6}
+                step={0.05}
+                value={settings.ceilingHeight}
+                onChange={(e) =>
+                  updateSettings({ ceilingHeight: parseFloat(e.target.value) || 0 })
+                }
+                className="input"
+              />
+              <p className="mt-1 text-xs text-ink-faint">
+                Mesurez-la : la règle est un volume, chaque 10 cm change la capacité.
+              </p>
+            </div>
+
+            <div>
               <label className="label">Surface prise en compte</label>
               <select
                 value={settings.areaBasis}

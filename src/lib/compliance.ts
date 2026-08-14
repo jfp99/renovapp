@@ -92,6 +92,29 @@ export const PERMIT_CATALOG: PermitDefinition[] = [
 
 const M2 = (room: Room) => (room.width / 100) * (room.height / 100);
 
+/**
+ * PD 1096 — the National Building Code — sets two distinct rules that are
+ * routinely confused:
+ *
+ *  · Section 806: a room for human habitation must be at least 6.00 m² with a
+ *    least dimension of 2.00 m. That is a rule about the ROOM, not the people.
+ *  · Section 807: habitations require 14.00 m³ of AIR SPACE PER PERSON.
+ *
+ * The binding occupancy rule is therefore volumetric, which makes ceiling
+ * height decisive: at 2.70 m of clear height, 14 m³ works out to 5.19 m² per
+ * person; at 3.50 m, only 4.00 m². Popular articles quoting "6 to 8 m² per
+ * occupant" are a rule of thumb, not the text.
+ */
+export const AIR_SPACE_PER_PERSON_M3 = 14;
+export const MIN_HABITABLE_ROOM_M2 = 6;
+export const MIN_HABITABLE_LEAST_DIMENSION_M = 2;
+
+/** People allowed in a volume, per Section 807. */
+export function occupantsAllowed(areaM2: number, ceilingHeight: number): number {
+  if (areaM2 <= 0 || ceilingHeight <= 0) return 0;
+  return Math.floor((areaM2 * ceilingHeight) / AIR_SPACE_PER_PERSON_M3);
+}
+
 /** Bedrooms only, or every room on the plan. */
 export function usableArea(rooms: Room[], basis: 'bedrooms' | 'all'): number {
   const kept = basis === 'bedrooms' ? rooms.filter((r) => r.type === 'bedroom') : rooms;
@@ -116,38 +139,77 @@ export function runChecks(
   const checks: ComplianceCheck[] = [];
   const occupants = Math.max(0, settings.plannedOccupants);
 
-  // ── Floor area per occupant (National Building Code, PD 1096) ──
+  // ── Air space per person (PD 1096, Section 807) ──
   const area = usableArea(rooms, settings.areaBasis);
-  if (rooms.length === 0 || occupants === 0) {
+  const height = settings.ceilingHeight;
+  if (rooms.length === 0 || occupants === 0 || height <= 0) {
     checks.push({
       key: 'area',
-      label: 'Surface par occupant',
+      label: 'Volume d’air par occupant',
       severity: 'unknown',
       value: '—',
-      requirement: '6 à 8 m² par occupant',
-      detail: "Dessinez les pièces et indiquez le nombre d'occupants pour obtenir le calcul.",
+      requirement: '14 m³ par personne (PD 1096, art. 807)',
+      detail:
+        "Dessinez les pièces, indiquez la hauteur sous plafond et le nombre d'occupants pour obtenir le calcul.",
     });
   } else {
-    const perOccupant = area / occupants;
-    const severity = perOccupant >= 8 ? 'ok' : perOccupant >= 6 ? 'warning' : 'blocking';
-    const maxOccupants = Math.floor(area / 6);
-    const maxComfortable = Math.floor(area / 8);
+    const volume = area * height;
+    const perOccupant = volume / occupants;
+    const allowed = occupantsAllowed(area, height);
+    const severity =
+      perOccupant >= AIR_SPACE_PER_PERSON_M3
+        ? 'ok'
+        : perOccupant >= AIR_SPACE_PER_PERSON_M3 * 0.85
+          ? 'warning'
+          : 'blocking';
+
     checks.push({
       key: 'area',
-      label: 'Surface par occupant',
+      label: 'Volume d’air par occupant',
       severity,
-      value: `${perOccupant.toFixed(1)} m²`,
-      requirement: '6 à 8 m² par occupant',
+      value: `${perOccupant.toFixed(1)} m³`,
+      requirement: '14 m³ par personne (PD 1096, art. 807)',
       detail:
-        `${area.toFixed(1)} m² pour ${occupants} occupants. ` +
-        `Au seuil bas de 6 m² : ${maxOccupants} occupant${maxOccupants > 1 ? 's' : ''} maximum. ` +
-        `Au seuil haut de 8 m² : ${maxComfortable}. ` +
+        `${area.toFixed(1)} m² sous ${height.toFixed(2)} m = ${volume.toFixed(0)} m³, ` +
+        `soit ${allowed} occupant${allowed > 1 ? 's' : ''} au maximum ` +
+        `(${(AIR_SPACE_PER_PERSON_M3 / height).toFixed(1)} m² par personne à cette hauteur). ` +
         (severity === 'ok'
-          ? 'Vous êtes dans la fourchette confortable.'
-          : severity === 'warning'
-            ? "Vous tenez au seuil bas seulement : la décision dépendra de l'interprétation locale, notamment de la prise en compte des communs. À confirmer auprès de l'Office of the Building Official avant d'acheter le mobilier."
-            : "En dessous du seuil bas. Réduisez la capacité ou augmentez la surface louée avant d'engager quoi que ce soit."),
+          ? 'Conforme.'
+          : "Insuffisant : réduisez la capacité, augmentez la surface louée, ou vérifiez la hauteur réelle — chaque 10 cm de plafond compte."),
     });
+
+    // Section 806 applies room by room, and is a separate test.
+    const tooSmall = rooms
+      .filter((r) => r.type === 'bedroom')
+      .filter((r) => M2(r) < MIN_HABITABLE_ROOM_M2 || Math.min(r.width, r.height) / 100 < MIN_HABITABLE_LEAST_DIMENSION_M);
+    checks.push({
+      key: 'roomSize',
+      label: 'Taille des chambres',
+      severity: tooSmall.length === 0 ? 'ok' : 'blocking',
+      value: tooSmall.length === 0 ? 'Conformes' : `${tooSmall.length} non conforme${tooSmall.length > 1 ? 's' : ''}`,
+      requirement: '6 m² minimum, 2 m de côté (art. 806)',
+      detail:
+        tooSmall.length === 0
+          ? 'Chaque chambre atteint la taille minimale exigée pour une pièce habitable.'
+          : `À revoir : ${tooSmall.map((r) => r.name).join(', ')}.`,
+    });
+
+    // The two readings differ by a lot, and nothing in the text settles it.
+    const bedroomsOnly = usableArea(rooms, 'bedrooms');
+    const everything = usableArea(rooms, 'all');
+    if (bedroomsOnly > 0 && everything > bedroomsOnly) {
+      checks.push({
+        key: 'areaBasis',
+        label: 'Base de calcul retenue',
+        severity: 'warning',
+        value: settings.areaBasis === 'all' ? 'Toutes les pièces' : 'Chambres seules',
+        requirement: 'À faire confirmer par la LGU',
+        detail:
+          `Chambres seules : ${occupantsAllowed(bedroomsOnly, height)} occupants. ` +
+          `Toutes pièces louées : ${occupantsAllowed(everything, height)}. ` +
+          "Le texte ne tranche pas explicitement pour l'hébergement collectif : cette question vaut plusieurs lits, posez-la par écrit à l'Office of the Building Official avant d'acheter le mobilier.",
+      });
+    }
   }
 
   // ── Sanitary facilities ──
