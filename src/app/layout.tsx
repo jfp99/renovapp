@@ -1,6 +1,10 @@
 import type { Metadata, Viewport } from 'next';
+import Script from 'next/script';
 import localFont from 'next/font/local';
 import Sidebar from '@/components/Sidebar';
+import MobileNav from '@/components/MobileNav';
+import ReadOnlyBanner from '@/components/ReadOnlyBanner';
+import { IS_READONLY } from '@/lib/readonly';
 import StorageGuard from '@/components/StorageGuard';
 import ServiceWorkerRegistrar from '@/components/ServiceWorkerRegistrar';
 import AutoSave from '@/components/AutoSave';
@@ -71,12 +75,20 @@ export default function RootLayout({
   return (
     <html lang="fr" className={`${display.variable} ${sans.variable} ${mono.variable}`}>
       <body className="font-sans">
+        {/* Read-only builds are seeded before hydration; see scripts/make-seed.mjs. */}
+        {IS_READONLY && <Script src="./seed.js" strategy="beforeInteractive" />}
         <StorageGuard />
         <ServiceWorkerRegistrar />
-        <AutoSave />
-        <div className="flex h-screen overflow-hidden">
+        {!IS_READONLY && <AutoSave />}
+        <MobileNav />
+        <ReadOnlyBanner />
+        {/* h-screen would clip on mobile: the fixed top bar already takes 56px,
+            and iOS browser chrome makes 100vh taller than the visible area. */}
+        <div className="flex min-h-[100dvh] md:h-screen md:overflow-hidden">
           <Sidebar />
-          <main className="md:ml-[260px] flex-1 overflow-auto">{children}</main>
+          <main className="w-full min-w-0 flex-1 md:ml-[260px] md:overflow-auto">
+            {children}
+          </main>
         </div>
       </body>
     </html>

@@ -11,6 +11,7 @@ import { ROIProjection } from '@/components/costs/ROIProjection';
 import { ExportButton } from '@/components/costs/ExportButton';
 import { CategoryEditor } from '@/components/costs/CategoryEditor';
 import { CostEntry } from '@/types/cost';
+import { IS_READONLY } from '@/lib/readonly';
 
 type TabType = 'expenses' | 'budget' | 'roi' | 'projection';
 
@@ -53,7 +54,7 @@ export default function CostsPage() {
   return (
     <main className="min-h-screen">
       <div className="bg-mesh border-b border-[var(--border)]">
-        <div className="max-w-7xl mx-auto px-8 py-7">
+        <div className="mx-auto max-w-7xl px-4 py-5 md:px-8 md:py-7">
           <p className="text-xs font-semibold uppercase tracking-wider text-brand-600">Finances du projet</p>
           <h1 className="mt-1 text-3xl font-bold text-ink tracking-tight">Coûts &amp; rentabilité</h1>
           <p className="mt-1 text-sm text-ink-muted">
@@ -62,14 +63,16 @@ export default function CostsPage() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-8 py-8">
+      <div className="mx-auto max-w-7xl px-4 py-6 md:px-8 md:py-8">
         {/* Tabs */}
-        <div className="mb-7 flex gap-1 border-b border-[var(--border)]">
+        {/* -mx-4 px-4 : la barre defile sous les bords de la carte au lieu
+            d'etre coupee ; snap pour qu'un onglet ne reste pas a moitie visible. */}
+        <div className="mb-7 -mx-4 flex snap-x snap-mandatory gap-1 overflow-x-auto border-b border-[var(--border)] px-4 [scrollbar-width:none] [&::-webkit-scrollbar]{display:none} md:mx-0 md:overflow-visible md:px-0">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`-mb-px flex items-center gap-2 border-b-2 px-5 py-3 text-sm font-medium transition-colors ${
+              className={`-mb-px flex flex-none snap-start items-center gap-2 whitespace-nowrap border-b-2 px-4 py-3 text-sm font-medium transition-colors md:px-5 ${
                 activeTab === tab.id
                   ? 'border-brand-600 text-brand-700'
                   : 'border-transparent text-ink-muted hover:text-ink-soft'
@@ -82,20 +85,22 @@ export default function CostsPage() {
         </div>
 
         {/* Tab Content */}
-        <div className="card p-6">
+        <div className="card p-4 md:p-6">
           {/* Dépenses Tab */}
           {activeTab === 'expenses' && (
             <div className="space-y-6">
-              <div className="flex justify-between items-center">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <h2 className="text-lg font-semibold text-ink">
                   Toutes les dépenses
                 </h2>
-                <div className="flex gap-3">
+                <div className="flex gap-2 sm:gap-3">
                   <ExportButton />
-                  <button onClick={() => setIsCostFormOpen(true)} className="btn-primary btn-sm">
-                    <Plus size={16} />
-                    Ajouter une dépense
-                  </button>
+                  {!IS_READONLY && (
+                    <button onClick={() => setIsCostFormOpen(true)} className="btn-primary btn-sm">
+                      <Plus size={16} />
+                      Ajouter une dépense
+                    </button>
+                  )}
                 </div>
               </div>
 
@@ -109,11 +114,13 @@ export default function CostsPage() {
               )}
 
               {entries.length === 0 ? (
-                <div className="text-center py-14">
-                  <p className="text-ink-muted mb-4">Aucune dépense enregistrée</p>
-                  <button onClick={() => setIsCostFormOpen(true)} className="btn-primary">
-                    <Plus size={16} /> Ajouter la première dépense
-                  </button>
+                <div className="py-14 text-center">
+                  <p className="mb-4 text-ink-muted">Aucune dépense enregistrée</p>
+                  {!IS_READONLY && (
+                    <button onClick={() => setIsCostFormOpen(true)} className="btn-primary">
+                      <Plus size={16} /> Ajouter la première dépense
+                    </button>
+                  )}
                 </div>
               ) : (
                 <CostTable

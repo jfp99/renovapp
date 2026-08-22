@@ -3,6 +3,7 @@
 import { useRef, useState } from 'react';
 import { Download, Upload, Check } from 'lucide-react';
 import { downloadProjectExport, importProjectExport } from '@/lib/projectData';
+import { IS_READONLY } from '@/lib/readonly';
 
 export default function ProjectActions() {
   const fileRef = useRef<HTMLInputElement>(null);
@@ -41,6 +42,9 @@ export default function ProjectActions() {
     reader.readAsText(file);
     e.target.value = '';
   };
+
+  // Importer ecraserait le projet ; sauvegarder n'a pas de serveur en face.
+  if (IS_READONLY) return null;
 
   return (
     <div className="flex items-center gap-2">

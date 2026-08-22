@@ -2,34 +2,9 @@
 
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import {
-  Armchair,
-  BedDouble,
-  Calculator,
-  Camera,
-  FileImage,
-  Hammer,
-  LayoutDashboard,
-  PencilRuler,
-  ShieldCheck,
-} from 'lucide-react';
-
-interface NavLink {
-  name: string;
-  href: string;
-  icon: React.ReactNode;
-}
-
-const navLinks: NavLink[] = [
-  { name: 'Tableau de bord', href: '/', icon: <LayoutDashboard className="w-[18px] h-[18px]" /> },
-  { name: 'Plans', href: '/plans', icon: <PencilRuler className="w-[18px] h-[18px]" /> },
-  { name: 'Meubles', href: '/furniture', icon: <Armchair className="w-[18px] h-[18px]" /> },
-  { name: 'Blueprints', href: '/blueprints', icon: <FileImage className="w-[18px] h-[18px]" /> },
-  { name: 'Inspiration', href: '/inspiration', icon: <Camera className="w-[18px] h-[18px]" /> },
-  { name: 'Coûts & ROI', href: '/costs', icon: <Calculator className="w-[18px] h-[18px]" /> },
-  { name: 'Location', href: '/location', icon: <BedDouble className="w-[18px] h-[18px]" /> },
-  { name: 'Conformité', href: '/conformite', icon: <ShieldCheck className="w-[18px] h-[18px]" /> },
-];
+import { Hammer } from 'lucide-react';
+import { NAV_LINKS as navLinks } from '@/lib/nav';
+import { IS_READONLY } from '@/lib/readonly';
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -80,7 +55,7 @@ export default function Sidebar() {
       <div className="border-t border-white/5 px-5 py-4">
         <div className="font-mono flex items-center gap-2 text-[10px] text-[#7d6f59]">
           <span className="h-1.5 w-1.5 rounded-full bg-pine-500 shadow-[0_0_0_3px_rgba(46,90,78,0.25)]" />
-          Stockage local actif
+          {IS_READONLY ? 'Copie en lecture seule' : 'Stockage local actif'}
         </div>
       </div>
     </aside>

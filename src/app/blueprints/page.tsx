@@ -53,7 +53,7 @@ export default function BlueprintsPage() {
   return (
     <div className="min-h-screen">
       <div className="bg-mesh border-b border-[var(--border)]">
-        <div className="max-w-7xl mx-auto px-8 py-7">
+        <div className="mx-auto max-w-7xl px-4 py-5 md:px-8 md:py-7">
           <p className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-brand-600">
             <FileImage size={13} /> Plans techniques
           </p>
@@ -64,7 +64,7 @@ export default function BlueprintsPage() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-8 py-8">
+      <div className="mx-auto max-w-7xl px-4 py-6 md:px-8 md:py-8">
         {/* Upload Area */}
         <div className="mb-8">
           <BlueprintUpload />

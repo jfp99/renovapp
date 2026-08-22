@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Steel Double-Deck Bed — Fabrication Spec</title>
+<style>
+  :root{
+    --ink:#1c1917; --ink-2:#44403c; --ink-3:#78716c;
+    --line:#d6d3d1; --dim:#a8a29e;
+    --paper:#faf9f7; --panel:#f2efe9;
+    --accent:#8a5a2b; --steel:#e7e5e4; --wood:#dcc9a8;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font:15px/1.6 ui-sans-serif,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  .sheet{max-width:900px;margin:0 auto;padding:44px 40px 70px}
+  header{border-bottom:2px solid var(--ink);padding-bottom:18px;margin-bottom:30px}
+  .eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:700}
+  h1{font-size:27px;line-height:1.2;margin:8px 0 6px;font-weight:650;letter-spacing:-.01em}
+  .sub{color:var(--ink-3);font-size:14px;margin:0}
+  .meta{display:flex;flex-wrap:wrap;gap:26px;margin-top:16px;font-size:13px;color:var(--ink-2)}
+  .meta b{display:block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);font-weight:700;margin-bottom:2px}
+  h2{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);
+     font-weight:700;margin:38px 0 14px;padding-bottom:7px;border-bottom:1px solid var(--line)}
+  h3{font-size:15px;margin:22px 0 8px;font-weight:650}
+  p{margin:0 0 12px}
+  ul,ol{margin:0 0 14px;padding-left:20px}
+  li{margin-bottom:6px}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin:0 0 16px}
+  th{text-align:left;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);
+     border-bottom:1.5px solid var(--ink);padding:7px 9px;font-weight:700}
+  td{padding:7px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+  td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+  tr.tot td{border-top:1.5px solid var(--ink);border-bottom:none;font-weight:700;padding-top:10px}
+  .fig{background:#fff;border:1px solid var(--line);border-radius:3px;padding:14px 10px 6px;margin:0 0 10px;text-align:center}
+  .cap{font-size:12px;color:var(--ink-3);margin:0 0 26px;text-align:center}
+  .cap b{color:var(--ink-2)}
+  .note{background:var(--panel);border-left:3px solid var(--accent);padding:13px 16px;margin:0 0 18px;font-size:13.5px}
+  .note p:last-child{margin-bottom:0}
+  .warn{background:#fdf6ee;border-left:3px solid #b45309}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .k{font-weight:650}
+  code{background:var(--panel);padding:1px 5px;border-radius:3px;font-size:.9em}
+  .sig{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:34px;font-size:13px;color:var(--ink-3)}
+  .sig div{border-top:1px solid var(--ink-3);padding-top:7px}
+  footer{margin-top:44px;padding-top:16px;border-top:1px solid var(--line);font-size:12px;color:var(--ink-3)}
+  svg text{font-family:ui-sans-serif,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+  @media print{
+    body{background:#fff}
+    .sheet{max-width:none;padding:0 12mm}
+    .fig{break-inside:avoid;border-color:#bbb}
+    h2{break-after:avoid}
+    table{break-inside:avoid}
+  }
+  @media(max-width:640px){.grid2{grid-template-columns:1fr}.sheet{padding:26px 18px 50px}}
+</style>
+</head>
+<body>
+<div class="sheet">
+
+<header>
+  <div class="eyebrow">Fabrication specification · For the welding shop</div>
+  <h1>Steel Double-Deck Bed with Rolling Under-Bed Trays</h1>
+  <p class="sub">Student dormitory · Eroreco, Bacolod City · Quantity: 4 identical units</p>
+  <div class="meta">
+    <div><b>Mattress size</b>36" × 75" (91 × 190 cm), standard</div>
+    <div><b>Footprint</b>100 × 199 cm per unit</div>
+    <div><b>Overall height</b>200 cm</div>
+    <div><b>Target price</b>₱12,785 per unit, batch of 4</div>
+  </div>
+</header>
+
+<div class="note">
+  <p><b>Read this first.</b> All four units are identical. Quote and build them as one batch — set up
+  the jig once and repeat. Do not quote per unit as if each were a one-off.</p>
+  <p>Every dimension below is in centimetres. Steel sizes are given in the trade sizes sold in
+  6.00 m lengths at any Bacolod hardware. <b>No custom sections, no machining, no bought-in
+  hardware except casters.</b> If any item on the bill of materials is unavailable, call before
+  substituting — do not reduce wall thickness.</p>
+</div>
+
+<h2>1 · Side elevation</h2>
+
+<div class="fig">
+<svg viewBox="0 0 700 530" width="100%" style="max-width:700px" role="img"
+     aria-label="Dimensioned side elevation of the double-deck bed">
+  <defs>
+    <marker id="ar" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L7,3 L0,6 z" fill="#a8a29e"/>
+    </marker>
+    <marker id="ar2" markerWidth="8" markerHeight="8" refX="1" refY="3" orient="auto">
+      <path d="M7,0 L0,3 L7,6 z" fill="#a8a29e"/>
+    </marker>
+    <pattern id="hatch" width="7" height="7" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="0" y2="7" stroke="#d6d3d1" stroke-width="1.6"/>
+    </pattern>
+    <pattern id="mat" width="6" height="6" patternTransform="rotate(-45)" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="0" y2="6" stroke="#e7e5e4" stroke-width="2"/>
+    </pattern>
+  </defs>
+
+  <!-- floor -->
+  <line x1="60" y1="450" x2="560" y2="450" stroke="#1c1917" stroke-width="2"/>
+  <rect x="60" y="450" width="500" height="10" fill="url(#hatch)"/>
+
+  <!-- mattresses -->
+  <rect x="122" y="320" width="373" height="30" fill="url(#mat)" stroke="#d6d3d1" stroke-width="1" stroke-dasharray="4 3"/>
+  <rect x="122" y="110" width="373" height="30" fill="url(#mat)" stroke="#d6d3d1" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="308" y="340" font-size="10" fill="#a8a29e" text-anchor="middle">mattress 36"×75" (by owner)</text>
+  <text x="308" y="130" font-size="10" fill="#a8a29e" text-anchor="middle">mattress 36"×75" (by owner)</text>
+
+  <!-- deck long rails : angle bar -->
+  <rect x="118" y="350" width="381" height="8" fill="var(--wood)" stroke="#1c1917" stroke-width="1.4"/>
+  <rect x="118" y="140" width="381" height="8" fill="var(--wood)" stroke="#1c1917" stroke-width="1.4"/>
+
+  <!-- posts -->
+  <rect x="110" y="50" width="8" height="400" fill="#e7e5e4" stroke="#1c1917" stroke-width="1.4"/>
+  <rect x="499" y="50" width="8" height="400" fill="#e7e5e4" stroke="#1c1917" stroke-width="1.4"/>
+
+  <!-- guard rails -->
+  <rect x="118" y="50" width="381" height="5" fill="#e7e5e4" stroke="#1c1917" stroke-width="1.2"/>
+  <rect x="118" y="80" width="381" height="5" fill="#e7e5e4" stroke="#1c1917" stroke-width="1.2"/>
+
+  <!-- rolling trays -->
+  <rect x="122" y="412" width="180" height="30" fill="var(--wood)" stroke="#1c1917" stroke-width="1.3"/>
+  <rect x="315" y="412" width="180" height="30" fill="var(--wood)" stroke="#1c1917" stroke-width="1.3"/>
+  <circle cx="132" cy="446" r="5" fill="#fff" stroke="#1c1917" stroke-width="1.2"/>
+  <circle cx="292" cy="446" r="5" fill="#fff" stroke="#1c1917" stroke-width="1.2"/>
+  <circle cx="325" cy="446" r="5" fill="#fff" stroke="#1c1917" stroke-width="1.2"/>
+  <circle cx="485" cy="446" r="5" fill="#fff" stroke="#1c1917" stroke-width="1.2"/>
+  <text x="212" y="432" font-size="10.5" fill="#44403c" text-anchor="middle">rolling tray A</text>
+  <text x="405" y="432" font-size="10.5" fill="#44403c" text-anchor="middle">rolling tray B</text>
+
+  <!-- curtain rod for lower berth (Fig 6) -->
+  <rect x="110" y="152" width="397" height="5" rx="2.5" fill="#8a5a2b" stroke="#1c1917" stroke-width="1.1"/>
+
+  <!-- bedside shelves at head end (Fig 4) -->
+  <g fill="var(--wood)" stroke="#8a5a2b" stroke-width="1.4">
+    <rect x="118" y="314" width="60" height="6"/>
+    <rect x="118" y="104" width="60" height="6"/>
+  </g>
+  <text x="184" y="320" font-size="10" fill="#8a5a2b">shelf — Fig. 4</text>
+  <text x="184" y="110" font-size="10" fill="#8a5a2b">shelf — Fig. 4</text>
+  <text x="330" y="172" font-size="10" fill="#8a5a2b">curtain rod Ø12 — Fig. 6</text>
+
+  <!-- labels -->
+  <text x="513" y="56" font-size="10.5" fill="#44403c">top rail</text>
+  <text x="513" y="88" font-size="10.5" fill="#44403c">mid rail</text>
+  <text x="513" y="148" font-size="10.5" fill="#44403c">angle-bar</text>
+  <text x="513" y="160" font-size="10.5" fill="#44403c">long rail</text>
+  <text x="513" y="358" font-size="10.5" fill="#44403c">angle-bar</text>
+  <text x="513" y="370" font-size="10.5" fill="#44403c">long rail</text>
+  <text x="82" y="255" font-size="10.5" fill="#44403c" text-anchor="middle" transform="rotate(-90 82 255)">corner post 1½" tube</text>
+
+  <!-- vertical dimensions -->
+  <g stroke="#a8a29e" stroke-width="1" fill="#44403c" font-size="11">
+    <line x1="98" y1="450" x2="98" y2="350" marker-start="url(#ar2)" marker-end="url(#ar)"/>
+    <text x="93" y="404" text-anchor="end">50</text>
+    <line x1="74" y1="450" x2="74" y2="140" marker-start="url(#ar2)" marker-end="url(#ar)"/>
+    <text x="69" y="298" text-anchor="end">155</text>
+    <line x1="50" y1="450" x2="50" y2="50" marker-start="url(#ar2)" marker-end="url(#ar)"/>
+    <text x="45" y="252" text-anchor="end">200</text>
+    <line x1="600" y1="320" x2="600" y2="144" marker-start="url(#ar2)" marker-end="url(#ar)"/>
+    <text x="606" y="236">88 sitting</text>
+    <text x="606" y="249">headroom</text>
+    <line x1="600" y1="110" x2="600" y2="50" marker-start="url(#ar2)" marker-end="url(#ar)"/>
+    <text x="606" y="84">30 guard</text>
+  </g>
+  <g stroke="#a8a29e" stroke-width="1" fill="#44403c" font-size="11">
+    <line x1="110" y1="482" x2="507" y2="482" marker-start="url(#ar2)" marker-end="url(#ar)"/>
+    <text x="308" y="478" text-anchor="middle">199 overall</text>
+    <line x1="122" y1="505" x2="495" y2="505" marker-start="url(#ar2)" marker-end="url(#ar)"/>
+    <text x="308" y="501" text-anchor="middle">191 clear (mattress opening)</text>
+  </g>
+  <text x="308" y="524" font-size="10" fill="#a8a29e" text-anchor="middle">All dimensions in centimetres · not to scale for printing</text>
+  <text x="184" y="196" font-size="10" fill="#78716c">head end · shelves and curtain rod on the aisle face</text>
+</svg>
+</div>
+<p class="cap"><b>Fig. 1</b> — Side elevation. Ladder is at the far end, not visible here (see Fig. 2).</p>
+
+<div class="note">
+  <p><b>The three heights that matter, and why.</b></p>
+  <ul style="margin-bottom:0">
+    <li><span class="k">50 cm to the lower deck</span> — this is what creates the space for the rolling
+    trays. A normal bunk sits at 35 cm.</li>
+    <li><span class="k">88 cm sitting headroom</span> on the lower berth — enough for an adult to sit
+    upright in bed. Below 80 cm the lower berth becomes unrentable.</li>
+    <li><span class="k">30 cm guard rail</span> above the upper mattress. This is a safety minimum,
+    not a preference. Do not reduce it, and do not raise the mattress thickness beyond 15 cm.</li>
+  </ul>
+</div>
+
+<h2>2 · End elevation and ladder</h2>
+
+<div class="grid2">
+  <div>
+  <div class="fig">
+  <svg viewBox="0 0 340 530" width="100%" style="max-width:340px" role="img"
+       aria-label="Dimensioned end elevation showing the welded ladder">
+    <line x1="30" y1="450" x2="310" y2="450" stroke="#1c1917" stroke-width="2"/>
+    <rect x="30" y="450" width="280" height="10" fill="url(#hatch)"/>
+    <!-- decks -->
+    <rect x="78" y="350" width="183" height="8" fill="#e7e5e4" stroke="#1c1917" stroke-width="1.4"/>
+    <rect x="78" y="140" width="183" height="8" fill="#e7e5e4" stroke="#1c1917" stroke-width="1.4"/>
+    <!-- posts -->
+    <rect x="70" y="50" width="8" height="400" fill="#e7e5e4" stroke="#1c1917" stroke-width="1.4"/>
+    <rect x="261" y="50" width="8" height="400" fill="#e7e5e4" stroke="#1c1917" stroke-width="1.4"/>
+    <!-- rungs -->
+    <g fill="#e7e5e4" stroke="#1c1917" stroke-width="1.3">
+      <rect x="78" y="397" width="183" height="6"/>
+      <rect x="78" y="337" width="183" height="6"/>
+      <rect x="78" y="277" width="183" height="6"/>
+      <rect x="78" y="217" width="183" height="6"/>
+      <rect x="78" y="157" width="183" height="6"/>
+    </g>
+    <!-- tray -->
+    <rect x="80" y="412" width="179" height="30" fill="var(--wood)" stroke="#1c1917" stroke-width="1.3"/>
+    <text x="169" y="432" font-size="10.5" fill="#44403c" text-anchor="middle">tray pulls toward aisle ⊙</text>
+    <text x="290" y="284" font-size="10.5" fill="#44403c" text-anchor="middle"
+          transform="rotate(-90 290 284)">5 flat-bar rungs @ 30</text>
+    <g stroke="#a8a29e" stroke-width="1" fill="#44403c" font-size="11">
+      <line x1="70" y1="482" x2="269" y2="482" marker-start="url(#ar2)" marker-end="url(#ar)"/>
+      <text x="169" y="478" text-anchor="middle">100 overall</text>
+      <line x1="50" y1="450" x2="50" y2="397" marker-start="url(#ar2)" marker-end="url(#ar)"/>
+      <text x="45" y="428" text-anchor="end">25</text>
+    </g>
+    <text x="169" y="510" font-size="10" fill="#a8a29e" text-anchor="middle">Foot end · ladder side</text>
+  </svg>
+  </div>
+  <p class="cap"><b>Fig. 2</b> — Foot end.</p>
+  </div>
+
+  <div>
+    <h3>Ladder — build it into the frame</h3>
+    <p>There is no separate ladder. Five flat bars are welded directly between the two foot-end posts,
+    first rung at 25 cm, then every 30 cm. Nothing to store, nothing to fall over, nothing to steal.</p>
+    <ul>
+      <li>Rungs are <b>flat bar 32 × 5 mm laid flat</b>, never round bar. Round bar hurts under a bare
+      foot and students stop using the top bunk.</li>
+      <li>Weld the full length of both ends of every rung. A rung tacked at two points will work loose
+      within a year.</li>
+      <li>Grind every rung edge smooth. This is the part hands and feet touch every day.</li>
+    </ul>
+    <h3>Head end</h3>
+    <p>Guard rail on the head end of the upper berth: two horizontal 1" tubes between the posts, same
+    heights as the side rails. The foot end stays open for the ladder.</p>
+  </div>
+</div>
+
+<h2>3 · Room layout and tray clearance</h2>
+
+<div class="fig">
+<svg viewBox="0 0 580 480" width="100%" style="max-width:580px" role="img"
+     aria-label="Plan view of bedroom 1 with two bunks facing each other across a central aisle">
+  <!-- room -->
+  <rect x="50" y="40" width="480" height="390" fill="#fff" stroke="#1c1917" stroke-width="2.5"/>
+  <!-- bunks -->
+  <rect x="50" y="40" width="149" height="298" fill="#e7e5e4" stroke="#1c1917" stroke-width="1.5"/>
+  <rect x="381" y="40" width="149" height="298" fill="#e7e5e4" stroke="#1c1917" stroke-width="1.5"/>
+  <text x="124" y="180" font-size="12" fill="#44403c" text-anchor="middle">BUNK 1</text>
+  <text x="124" y="196" font-size="10.5" fill="#78716c" text-anchor="middle">100 × 199</text>
+  <text x="455" y="180" font-size="12" fill="#44403c" text-anchor="middle">BUNK 2</text>
+  <text x="455" y="196" font-size="10.5" fill="#78716c" text-anchor="middle">100 × 199</text>
+  <!-- ladders -->
+  <g stroke="#1c1917" stroke-width="1.2" fill="none">
+    <line x1="50" y1="320" x2="199" y2="320"/><line x1="50" y1="330" x2="199" y2="330"/>
+    <line x1="381" y1="320" x2="530" y2="320"/><line x1="381" y1="330" x2="530" y2="330"/>
+  </g>
+  <text x="124" y="316" font-size="9.5" fill="#78716c" text-anchor="middle">ladder</text>
+  <text x="455" y="316" font-size="9.5" fill="#78716c" text-anchor="middle">ladder</text>
+  <!-- trays pulled out -->
+  <rect x="199" y="60" width="90" height="135" fill="none" stroke="#8a5a2b" stroke-width="1.4" stroke-dasharray="6 4"/>
+  <rect x="291" y="60" width="90" height="135" fill="none" stroke="#8a5a2b" stroke-width="1.4" stroke-dasharray="6 4"/>
+  <text x="290" y="215" font-size="10.5" fill="#8a5a2b" text-anchor="middle">trays pulled out, 60 travel</text>
+  <!-- aisle dim -->
+  <g stroke="#a8a29e" stroke-width="1" fill="#44403c" font-size="11">
+    <line x1="199" y1="270" x2="381" y2="270" marker-start="url(#ar2)" marker-end="url(#ar)"/>
+    <text x="290" y="265" text-anchor="middle">121 central aisle</text>
+    <line x1="290" y1="338" x2="290" y2="430" marker-start="url(#ar2)" marker-end="url(#ar)"/>
+    <text x="298" y="388">61 foot space</text>
+    <line x1="50" y1="455" x2="530" y2="455" marker-start="url(#ar2)" marker-end="url(#ar)"/>
+    <text x="290" y="451" text-anchor="middle">320</text>
+    <line x1="26" y1="40" x2="26" y2="430" marker-start="url(#ar2)" marker-end="url(#ar)"/>
+    <text x="20" y="238" text-anchor="end" transform="rotate(-90 20 238)">260</text>
+  </g>
+  <text x="290" y="474" font-size="10" fill="#a8a29e" text-anchor="middle">BEDROOM 1 · door position to be confirmed on site</text>
+</svg>
+</div>
+<p class="cap"><b>Fig. 3</b> — Bedroom 1 (320 × 260). Bedroom 2 (330 × 310) is larger: 131 cm aisle,
+111 cm foot space. Same units, no change.</p>
+
+<div class="note warn">
+  <p><b>The layout is what makes the trays work.</b> The two bunks sit against opposite walls, not
+  side by side. That leaves a 121 cm central aisle, and both bunks pull their trays into it. Side by
+  side, only the outer bunk would have access and half the storage would be dead.</p>
+  <p>One consequence to accept: if all four trays are pulled fully at the same moment they meet in
+  the middle. In practice these hold luggage and are opened twice a semester — this is not a real
+  problem, but do not plan on more than 60 cm of travel.</p>
+</div>
+
+<h2>4 · Component details</h2>
+
+<p>Four sub-assemblies, drawn separately. Each is dimensioned and each is deliberately made from
+material already on the bill of materials — nothing here requires an extra trip to the hardware.</p>
+
+<h3>4.1 · Bedside shelf — 4 per unit, one per berth</h3>
+
+<div class="fig">
+<svg viewBox="0 0 580 320" width="100%" style="max-width:580px" role="img"
+     aria-label="Plan and section of the welded bedside shelf">
+  <text x="115" y="28" font-size="11" font-weight="700" fill="#8a5a2b" text-anchor="middle">PLAN</text>
+  <text x="420" y="28" font-size="11" font-weight="700" fill="#8a5a2b" text-anchor="middle">SECTION</text>
+
+  <!-- PLAN : plate 30 x 22, lip on 3 sides -->
+  <line x1="45" y1="55" x2="185" y2="55" stroke="#1c1917" stroke-width="2.5"/>
+  <text x="115" y="48" font-size="10" fill="#78716c" text-anchor="middle">welded to deck long rail</text>
+  <rect x="55" y="55" width="120" height="88" fill="var(--wood)" stroke="#1c1917" stroke-width="1.5"/>
+  <rect x="63" y="55" width="104" height="80" fill="#fff" stroke="#1c1917" stroke-width="1"/>
+  <text x="115" y="100" font-size="10.5" fill="#44403c" text-anchor="middle">usable</text>
+  <text x="115" y="113" font-size="10.5" fill="#44403c" text-anchor="middle">26 × 20</text>
+  <g stroke="#8a5a2b" stroke-width="1.2" stroke-dasharray="5 3">
+    <line x1="63" y1="55" x2="63" y2="143"/>
+    <line x1="167" y1="55" x2="167" y2="143"/>
+  </g>
+  <text x="115" y="160" font-size="10" fill="#8a5a2b" text-anchor="middle">2 brackets, 26 apart</text>
+  <g stroke="#a8a29e" stroke-width="1" fill="#44403c" font-size="11">
+    <line x1="55" y1="188" x2="175" y2="188" marker-start="url(#ar2)" marker-end="url(#ar)"/>
+    <text x="115" y="184" text-anchor="middle">30</text>
+    <line x1="36" y1="55" x2="36" y2="143" marker-start="url(#ar2)" marker-end="url(#ar)"/>
+    <text x="30" y="103" text-anchor="end">22</text>
+  </g>
+  <text x="115" y="215" font-size="10.5" fill="#44403c" text-anchor="middle">12 mm plywood, 2 cm lip</text>
+  <text x="115" y="229" font-size="10.5" fill="#44403c" text-anchor="middle">on the three open sides</text>
+
+  <!-- SECTION -->
+  <line x1="330" y1="60" x2="330" y2="230" stroke="#1c1917" stroke-width="2.5"/>
+  <text x="326" y="72" font-size="10" fill="#78716c" text-anchor="end">bed frame</text>
+  <!-- deck rail -->
+  <path d="M330,180 L346,180 L346,187 L337,187 L337,196 L330,196 Z" fill="#e7e5e4" stroke="#1c1917" stroke-width="1.4"/>
+  <text x="352" y="205" font-size="10" fill="#44403c">deck long rail (angle bar)</text>
+  <!-- mattress hint -->
+  <rect x="255" y="120" width="75" height="60" fill="url(#mat)" stroke="#d6d3d1" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="292" y="154" font-size="10" fill="#a8a29e" text-anchor="middle">mattress</text>
+  <!-- bracket triangle -->
+  <rect x="330" y="120" width="88" height="10" fill="#e7e5e4" stroke="#1c1917" stroke-width="1.4"/>
+  <path d="M332,180 L416,130 L416,120 L330,175 Z" fill="#e7e5e4" stroke="#1c1917" stroke-width="1.4"/>
+  <rect x="330" y="120" width="9" height="60" fill="#e7e5e4" stroke="#1c1917" stroke-width="1.4"/>
+  <!-- plate + lip -->
+  <rect x="330" y="115" width="88" height="5" fill="var(--wood)" stroke="#1c1917" stroke-width="1.3"/>
+  <rect x="410" y="107" width="8" height="8" fill="var(--wood)" stroke="#1c1917" stroke-width="1.3"/>
+  <text x="428" y="118" font-size="10.5" fill="#44403c">2 cm lip</text>
+  <text x="428" y="133" font-size="10.5" fill="#44403c">1" tube bracket</text>
+  <text x="428" y="98" font-size="10.5" fill="#8a5a2b">shelf top = mattress top</text>
+  <g stroke="#a8a29e" stroke-width="1" fill="#44403c" font-size="11">
+    <line x1="330" y1="248" x2="418" y2="248" marker-start="url(#ar2)" marker-end="url(#ar)"/>
+    <text x="374" y="244" text-anchor="middle">22 projection</text>
+    <line x1="240" y1="180" x2="240" y2="120" marker-start="url(#ar2)" marker-end="url(#ar)"/>
+    <text x="234" y="154" text-anchor="end">15</text>
+  </g>
+  <text x="374" y="278" font-size="10" fill="#a8a29e" text-anchor="middle">Centimetres · dimensioned, not to scale</text>
+</svg>
+</div>
+<p class="cap"><b>Fig. 4</b> — Bedside shelf. Same bracket for both berths: 15 cm above the deck rail
+puts the shelf level with the top of the mattress.</p>
+
+<div class="note">
+  <p><b>Position: at the head end of the aisle side, both berths.</b> Lower shelf top at 65 cm, upper
+  at 170 cm. Reachable lying down, and tucked into the corner of the room where nobody walks.</p>
+  <p>The bracket is one right triangle of 1" tube — a 22 cm horizontal, a 15 cm vertical welded to
+  the deck rail, and the hypotenuse. Two per shelf, 26 cm apart. Cut all eight from post offcuts.
+  <b>Round the two outer corners of every plate</b> to 3 cm radius: at 170 cm a square corner is at
+  face height for an adult.</p>
+  <p>The 2 cm lip on three sides is not decorative. Without it, the upper occupant's water glass
+  lands on the lower occupant.</p>
+</div>
+
+<h3>4.2 · Rolling tray — 2 per unit</h3>
+
+<div class="fig">
+<svg viewBox="0 0 640 340" width="100%" style="max-width:640px" role="img"
+     aria-label="Plan and section of the rolling under-bed tray">
+  <text x="152" y="28" font-size="11" font-weight="700" fill="#8a5a2b" text-anchor="middle">PLAN</text>
+  <text x="420" y="28" font-size="11" font-weight="700" fill="#8a5a2b" text-anchor="middle">SECTION</text>
+
+  <!-- PLAN 90 x 60 at 2.5 px/cm -->
+  <rect x="40" y="50" width="225" height="150" fill="var(--wood)" stroke="#1c1917" stroke-width="1.6"/>
+  <rect x="46" y="56" width="213" height="138" fill="#fff" stroke="#1c1917" stroke-width="1.1"/>
+  <g fill="#fff" stroke="#1c1917" stroke-width="1.3">
+    <circle cx="60" cy="70" r="6"/><circle cx="245" cy="70" r="6"/>
+    <circle cx="60" cy="180" r="6"/><circle cx="245" cy="180" r="6"/>
+  </g>
+  <rect x="110" y="196" width="85" height="9" rx="4" fill="#e7e5e4" stroke="#1c1917" stroke-width="1.3"/>
+  <text x="152" y="130" font-size="10.5" fill="#44403c" text-anchor="middle">1" tube perimeter frame</text>
+  <text x="152" y="145" font-size="10.5" fill="#44403c" text-anchor="middle">12 mm marine ply floor</text>
+  <text x="152" y="222" font-size="10" fill="#8a5a2b" text-anchor="middle">grab bar — pull side, faces the aisle</text>
+  <text x="285" y="74" font-size="10" fill="#78716c">50 mm swivel</text>
+  <text x="285" y="86" font-size="10" fill="#78716c">caster ×4</text>
+  <g stroke="#a8a29e" stroke-width="1" fill="#44403c" font-size="11">
+    <line x1="40" y1="248" x2="265" y2="248" marker-start="url(#ar2)" marker-end="url(#ar)"/>
+    <text x="152" y="244" text-anchor="middle">90</text>
+    <line x1="22" y1="50" x2="22" y2="200" marker-start="url(#ar2)" marker-end="url(#ar)"/>
+    <text x="16" y="128" text-anchor="end">60</text>
+  </g>
+
+  <!-- SECTION -->
+  <line x1="330" y1="250" x2="500" y2="250" stroke="#1c1917" stroke-width="2"/>
+  <rect x="330" y="250" width="170" height="9" fill="url(#hatch)"/>
+  <g fill="#fff" stroke="#1c1917" stroke-width="1.4">
+    <circle cx="352" cy="244" r="6"/><circle cx="458" cy="244" r="6"/>
+  </g>
+  <rect x="335" y="228" width="140" height="10" fill="#e7e5e4" stroke="#1c1917" stroke-width="1.4"/>
+  <rect x="335" y="222" width="140" height="6" fill="var(--wood)" stroke="#1c1917" stroke-width="1.3"/>
+  <rect x="335" y="185" width="6" height="37" fill="var(--wood)" stroke="#1c1917" stroke-width="1.3"/>
+  <rect x="469" y="185" width="6" height="37" fill="var(--wood)" stroke="#1c1917" stroke-width="1.3"/>
+  <line x1="325" y1="145" x2="500" y2="145" stroke="#1c1917" stroke-width="2" stroke-dasharray="7 4"/>
+  <text x="412" y="139" font-size="10" fill="#78716c" text-anchor="middle">underside of lower deck — 42</text>
+  <text x="405" y="208" font-size="10.5" fill="#44403c" text-anchor="middle">suitcase 24"</text>
+  <text x="484" y="200" font-size="10.5" fill="#44403c">15 lip</text>
+  <text x="484" y="236" font-size="10.5" fill="#44403c">1" frame</text>
+  <text x="484" y="250" font-size="10.5" fill="#44403c">caster 50</text>
+  <g stroke="#a8a29e" stroke-width="1" fill="#44403c" font-size="11">
+    <line x1="318" y1="250" x2="318" y2="185" marker-start="url(#ar2)" marker-end="url(#ar)"/>
+    <text x="312" y="221" text-anchor="end">23</text>
+    <line x1="300" y1="250" x2="300" y2="145" marker-start="url(#ar2)" marker-end="url(#ar)"/>
+    <text x="294" y="200" text-anchor="end">42</text>
+  </g>
+  <text x="412" y="296" font-size="10" fill="#a8a29e" text-anchor="middle">19 cm clearance above the tray · Centimetres</text>
+</svg>
+</div>
+<p class="cap"><b>Fig. 5</b> — Rolling tray. Open top, 15 cm lip on all four sides, grab bar on the
+pull side.</p>
+
+<div class="note">
+  <p><b>The tray is fully removable — there is no travel stop and none is wanted.</b> Pull it out,
+  take the suitcase, push it back; lift it out entirely to clean under the bed. Removing the stop
+  removes a part, a weld and a jamming point.</p>
+  <p>Floor is <b>marine</b> plywood, not ordinary — it is the one surface that meets a wet mopped
+  floor. Seal all six faces including the cut edges.</p>
+  <p>Casters: 50 mm swivel, <b>no brake</b>. Brakes get kicked, break, and then the tray will not
+  roll. Fix the casters with bolts through the frame, not welded — a caster is a wear part and must
+  be replaceable with a spanner.</p>
+</div>
+
+<h3>4.3 · Curtain rods — privacy for both berths</h3>
+
+<div class="fig">
+<svg viewBox="0 0 560 400" width="100%" style="max-width:560px" role="img"
+     aria-label="Elevation showing the two curtain rods and how the curtains hang">
+  <line x1="50" y1="360" x2="430" y2="360" stroke="#1c1917" stroke-width="2"/>
+  <rect x="50" y="360" width="380" height="9" fill="url(#hatch)"/>
+  <!-- posts -->
+  <rect x="80" y="40" width="7" height="320" fill="#e7e5e4" stroke="#1c1917" stroke-width="1.4"/>
+  <rect x="379" y="40" width="7" height="320" fill="#e7e5e4" stroke="#1c1917" stroke-width="1.4"/>
+  <!-- decks -->
+  <rect x="87" y="112" width="292" height="6" fill="var(--wood)" stroke="#1c1917" stroke-width="1.3"/>
+  <rect x="87" y="280" width="292" height="6" fill="var(--wood)" stroke="#1c1917" stroke-width="1.3"/>
+  <!-- guard rails -->
+  <rect x="87" y="40" width="292" height="4" fill="#e7e5e4" stroke="#1c1917" stroke-width="1.2"/>
+  <rect x="87" y="64" width="292" height="4" fill="#e7e5e4" stroke="#1c1917" stroke-width="1.2"/>
+  <!-- curtain rod for lower berth -->
+  <rect x="80" y="124" width="306" height="5" rx="2.5" fill="#8a5a2b" stroke="#1c1917" stroke-width="1.2"/>
+  <!-- rings -->
+  <g fill="none" stroke="#1c1917" stroke-width="1.3">
+    <circle cx="105" cy="44" r="5"/><circle cx="130" cy="44" r="5"/><circle cx="155" cy="44" r="5"/><circle cx="180" cy="44" r="5"/>
+    <circle cx="105" cy="128" r="5"/><circle cx="130" cy="128" r="5"/><circle cx="155" cy="128" r="5"/><circle cx="180" cy="128" r="5"/>
+  </g>
+  <!-- curtains -->
+  <path d="M100,50 q8,20 0,40 q-8,20 0,40 v-80 z" fill="none"/>
+  <rect x="98" y="50" width="88" height="62" fill="#f2efe9" stroke="#a8a29e" stroke-width="1" stroke-dasharray="3 2"/>
+  <rect x="98" y="134" width="88" height="146" fill="#f2efe9" stroke="#a8a29e" stroke-width="1" stroke-dasharray="3 2"/>
+  <g stroke="#d6d3d1" stroke-width="1.2">
+    <line x1="118" y1="50" x2="118" y2="112"/><line x1="142" y1="50" x2="142" y2="112"/><line x1="166" y1="50" x2="166" y2="112"/>
+    <line x1="118" y1="134" x2="118" y2="280"/><line x1="142" y1="134" x2="142" y2="280"/><line x1="166" y1="134" x2="166" y2="280"/>
+  </g>
+  <text x="142" y="86" font-size="10" fill="#78716c" text-anchor="middle">curtain</text>
+  <text x="142" y="215" font-size="10" fill="#78716c" text-anchor="middle">curtain</text>
+  <!-- callouts -->
+  <text x="398" y="44" font-size="10.5" fill="#44403c">UPPER berth: rings run on the</text>
+  <text x="398" y="57" font-size="10.5" fill="#44403c">existing top guard rail — 200</text>
+  <text x="398" y="128" font-size="10.5" fill="#8a5a2b">LOWER berth: Ø12 mm round bar,</text>
+  <text x="398" y="141" font-size="10.5" fill="#8a5a2b">welded post to post — 148</text>
+  <text x="398" y="104" font-size="10" fill="#78716c">upper deck 155</text>
+  <text x="398" y="288" font-size="10" fill="#78716c">lower deck 50</text>
+  <g stroke="#a8a29e" stroke-width="1" fill="#44403c" font-size="11">
+    <line x1="64" y1="44" x2="64" y2="112" marker-start="url(#ar2)" marker-end="url(#ar)"/>
+    <text x="58" y="82" text-anchor="end">45</text>
+    <line x1="64" y1="128" x2="64" y2="280" marker-start="url(#ar2)" marker-end="url(#ar)"/>
+    <text x="58" y="208" text-anchor="end">98</text>
+  </g>
+  <text x="240" y="390" font-size="10" fill="#a8a29e" text-anchor="middle">Aisle side · curtains shown half drawn · Centimetres</text>
+</svg>
+</div>
+<p class="cap"><b>Fig. 6</b> — Curtain rods. Only one part is fabricated: the lower rod.</p>
+
+<div class="note">
+  <p><b>Upper berth: nothing to fabricate.</b> The top guard rail at 200 cm already is the rod.
+  Curtain rings slide straight onto it. Drop 45 cm.</p>
+  <p><b>Lower berth: one Ø12 mm round bar, 191 cm, welded between the two aisle-side posts at
+  148 cm.</b> Weld it to the <b>outer</b> face of the posts so it stands 4 cm proud of the frame and
+  the rings run freely. Supported at both ends, so it cannot sag. Drop 98 cm.</p>
+  <p>Curtains and rings are soft furnishing, bought separately — not the welder's scope. Specify
+  <b>flame-retardant fabric</b>: it is cheap, and it is the kind of detail a fire inspector notices
+  in your favour.</p>
+</div>
+
+<h3>4.4 · Electrical provision — welder's scope is clips only</h3>
+
+<div class="fig">
+<svg viewBox="-80 0 540 420" width="100%" style="max-width:540px" role="img"
+     aria-label="Elevation of the head-end post showing conduit, clips and outlet boxes">
+  <line x1="60" y1="380" x2="330" y2="380" stroke="#1c1917" stroke-width="2"/>
+  <rect x="60" y="380" width="270" height="9" fill="url(#hatch)"/>
+  <!-- post -->
+  <rect x="150" y="40" width="10" height="340" fill="#e7e5e4" stroke="#1c1917" stroke-width="1.5"/>
+  <text x="138" y="200" font-size="10.5" fill="#44403c" text-anchor="middle" transform="rotate(-90 138 200)">head-end post</text>
+  <!-- decks -->
+  <rect x="100" y="295" width="50" height="6" fill="var(--wood)" stroke="#1c1917" stroke-width="1.2"/>
+  <rect x="100" y="116" width="50" height="6" fill="var(--wood)" stroke="#1c1917" stroke-width="1.2"/>
+  <text x="96" y="301" font-size="10" fill="#78716c" text-anchor="end">lower deck 50</text>
+  <text x="96" y="122" font-size="10" fill="#78716c" text-anchor="end">upper deck 155</text>
+  <!-- conduit -->
+  <rect x="168" y="65" width="7" height="315" fill="#f2efe9" stroke="#1c1917" stroke-width="1.3"/>
+  <!-- clips -->
+  <g fill="#e7e5e4" stroke="#1c1917" stroke-width="1.3">
+    <rect x="160" y="308" width="22" height="7"/>
+    <rect x="160" y="223" width="22" height="7"/>
+    <rect x="160" y="138" width="22" height="7"/>
+    <rect x="160" y="70" width="22" height="7"/>
+  </g>
+  <text x="196" y="315" font-size="10.5" fill="#8a5a2b">welded conduit clip ×4</text>
+  <text x="196" y="228" font-size="10.5" fill="#78716c">Ø20 mm PVC conduit</text>
+  <!-- outlet boxes -->
+  <rect x="176" y="245" width="26" height="26" fill="#fff" stroke="#1c1917" stroke-width="1.5"/>
+  <rect x="176" y="66" width="26" height="26" fill="#fff" stroke="#1c1917" stroke-width="1.5"/>
+  <g fill="#1c1917">
+    <circle cx="183" cy="255" r="2"/><circle cx="195" cy="255" r="2"/>
+    <rect x="183" y="262" width="12" height="3.5"/>
+    <circle cx="183" cy="76" r="2"/><circle cx="195" cy="76" r="2"/>
+    <rect x="183" y="83" width="12" height="3.5"/>
+  </g>
+  <text x="212" y="257" font-size="10.5" fill="#44403c">outlet + USB — 75</text>
+  <text x="212" y="270" font-size="10.5" fill="#78716c">lower berth</text>
+  <text x="212" y="78" font-size="10.5" fill="#44403c">outlet + USB — 180</text>
+  <text x="212" y="91" font-size="10.5" fill="#78716c">upper berth</text>
+  <!-- clip lamp -->
+  <path d="M150,105 l-20,-8 l0,16 z" fill="#f2efe9" stroke="#1c1917" stroke-width="1.3"/>
+  <text x="126" y="98" font-size="10.5" fill="#8a5a2b" text-anchor="end">clip-on LED lamp</text>
+  <text x="126" y="111" font-size="10" fill="#78716c" text-anchor="end">retail, plugged in — not wired</text>
+  <g stroke="#a8a29e" stroke-width="1" fill="#44403c" font-size="11">
+    <line x1="360" y1="380" x2="360" y2="258" marker-start="url(#ar2)" marker-end="url(#ar)"/>
+    <text x="368" y="322">75</text>
+    <line x1="392" y1="380" x2="392" y2="79" marker-start="url(#ar2)" marker-end="url(#ar)"/>
+    <text x="400" y="232">180</text>
+  </g>
+  <text x="210" y="410" font-size="10" fill="#a8a29e" text-anchor="middle">Two identical posts per unit are prepared · Centimetres</text>
+</svg>
+</div>
+<p class="cap"><b>Fig. 7</b> — Electrical provision. The welder supplies the four clips. Everything
+else is the electrician's.</p>
+
+<div class="note warn">
+  <p><b>Split of scope, and it is not negotiable.</b> The welder welds four Ø20 mm conduit clips to
+  the head-end post and stops there. A <b>licensed electrician</b> runs the conduit, fits the boxes,
+  and connects the circuit. A welder wiring outlets is exactly what gets a Fire Safety Inspection
+  Certificate refused.</p>
+  <p>For the electrician: <b>one dedicated circuit per bedroom</b>, 2.0 mm² minimum, own 15 A
+  breaker at the panel, 4 outlets plus the ceiling fan. Each outlet a duplex socket with integrated
+  USB, boxed and surface-mounted.</p>
+  <p><b>Reading lights are clip-on LED lamps bought retail and plugged in.</b> Not hardwired, not
+  fabricated. They cost ₱250, any occupant can replace one, and nothing has to be rewired when a
+  model is discontinued.</p>
+  <p>Why one outlet per berth matters more than it looks: four students sharing one socket means a
+  daisy-chain of extension cords across the floor. That is the most common cause of dormitory fires
+  in the Philippines, and it is designed out here for about ₱3,500 a room.</p>
+</div>
+
+<h2>5 · Bill of materials, per unit</h2>
+
+<table>
+  <thead><tr><th>Item</th><th>Trade size</th><th class="n">Needed</th><th class="n">6 m lengths</th><th class="n">₱</th></tr></thead>
+  <tbody>
+    <tr><td>Corner posts, end rails</td><td>Square tube 1½" × 1½" × 2.0 mm</td><td class="n">11.7 m</td><td class="n">2</td><td class="n">1,700</td></tr>
+    <tr><td>Deck long rails</td><td>Angle bar 1½" × 1½" × 3 mm</td><td class="n">7.6 m</td><td class="n">2</td><td class="n">1,500</td></tr>
+    <tr><td>Guard rails, tray frames</td><td>Square tube 1" × 1" × 1.2 mm</td><td class="n">11.7 m</td><td class="n">2</td><td class="n">900</td></tr>
+    <tr><td>Ladder rungs, conduit clips</td><td>Flat bar 32 × 5 mm</td><td class="n">4.6 m</td><td class="n">1</td><td class="n">450</td></tr>
+    <tr><td>Lower curtain rod <span style="color:var(--ink-3)">(Fig. 6)</span></td><td>Round bar Ø12 mm</td><td class="n">1.9 m</td><td class="n">0.5</td><td class="n">150</td></tr>
+    <tr><td>Shelf brackets <span style="color:var(--ink-3)">(Fig. 4)</span></td><td>1" tube offcuts + extra</td><td class="n">2.0 m</td><td class="n">—</td><td class="n">120</td></tr>
+    <tr><td>Deck panels, 4 shelf plates</td><td>Ordinary plywood 12 mm, 4' × 8'</td><td class="n">3.8 m²</td><td class="n">1.2 sheet</td><td class="n">1,130</td></tr>
+    <tr><td>Tray floors and lips</td><td>Marine plywood 12 mm, 4' × 8'</td><td class="n">2.0 m²</td><td class="n">0.7 sheet</td><td class="n">1,005</td></tr>
+    <tr><td>Casters, 50 mm swivel, no brake</td><td>8 pieces</td><td class="n">8</td><td class="n">—</td><td class="n">800</td></tr>
+    <tr><td>Epoxy primer + enamel topcoat</td><td>—</td><td class="n">—</td><td class="n">—</td><td class="n">1,080</td></tr>
+    <tr><td>Rubber pads, caster bolts, grab bars</td><td>—</td><td class="n">—</td><td class="n">—</td><td class="n">400</td></tr>
+    <tr><td>Welding consumables</td><td>Rods, cutting discs</td><td class="n">—</td><td class="n">—</td><td class="n">500</td></tr>
+    <tr class="tot"><td colspan="4">Materials, one unit</td><td class="n">9,785</td></tr>
+  </tbody>
+</table>
+
+<table>
+  <thead><tr><th>Batch of 4 units</th><th class="n">₱</th></tr></thead>
+  <tbody>
+    <tr><td>Materials, 4 × 9,785</td><td class="n">39,140</td></tr>
+    <tr><td>Labour, 2 men × 8 days × ₱750</td><td class="n">12,000</td></tr>
+    <tr class="tot"><td>Total for 4 units — <b>₱12,785 per unit</b></td><td class="n">51,140</td></tr>
+  </tbody>
+</table>
+
+<table>
+  <thead><tr><th>Excluded from this contract — budget separately</th><th class="n">₱</th></tr></thead>
+  <tbody>
+    <tr><td>Mattresses, 8 × 36" × 75" foam</td><td class="n">by owner</td></tr>
+    <tr><td>Curtains, rings and hooks, flame-retardant fabric</td><td class="n">by owner</td></tr>
+    <tr><td>Clip-on LED reading lamps, 8 × ₱250</td><td class="n">2,000</td></tr>
+    <tr><td>Electrical: conduit, boxes, outlets, circuit — per bedroom</td><td class="n">≈ 3,500</td></tr>
+  </tbody>
+</table>
+
+<p style="font-size:13px;color:var(--ink-3)">Material prices are indicative Bacolod hardware rates and
+should be confirmed on the day of purchase.</p>
+
+<h2>6 · Simplifications — what this design deliberately does not have</h2>
+
+<p>Each of these removes cost, removes a failure point, or removes a step from the welder's day.
+None of them is an oversight.</p>
+
+<table>
+  <thead><tr><th style="width:30%">Not included</th><th>Instead</th><th style="width:24%">Why</th></tr></thead>
+  <tbody>
+    <tr><td>2" × 2" posts</td><td>1½" × 1½" × 2 mm</td><td>Wall thickness carries the load, not section width</td></tr>
+    <tr><td>Welded steel slats</td><td>One plywood panel per deck, sitting on angle-bar rails</td><td>Removes ~24 welds per unit. Angle bar <i>is</i> the ledge.</td></tr>
+    <tr><td>Closed drawers on slides</td><td>Open rolling trays, removable, on casters <span style="color:var(--ink-3)">(Fig. 5)</span></td><td>Slides rust and jam here. Casters cost ₱100 and are replaceable.</td></tr>
+    <tr><td>Steel drawer boxes</td><td>Marine plywood floor + lip</td><td>Half the price, and steel boxes drum loudly</td></tr>
+    <tr><td>Two welded curtain rails</td><td>Upper berth uses the existing top guard rail; only the lower rod is made <span style="color:var(--ink-3)">(Fig. 6)</span></td><td>One fabricated part instead of two</td></tr>
+    <tr><td>Built-in lights and outlets</td><td>Welder fits conduit clips only; licensed electrician wires; lamps are retail clip-ons <span style="color:var(--ink-3)">(Fig. 7)</span></td><td>Keeps the welder out of electrical work and the FSIC file clean</td></tr>
+    <tr><td>Tray travel stops</td><td>Nothing — the tray lifts out completely</td><td>One less part, one less weld, and you can clean under the bed</td></tr>
+    <tr><td>Separate ladder</td><td>Rungs welded between the foot posts</td><td>No storage, no theft, no tipping</td></tr>
+    <tr><td>Custom mattress size</td><td>Standard 36" × 75"</td><td>A custom mattress costs more than the bed frame saves</td></tr>
+  </tbody>
+</table>
+
+<p>What survives all this stripping-out is the part the occupant actually touches: her own shelf, her
+own socket, her own curtain, her own tray. That is deliberate. The savings come out of the steel, not
+out of the four things that make a bed space feel private.</p>
+
+<h2>7 · Welding and assembly notes</h2>
+
+<ol>
+  <li><b>Full welds, not tack welds, on every load-bearing joint.</b> Tack-welded bunks are the
+  single reason cheap steel beds squeak. This is the most important line in this document.</li>
+  <li><b>Square everything before final welding.</b> Check both diagonals of each deck frame; they
+  must match within 3 mm. Tack, check, then weld out.</li>
+  <li><b>Grind every weld and every cut edge smooth.</b> No sharp corners anywhere a hand or a
+  mattress can reach.</li>
+  <li><b>Cap all open tube ends</b> with welded plate. Open ends collect water and rust from inside.</li>
+  <li><b>No tray travel stops.</b> The trays are meant to come out completely. Instead, make sure the
+  tray frame's four corners are ground smooth — they will be handled.</li>
+  <li><b>Bolt the casters, do not weld them.</b> They are wear parts and must come off with a spanner.</li>
+  <li><b>Round the outer corners of all shelf plates</b> to 3 cm radius before fitting.</li>
+  <li><b>Rubber pads under all four posts</b>, bolted or glued, so the frame does not scratch the
+  floor or transmit noise.</li>
+  <li><b>Four conduit clips per unit</b>, welded to the head-end post at 40, 90, 140 and 180 cm,
+  sized for Ø20 mm electrical conduit (Fig. 7). Wiring is not in your scope.</li>
+  <li><b>Deliver the units knocked down if the stairs require it</b>, but the frames must be welded,
+  not bolted. Confirm access before fabrication.</li>
+</ol>
+
+<h2>8 · Finish</h2>
+
+<ul>
+  <li>Degrease, then remove all mill scale and weld spatter with a wire wheel.</li>
+  <li><b>One coat epoxy primer</b> — not red-lead oxide primer. Humidity here is the enemy.</li>
+  <li><b>Two coats enamel topcoat</b>, light neutral colour. Confirm colour before painting.</li>
+  <li>Plywood: seal <b>all six faces including the cut edges</b>, two coats. This applies to the deck
+  panels, the four shelf plates and the tray floors and lips. Unsealed plywood edges are where
+  moisture and insects get in.</li>
+  <li>Do not paint over rust, and do not paint the same day you weld — let the metal cool fully.</li>
+</ul>
+
+<h2>9 · Acceptance — the tests to be passed before final payment</h2>
+
+<ol>
+  <li><b>Climb test.</b> Two adults on the upper berth at once. Any squeak, any flex, any movement in
+  a joint = rejected. Test on site, not in the shop.</li>
+  <li><b>Rock test.</b> Push the frame hard at the top of a post. It must not rack.</li>
+  <li><b>Tray test.</b> Load a full suitcase, pull and push twenty times, then lift the tray out
+  completely and put it back. Must roll without binding on a bare cement floor.</li>
+  <li><b>Shelf test.</b> 5 kg on the outer edge of every shelf, upper and lower. No sag, no movement
+  at the bracket. Then run a hand over the rounded corners.</li>
+  <li><b>Curtain test.</b> Rings must slide the full length of both rods without catching on a weld.</li>
+  <li><b>Level test.</b> Spirit level on both decks, both directions.</li>
+  <li><b>Hand test.</b> Run a bare hand over every rung, edge and weld. Anything that catches gets
+  ground down before payment.</li>
+  <li><b>Fit test.</b> Both units assembled in the room with the 121 cm aisle clear and trays pulling
+  freely.</li>
+</ol>
+
+<div class="note">
+  <p><b>Commercial terms.</b> Fixed price in pesos for the complete batch of 4, agreed in writing
+  before work begins. Suggested schedule: <b>40 % on order, 40 % on delivery, 20 % after the
+  acceptance tests above are passed.</b> No verbal variations — any change to this specification is
+  priced and initialled before it is built.</p>
+  <p>Requested lead time: ___ working days from deposit. Warranty: <b>12 months on all welds.</b></p>
+</div>
+
+<h2>10 · Low ceiling variant</h2>
+
+<p>Measure the finished floor-to-ceiling height in both bedrooms before ordering. It also determines
+the legal occupancy under PD 1096 §807, so take it once and write it down.</p>
+
+<table>
+  <thead><tr><th>Ceiling height</th><th>Build</th><th>Headroom above upper mattress</th></tr></thead>
+  <tbody>
+    <tr><td><b>255 cm and above</b></td><td>As specified — lower deck at 50 cm, trays included</td><td class="n">85 cm and more</td></tr>
+    <tr><td><b>240 – 255 cm</b></td><td>As specified, but accept that the upper occupant cannot sit fully upright</td><td class="n">70 – 85 cm</td></tr>
+    <tr><td><b>Below 240 cm</b></td><td><b>Variant B:</b> lower deck at 35 cm, whole frame 15 cm shorter, posts 185 cm. No trays — use low bins on casters, 25 cm high.</td><td class="n">70 cm</td></tr>
+  </tbody>
+</table>
+
+<p>Variant B is the same drawing with three numbers changed: posts 185, lower deck 35, upper deck
+140. Everything else, including the bill of materials, is unchanged apart from the trays.</p>
+
+<div class="sig">
+  <div>Fabricator — name, signature, date</div>
+  <div>Owner — signature, date</div>
+</div>
+
+<footer>
+  Steel double-deck bed specification · 4 units · Eroreco, Bacolod City ·
+  Dimensions in centimetres · Drawings are dimensioned, not to scale · Prepared for tender to a local
+  welding shop. Material prices are indicative and to be confirmed. Electrical work is excluded and
+  must be carried out by a licensed electrician.
+</footer>
+
+</div>
+</body>
+</html>

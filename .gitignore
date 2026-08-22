@@ -17,3 +17,11 @@ out/
 data/
 tests/report/
 test-results/
+
+# Build artifacts
+tsconfig.tsbuildinfo
+
+# Archives de transfert et corbeille locale
+*.tgz
+_to_delete/
+public/seed.js

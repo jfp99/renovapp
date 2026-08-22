@@ -9,7 +9,7 @@ import { usePlanStore } from '@/stores/planStore';
 import { useFurnitureStore } from '@/stores/furnitureStore';
 import { useHydrated } from '@/lib/useHydrated';
 import { formatArea } from '@/lib/format';
-import { Armchair } from 'lucide-react';
+import { Armchair, List, Map } from 'lucide-react';
 
 export default function FurniturePage() {
   const hydrated = useHydrated();
@@ -26,12 +26,30 @@ export default function FurniturePage() {
     return acc;
   }, {});
   const { catalog } = useFurnitureStore();
+  /** Same reason as the plan editor: side-by-side panels don't fit a phone. */
+  const [mobileView, setMobileView] = useState<'list' | 'canvas'>('list');
 
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="flex h-[calc(100dvh-3.5rem)] flex-col overflow-hidden md:h-screen md:flex-row">
+      {/* MOBILE SWITCH */}
+      <div className="flex gap-1 border-b border-[var(--border)] bg-white p-2 md:hidden">
+        <button
+          onClick={() => setMobileView('list')}
+          className={`flex-1 rounded-lg px-3 py-2.5 text-sm font-semibold ${mobileView === 'list' ? 'bg-brand-50 text-brand-700' : 'text-ink-muted'}`}
+        >
+          <List className="mr-1.5 inline h-4 w-4" /> Catalogue
+        </button>
+        <button
+          onClick={() => setMobileView('canvas')}
+          className={`flex-1 rounded-lg px-3 py-2.5 text-sm font-semibold ${mobileView === 'canvas' ? 'bg-brand-50 text-brand-700' : 'text-ink-muted'}`}
+        >
+          <Map className="mr-1.5 inline h-4 w-4" /> Plan
+        </button>
+      </div>
+
       {/* LEFT SIDEBAR */}
-      <div className="w-72 flex-shrink-0 bg-white border-r border-[var(--border)] flex flex-col overflow-hidden">
-        <div className="px-5 h-[60px] flex items-center gap-2 border-b border-[var(--border)]">
+      <div className={`${mobileView === 'list' ? 'flex' : 'hidden'} w-full min-h-0 flex-1 flex-col overflow-hidden border-r border-[var(--border)] bg-white md:flex md:w-72 md:flex-none`}>
+        <div className="hidden h-[60px] items-center gap-2 border-b border-[var(--border)] px-5 md:flex">
           <Armchair className="h-5 w-5 text-brand-600" />
           <div>
             <h1 className="text-[15px] font-bold text-ink leading-tight">Aménagement</h1>
@@ -85,9 +103,9 @@ export default function FurniturePage() {
       </div>
 
       {/* CENTER CANVAS */}
-      <div className="flex-1 flex flex-col min-w-0 bg-[#f1f3f9]">
+      <div className={`${mobileView === 'canvas' ? 'flex' : 'hidden'} min-h-0 min-w-0 flex-1 flex-col bg-[#f1f3f9] md:flex`}>
         {selectedRoom ? (
-          <div className="flex-1 p-6 min-h-0">
+          <div className="min-h-0 flex-1 p-2 md:p-6">
             <div className="h-full card overflow-hidden">
               <FurnitureCanvas
                 room={selectedRoom}
@@ -108,7 +126,7 @@ export default function FurniturePage() {
       </div>
 
       {/* RIGHT PANEL */}
-      <div className={`flex-shrink-0 bg-white border-l border-[var(--border)] overflow-y-auto transition-all duration-200 ${selectedPlacementId && selectedRoom ? 'w-72' : 'w-0'}`}>
+      <div className={`overflow-y-auto border-[var(--border)] bg-white transition-all duration-200 md:flex-shrink-0 md:border-l ${selectedPlacementId && selectedRoom ? 'max-h-[45dvh] w-full border-t md:max-h-none md:w-72' : 'hidden w-0 md:block'}`}>
         {selectedPlacementId && selectedRoom && (
           <FurnitureDetailPanel
             placementId={selectedPlacementId}

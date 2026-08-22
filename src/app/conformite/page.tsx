@@ -80,7 +80,7 @@ export default function ConformitePage() {
   return (
     <main className="min-h-screen">
       <div className="bg-mesh border-b border-[var(--border)]">
-        <div className="mx-auto max-w-7xl px-8 py-7">
+        <div className="mx-auto max-w-7xl px-4 py-5 md:px-8 md:py-7">
           <p className="text-xs font-semibold uppercase tracking-wider text-brand-600">
             Avant d&apos;engager
           </p>
@@ -92,7 +92,7 @@ export default function ConformitePage() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl space-y-7 px-8 py-8">
+      <div className="mx-auto max-w-7xl space-y-6 px-4 py-6 md:space-y-7 md:px-8 md:py-8">
         {blocking.length > 0 && (
           <div className="flex items-start gap-2 rounded-xl border border-red-200 bg-red-50 p-4 text-sm">
             <ShieldAlert className="mt-0.5 h-4 w-4 shrink-0 text-red-600" />
@@ -110,6 +110,25 @@ export default function ConformitePage() {
         <div className="card p-6">
           <h2 className="mb-5 text-sm font-semibold text-ink">Votre situation</h2>
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+            <div className="md:col-span-2 lg:col-span-3">
+              <label className="label">Comment l&apos;espace est loué</label>
+              <select
+                value={settings.rentalModel}
+                onChange={(e) =>
+                  updateSettings({ rentalModel: e.target.value as 'boarding_house' | 'whole_unit' })
+                }
+                className="input"
+              >
+                <option value="whole_unit">Le logement entier, un seul contrat</option>
+                <option value="boarding_house">Chambres ou lits loués séparément (boarding house)</option>
+              </select>
+              <p className="mt-1.5 text-xs text-ink-faint">
+                C&apos;est le choix le plus lourd de conséquences du projet : il décide du groupe
+                d&apos;occupancy, du FSIC, du sanitary permit et de la façon dont l&apos;art. 807 est
+                appliqué. La classification suit l&apos;activité réelle, pas le contrat.
+              </p>
+            </div>
+
             <div>
               <label className="label">Occupants prévus</label>
               <input
@@ -123,17 +142,49 @@ export default function ConformitePage() {
               />
             </div>
             <div>
-              <label className="label">Loyer par lit (₱/mois)</label>
+              <label className="label">
+                {settings.rentalModel === 'whole_unit'
+                  ? 'Loyer du logement entier (₱/mois)'
+                  : 'Loyer par lit (₱/mois)'}
+              </label>
               <input
                 type="number"
                 min={0}
                 step={100}
-                value={settings.monthlyRentPerBed}
-                onChange={(e) =>
-                  updateSettings({ monthlyRentPerBed: parseFloat(e.target.value) || 0 })
+                value={
+                  settings.rentalModel === 'whole_unit'
+                    ? settings.monthlyRentWholeUnit
+                    : settings.monthlyRentPerBed
                 }
+                onChange={(e) => {
+                  const v = parseFloat(e.target.value) || 0;
+                  updateSettings(
+                    settings.rentalModel === 'whole_unit'
+                      ? { monthlyRentWholeUnit: v }
+                      : { monthlyRentPerBed: v }
+                  );
+                }}
                 className="input"
               />
+              <p className="mt-1.5 text-xs text-ink-faint">
+                Deux seuils se jouent ici : {settings.highlyUrbanizedCity ? '10 000' : '5 000'} ₱ pour
+                le contrôle des loyers, 15 000 ₱ pour l&apos;exonération de TVA et de percentage tax.
+              </p>
+            </div>
+
+            <div>
+              <label className="label">Commune</label>
+              <select
+                value={settings.highlyUrbanizedCity ? 'huc' : 'other'}
+                onChange={(e) => updateSettings({ highlyUrbanizedCity: e.target.value === 'huc' })}
+                className="input"
+              >
+                <option value="huc">Ville hautement urbanisée (Bacolod, Cebu, Iloilo…)</option>
+                <option value="other">Autre commune</option>
+              </select>
+              <p className="mt-1.5 text-xs text-ink-faint">
+                Bacolod est HUC depuis 1984 : le seuil du RA 9653 y est de 10 000 ₱, pas de 5 000 ₱.
+              </p>
             </div>
             <div>
               <label className="label">Hauteur sous plafond (m)</label>
@@ -285,17 +336,31 @@ export default function ConformitePage() {
             {PERMIT_CATALOG.map((def) => {
               const item = permits.find((p) => p.key === def.key);
               if (!item) return null;
+              // Ces permis ne se déclenchent que si l'espace est exploité en
+              // boarding house. Les afficher en location classique laisserait
+              // croire à une montagne de démarches qui n'existe pas.
+              const notApplicable =
+                def.boardingHouseOnly && settings.rentalModel === 'whole_unit';
               return (
-                <div key={def.key} className="rounded-xl border border-[var(--border)] p-4">
+                <div
+                  key={def.key}
+                  className={`rounded-xl border border-[var(--border)] p-4 ${notApplicable ? 'opacity-45' : ''}`}
+                >
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div className="min-w-0 flex-1">
                       <div className="flex flex-wrap items-center gap-2">
                         <span className="font-mono text-xs text-ink-faint">{def.order}</span>
                         <span className="text-sm font-semibold text-ink">{def.name}</span>
-                        {def.blocking && (
-                          <span className="rounded bg-red-50 px-1.5 py-0.5 text-[10px] font-semibold uppercase text-red-700">
-                            bloquant
+                        {notApplicable ? (
+                          <span className="rounded bg-slate-100 px-1.5 py-0.5 text-[11px] font-semibold uppercase text-slate-600">
+                            sans objet
                           </span>
+                        ) : (
+                          def.blocking && (
+                            <span className="rounded bg-red-50 px-1.5 py-0.5 text-[11px] font-semibold uppercase text-red-700">
+                              bloquant
+                            </span>
+                          )
                         )}
                         <span className="text-xs text-ink-faint">
                           {def.renewal === 'annual'

@@ -25,7 +25,8 @@ interface CategoryEditForm {
 }
 
 export const CategoryEditor: React.FC = () => {
-  const { categories, addCategory, updateCategory, removeCategory } = useCostStore();
+  const { categories, addCategory, updateCategory, removeCategory, resetCategories } =
+    useCostStore();
   const [isAddingNew, setIsAddingNew] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [formData, setFormData] = useState<CategoryEditForm>({
@@ -151,7 +152,19 @@ export const CategoryEditor: React.FC = () => {
       {/* Categories List */}
       <div className="space-y-2">
         {categories.length === 0 ? (
-          <p className="py-8 text-center text-ink-faint">Aucune catégorie</p>
+          <div className="py-8 text-center">
+            <p className="text-ink-faint">Aucune catégorie</p>
+            <p className="mx-auto mt-1 max-w-sm text-xs text-ink-faint">
+              Sans catégorie, aucune dépense ne peut être enregistrée.
+            </p>
+            <button
+              type="button"
+              onClick={resetCategories}
+              className="btn-secondary btn-sm mt-3"
+            >
+              Restaurer les catégories par défaut
+            </button>
+          </div>
         ) : (
           categories.map((category) => (
             <div

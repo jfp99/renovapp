@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>6 couchages — trois configurations</title>
+<style>
+  :root{--ink:#1c1917;--ink-2:#44403c;--ink-3:#78716c;--line:#d6d3d1;--dim:#a8a29e;
+        --paper:#faf9f7;--panel:#f2efe9;--accent:#8a5a2b;--steel:#e7e5e4;--wood:#dcc9a8;--bad:#b45309}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+       font:15px/1.6 ui-sans-serif,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  .sheet{max-width:900px;margin:0 auto;padding:44px 40px 70px}
+  header{border-bottom:2px solid var(--ink);padding-bottom:18px;margin-bottom:16px}
+  .eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:700}
+  h1{font-size:27px;line-height:1.2;margin:8px 0 6px;font-weight:650;letter-spacing:-.01em}
+  .sub{color:var(--ink-3);font-size:14px;margin:0}
+  h2{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700;
+     margin:40px 0 14px;padding-bottom:7px;border-bottom:1px solid var(--line)}
+  h3{font-size:15px;margin:22px 0 8px;font-weight:650}
+  p{margin:0 0 12px}
+  ul{margin:0 0 14px;padding-left:20px}li{margin-bottom:6px}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin:0 0 16px}
+  th{text-align:left;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);
+     border-bottom:1.5px solid var(--ink);padding:7px 9px;font-weight:700}
+  td{padding:7px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+  td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+  .fig{background:#fff;border:1px solid var(--line);border-radius:3px;padding:14px 10px 6px;margin:0 0 10px;text-align:center}
+  .cap{font-size:12px;color:var(--ink-3);margin:0 0 26px;text-align:center}
+  .cap b{color:var(--ink-2)}
+  .note{background:var(--panel);border-left:3px solid var(--accent);padding:13px 16px;margin:0 0 18px;font-size:13.5px}
+  .note p:last-child{margin-bottom:0}
+  .warn{background:#fdf6ee;border-left:3px solid var(--bad)}
+  .ok{background:#f2f5f0;border-left:3px solid #4d7c3f}
+  .badge{display:inline-block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;
+         padding:3px 8px;border-radius:2px;vertical-align:middle;margin-left:8px}
+  .b-reco{background:#4d7c3f;color:#fff}.b-alt{background:var(--accent);color:#fff}.b-cond{background:var(--bad);color:#fff}
+  svg text{font-family:ui-sans-serif,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+  footer{margin-top:44px;padding-top:16px;border-top:1px solid var(--line);font-size:12px;color:var(--ink-3)}
+  @media print{body{background:#fff}.sheet{max-width:none;padding:0 12mm}.fig{break-inside:avoid}h2{break-after:avoid}}
+  @media(max-width:640px){.sheet{padding:26px 18px 50px}}
+</style>
+</head>
+<body>
+<div class="sheet">
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <marker id="ar" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+    <path d="M0,0 L7,3 L0,6 z" fill="#a8a29e"/></marker>
+  <marker id="ar2" markerWidth="8" markerHeight="8" refX="1" refY="3" orient="auto">
+    <path d="M7,0 L0,3 L7,6 z" fill="#a8a29e"/></marker>
+  <pattern id="hatch" width="7" height="7" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+    <line x1="0" y1="0" x2="0" y2="7" stroke="#d6d3d1" stroke-width="1.6"/></pattern>
+  <pattern id="mat" width="6" height="6" patternTransform="rotate(-45)" patternUnits="userSpaceOnUse">
+    <line x1="0" y1="0" x2="0" y2="6" stroke="#e7e5e4" stroke-width="2"/></pattern>
+</defs></svg>
+
+<header>
+  <div class="eyebrow">Dortoir Eroreco · révision capacité</div>
+  <h1>Passer de 8 à 6 couchages — trois configurations</h1>
+  <p class="sub">Chambre 1 : 320 × 260 cm · Chambre 2 : 330 × 310 cm · toutes les fonctionnalités du cahier des charges conservées</p>
+</header>
+
+<p>Vous partez sur 6 personnes à ₱4 500. Trois façons d'y arriver, dessinées et chiffrées. Les
+équipements par couchette — chariot roulant, tablette de chevet, rideau, prise + USB — sont
+maintenus dans les trois cas, sauf là où c'est signalé.</p>
+
+<h2>Option 1 · Trois lits superposés, 4 + 2 <span class="badge b-reco">recommandé</span></h2>
+
+<p>Aucune conception nouvelle. Vous gardez exactement le lit du cahier des charges, vous en
+commandez <b>trois identiques</b> au lieu de quatre : deux dans la grande chambre, un dans la petite.</p>
+
+<div class="fig">
+<svg viewBox="0 0 840 430" width="100%" style="max-width:840px" role="img"
+     aria-label="Plans des deux chambres avec trois lits superposés en configuration 4 plus 2">
+  <!-- CHAMBRE 2 : 330 x 310, echelle 1.1 -->
+  <rect x="40" y="46" width="363" height="341" fill="#fff" stroke="#1c1917" stroke-width="2.5"/>
+  <rect x="40" y="46" width="110" height="219" fill="var(--steel)" stroke="#1c1917" stroke-width="1.5"/>
+  <rect x="293" y="46" width="110" height="219" fill="var(--steel)" stroke="#1c1917" stroke-width="1.5"/>
+  <text x="95" y="145" font-size="11.5" fill="#44403c" text-anchor="middle">LIT 1</text>
+  <text x="95" y="160" font-size="10" fill="#78716c" text-anchor="middle">2 places</text>
+  <text x="348" y="145" font-size="11.5" fill="#44403c" text-anchor="middle">LIT 2</text>
+  <text x="348" y="160" font-size="10" fill="#78716c" text-anchor="middle">2 places</text>
+  <rect x="150" y="60" width="66" height="99" fill="none" stroke="#8a5a2b" stroke-width="1.3" stroke-dasharray="5 3"/>
+  <rect x="227" y="60" width="66" height="99" fill="none" stroke="#8a5a2b" stroke-width="1.3" stroke-dasharray="5 3"/>
+  <text x="221" y="176" font-size="9.5" fill="#8a5a2b" text-anchor="middle">chariots sortis</text>
+  <rect x="160" y="300" width="180" height="50" fill="var(--wood)" stroke="#1c1917" stroke-width="1.3"/>
+  <text x="250" y="330" font-size="10.5" fill="#44403c" text-anchor="middle">armoire 4 casiers</text>
+  <g stroke="#a8a29e" stroke-width="1" fill="#44403c" font-size="11">
+    <line x1="150" y1="230" x2="293" y2="230" marker-start="url(#ar2)" marker-end="url(#ar)"/>
+    <text x="221" y="225" text-anchor="middle">130</text>
+    <line x1="40" y1="408" x2="403" y2="408" marker-start="url(#ar2)" marker-end="url(#ar)"/>
+    <text x="221" y="404" text-anchor="middle">330</text>
+  </g>
+  <text x="221" y="36" font-size="12" font-weight="700" fill="#8a5a2b" text-anchor="middle">CHAMBRE 2 — 4 couchages</text>
+
+  <!-- CHAMBRE 1 : 320 x 260 -->
+  <rect x="450" y="46" width="352" height="286" fill="#fff" stroke="#1c1917" stroke-width="2.5"/>
+  <rect x="450" y="46" width="110" height="219" fill="var(--steel)" stroke="#1c1917" stroke-width="1.5"/>
+  <text x="505" y="145" font-size="11.5" fill="#44403c" text-anchor="middle">LIT 3</text>
+  <text x="505" y="160" font-size="10" fill="#78716c" text-anchor="middle">2 places</text>
+  <rect x="560" y="60" width="66" height="99" fill="none" stroke="#8a5a2b" stroke-width="1.3" stroke-dasharray="5 3"/>
+  <rect x="640" y="200" width="140" height="50" fill="var(--wood)" stroke="#1c1917" stroke-width="1.3"/>
+  <text x="710" y="230" font-size="10.5" fill="#44403c" text-anchor="middle">armoire 2 casiers</text>
+  <text x="690" y="120" font-size="11" fill="#4d7c3f" text-anchor="middle">6,3 m² de sol libre</text>
+  <text x="690" y="136" font-size="10" fill="#78716c" text-anchor="middle">pour 2 personnes</text>
+  <g stroke="#a8a29e" stroke-width="1" fill="#44403c" font-size="11">
+    <line x1="450" y1="356" x2="802" y2="356" marker-start="url(#ar2)" marker-end="url(#ar)"/>
+    <text x="626" y="352" text-anchor="middle">320</text>
+  </g>
+  <text x="626" y="36" font-size="12" font-weight="700" fill="#8a5a2b" text-anchor="middle">CHAMBRE 1 — 2 couchages</text>
+  <text x="420" y="424" font-size="10" fill="#a8a29e" text-anchor="middle">Centimètres · lits 100 × 199 · échelle commune</text>
+</svg>
+</div>
+<p class="cap"><b>Fig. 1</b> — Option 1. Trois unités rigoureusement identiques.</p>
+
+<div class="note ok">
+  <p><b>Pourquoi c'est la meilleure option.</b> Le cahier des charges est écrit, les cotes sont
+  figées, le devis du soudeur porte sur une série d'unités identiques — donc le prix de série tient.
+  Vous ne redessinez rien et vous ne rediscutez rien.</p>
+  <p>Surtout : <b>vous gardez l'option à 8 intacte.</b> Le jour où les locataires veulent amener un
+  4ᵉ duo, vous commandez une <i>quatrième unité identique</i> et vous la posez dans la chambre 1.
+  Aucune des deux autres options ne permet ça.</p>
+  <p>La chambre 1 offre <b>6,3 m² de sol libre pour deux personnes</b> — c'est confortable, et c'est
+  un argument de vente réel quand une mère visite.</p>
+</div>
+
+<p>Le seul reproche : les deux chambres ne sont pas équivalentes, 4 d'un côté et 2 de l'autre. Ce
+n'est pas votre problème — c'est le groupe qui répartit, et il le fera très bien tout seul. C'est
+même exactement la posture de bailleur qu'on cherche à tenir.</p>
+
+<h2>Option 2 · Deux « L-Triples », 3 + 3 <span class="badge b-alt">ce que vous demandiez</span></h2>
+
+<p>Une seule unité soudée par chambre, trois matelas : deux superposés le long du mur, le troisième
+perpendiculaire au niveau bas, formant un L. <b>Même hauteur hors-tout que le lit superposé — 200 cm.</b></p>
+
+<div class="fig">
+<svg viewBox="0 0 620 430" width="100%" style="max-width:620px" role="img"
+     aria-label="Plan du lit L-Triple dans la chambre 1">
+  <rect x="60" y="40" width="448" height="364" fill="#fff" stroke="#1c1917" stroke-width="2.5"/>
+  <!-- leg 1 : stack A+B -->
+  <rect x="60" y="40" width="140" height="279" fill="var(--steel)" stroke="#1c1917" stroke-width="1.6"/>
+  <text x="130" y="170" font-size="12" fill="#44403c" text-anchor="middle">A + B</text>
+  <text x="130" y="186" font-size="10" fill="#78716c" text-anchor="middle">superposés</text>
+  <text x="130" y="200" font-size="10" fill="#78716c" text-anchor="middle">50 et 155</text>
+  <!-- leg 2 : bed C -->
+  <rect x="200" y="40" width="279" height="140" fill="var(--steel)" stroke="#1c1917" stroke-width="1.6"/>
+  <text x="340" y="105" font-size="12" fill="#44403c" text-anchor="middle">C — niveau bas, 50</text>
+  <!-- shared corner post highlight -->
+  <circle cx="200" cy="180" r="7" fill="#8a5a2b"/>
+  <text x="214" y="172" font-size="10" fill="#8a5a2b">montant commun</text>
+  <!-- trays -->
+  <rect x="200" y="200" width="84" height="99" fill="none" stroke="#8a5a2b" stroke-width="1.3" stroke-dasharray="5 3"/>
+  <rect x="300" y="180" width="126" height="84" fill="none" stroke="#8a5a2b" stroke-width="1.3" stroke-dasharray="5 3"/>
+  <text x="242" y="315" font-size="9.5" fill="#8a5a2b" text-anchor="middle">chariots</text>
+  <!-- wardrobe -->
+  <rect x="330" y="330" width="160" height="55" fill="var(--wood)" stroke="#1c1917" stroke-width="1.3"/>
+  <text x="410" y="362" font-size="10.5" fill="#44403c" text-anchor="middle">armoire 3 casiers</text>
+  <text x="255" y="360" font-size="11" fill="#b45309" text-anchor="middle">4,3 m² libres / 3 pers.</text>
+  <g stroke="#a8a29e" stroke-width="1" fill="#44403c" font-size="11">
+    <line x1="60" y1="426" x2="508" y2="426" marker-start="url(#ar2)" marker-end="url(#ar)"/>
+    <text x="284" y="422" text-anchor="middle">320</text>
+    <line x1="40" y1="40" x2="40" y2="404" marker-start="url(#ar2)" marker-end="url(#ar)"/>
+    <text x="34" y="222" text-anchor="end" transform="rotate(-90 34 222)">260</text>
+  </g>
+  <text x="284" y="24" font-size="12" font-weight="700" fill="#8a5a2b" text-anchor="middle">CHAMBRE 1 — L-Triple, 3 couchages</text>
+</svg>
+</div>
+<p class="cap"><b>Fig. 2</b> — Option 2 en plan. L'encombrement est un L de 299 × 199 cm.</p>
+
+<div class="fig">
+<svg viewBox="0 0 620 340" width="100%" style="max-width:620px" role="img"
+     aria-label="Coupe du L-Triple montrant les deux niveaux et le lit perpendiculaire">
+  <line x1="50" y1="290" x2="580" y2="290" stroke="#1c1917" stroke-width="2"/>
+  <rect x="50" y="290" width="530" height="9" fill="url(#hatch)"/>
+  <!-- stack -->
+  <rect x="80" y="40" width="8" height="250" fill="var(--steel)" stroke="#1c1917" stroke-width="1.4"/>
+  <rect x="370" y="40" width="8" height="250" fill="var(--steel)" stroke="#1c1917" stroke-width="1.4"/>
+  <!-- decks : slat 155 -> y 96 ; slat 50 -> y 228 -->
+  <rect x="88" y="96" width="282" height="7" fill="var(--wood)" stroke="#1c1917" stroke-width="1.3"/>
+  <rect x="88" y="228" width="282" height="7" fill="var(--wood)" stroke="#1c1917" stroke-width="1.3"/>
+  <rect x="92" y="77" width="274" height="19" fill="url(#mat)" stroke="#d6d3d1" stroke-dasharray="4 3"/>
+  <rect x="92" y="209" width="274" height="19" fill="url(#mat)" stroke="#d6d3d1" stroke-dasharray="4 3"/>
+  <!-- guard rails 200 et 185 -->
+  <rect x="88" y="40" width="282" height="4" fill="var(--steel)" stroke="#1c1917" stroke-width="1.1"/>
+  <rect x="88" y="59" width="282" height="4" fill="var(--steel)" stroke="#1c1917" stroke-width="1.1"/>
+  <text x="229" y="91" font-size="10.5" fill="#44403c" text-anchor="middle">B — 155</text>
+  <text x="229" y="223" font-size="10.5" fill="#44403c" text-anchor="middle">A — 50</text>
+  <!-- trays under A : 0 a 23 cm -->
+  <rect x="95" y="261" width="122" height="29" fill="var(--wood)" stroke="#1c1917" stroke-width="1.2"/>
+  <rect x="240" y="261" width="122" height="29" fill="var(--wood)" stroke="#1c1917" stroke-width="1.2"/>
+  <!-- bed C, vu en bout -->
+  <rect x="404" y="40" width="8" height="250" fill="var(--steel)" stroke="#1c1917" stroke-width="1.4" opacity=".4"/>
+  <rect x="556" y="40" width="8" height="250" fill="var(--steel)" stroke="#1c1917" stroke-width="1.4" opacity=".4"/>
+  <rect x="412" y="228" width="144" height="7" fill="var(--wood)" stroke="#1c1917" stroke-width="1.3"/>
+  <rect x="416" y="209" width="136" height="19" fill="url(#mat)" stroke="#d6d3d1" stroke-dasharray="4 3"/>
+  <rect x="418" y="261" width="132" height="29" fill="var(--wood)" stroke="#1c1917" stroke-width="1.2"/>
+  <text x="484" y="223" font-size="10.5" fill="#44403c" text-anchor="middle">C — 50</text>
+  <text x="484" y="281" font-size="9.5" fill="#78716c" text-anchor="middle">chariot</text>
+  <text x="484" y="150" font-size="10.5" fill="#78716c" text-anchor="middle">perpendiculaire,</text>
+  <text x="484" y="164" font-size="10.5" fill="#78716c" text-anchor="middle">vu en bout</text>
+  <g stroke="#a8a29e" stroke-width="1" fill="#44403c" font-size="11">
+    <line x1="64" y1="290" x2="64" y2="40" marker-start="url(#ar2)" marker-end="url(#ar)"/>
+    <text x="58" y="168" text-anchor="end">200</text>
+  </g>
+  <text x="315" y="322" font-size="10" fill="#a8a29e" text-anchor="middle">Coupe · même hauteur hors-tout que le lit superposé</text>
+</svg>
+</div>
+<p class="cap"><b>Fig. 3</b> — Option 2 en coupe. Les couchettes A et C sont au même niveau, la B au-dessus de A.</p>
+
+<div class="note">
+  <p><b>Ce que ça vous apporte.</b> Trois couchages par chambre, donc 3 + 3 au lieu de 4 + 2. Une
+  seule pièce de mobilier par chambre, rigide parce que les montants sont partagés à l'angle. Trois
+  chariots, trois tablettes, trois rideaux, trois prises — la parité entre occupantes est parfaite.</p>
+  <p><b>Ce que ça vous coûte.</b> Le L mange 3,98 m² au sol dans une chambre qui en fait 8,32 : il ne
+  reste que <b>4,3 m² libres pour trois personnes</b>, contre 6,3 m² pour deux en option 1. C'est
+  nettement plus serré, et c'est dans la petite chambre que ça se sent.</p>
+  <p>Et vous perdez la simplicité : deux unités <i>différentes</i> de celle du cahier des charges,
+  donc un nouveau devis, un nouveau gabarit, et l'option à 8 devient un bricolage.</p>
+</div>
+
+<h2>Option 3 · Deux triples verticaux, 3 + 3 <span class="badge b-cond">sous condition de hauteur</span></h2>
+
+<p>Trois matelas empilés sur trois niveaux. C'est la solution la plus compacte au sol — et la seule
+qui dépende entièrement d'une mesure que vous n'avez toujours pas prise.</p>
+
+<div class="fig">
+<svg viewBox="0 0 560 460" width="100%" style="max-width:560px" role="img"
+     aria-label="Coupe du triple vertical avec le budget de hauteur et la ligne de plafond minimale">
+  <!-- ceiling -->
+  <rect x="60" y="26" width="420" height="10" fill="url(#hatch)"/>
+  <line x1="60" y1="36" x2="480" y2="36" stroke="#b45309" stroke-width="2.5"/>
+  <text x="490" y="34" font-size="11" font-weight="700" fill="#b45309">plafond mini 280</text>
+  <!-- floor -->
+  <line x1="60" y1="400" x2="480" y2="400" stroke="#1c1917" stroke-width="2"/>
+  <rect x="60" y="400" width="420" height="9" fill="url(#hatch)"/>
+  <!-- posts : 249 cm -> y = 400 - 1.3*249 = 76.3 -->
+  <rect x="100" y="76" width="8" height="324" fill="var(--steel)" stroke="#1c1917" stroke-width="1.4"/>
+  <rect x="351" y="76" width="8" height="324" fill="var(--steel)" stroke="#1c1917" stroke-width="1.4"/>
+  <!-- decks -->
+  <rect x="108" y="354" width="243" height="6" fill="var(--wood)" stroke="#1c1917" stroke-width="1.3"/>
+  <rect x="108" y="243" width="243" height="6" fill="var(--wood)" stroke="#1c1917" stroke-width="1.3"/>
+  <rect x="108" y="131" width="243" height="6" fill="var(--wood)" stroke="#1c1917" stroke-width="1.3"/>
+  <!-- mattresses 12 cm -> 15.6 px -->
+  <rect x="112" y="338" width="235" height="16" fill="url(#mat)" stroke="#d6d3d1" stroke-dasharray="4 3"/>
+  <rect x="112" y="227" width="235" height="16" fill="url(#mat)" stroke="#d6d3d1" stroke-dasharray="4 3"/>
+  <rect x="112" y="115" width="235" height="16" fill="url(#mat)" stroke="#d6d3d1" stroke-dasharray="4 3"/>
+  <!-- guard -->
+  <rect x="108" y="76" width="243" height="4" fill="var(--steel)" stroke="#1c1917" stroke-width="1.1"/>
+  <text x="230" y="350" font-size="10.5" fill="#44403c" text-anchor="middle">niveau 1 — 35</text>
+  <text x="230" y="239" font-size="10.5" fill="#44403c" text-anchor="middle">niveau 2 — 121</text>
+  <text x="230" y="127" font-size="10.5" fill="#44403c" text-anchor="middle">niveau 3 — 207</text>
+  <!-- no tray -->
+  <text x="230" y="384" font-size="10.5" fill="#b45309" text-anchor="middle">✕ plus de place pour les chariots</text>
+  <!-- dims -->
+  <g stroke="#a8a29e" stroke-width="1" fill="#44403c" font-size="11">
+    <line x1="84" y1="400" x2="84" y2="76" marker-start="url(#ar2)" marker-end="url(#ar)"/>
+    <text x="78" y="242" text-anchor="end">249</text>
+    <line x1="378" y1="338" x2="378" y2="249" marker-start="url(#ar2)" marker-end="url(#ar)"/>
+    <text x="386" y="298">75 assise</text>
+    <line x1="378" y1="227" x2="378" y2="137" marker-start="url(#ar2)" marker-end="url(#ar)"/>
+    <text x="386" y="186">75 assise</text>
+    <line x1="378" y1="115" x2="378" y2="36" marker-start="url(#ar2)" marker-end="url(#ar)"/>
+    <text x="386" y="80">61 tête</text>
+  </g>
+  <text x="270" y="440" font-size="10" fill="#a8a29e" text-anchor="middle">Centimètres · clairances réduites au minimum acceptable</text>
+</svg>
+</div>
+<p class="cap"><b>Fig. 4</b> — Option 3. Le budget de hauteur est déjà tendu : 75 cm d'assise, c'est
+le plancher du supportable.</p>
+
+<div class="note warn">
+  <p><b>Il faut 2,80 m sous plafond, et 2,90 pour que ce soit vivable.</b> Une maison philippine
+  ordinaire est à 2,40–2,70. Il y a de fortes chances que cette option soit morte avant d'être
+  étudiée — mais vous n'avez toujours pas mesuré, donc je ne peux pas la trancher à votre place.</p>
+  <p>Trois autres reproches, indépendants de la hauteur :</p>
+  <ul style="margin-bottom:0">
+    <li><b>Vous perdez les chariots.</b> Le niveau 1 doit redescendre à 35 cm : il ne reste rien
+    dessous. Tout le rangement bascule sur l'armoire.</li>
+    <li><b>La couchette du milieu est la pire place d'un dortoir</b> — pas de fenêtre, pas de
+    plafond, quelqu'un au-dessus et quelqu'un en dessous. À prix égal entre trois colocataires,
+    c'est une source de friction garantie.</li>
+    <li><b>Monter au niveau 3 à 2,19 m</b> sans se cogner demande une échelle sérieuse et une
+    vraie clairance au-dessus.</li>
+  </ul>
+</div>
+
+<h2>Option 4 · « Triple-escalier » <span class="badge b-alt">votre idée, dessinée</span></h2>
+
+<p>Deux lits au même niveau bas, séparés par un <b>véritable escalier</b>, et le troisième en hauteur,
+tourné à 90°, plaqué contre deux murs. C'est ce que vous décrivez — et ça marche, à une condition
+géométrique que j'ai dû résoudre en le dessinant.</p>
+
+<div class="fig">
+<svg viewBox="0 0 620 520" width="100%" style="max-width:620px" role="img"
+     aria-label="Plan du triple-escalier dans la chambre 2">
+  <rect x="60" y="40" width="462" height="434" fill="#fff" stroke="#1c1917" stroke-width="2.5"/>
+  <!-- lit C en hauteur, au-dessus -->
+  <rect x="60" y="40" width="279" height="140" fill="#f2efe9" stroke="#8a5a2b" stroke-width="2" stroke-dasharray="8 4"/>
+  <!-- lit A -->
+  <rect x="60" y="40" width="140" height="279" fill="var(--steel)" stroke="#1c1917" stroke-width="1.6" fill-opacity=".85"/>
+  <text x="130" y="230" font-size="12" fill="#44403c" text-anchor="middle">A — 40</text>
+  <text x="130" y="245" font-size="10" fill="#78716c" text-anchor="middle">sous C</text>
+  <!-- lit B -->
+  <rect x="339" y="40" width="140" height="279" fill="var(--steel)" stroke="#1c1917" stroke-width="1.6"/>
+  <text x="409" y="180" font-size="12" fill="#44403c" text-anchor="middle">B — 40</text>
+  <!-- armoire sous C -->
+  <rect x="212" y="96" width="115" height="72" fill="var(--wood)" stroke="#1c1917" stroke-width="1.3"/>
+  <text x="269" y="128" font-size="10" fill="#44403c" text-anchor="middle">armoire</text>
+  <text x="269" y="141" font-size="9" fill="#78716c" text-anchor="middle">130 max, sous C</text>
+  <!-- escalier -->
+  <rect x="200" y="180" width="139" height="276" fill="#fff" stroke="#8a5a2b" stroke-width="1.8"/>
+  <g stroke="#8a5a2b" stroke-width="1.2">
+    <line x1="200" y1="219" x2="339" y2="219"/><line x1="200" y1="259" x2="339" y2="259"/>
+    <line x1="200" y1="298" x2="339" y2="298"/><line x1="200" y1="338" x2="339" y2="338"/>
+    <line x1="200" y1="377" x2="339" y2="377"/><line x1="200" y1="417" x2="339" y2="417"/>
+  </g>
+  <path d="M269,440 L269,200" stroke="#8a5a2b" stroke-width="1.8" marker-end="url(#ar)" fill="none"/>
+  <text x="277" y="330" font-size="10.5" fill="#8a5a2b">montée</text>
+  <text x="269" y="470" font-size="10" fill="#8a5a2b" text-anchor="middle">7 marches · 99 de large</text>
+  <!-- dims -->
+  <g stroke="#a8a29e" stroke-width="1" fill="#44403c" font-size="11">
+    <line x1="200" y1="196" x2="339" y2="196" marker-start="url(#ar2)" marker-end="url(#ar)"/>
+    <text x="269" y="192" text-anchor="middle">99</text>
+    <line x1="540" y1="180" x2="540" y2="456" marker-start="url(#ar2)" marker-end="url(#ar)"/>
+    <text x="548" y="322">197 de recul</text>
+    <line x1="60" y1="496" x2="522" y2="496" marker-start="url(#ar2)" marker-end="url(#ar)"/>
+    <text x="291" y="492" text-anchor="middle">330</text>
+    <line x1="40" y1="40" x2="40" y2="474" marker-start="url(#ar2)" marker-end="url(#ar)"/>
+    <text x="34" y="257" text-anchor="end" transform="rotate(-90 34 257)">310</text>
+  </g>
+  <text x="291" y="26" font-size="12" font-weight="700" fill="#8a5a2b" text-anchor="middle">CHAMBRE 2 — Triple-escalier</text>
+  <text x="269" y="62" font-size="12" font-weight="700" fill="#8a5a2b" text-anchor="middle">C — EN HAUTEUR, 143</text>
+  <text x="269" y="77" font-size="10" fill="#8a5a2b" text-anchor="middle">tourné à 90°, contre deux murs</text>
+</svg>
+</div>
+<p class="cap"><b>Fig. 5</b> — En plan. Le lit C, en pointillé, est en l'air : il ne consomme pas de sol.</p>
+
+<div class="fig">
+<svg viewBox="0 0 620 400" width="100%" style="max-width:620px" role="img"
+     aria-label="Coupe longitudinale montrant l'escalier montant jusqu'au lit C">
+  <line x1="60" y1="340" x2="560" y2="340" stroke="#1c1917" stroke-width="2"/>
+  <rect x="60" y="340" width="500" height="9" fill="url(#hatch)"/>
+  <!-- mur du fond a gauche -->
+  <rect x="58" y="40" width="12" height="300" fill="url(#hatch)" stroke="#1c1917" stroke-width="1.5"/>
+  <!-- lit A, fantome derriere le plan de coupe -->
+  <rect x="70" y="280" width="298" height="8" fill="var(--wood)" opacity=".45"/>
+  <rect x="74" y="257" width="290" height="23" fill="url(#mat)" opacity=".55"/>
+  <rect x="78" y="310" width="130" height="26" fill="var(--wood)" opacity=".45"/>
+  <rect x="222" y="310" width="130" height="26" fill="var(--wood)" opacity=".45"/>
+  <text x="215" y="268" font-size="10" fill="#a8a29e">lit A, derrière le plan de coupe — chariots dessous</text>
+  <!-- lit C -->
+  <rect x="70" y="58" width="8" height="282" fill="var(--steel)" stroke="#1c1917" stroke-width="1.4"/>
+  <rect x="212" y="58" width="8" height="282" fill="var(--steel)" stroke="#1c1917" stroke-width="1.4"/>
+  <rect x="78" y="125" width="134" height="8" fill="var(--wood)" stroke="#1c1917" stroke-width="1.3"/>
+  <rect x="82" y="103" width="126" height="22" fill="url(#mat)" stroke="#d6d3d1" stroke-dasharray="4 3"/>
+  <rect x="78" y="58" width="134" height="4" fill="var(--steel)" stroke="#1c1917" stroke-width="1.1"/>
+  <text x="145" y="118" font-size="10.5" fill="#44403c" text-anchor="middle">C — 143</text>
+  <text x="145" y="52" font-size="10" fill="#78716c" text-anchor="middle">garde-corps 188</text>
+  <!-- armoire sous C -->
+  <rect x="86" y="145" width="118" height="195" fill="var(--wood)" stroke="#1c1917" stroke-width="1.2"/>
+  <text x="145" y="248" font-size="10" fill="#44403c" text-anchor="middle">armoire</text>
+  <!-- escalier : de (x515,y340) a (x220,y125) -->
+  <g fill="var(--steel)" stroke="#1c1917" stroke-width="1.3">
+    <rect x="473" y="309" width="42" height="7"/><rect x="431" y="278" width="42" height="7"/>
+    <rect x="389" y="248" width="42" height="7"/><rect x="347" y="217" width="42" height="7"/>
+    <rect x="305" y="186" width="42" height="7"/><rect x="263" y="156" width="42" height="7"/>
+    <rect x="221" y="125" width="42" height="7"/>
+  </g>
+  <path d="M515,340 L515,316 L473,316 L473,285 L431,285 L431,255 L389,255 L389,224 L347,224 L347,193 L305,193 L305,163 L263,163 L263,132 L221,132"
+        fill="none" stroke="#8a5a2b" stroke-width="1.6"/>
+  <path d="M528,326 L234,112" stroke="#8a5a2b" stroke-width="2" fill="none"/>
+  <text x="400" y="120" font-size="10.5" fill="#8a5a2b">main courante des deux côtés</text>
+  <text x="400" y="290" font-size="10.5" fill="#8a5a2b" text-anchor="middle">rangement sous escalier</text>
+  <text x="400" y="304" font-size="9.5" fill="#78716c" text-anchor="middle">marches-tiroirs</text>
+  <!-- dims -->
+  <g stroke="#a8a29e" stroke-width="1" fill="#44403c" font-size="11">
+    <line x1="576" y1="340" x2="576" y2="103" marker-start="url(#ar2)" marker-end="url(#ar)"/>
+    <text x="570" y="226" text-anchor="end">158</text>
+    <line x1="220" y1="376" x2="515" y2="376" marker-start="url(#ar2)" marker-end="url(#ar)"/>
+    <text x="368" y="372" text-anchor="middle">197 de recul · 36°</text>
+    <line x1="196" y1="257" x2="196" y2="133" marker-start="url(#ar2)" marker-end="url(#ar)"/>
+    <text x="190" y="199" text-anchor="end">84</text>
+  </g>
+  <text x="310" y="396" font-size="10" fill="#a8a29e" text-anchor="middle">Coupe suivant l'axe de l'escalier · centimètres</text>
+</svg>
+</div>
+<p class="cap"><b>Fig. 6</b> — En coupe. L'escalier arrive exactement au bord du lit C : on y monte de face, pas de dos.</p>
+
+<div class="note warn">
+  <p><b>Le piège géométrique, et la règle qui en découle.</b> Un escalier ne peut pas passer
+  <i>sous</i> le lit qu'il dessert — sinon on arrive à quatre pattes. J'ai eu le cas dans les trois
+  premières implantations que j'ai essayées : à mi-parcours il ne restait que 26 cm de tirant d'air.</p>
+  <p>La solution est celle du dessin : <b>l'escalier atteint la hauteur pleine exactement au bord de
+  C</b>, jamais dessous. Ce qui impose un recul de <b>197 cm</b> pour rester à 36°, une pente
+  d'escalier normale. C'est cette cote qui commande toute l'implantation.</p>
+</div>
+
+<h3>Ce que ça change en bien</h3>
+
+<ul>
+  <li><b>Un escalier, pas une échelle.</b> 7 marches de 20 cm de hauteur et 28 cm de giron, mains
+  courantes des deux côtés. On monte de face, en pyjama, à 2 h du matin, un verre à la main. C'est le
+  seul argument de cette liste qu'une mère comprend en dix secondes lors de la visite — et c'est
+  exactement le genre de détail qui vous permet de tenir ₱4 500.</li>
+  <li><b>Hauteur hors-tout 188 cm</b>, soit 12 cm de <i>moins</i> que le lit superposé. Il reste
+  82 cm au-dessus du matelas de C même avec un plafond à 2,40 m. Cette option est la moins exigeante
+  des quatre en hauteur.</li>
+  <li><b>Deux couchages sur trois sont au niveau bas</b> — 40 cm, on s'y assied comme sur un lit
+  normal. Une seule occupante grimpe, contre trois sur six en option 1.</li>
+  <li><b>C est plaqué contre deux murs</b> : garde-corps sur un seul côté, et une sensation de
+  sécurité que n'a aucune couchette haute en position centrale.</li>
+  <li><b>Rangement sous escalier</b> — c'est déjà dans votre plan d'origine, et vous récupérez ici
+  ~1 m² de volume sous les marches, plus des marches-tiroirs.</li>
+  <li><b>L'armoire se loge sous C</b>, dans un mètre carré autrement perdu (139 cm de tirant d'air,
+  donc une armoire de 130 max).</li>
+</ul>
+
+<h3>Ce que ça coûte, sans enrobage</h3>
+
+<table>
+  <thead><tr><th>Poste</th><th class="n">₱</th></tr></thead>
+  <tbody>
+    <tr><td>Matière, une unité de 3 couchages</td><td class="n">19 727</td></tr>
+    <tr><td>Matière, 2 unités</td><td class="n">39 454</td></tr>
+    <tr><td>Main d'œuvre, 2 hommes × 14 jours</td><td class="n">21 000</td></tr>
+    <tr style="font-weight:700"><td>Total 6 couchages</td><td class="n">60 454</td></tr>
+    <tr><td>Par couchage</td><td class="n">10 076</td></tr>
+  </tbody>
+</table>
+
+<div class="note warn">
+  <p><b>₱60 454 contre ₱41 201 pour l'option 1 : +47 %, soit ₱19 250.</b> L'escalier est cher — deux
+  limons, sept marches soudées, deux mains courantes, sept tiroirs de marche. C'est presque la moitié
+  du coût de l'unité, pour desservir un seul couchage.</p>
+  <p>Deux autres réserves :</p>
+  <ul style="margin-bottom:0">
+    <li><b>La chambre 1 ne tient pas la pente.</b> 260 cm de profondeur ne laissent que 160 de recul
+    → l'escalier passe à <b>42°</b>, avec 23 cm de giron. C'est raide, il faut des marches à foulée
+    alternée. L'argument de vente s'affaiblit précisément là où la pièce est la plus petite.</li>
+    <li><b>C'est du sur-mesure intégral.</b> Nouveau dessin, nouveau devis, nouveau gabarit, 14 jours
+    d'atelier au lieu de 8 — et le passage à 8 couchages redevient un bricolage.</li>
+  </ul>
+</div>
+
+<div class="note">
+  <p><b>Mon avis, et c'est un avis, pas un calcul.</b> C'est la plus belle des quatre, et de loin.
+  Si votre pari commercial est de sortir du lot dans un marché où tout le monde vend des lits
+  superposés en tube fin, ₱19 250 pour un escalier et deux couchages sur trois au niveau bas, c'est
+  défendable : ça se voit sur les photos de l'annonce, ça se sent à la visite, et le levier « loyer
+  par tête » pèse 698 000 ₱ de VAN contre 19 250 ₱ de surcoût.</p>
+  <p>Mais si votre contrainte est la trésorerie et le délai — et c'est ce que vous m'avez dit —
+  l'option 1 reste le bon choix, et vous pourrez toujours faire l'escalier en deuxième vague, quand
+  le premier bail aura tourné une année.</p>
+  <p><b>Une voie moyenne existe :</b> un seul Triple-escalier dans la chambre 2, et un lit superposé
+  standard dans la chambre 1. 5 couchages, ₱42 800 environ, et vous testez la réaction du marché à
+  l'escalier avant d'en commander un second.</p>
+</div>
+
+<h2>Comparaison</h2>
+
+<table>
+  <thead><tr><th>Critère</th><th>1 · Superposés 4+2</th><th>2 · L-Triples 3+3</th><th>3 · Triples verticaux</th><th>4 · Triple-escalier</th></tr></thead>
+  <tbody>
+    <tr><td>Hauteur hors-tout</td><td>200</td><td>200</td><td>249</td><td><b>188</b></td></tr>
+    <tr><td>Plafond requis</td><td>240</td><td>240</td><td><b>280</b></td><td><b>240</b></td></tr>
+    <tr><td>Accès à la couchette haute</td><td>échelle</td><td>échelle</td><td>échelle</td><td><b>escalier 36°</b></td></tr>
+    <tr><td>Couchages au niveau bas</td><td>3 sur 6</td><td>4 sur 6</td><td>2 sur 6</td><td><b>4 sur 6</b></td></tr>
+    <tr><td>Coût matière</td><td class="n">₱29 201</td><td class="n">₱26 471</td><td class="n">₱20 677</td><td class="n">₱39 454</td></tr>
+    <tr><td>Main d'œuvre</td><td class="n">₱12 000</td><td class="n">₱16 500</td><td class="n">₱15 000</td><td class="n">₱21 000</td></tr>
+    <tr><td><b>Total 6 couchages</b></td><td class="n"><b>₱41 201</b></td><td class="n"><b>₱42 971</b></td><td class="n"><b>₱35 677</b></td><td class="n"><b>₱60 454</b></td></tr>
+    <tr><td>Par couchage</td><td class="n">₱6 867</td><td class="n">₱7 162</td><td class="n">₱5 946</td><td class="n">₱10 076</td></tr>
+    <tr><td>Chariots roulants</td><td>6</td><td>6</td><td><b>0</b></td><td>4 + sous-escalier</td></tr>
+    <tr><td>Sol libre, petite chambre</td><td><b>6,3 m² / 2 p.</b></td><td>4,3 m² / 3 p.</td><td>5,3 m² / 3 p.</td><td>4,3 m² / 3 p.</td></tr>
+    <tr><td>Tient dans la chambre 1</td><td><b>oui</b></td><td>oui</td><td>oui</td><td>à 42°, raide</td></tr>
+    <tr><td>Nouveau devis / gabarit</td><td><b>Non</b></td><td>Oui</td><td>Oui</td><td>Oui, 14 j d'atelier</td></tr>
+    <tr><td>Passage à 8 plus tard</td><td><b>+1 unité identique</b></td><td>bricolage</td><td>bricolage</td><td>bricolage</td></tr>
+  </tbody>
+</table>
+
+<div class="note ok">
+  <p><b>Recommandation : option 1.</b> Elle coûte ₱1 770 de plus que le L-Triple — soit 4 % — et elle
+  vous évite un nouveau dessin, un nouveau devis, un nouveau gabarit, et vous laisse la porte ouverte
+  vers 8 couchages sans rien réinventer. Sur un projet où votre vraie contrainte est le temps et la
+  trésorerie, pas le peso, c'est l'arbitrage évident.</p>
+  <p>Le triple vertical est ₱5 500 moins cher, mais il vous coûte les six chariots, la place du
+  milieu, et il exige une hauteur que vous n'avez probablement pas.</p>
+</div>
+
+<h2>Ce qui change dans le cahier des charges, quelle que soit l'option</h2>
+
+<ul>
+  <li><b>Armoire : 6 casiers au lieu de 8.</b> Répartie 4 + 2 (option 1) ou 3 + 3 (options 2 et 3).
+  Économie d'environ ₱11 000 sur les ₱45 420 initiaux.</li>
+  <li><b>Électricité : 6 prises + USB au lieu de 8</b>, toujours une par couchette, toujours sur un
+  circuit dédié 15 A par chambre. Le plafond électricité de ₱2 500 du bail suppose que ce circuit
+  reste en ventilateurs seuls — <b>pas de climatiseur</b>, c'est autant une question de sécurité que
+  de budget.</li>
+  <li><b>Six lampes à pince</b> au lieu de huit, ₱1 500.</li>
+  <li><b>WC2 reste à traiter.</b> 60 cm de large, non conforme au §806 qui exige 0,90 m minimum. À
+  six personnes c'est moins critique qu'à huit, mais vous rénovez de toute façon : élargissez-le
+  maintenant, sinon vous ne passerez jamais à 8.</li>
+</ul>
+
+<div class="note warn">
+  <p><b>Une seule mesure débloque tout, et elle prend cinq minutes :</b> la hauteur sous plafond
+  finie des deux chambres. Elle décide entre les options 1/2 et l'option 3, elle décide entre la
+  version A et la version B des lits (chariots ou pas), et elle décide de la capacité légale au titre
+  du §807. Trois décisions, un mètre ruban.</p>
+</div>
+
+<footer>
+  Révision capacité 8 → 6 couchages · Dortoir Eroreco, Bacolod City · Cotes en centimètres ·
+  Prix matière indicatifs Bacolod, à confirmer le jour de l'achat · Matelas 36" × 75" hors marché soudeur.
+</footer>
+
+</div>
+</body>
+</html>

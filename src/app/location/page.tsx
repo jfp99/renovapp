@@ -85,7 +85,7 @@ export default function LocationPage() {
   return (
     <main className="min-h-screen">
       <div className="bg-mesh border-b border-[var(--border)]">
-        <div className="mx-auto max-w-7xl px-8 py-7">
+        <div className="mx-auto max-w-7xl px-4 py-5 md:px-8 md:py-7">
           <p className="text-xs font-semibold uppercase tracking-wider text-brand-600">Exploitation</p>
           <h1 className="mt-1 text-3xl font-bold tracking-tight text-ink">Location</h1>
           <p className="mt-1 text-sm text-ink-muted">
@@ -95,7 +95,7 @@ export default function LocationPage() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl space-y-7 px-8 py-8">
+      <div className="mx-auto max-w-7xl space-y-6 px-4 py-6 md:space-y-7 md:px-8 md:py-8">
         {/* KPIs */}
         <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
           <div className="rounded-xl border border-brand-100 bg-brand-50/60 p-5">

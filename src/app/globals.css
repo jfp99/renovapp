@@ -151,3 +151,36 @@
 .text-balance {
   text-wrap: balance;
 }
+
+/* ============================================================
+   CIBLES TACTILES
+   `@apply btn` ne recopie que les declarations de .btn, pas les at-rules
+   imbriquees — d'ou ces regles a plat, appliquees aux classes finales.
+   44px est le minimum qu'un pouce atteint de facon fiable ; en dessous,
+   l'utilisateur rate le bouton. Reserve aux pointeurs grossiers pour que
+   l'interface de bureau garde sa densite.
+   ============================================================ */
+@media (pointer: coarse) {
+  .btn,
+  .btn-primary,
+  .btn-secondary,
+  .btn-accent,
+  .btn-ghost,
+  .btn-danger {
+    min-height: 44px;
+  }
+
+  .btn-sm {
+    min-height: 40px;
+  }
+
+  /* iOS Safari zoome toute la page quand un champ actif fait moins de 16px.
+     Grossir la police est le seul moyen de l'en empecher. */
+  .input,
+  input:not([type='checkbox']):not([type='radio']):not([type='file']),
+  select,
+  textarea {
+    min-height: 44px;
+    font-size: 16px;
+  }
+}

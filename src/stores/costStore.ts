@@ -33,6 +33,8 @@ interface CostState {
   addCategory: (name: string, color: string, budgetAllocation: number, defaultNature?: CostNature) => void;
   updateCategory: (id: string, updates: Partial<CostCategory>) => void;
   removeCategory: (id: string) => void;
+  /** Restore the seed categories, keeping the budgets already set on them. */
+  resetCategories: () => void;
   addEntry: (entry: Omit<CostEntry, 'id'>) => void;
   updateEntry: (id: string, updates: Partial<CostEntry>) => void;
   removeEntry: (id: string) => void;
@@ -52,28 +54,46 @@ interface CostState {
   getPlanBedCount: () => number;
 }
 
+/**
+ * Seed ids are FIXED strings, not uuids. Re-seeding has to be idempotent: if
+ * the defaults were regenerated with fresh uuids, every entry still pointing at
+ * the old ids would be orphaned and its amount would drop out of the totals.
+ */
 const mkCategory = (
+  id: string,
   name: string,
   color: string,
   defaultNature: CostNature
 ): CostCategory => ({
-  id: uuidv4(),
+  id,
   name,
   color,
   budgetAllocation: 0,
   defaultNature,
 });
 
-const defaultCategories: CostCategory[] = [
-  mkCategory('Matériaux', '#B4552F', 'capex'),
-  mkCategory("Main d'œuvre", '#C98A2E', 'capex'),
-  mkCategory('Meubles', '#2E5A4E', 'capex'),
-  mkCategory('Permis & Admin', '#A89A82', 'capex'),
-  mkCategory('Plomberie', '#3E7C6B', 'capex'),
-  mkCategory('Électricité', '#C97A55', 'capex'),
-  mkCategory('Charges courantes', '#DCA24B', 'opex'),
-  mkCategory('Divers', '#6B5E49', 'capex'),
+export const defaultCategories: CostCategory[] = [
+  mkCategory('cat-materiaux', 'Matériaux', '#B4552F', 'capex'),
+  mkCategory('cat-main-doeuvre', "Main d'œuvre", '#C98A2E', 'capex'),
+  mkCategory('cat-meubles', 'Meubles', '#2E5A4E', 'capex'),
+  mkCategory('cat-permis-admin', 'Permis & Admin', '#A89A82', 'capex'),
+  mkCategory('cat-plomberie', 'Plomberie', '#3E7C6B', 'capex'),
+  mkCategory('cat-electricite', 'Électricité', '#C97A55', 'capex'),
+  mkCategory('cat-charges-courantes', 'Charges courantes', '#DCA24B', 'opex'),
+  mkCategory('cat-divers', 'Divers', '#6B5E49', 'capex'),
 ];
+
+/**
+ * An empty category list is never a legitimate state: the expense form builds
+ * its dropdown from it, so zero categories means no expense can be recorded at
+ * all — and it fails silently, because an empty <select> just looks like it is
+ * still loading. Every rehydration path funnels through here.
+ */
+export function withDefaultCategories(
+  categories: CostCategory[] | undefined | null
+): CostCategory[] {
+  return categories && categories.length > 0 ? categories : defaultCategories;
+}
 
 const defaultSettings: CostSettings = {
   // Indicative starting points — set your bank's actual rate in the UI.
@@ -144,9 +164,20 @@ export const useCostStore = create<CostState>()(
         })),
 
       removeCategory: (id) =>
+        set((state) => {
+          const categories = state.categories.filter((c) => c.id !== id);
+          const entries = state.entries.filter((e) => e.categoryId !== id);
+          // Deleting the last category would leave the expense form unusable.
+          return { categories: withDefaultCategories(categories), entries };
+        }),
+
+      resetCategories: () =>
         set((state) => ({
-          categories: state.categories.filter((c) => c.id !== id),
-          entries: state.entries.filter((e) => e.categoryId !== id),
+          // Fixed ids, so entries filed under a default category survive.
+          categories: defaultCategories.map((d) => {
+            const existing = state.categories.find((c) => c.id === d.id);
+            return existing ? { ...d, budgetAllocation: existing.budgetAllocation } : d;
+          }),
         })),
 
       addEntry: (entry) =>
@@ -270,14 +301,33 @@ export const useCostStore = create<CostState>()(
         // renovation spending, so CAPEX is the correct default.
         return {
           ...state,
-          categories: (state.categories ?? []).map((c) => ({
-            ...c,
-            defaultNature: c.defaultNature ?? 'capex',
-          })),
+          categories: withDefaultCategories(
+            (state.categories ?? []).map((c) => ({
+              ...c,
+              defaultNature: c.defaultNature ?? 'capex',
+            }))
+          ),
           entries: (state.entries ?? []).map((e) => ({ ...e, nature: e.nature ?? 'capex' })),
           roiConfig: { ...defaultROIConfig, ...(state.roiConfig ?? {}) },
           settings: defaultSettings,
         } as never;
+      },
+      /**
+       * The default merge is a shallow spread, so a persisted `categories: []`
+       * silently overwrites the seeded defaults — and nothing ever puts them
+       * back. This is what emptied the expense dropdown. Repair on every
+       * rehydration, including the disk-restore path, which bypasses migrate
+       * whenever the version already matches.
+       */
+      merge: (persisted, current) => {
+        const p = (persisted ?? {}) as Partial<CostState>;
+        return {
+          ...current,
+          ...p,
+          categories: withDefaultCategories(p.categories),
+          settings: { ...defaultSettings, ...(p.settings ?? {}) },
+          roiConfig: { ...defaultROIConfig, ...(p.roiConfig ?? {}) },
+        };
       },
     }
   )

@@ -17,6 +17,11 @@ interface ComplianceState {
 
 const defaultSettings: ComplianceSettings = {
   plannedOccupants: 0,
+  // Bail unique par défaut : c'est le modèle qui évite la couche boarding house.
+  rentalModel: 'whole_unit',
+  // Bacolod est ville hautement urbanisée depuis 1984 → tranche 10 000 ₱.
+  highlyUrbanizedCity: true,
+  monthlyRentWholeUnit: 0,
   areaBasis: 'bedrooms',
   ceilingHeight: 2.7,
   monthlyRentPerBed: 0,

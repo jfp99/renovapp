@@ -190,13 +190,28 @@ export const CostForm: React.FC<CostFormProps> = ({
                   setFormData({ ...formData, categoryId: e.target.value })
                 }
                 className="input"
+                disabled={categories.length === 0}
               >
+                {/* Without this, an empty list renders a blank select that
+                    looks like it is still loading, and the form silently
+                    refuses to submit because categoryId stays empty. */}
+                <option value="" disabled>
+                  {categories.length === 0
+                    ? 'Aucune catégorie'
+                    : '— Choisir une catégorie —'}
+                </option>
                 {categories.map((cat) => (
                   <option key={cat.id} value={cat.id}>
                     {cat.name}
                   </option>
                 ))}
               </select>
+              {categories.length === 0 && (
+                <p className="mt-1 text-xs text-[color:var(--danger,#b45309)]">
+                  Aucune catégorie disponible — créez-en une dans « Catégories »
+                  avant d&apos;enregistrer une dépense.
+                </p>
+              )}
             </div>
 
             {/* Nature: CAPEX vs OPEX — drives where the amount lands in the ROI */}

@@ -12,6 +12,7 @@
  */
 
 import { type StateStorage } from 'zustand/middleware';
+import { IS_READONLY } from '@/lib/readonly';
 
 export const STORAGE_ERROR_EVENT = 'renovapp:storage-error';
 
@@ -73,6 +74,10 @@ export const safeStorage: StateStorage = {
 
   setItem: (name: string, value: string): void => {
     if (typeof window === 'undefined') return;
+    // Read-only build: nothing is ever persisted, so anything a stray control
+    // manages to change lives only until the next reload. This is the backstop
+    // behind hiding the write UI, not a substitute for it.
+    if (IS_READONLY) return;
     try {
       window.localStorage.setItem(name, value);
       if (lastError?.key === name) clearStorageError();
