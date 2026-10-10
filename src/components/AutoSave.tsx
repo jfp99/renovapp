@@ -21,7 +21,7 @@ import {
   type SyncState,
 } from '@/lib/diskSync';
 
-const DEBOUNCE_MS = 2500;
+const DEBOUNCE_MS = 1200;
 
 /**
  * Keeps the project mirrored to a file on disk.
@@ -123,9 +123,23 @@ export default function AutoSave() {
     };
     window.addEventListener('pagehide', onHide);
 
+    // The unload beacon is best effort: it is capped near 64 KB and the export
+    // reads media asynchronously, so with PDFs attached it rarely gets out.
+    // Hiding the window (switching app, minimising, starting to close) leaves
+    // the page alive long enough for a normal save, so write right then.
+    // Anything still missed is not lost: the browser keeps it and the next
+    // launch mirrors it to disk on startup.
+    const onVisibility = () => {
+      if (document.visibilityState !== 'hidden' || !ready.current) return;
+      window.clearTimeout(timer.current);
+      void flush();
+    };
+    document.addEventListener('visibilitychange', onVisibility);
+
     return () => {
       unsubscribers.forEach((unsubscribe) => unsubscribe());
       window.removeEventListener('pagehide', onHide);
+      document.removeEventListener('visibilitychange', onVisibility);
       window.clearTimeout(timer.current);
     };
   }, [flush]);

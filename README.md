@@ -41,7 +41,9 @@ De même, chaque dépense enregistrée met à jour le ROI *réel*, affiché à c
 Tout reste sur cette machine, rien n'est envoyé sur Internet.
 
 - **Copie de référence : `data/projet.json`**, écrit à chaque modification, avec
-  20 versions horodatées dans `data/backups/`. C'est cette copie qui fait foi.
+  20 versions horodatées (`projet-…`) et une copie par jour gardée 30 jours
+  (`jour-AAAA-MM-JJ.json`, l'état au début de la journée) dans `data/backups/`.
+  C'est cette copie qui fait foi.
 - Le navigateur (`localStorage` + IndexedDB) sert de cache de travail devant elle.
 
 Si le navigateur est vidé, l'app se restaure depuis le disque au démarrage. La
@@ -72,13 +74,26 @@ npm run lint       # ESLint
 npm run typecheck  # TypeScript
 ```
 
-**Lancez `npm run verify` avant et après toute modification importante.** La suite
+**Lancez `npm run verify` avant et après toute modification importante.** Les tests
+tournent sur leur propre port (4399) et leur propre dossier (`tests/.data/`) : ils ne
+touchent jamais `data/projet.json` ni une fenêtre RenovApp ouverte. La suite
 compte 77 tests et couvre ce qui fait perdre des données : sauvegarde, restauration,
 quota, hors ligne, et le câblage de chaque store.
 
 Première utilisation des tests end-to-end : `npx playwright install chromium`.
 
 `python3 scripts/generate-icons.py` régénère les icônes après un changement de couleurs.
+
+## Copie de consultation (téléphone)
+
+```bash
+npm run deploy:shared
+```
+
+Génère une copie en lecture seule de `data/projet.json` dans `out-shared/` et la publie
+sur le projet Vercel `renovapp-lecture` (protégé par Vercel Authentication). L'app du PC
+n'est pas touchée : elle se reconstruit normalement au lancement suivant. Sur le
+téléphone, chaque nouvelle publication remplace les anciennes données.
 
 ## Comprendre le modèle de ROI
 

@@ -4,6 +4,7 @@ import React from 'react';
 import { Download } from 'lucide-react';
 import { useCostStore } from '@/stores/costStore';
 import { CostEntry } from '@/types/cost';
+import { todayIso } from '@/lib/localDate';
 
 const CurrencySymbols: Record<string, string> = {
   PHP: '₱',
@@ -76,7 +77,7 @@ export const ExportButton: React.FC = () => {
     link.setAttribute('href', url);
     link.setAttribute(
       'download',
-      `renovapp-depenses-${new Date().toISOString().split('T')[0]}.csv`
+      `renovapp-depenses-${todayIso()}.csv`
     );
     link.style.visibility = 'hidden';
 

@@ -13,11 +13,16 @@ import { extname, join, normalize, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = resolve(fileURLToPath(new URL('../out', import.meta.url)));
-const DATA_DIR = resolve(fileURLToPath(new URL('../data', import.meta.url)));
+// RENOVAPP_DATA_DIR lets the test suite run against its own folder. It used to
+// share data/ with the real app, so every `npm run verify` wiped the project.
+const DATA_DIR = process.env.RENOVAPP_DATA_DIR
+  ? resolve(process.env.RENOVAPP_DATA_DIR)
+  : resolve(fileURLToPath(new URL('../data', import.meta.url)));
 const DATA_FILE = join(DATA_DIR, 'projet.json');
 const BACKUP_DIR = join(DATA_DIR, 'backups');
 const MAX_BODY = 80 * 1024 * 1024; // generous: media is inlined as base64
 const KEEP_BACKUPS = 20;
+const KEEP_DAILY = 30;
 const PORT = Number(process.env.PORT) || 4321;
 const HOST = '127.0.0.1';
 
@@ -92,9 +97,25 @@ function writeProject(body) {
     } catch {
       // A failed backup must never block the actual save.
     }
+    // One snapshot per day on top of the rolling ones. Autosave writes every
+    // few seconds, so the 20 rolling backups span well under an hour of work:
+    // a room deleted by mistake this morning would already be out of reach.
+    // The first save of each day keeps the state as it was when work began.
     try {
-      const old = readdirSync(BACKUP_DIR).filter((f) => f.endsWith('.json')).sort();
-      old.slice(0, Math.max(0, old.length - KEEP_BACKUPS)).forEach((f) =>
+      const day = new Date().toLocaleDateString('sv-SE'); // YYYY-MM-DD, local
+      const daily = join(BACKUP_DIR, `jour-${day}.json`);
+      if (!existsSync(daily)) writeFileSync(daily, readFileSync(DATA_FILE));
+    } catch {
+      // Same rule: never block the save.
+    }
+    try {
+      const files = readdirSync(BACKUP_DIR).filter((f) => f.endsWith('.json')).sort();
+      const rolling = files.filter((f) => f.startsWith('projet-'));
+      const days = files.filter((f) => f.startsWith('jour-'));
+      rolling.slice(0, Math.max(0, rolling.length - KEEP_BACKUPS)).forEach((f) =>
+        unlinkSync(join(BACKUP_DIR, f))
+      );
+      days.slice(0, Math.max(0, days.length - KEEP_DAILY)).forEach((f) =>
         unlinkSync(join(BACKUP_DIR, f))
       );
     } catch {

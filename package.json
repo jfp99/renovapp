@@ -16,7 +16,7 @@
     "typecheck:test": "tsc --noEmit -p tsconfig.test.json",
     "seed": "node scripts/make-seed.mjs",
     "build:shared": "node scripts/make-seed.mjs && node scripts/build-shared.mjs",
-    "deploy:shared": "npm run build:shared && npx --yes vercel deploy out --prod --yes"
+    "deploy:shared": "npm run build:shared && npx --yes vercel deploy out-shared --prod --yes"
   },
   "dependencies": {
     "@tanstack/react-table": "^8.21.3",

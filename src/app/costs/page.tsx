@@ -22,6 +22,10 @@ export default function CostsPage() {
 
   // Recurring charges (rent, internet, salary) shouldn't need re-typing every
   // month. Instalments are created as 'planned' — never marked paid for you.
+  // Re-run whenever the list changes: a charge added with a past start date
+  // must show its overdue instalments right away, not on the next visit.
+  // materializeRecurrences is idempotent, so the second pass adds nothing.
+  const entryCount = entries.length;
   useEffect(() => {
     const count = materializeRecurrences();
     if (count > 0) {
@@ -29,7 +33,7 @@ export default function CostsPage() {
       const timer = window.setTimeout(() => setGenerated(0), 8000);
       return () => window.clearTimeout(timer);
     }
-  }, [materializeRecurrences]);
+  }, [materializeRecurrences, entryCount]);
   const [activeTab, setActiveTab] = useState<TabType>('expenses');
   const [isCostFormOpen, setIsCostFormOpen] = useState(false);
   const [editingEntry, setEditingEntry] = useState<CostEntry | undefined>();

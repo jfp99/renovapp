@@ -7,6 +7,7 @@ import { usePlanStore } from '@/stores/planStore';
 import { CostEntry, CostNature, CostStatus, Currency, PaymentMethod, Recurrence } from '@/types/cost';
 import { putMediaBlob, deleteMedia } from '@/lib/mediaDb';
 import { useMediaUrl } from '@/lib/useMediaUrl';
+import { todayIso } from '@/lib/localDate';
 
 interface CostFormProps {
   isOpen: boolean;
@@ -55,7 +56,7 @@ export const CostForm: React.FC<CostFormProps> = ({
     amount: 0,
     currency: 'PHP' as Currency,
     exchangeRate: 1,
-    date: new Date().toISOString().split('T')[0],
+    date: todayIso(),
     vendor: '',
     linkedRoomIds: [] as string[],
     status: 'planned' as CostStatus,
@@ -92,7 +93,7 @@ export const CostForm: React.FC<CostFormProps> = ({
         amount: 0,
         currency: 'PHP',
         exchangeRate: 1,
-        date: new Date().toISOString().split('T')[0],
+        date: todayIso(),
         vendor: '',
         linkedRoomIds: [],
         status: 'planned',
@@ -104,6 +105,29 @@ export const CostForm: React.FC<CostFormProps> = ({
       });
     }
   }, [editingEntry, isOpen, categories]);
+
+  /**
+   * Switching to "Charge récurrente" used to leave the frequency on
+   * "Ponctuelle" and the category on "Matériaux": an electricity bill was then
+   * counted once, as renovation. Pick sensible defaults the user can still
+   * change; never override a frequency or category already chosen on purpose.
+   */
+  const withNature = (data: typeof formData, nature: CostNature): typeof formData => {
+    if (nature === data.nature) return data;
+    const currentCategory = categories.find((c) => c.id === data.categoryId);
+    const matching = categories.find((c) => (c.defaultNature ?? 'capex') === nature);
+    const categoryId =
+      currentCategory && (currentCategory.defaultNature ?? 'capex') !== nature && matching
+        ? matching.id
+        : data.categoryId;
+    const recurrence: Recurrence =
+      nature === 'opex' && data.recurrence === 'none'
+        ? 'monthly'
+        : nature === 'capex' && data.recurrence === 'monthly' && !editingEntry
+          ? 'none'
+          : data.recurrence;
+    return { ...data, nature, categoryId, recurrence };
+  };
 
   const handleCurrencyChange = (currency: Currency) => {
     setFormData({
@@ -227,7 +251,7 @@ export const CostForm: React.FC<CostFormProps> = ({
                   <button
                     key={value}
                     type="button"
-                    onClick={() => setFormData({ ...formData, nature: value })}
+                    onClick={() => setFormData(withNature(formData, value))}
                     className={`flex-1 rounded-lg border px-3 py-2 text-left text-sm transition-colors ${
                       formData.nature === value
                         ? 'border-brand-500 bg-brand-50 text-brand-700'
@@ -343,7 +367,7 @@ export const CostForm: React.FC<CostFormProps> = ({
                 onChange={(e) =>
                   setFormData({ ...formData, vendor: e.target.value })
                 }
-                placeholder="Ex: Leroy Merlin"
+                placeholder="Ex: Wilcon Depot"
                 className="input"
               />
             </div>

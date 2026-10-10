@@ -14,8 +14,11 @@ npm-debug.log*
 # Vercel
 .vercel
 out/
+out-shared/
+.vercel-shared-link/
 data/
 tests/report/
+tests/.data/
 test-results/
 
 # Build artifacts

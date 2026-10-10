@@ -17,7 +17,7 @@
  */
 import { spawnSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { copyFileSync, existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { copyFileSync, existsSync, mkdirSync, readFileSync, readdirSync, renameSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -87,6 +87,38 @@ if (existsSync(swPath)) {
 // (noindex) et cleanUrls ne s'appliquent pas.
 copyFileSync(join(ROOT, 'vercel.json'), join(OUT, 'vercel.json'));
 
-console.log(`\n  Copie de consultation prête dans out/ — graine injectée dans ${injected} pages.`);
-console.log('  Déploiement :  npx vercel deploy out --prod');
-console.log('  Rappel : cette copie contient vos chiffres. Protégez l’URL.\n');
+// ── Sortir la copie de out/ ──
+// out/ est aussi ce que sert le raccourci du bureau. Laisser la copie en
+// lecture seule dedans faisait rouvrir l'app du PC en lecture seule, sans
+// sauvegarde : le lanceur ne reconstruit que si les sources sont plus récentes
+// que out/, ce qui n'est justement plus le cas juste après ce build.
+// La copie part donc dans out-shared/, et out/ disparaît : le prochain
+// lancement reconstruit une app normale.
+const SHARED = join(ROOT, 'out-shared');
+const LINK = join(SHARED, '.vercel');
+const keptLink = join(ROOT, '.vercel-shared-link');
+if (existsSync(LINK)) {
+  rmSync(keptLink, { recursive: true, force: true });
+  renameSync(LINK, keptLink);
+}
+rmSync(SHARED, { recursive: true, force: true });
+renameSync(OUT, SHARED);
+// La graine contient les chiffres du projet : elle n'a rien à faire dans les
+// builds normaux du PC (next build recopie tout public/ dans out/).
+rmSync(join(ROOT, 'public', 'seed.js'), { force: true });
+if (existsSync(keptLink)) {
+  renameSync(keptLink, LINK);
+} else {
+  // Relie la copie au projet Vercel « renovapp-lecture » sans question
+  // interactive au premier déploiement. Ces identifiants ne sont pas secrets.
+  mkdirSync(LINK, { recursive: true });
+  writeFileSync(
+    join(LINK, 'project.json'),
+    JSON.stringify({ projectId: 'prj_R70u6LVToT4OS41GSFP8dCQDTh4Y', orgId: 'team_MqTB1yxJAMYC6zUJ0skOiiQL' }),
+    'utf-8'
+  );
+}
+
+console.log(`\n  Copie de consultation prête dans out-shared/ — graine injectée dans ${injected} pages.`);
+console.log('  Déploiement :  npx vercel deploy out-shared --prod');
+console.log('  L’app du PC sera reconstruite normalement au prochain lancement.\n');

@@ -12,6 +12,10 @@ $ErrorActionPreference = 'SilentlyContinue'
 $build = Get-Item 'out\index.html'
 if (-not $build) { exit 1 }
 
+# Une copie en lecture seule (npm run build:shared) laissee dans out/ ne doit
+# jamais etre servie au PC : elle porte seed.js et n'enregistre rien.
+if (Test-Path 'out\seed.js') { exit 1 }
+
 $sources = @()
 $sources += Get-ChildItem -Recurse -File -Path 'src', 'public'
 $sources += Get-Item -Path 'tailwind.config.ts', 'package.json', 'next.config.js', 'postcss.config.js'
