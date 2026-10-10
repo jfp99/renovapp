@@ -6,6 +6,7 @@ import {
   type PermitItem,
 } from '@/types/compliance';
 import type { Room } from '@/types/plan';
+import { toLocalIso, todayIso } from './localDate';
 
 /**
  * Reference list for a boarding house / bed space operation in the Philippines.
@@ -452,11 +453,11 @@ export function runChecks(
 export function expiringPermits(
   items: PermitItem[],
   withinDays = 60,
-  today = new Date().toISOString().slice(0, 10)
+  today = todayIso()
 ): PermitItem[] {
   const limit = new Date(`${today}T00:00:00`);
   limit.setDate(limit.getDate() + withinDays);
-  const limitIso = limit.toISOString().slice(0, 10);
+  const limitIso = toLocalIso(limit);
 
   return items
     .filter((item) => item.expiryDate && item.expiryDate <= limitIso)

@@ -11,6 +11,7 @@ import { useComplianceStore } from '@/stores/complianceStore';
 import { getMediaDataUrl, putMediaDataUrl } from '@/lib/mediaDb';
 import type { Blueprint } from '@/types/blueprint';
 import type { InspirationImage } from '@/types/inspiration';
+import { todayIso } from './localDate';
 
 export interface ProjectExport {
   app: 'renovapp';
@@ -90,7 +91,7 @@ export async function downloadProjectExport(): Promise<void> {
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  const date = new Date().toISOString().slice(0, 10);
+  const date = todayIso();
   a.href = url;
   a.download = `renovapp-projet-${date}.json`;
   document.body.appendChild(a);

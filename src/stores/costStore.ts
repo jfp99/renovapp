@@ -6,6 +6,7 @@ import { countBeds } from '@/lib/beds';
 import { useFurnitureStore } from '@/stores/furnitureStore';
 import { missingInstalments } from '@/lib/recurrence';
 import { deleteMedia } from '@/lib/mediaDb';
+import { todayIso } from '@/lib/localDate';
 import {
   CostCategory,
   CostEntry,
@@ -137,7 +138,7 @@ export const useCostStore = create<CostState>()(
       getRate: (currency) =>
         currency === 'PHP' ? 1 : get().settings.exchangeRates[currency] ?? 1,
 
-      materializeRecurrences: (until = new Date().toISOString().slice(0, 10)) => {
+      materializeRecurrences: (until = todayIso()) => {
         const entries = get().entries;
         const created = entries
           .filter((e) => e.recurrence && e.recurrence !== 'none' && !e.recurrenceParentId)

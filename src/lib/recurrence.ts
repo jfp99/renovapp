@@ -1,4 +1,5 @@
 import type { CostEntry, Recurrence } from '@/types/cost';
+import { toLocalIso } from './localDate';
 
 const STEP_MONTHS: Record<Exclude<Recurrence, 'none'>, number> = {
   monthly: 1,
@@ -14,7 +15,7 @@ export function addMonths(iso: string, months: number): string {
   date.setMonth(date.getMonth() + months);
   const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
   date.setDate(Math.min(day, lastDay));
-  return date.toISOString().slice(0, 10);
+  return toLocalIso(date);
 }
 
 export function isTemplate(entry: CostEntry): boolean {

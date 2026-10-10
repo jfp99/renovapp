@@ -1,8 +1,9 @@
 import { addMonths } from './recurrence';
 import type { MaintenanceBlock, RentPayment, Tenancy } from '@/types/tenancy';
+import { todayIso } from './localDate';
 
 export function today(): string {
-  return new Date().toISOString().slice(0, 10);
+  return todayIso();
 }
 
 export function monthKey(iso: string): string {
