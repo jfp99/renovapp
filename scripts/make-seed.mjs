@@ -7,8 +7,13 @@
  *
  * The generated file writes straight to localStorage (not through safeStorage,
  * which is a no-op in read-only builds) and runs `beforeInteractive`, i.e.
- * before zustand rehydrates. Existing keys are left alone so a reader who has
- * been browsing does not get reset mid-visit.
+ * before zustand rehydrates.
+ *
+ * Each seed carries a stamp. A browser holding an older stamp gets every store
+ * overwritten, so a phone that opened the link weeks ago shows the latest
+ * deploy instead of its first visit forever. Nothing is lost: the build is
+ * read-only, there is no local edit to keep. Within one deploy the stamp is
+ * stable, so a reader is never reset mid-visit.
  *
  * Usage: node scripts/make-seed.mjs [path/to/projet.json]
  */
@@ -45,18 +50,25 @@ const counts = Object.entries(payload)
   .map(([k, v]) => `${k}=${JSON.stringify(v.state).length}o`)
   .join(' ');
 
+const stamp = `${project.exportedAt ?? ''}|${new Date().toISOString()}`;
+
 const js = `/* Généré par scripts/make-seed.mjs — ne pas éditer à la main.
    Source : ${source.replace(ROOT, '.')} · ${new Date().toISOString()}
    ${counts} */
 (function () {
   var seed = ${JSON.stringify(payload)};
+  var stamp = ${JSON.stringify(stamp)};
+  var STAMP_KEY = 'renovapp-seed-stamp';
   try {
+    // Nouveau déploiement => on remplace tout (copie en lecture seule, rien à perdre).
+    // Même déploiement => on ne touche à rien : pas de remise à zéro en pleine visite.
+    var fresh = localStorage.getItem(STAMP_KEY) !== stamp;
     for (var key in seed) {
-      // Ne jamais écraser ce que le lecteur a déjà : on ne fait qu'amorcer.
-      if (localStorage.getItem(key) === null) {
+      if (fresh || localStorage.getItem(key) === null) {
         localStorage.setItem(key, JSON.stringify(seed[key]));
       }
     }
+    localStorage.setItem(STAMP_KEY, stamp);
   } catch (e) {
     /* Navigation privée ou stockage refusé : l'app s'ouvrira vide, sans planter. */
     console.warn('[RenovApp] Amorçage impossible :', e);
