@@ -16,6 +16,7 @@
  *    which the parser runs before anything else.
  */
 import { spawnSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import { copyFileSync, existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -60,6 +61,26 @@ for (const file of pages) {
 if (injected !== pages.length) {
   console.error(`\n  Graine injectée dans ${injected}/${pages.length} pages seulement — arrêt.`);
   process.exit(1);
+}
+
+// ── Estampiller le service worker ──
+// CACHE_VERSION est écrit en dur dans public/sw.js. Sans réestampillage, un
+// téléphone qui a déjà installé l'app garde l'ancien cache et peut afficher
+// des chiffres périmés après une mise à jour. Le tampon est déterministe :
+// il vient du contenu déployé, pas de l'horloge, donc un build identique ne
+// force pas de purge inutile.
+const swPath = join(OUT, 'sw.js');
+if (existsSync(swPath)) {
+  const stamp = createHash('sha1')
+    .update(readFileSync(join(OUT, 'index.html')))
+    .digest('hex')
+    .slice(0, 8);
+  const sw = readFileSync(swPath, 'utf-8').replace(
+    /const CACHE_VERSION = '[^']*';/,
+    `const CACHE_VERSION = 'renovapp-${stamp}';`
+  );
+  writeFileSync(swPath, sw, 'utf-8');
+  console.log(`  Service worker estampillé : renovapp-${stamp}`);
 }
 
 // vercel.json doit se trouver DANS le dossier déployé, sinon les en-têtes
