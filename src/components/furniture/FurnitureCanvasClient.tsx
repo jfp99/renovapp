@@ -6,6 +6,7 @@ import { Room } from '@/types/plan';
 import { useFurnitureStore } from '@/stores/furnitureStore';
 import { ROOM_COLORS } from '@/lib/rooms';
 import type Konva from 'konva';
+import { IS_READONLY } from '@/lib/readonly';
 
 const SCALE = 2;
 const SNAP_CM = 5;
@@ -62,7 +63,8 @@ export default function FurnitureCanvasClient({ room, selectedPlacementId, onSel
     const onKey = (e: KeyboardEvent) => {
       const tag = (e.target as HTMLElement)?.tagName;
       if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
-      if (!selectedPlacementId) return;
+      // Read-only copy: no shortcut may move or delete anything.
+      if (IS_READONLY || !selectedPlacementId) return;
       const p = placements.find((x) => x.id === selectedPlacementId);
       if (!p) return;
       if (e.key === 'Delete' || e.key === 'Backspace') { e.preventDefault(); removePlacement(selectedPlacementId); onSelectPlacement(null); }
@@ -186,7 +188,7 @@ export default function FurnitureCanvasClient({ room, selectedPlacementId, onSel
                   scaleX={fitScale}
                   scaleY={fitScale}
                   rotation={p.rotation}
-                  draggable
+                  draggable={!IS_READONLY}
                   onClick={() => onSelectPlacement(p.id)}
                   onTap={() => onSelectPlacement(p.id)}
                   onDragEnd={(e) => handleDragEnd(p.id, e)}

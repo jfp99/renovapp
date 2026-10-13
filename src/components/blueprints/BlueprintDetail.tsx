@@ -142,16 +142,16 @@ export default function BlueprintDetail({
             {/* Sidebar */}
             <fieldset disabled={IS_READONLY} className="m-0 min-w-0 space-y-5 border-0 p-0 lg:col-span-1">
               <div>
-                <label className="label">Nom</label>
-                <input type="text" value={name} onChange={(e) => setName(e.target.value)} className="input" />
+                <label className="label" htmlFor="blueprintdetail-f1">Nom</label>
+                <input id="blueprintdetail-f1" type="text" value={name} onChange={(e) => setName(e.target.value)} className="input" />
               </div>
               <div>
-                <label className="label">Description</label>
-                <textarea value={description} onChange={(e) => setDescription(e.target.value)} rows={3} className="input resize-none" />
+                <label className="label" htmlFor="blueprintdetail-f2">Description</label>
+                <textarea id="blueprintdetail-f2" value={description} onChange={(e) => setDescription(e.target.value)} rows={3} className="input resize-none" />
               </div>
               <div>
-                <label className="label">Tags</label>
-                <input
+                <label className="label" htmlFor="blueprintdetail-f3">Tags</label>
+                <input id="blueprintdetail-f3"
                   type="text"
                   value={tagInput}
                   onChange={(e) => setTagInput(e.target.value)}

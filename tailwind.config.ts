@@ -50,7 +50,8 @@ const config: Config = {
           DEFAULT: '#221C15',
           soft: '#4A4034',
           muted: '#6B5E49',
-          faint: '#8A7C66',
+          // #8A7C66 failed WCAG AA (3.5–4.1:1) on every light surface of the app.
+          faint: '#75684F',
           pale: '#A89A82',
         },
       },

@@ -18,13 +18,13 @@ export default function Sidebar() {
         </div>
         <div className="leading-tight">
           <p className="font-display text-[18px] font-extrabold text-[#FBF7EF] tracking-tight">RenovApp</p>
-          <p className="font-mono text-[9px] uppercase tracking-[.08em] text-[#7d6f59] mt-0.5">Pilotage de réno</p>
+          <p className="font-mono text-[9px] uppercase tracking-[.08em] text-[#a89a82] mt-0.5">Pilotage de réno</p>
         </div>
       </div>
 
       {/* Nav */}
       <nav className="flex-1 overflow-y-auto px-3 py-4">
-        <p className="font-mono px-3 pb-2 text-[9px] font-bold uppercase tracking-[.1em] text-[#6b5e49]">
+        <p className="font-mono px-3 pb-2 text-[9px] font-bold uppercase tracking-[.1em] text-[#9c8e76]">
           Modules
         </p>
         <div className="space-y-0.5">
@@ -53,7 +53,7 @@ export default function Sidebar() {
 
       {/* Footer */}
       <div className="border-t border-white/5 px-5 py-4">
-        <div className="font-mono flex items-center gap-2 text-[10px] text-[#7d6f59]">
+        <div className="font-mono flex items-center gap-2 text-[10px] text-[#a89a82]">
           <span className="h-1.5 w-1.5 rounded-full bg-pine-500 shadow-[0_0_0_3px_rgba(46,90,78,0.25)]" />
           {IS_READONLY ? 'Copie en lecture seule' : 'Stockage local actif'}
         </div>

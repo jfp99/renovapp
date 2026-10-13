@@ -187,10 +187,10 @@ export const CostForm: React.FC<CostFormProps> = ({
         <form onSubmit={handleSubmit} className="space-y-5 p-6">
           {/* Description */}
           <div>
-            <label className="label">
+            <label className="label" htmlFor="costform-f1">
               Description *
             </label>
-            <input
+            <input id="costform-f1"
               type="text"
               value={formData.description}
               onChange={(e) =>
@@ -205,10 +205,10 @@ export const CostForm: React.FC<CostFormProps> = ({
           <div className="grid grid-cols-2 gap-4">
             {/* Category */}
             <div>
-              <label className="label">
+              <label className="label" htmlFor="costform-f2">
                 Catégorie *
               </label>
-              <select
+              <select id="costform-f2"
                 value={formData.categoryId}
                 onChange={(e) =>
                   setFormData({ ...formData, categoryId: e.target.value })
@@ -267,10 +267,10 @@ export const CostForm: React.FC<CostFormProps> = ({
 
             {/* Status */}
             <div>
-              <label className="label">
+              <label className="label" htmlFor="costform-f3">
                 Statut
               </label>
-              <select
+              <select id="costform-f3"
                 value={formData.status}
                 onChange={(e) =>
                   setFormData({
@@ -290,10 +290,10 @@ export const CostForm: React.FC<CostFormProps> = ({
           <div className="grid grid-cols-2 gap-4">
             {/* Amount */}
             <div>
-              <label className="label">
+              <label className="label" htmlFor="costform-f4">
                 Montant *
               </label>
-              <input
+              <input id="costform-f4"
                 type="number"
                 value={formData.amount}
                 onChange={(e) =>
@@ -343,10 +343,10 @@ export const CostForm: React.FC<CostFormProps> = ({
           <div className="grid grid-cols-2 gap-4">
             {/* Date */}
             <div>
-              <label className="label">
+              <label className="label" htmlFor="costform-f5">
                 Date
               </label>
-              <input
+              <input id="costform-f5"
                 type="date"
                 value={formData.date}
                 onChange={(e) =>
@@ -358,10 +358,10 @@ export const CostForm: React.FC<CostFormProps> = ({
 
             {/* Vendor */}
             <div>
-              <label className="label">
+              <label className="label" htmlFor="costform-f6">
                 Fournisseur
               </label>
-              <input
+              <input id="costform-f6"
                 type="text"
                 value={formData.vendor}
                 onChange={(e) =>
@@ -376,8 +376,8 @@ export const CostForm: React.FC<CostFormProps> = ({
           {/* Payment method */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="label">Moyen de paiement</label>
-              <select
+              <label className="label" htmlFor="costform-f7">Moyen de paiement</label>
+              <select id="costform-f7"
                 value={formData.paymentMethod}
                 onChange={(e) =>
                   setFormData({ ...formData, paymentMethod: e.target.value as PaymentMethod })

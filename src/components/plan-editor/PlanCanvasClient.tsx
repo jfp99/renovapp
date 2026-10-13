@@ -10,6 +10,7 @@ import {
 import { ROOM_COLORS, ROOM_TYPE_LABELS } from '@/lib/rooms';
 import { areaM2 } from '@/lib/format';
 import type Konva from 'konva';
+import { IS_READONLY } from '@/lib/readonly';
 
 const SCALE = 2;          // 1 cm = 2 px
 const GRID_CM = 50;       // major grid every 50 cm
@@ -107,7 +108,7 @@ function RoomShape({
 
   return (
     <Group
-      x={room.x} y={room.y} draggable
+      x={room.x} y={room.y} draggable={!IS_READONLY}
       onClick={onSelect} onTap={onSelect}
       onDragStart={onSelect}
       onDragEnd={(e) => onChange({ x: snap(e.target.x(), snapOn), y: snap(e.target.y(), snapOn) })}
@@ -128,7 +129,7 @@ function RoomShape({
       {room.windows.map((w) => <WindowMarker key={w.id} win={w} rw={rw} rh={rh} />)}
 
       {/* resize handles */}
-      {isSelected && handles.map((h) => (
+      {isSelected && !IS_READONLY && handles.map((h) => (
         <Rect
           key={h.key} x={h.x - 5} y={h.y - 5} width={10} height={10}
           fill="#ffffff" stroke="#4f46e5" strokeWidth={1.5} cornerRadius={2}
@@ -199,7 +200,8 @@ export default function PlanCanvasClient() {
     const onKey = (e: KeyboardEvent) => {
       const tag = (e.target as HTMLElement)?.tagName;
       if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
-      if (!selectedRoomId) return;
+      // Read-only copy: no shortcut may move or delete anything.
+      if (IS_READONLY || !selectedRoomId) return;
       const room = rooms.find((r) => r.id === selectedRoomId);
       if (!room) return;
       if (e.key === 'Delete' || e.key === 'Backspace') { e.preventDefault(); removeRoom(selectedRoomId); }
@@ -329,6 +331,12 @@ export default function PlanCanvasClient() {
           <Stage
             ref={stageRef} width={size.w} height={size.h}
             scaleX={zoom} scaleY={zoom} x={pan.x} y={pan.y}
+            // Dragging the empty background pans the view: the only way to move
+            // around the plan with a finger, where there is no right button.
+            draggable
+            onDragEnd={(e) => {
+              if (e.target === e.target.getStage()) setPan({ x: e.target.x(), y: e.target.y() });
+            }}
             onWheel={handleWheel} onMouseDown={handleMouseDown} onMouseMove={handleMouseMove}
             onMouseUp={() => setIsPanning(false)} onMouseLeave={() => setIsPanning(false)}
             onClick={(e) => { if (e.target === e.target.getStage()) setSelectedRoom(null); }}

@@ -99,8 +99,8 @@ export const CategoryEditor: React.FC = () => {
         <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-app)] p-4">
           <div className="space-y-4">
             <div>
-              <label className="label">Nom</label>
-              <input
+              <label className="label" htmlFor="categoryeditor-f1">Nom</label>
+              <input id="categoryeditor-f1"
                 type="text"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -127,8 +127,8 @@ export const CategoryEditor: React.FC = () => {
             </div>
 
             <div>
-              <label className="label">Budget alloué (₱)</label>
-              <input
+              <label className="label" htmlFor="categoryeditor-f2">Budget alloué (₱)</label>
+              <input id="categoryeditor-f2"
                 type="number"
                 value={formData.budgetAllocation}
                 onChange={(e) => setFormData({ ...formData, budgetAllocation: parseFloat(e.target.value) || 0 })}

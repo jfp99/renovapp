@@ -36,7 +36,7 @@ export default function BlueprintGrid({
             />
             <div className="absolute inset-0 bg-ink/0 transition-all group-hover:bg-ink/10" />
             {blueprint.fileType === 'pdf' && (
-              <span className="absolute right-2 top-2 inline-flex items-center gap-1 rounded-md bg-brand-600 px-1.5 py-0.5 text-[10px] font-semibold text-brand-50">
+              <span className="absolute right-2 top-2 inline-flex items-center gap-1 rounded-md bg-brand-600 px-1.5 py-0.5 text-[10px] font-semibold text-white">
                 <FileText className="h-3 w-3" />
                 PDF
               </span>

@@ -51,8 +51,8 @@ export default function FurnitureDetailPanel({ placementId, onClose }: Props) {
         </div>
 
         <div>
-          <label className="label">Étiquette personnalisée</label>
-          <input
+          <label className="label" htmlFor="furnituredetailpanel-f1">Étiquette personnalisée</label>
+          <input id="furnituredetailpanel-f1"
             type="text"
             value={placement.customLabel || ''}
             onChange={(e) => set({ customLabel: e.target.value || undefined })}
@@ -63,8 +63,8 @@ export default function FurnitureDetailPanel({ placementId, onClose }: Props) {
 
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <label className="label">Largeur (cm)</label>
-            <input
+            <label className="label" htmlFor="furnituredetailpanel-f2">Largeur (cm)</label>
+            <input id="furnituredetailpanel-f2"
               type="number"
               value={placement.width}
               min={10}
@@ -73,8 +73,8 @@ export default function FurnitureDetailPanel({ placementId, onClose }: Props) {
             />
           </div>
           <div>
-            <label className="label">Profondeur (cm)</label>
-            <input
+            <label className="label" htmlFor="furnituredetailpanel-f3">Profondeur (cm)</label>
+            <input id="furnituredetailpanel-f3"
               type="number"
               value={placement.height}
               min={10}

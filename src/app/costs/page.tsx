@@ -90,6 +90,9 @@ export default function CostsPage() {
 
         {/* Tab Content */}
         <div className="card p-4 md:p-6">
+          {/* Read-only copy: budget, ROI and projection inputs are locked so a
+              reader can't change a figure on screen and take it for real. The
+              expense list stays outside: its filters must keep working. */}
           {/* Dépenses Tab */}
           {activeTab === 'expenses' && (
             <div className="space-y-6">
@@ -137,7 +140,7 @@ export default function CostsPage() {
 
           {/* Budget Tab */}
           {activeTab === 'budget' && (
-            <div className="space-y-8">
+            <fieldset disabled={IS_READONLY} className="m-0 min-w-0 space-y-8 border-0 p-0">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <div>
                   <h2 className="text-lg font-semibold text-ink mb-5">
@@ -152,12 +155,12 @@ export default function CostsPage() {
                   <CategoryEditor />
                 </div>
               </div>
-            </div>
+            </fieldset>
           )}
 
           {/* Projection Tab */}
           {activeTab === 'projection' && (
-            <div className="space-y-6">
+            <fieldset disabled={IS_READONLY} className="m-0 min-w-0 space-y-6 border-0 p-0">
               <div>
                 <h2 className="text-lg font-semibold text-ink">Projection sur plusieurs années</h2>
                 <p className="mt-0.5 text-sm text-ink-muted">
@@ -165,17 +168,17 @@ export default function CostsPage() {
                 </p>
               </div>
               <ROIProjection />
-            </div>
+            </fieldset>
           )}
 
           {/* ROI Tab */}
           {activeTab === 'roi' && (
-            <div className="space-y-6">
+            <fieldset disabled={IS_READONLY} className="m-0 min-w-0 space-y-6 border-0 p-0">
               <h2 className="text-lg font-semibold text-ink">
                 Analyse du retour sur investissement
               </h2>
               <ROICalculator />
-            </div>
+            </fieldset>
           )}
         </div>
       </div>

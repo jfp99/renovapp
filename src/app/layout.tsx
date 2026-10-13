@@ -84,7 +84,7 @@ export default function RootLayout({
         <ReadOnlyBanner />
         {/* h-screen would clip on mobile: the fixed top bar already takes 56px,
             and iOS browser chrome makes 100vh taller than the visible area. */}
-        <div className="flex min-h-[100dvh] md:h-screen md:overflow-hidden">
+        <div className="flex min-h-[calc(100dvh-3.5rem-var(--banner-h,0px))] md:min-h-0 md:h-[calc(100vh-var(--banner-h,0px))] md:overflow-hidden">
           <Sidebar />
           <main className="w-full min-w-0 flex-1 md:ml-[260px] md:overflow-auto">
             {children}

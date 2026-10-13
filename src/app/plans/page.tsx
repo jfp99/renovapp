@@ -48,7 +48,7 @@ export default function PlansPage() {
   };
 
   return (
-    <div className="flex h-[calc(100dvh-3.5rem)] flex-col overflow-hidden md:h-screen md:flex-row">
+    <div className="flex h-[calc(100dvh-3.5rem-var(--banner-h,0px))] flex-col overflow-hidden md:h-[calc(100vh-var(--banner-h,0px))] md:flex-row">
       {/* ── MOBILE SWITCH ── */}
       <div className="flex gap-1 border-b border-[var(--border)] bg-white p-2 md:hidden">
         <button
@@ -146,8 +146,8 @@ export default function PlansPage() {
 
             <div className="space-y-4 p-6">
               <div>
-                <label className="label">Nom de la pièce *</label>
-                <input
+                <label className="label" htmlFor="page-f1">Nom de la pièce *</label>
+                <input id="page-f1"
                   type="text"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -178,8 +178,8 @@ export default function PlansPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="label">Largeur (cm)</label>
-                  <input
+                  <label className="label" htmlFor="page-f2">Largeur (cm)</label>
+                  <input id="page-f2"
                     type="number"
                     value={formData.width}
                     onChange={(e) => setFormData({ ...formData, width: Math.max(50, parseInt(e.target.value) || 50) })}
@@ -189,8 +189,8 @@ export default function PlansPage() {
                   />
                 </div>
                 <div>
-                  <label className="label">Hauteur (cm)</label>
-                  <input
+                  <label className="label" htmlFor="page-f3">Hauteur (cm)</label>
+                  <input id="page-f3"
                     type="number"
                     value={formData.height}
                     onChange={(e) => setFormData({ ...formData, height: Math.max(50, parseInt(e.target.value) || 50) })}

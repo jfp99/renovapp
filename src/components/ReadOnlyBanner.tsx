@@ -1,3 +1,6 @@
+'use client';
+
+import { useEffect, useRef } from 'react';
 import { Eye } from 'lucide-react';
 import { IS_READONLY } from '@/lib/readonly';
 
@@ -9,10 +12,28 @@ import { IS_READONLY } from '@/lib/readonly';
  * how people lose trust in an app.
  */
 export default function ReadOnlyBanner() {
+  const ref = useRef<HTMLDivElement>(null);
+
+  // Full-height screens (plan, furniture) subtract --banner-h; without it the
+  // banner pushed the bottom of the plan ~40 px below the screen edge.
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const root = document.documentElement;
+    const update = () => root.style.setProperty('--banner-h', `${el.offsetHeight}px`);
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(el);
+    return () => {
+      observer.disconnect();
+      root.style.removeProperty('--banner-h');
+    };
+  }, []);
+
   if (!IS_READONLY) return null;
 
   return (
-    <div className="border-b border-brand-600/20 bg-brand-50 px-4 py-2 text-center md:pl-[276px]">
+    <div ref={ref} className="border-b border-brand-600/20 bg-brand-50 px-4 py-2 text-center md:pl-[276px]">
       <p className="inline-flex items-center gap-2 text-[12.5px] leading-snug text-brand-800">
         <Eye className="h-4 w-4 flex-none" />
         <span>

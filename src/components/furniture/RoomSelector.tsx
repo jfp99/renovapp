@@ -13,9 +13,10 @@ export default function RoomSelector() {
 
   return (
     <div className="w-full">
-      <label className="label">Pièce active</label>
+      <label className="label" htmlFor="active-room">Pièce active</label>
       <div className="relative">
         <select
+          id="active-room"
           value={selectedRoomId || ''}
           onChange={(e) => setSelectedRoom(e.target.value || null)}
           className="input appearance-none pr-9"

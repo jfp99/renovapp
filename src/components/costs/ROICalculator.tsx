@@ -126,8 +126,8 @@ export const ROICalculator: React.FC = () => {
             <div className="grid grid-cols-2 gap-4">
               {formData.propertyMode === 'purchase' ? (
                 <div>
-                  <label className="label">Prix d&apos;achat de la propriété (₱)</label>
-                  <input
+                  <label className="label" htmlFor="roicalculator-f1">Prix d&apos;achat de la propriété (₱)</label>
+                  <input id="roicalculator-f1"
                     type="number"
                     value={formData.propertyPurchasePrice}
                     onChange={num('propertyPurchasePrice')}
@@ -137,8 +137,8 @@ export const ROICalculator: React.FC = () => {
                 </div>
               ) : (
                 <div>
-                  <label className="label">Loyer du bail principal (₱/mois)</label>
-                  <input
+                  <label className="label" htmlFor="roicalculator-f2">Loyer du bail principal (₱/mois)</label>
+                  <input id="roicalculator-f2"
                     type="number"
                     value={formData.monthlyBaseRent}
                     onChange={num('monthlyBaseRent')}
@@ -149,8 +149,8 @@ export const ROICalculator: React.FC = () => {
               )}
 
               <div>
-                <label className="label">Budget rénovation prévu (₱)</label>
-                <input
+                <label className="label" htmlFor="roicalculator-f3">Budget rénovation prévu (₱)</label>
+                <input id="roicalculator-f3"
                   type="number"
                   value={formData.totalRenovationBudget}
                   onChange={num('totalRenovationBudget')}
@@ -160,8 +160,8 @@ export const ROICalculator: React.FC = () => {
               </div>
 
               <div>
-                <label className="label">Loyer par lit (₱/mois)</label>
-                <input
+                <label className="label" htmlFor="roicalculator-f4">Loyer par lit (₱/mois)</label>
+                <input id="roicalculator-f4"
                   type="number"
                   value={formData.monthlyRentPerBed}
                   onChange={num('monthlyRentPerBed')}
@@ -170,8 +170,8 @@ export const ROICalculator: React.FC = () => {
               </div>
 
               <div>
-                <label className="label">Taux d&apos;occupation (%)</label>
-                <input
+                <label className="label" htmlFor="roicalculator-f5">Taux d&apos;occupation (%)</label>
+                <input id="roicalculator-f5"
                   type="number"
                   min="0"
                   max="100"
@@ -221,8 +221,8 @@ export const ROICalculator: React.FC = () => {
               </div>
 
               <div className="col-span-2">
-                <label className="label">Autres charges mensuelles (₱)</label>
-                <input
+                <label className="label" htmlFor="roicalculator-f6">Autres charges mensuelles (₱)</label>
+                <input id="roicalculator-f6"
                   type="number"
                   value={formData.monthlyExpenses}
                   onChange={num('monthlyExpenses')}

@@ -13,6 +13,7 @@ import {
 import { useComplianceStore } from '@/stores/complianceStore';
 import { usePlanStore } from '@/stores/planStore';
 import { useHydrated } from '@/lib/useHydrated';
+import { IS_READONLY } from '@/lib/readonly';
 import {
   PERMIT_CATALOG,
   expiringPermits,
@@ -95,6 +96,8 @@ export default function ConformitePage() {
         </div>
       </div>
 
+      {/* Read-only copy: a disabled fieldset locks every setting and permit control. */}
+      <fieldset disabled={IS_READONLY} className="m-0 min-w-0 border-0 p-0">
       <div className="mx-auto max-w-7xl space-y-6 px-4 py-6 md:space-y-7 md:px-8 md:py-8">
         {blocking.length > 0 && (
           <div className="flex items-start gap-2 rounded-xl border border-red-200 bg-red-50 p-4 text-sm">
@@ -114,8 +117,8 @@ export default function ConformitePage() {
           <h2 className="mb-5 text-sm font-semibold text-ink">Votre situation</h2>
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
             <div className="md:col-span-2 lg:col-span-3">
-              <label className="label">Comment l&apos;espace est loué</label>
-              <select
+              <label className="label" htmlFor="page-f1">Comment l&apos;espace est loué</label>
+              <select id="page-f1"
                 value={settings.rentalModel}
                 onChange={(e) =>
                   updateSettings({ rentalModel: e.target.value as 'boarding_house' | 'whole_unit' })
@@ -133,8 +136,8 @@ export default function ConformitePage() {
             </div>
 
             <div>
-              <label className="label">Occupants prévus</label>
-              <input
+              <label className="label" htmlFor="page-f2">Occupants prévus</label>
+              <input id="page-f2"
                 type="number"
                 min={0}
                 value={settings.plannedOccupants}
@@ -145,12 +148,12 @@ export default function ConformitePage() {
               />
             </div>
             <div>
-              <label className="label">
+              <label className="label" htmlFor="page-f3">
                 {settings.rentalModel === 'whole_unit'
                   ? 'Loyer du logement entier (₱/mois)'
                   : 'Loyer par lit (₱/mois)'}
               </label>
-              <input
+              <input id="page-f3"
                 type="number"
                 min={0}
                 step={100}
@@ -176,8 +179,8 @@ export default function ConformitePage() {
             </div>
 
             <div>
-              <label className="label">Commune</label>
-              <select
+              <label className="label" htmlFor="page-f4">Commune</label>
+              <select id="page-f4"
                 value={settings.highlyUrbanizedCity ? 'huc' : 'other'}
                 onChange={(e) => updateSettings({ highlyUrbanizedCity: e.target.value === 'huc' })}
                 className="input"
@@ -190,8 +193,8 @@ export default function ConformitePage() {
               </p>
             </div>
             <div>
-              <label className="label">Hauteur sous plafond (m)</label>
-              <input
+              <label className="label" htmlFor="page-f5">Hauteur sous plafond (m)</label>
+              <input id="page-f5"
                 type="number"
                 min={2}
                 max={6}
@@ -208,8 +211,8 @@ export default function ConformitePage() {
             </div>
 
             <div>
-              <label className="label">Surface prise en compte</label>
-              <select
+              <label className="label" htmlFor="page-f6">Surface prise en compte</label>
+              <select id="page-f6"
                 value={settings.areaBasis}
                 onChange={(e) =>
                   updateSettings({ areaBasis: e.target.value as 'bedrooms' | 'all' })
@@ -221,8 +224,8 @@ export default function ConformitePage() {
               </select>
             </div>
             <div>
-              <label className="label">Statut de l&apos;exploitant</label>
-              <select
+              <label className="label" htmlFor="page-f7">Statut de l&apos;exploitant</label>
+              <select id="page-f7"
                 value={settings.citizenshipStatus}
                 onChange={(e) =>
                   updateSettings({ citizenshipStatus: e.target.value as CitizenshipStatus })
@@ -237,8 +240,8 @@ export default function ConformitePage() {
 
             {settings.citizenshipStatus !== 'citizen' && (
               <div>
-                <label className="label">Bail, BIR et permis au nom de…</label>
-                <select
+                <label className="label" htmlFor="page-f8">Bail, BIR et permis au nom de…</label>
+                <select id="page-f8"
                   value={settings.lessorOfRecord}
                   onChange={(e) =>
                     updateSettings({ lessorOfRecord: e.target.value as 'self' | 'filipino_family' })
@@ -252,8 +255,8 @@ export default function ConformitePage() {
             )}
 
             <div>
-              <label className="label">Le bâtiment est…</label>
-              <select
+              <label className="label" htmlFor="page-f9">Le bâtiment est…</label>
+              <select id="page-f9"
                 value={settings.propertyTitle}
                 onChange={(e) => updateSettings({ propertyTitle: e.target.value as PropertyTitle })}
                 className="input"
@@ -266,8 +269,8 @@ export default function ConformitePage() {
 
             {settings.propertyTitle !== 'own' && (
               <div>
-                <label className="label">Montant que vous investissez (₱)</label>
-                <input
+                <label className="label" htmlFor="page-f10">Montant que vous investissez (₱)</label>
+                <input id="page-f10"
                   type="number"
                   min={0}
                   step={10000}
@@ -397,6 +400,7 @@ export default function ConformitePage() {
 
                     <div className="flex flex-wrap items-center gap-2">
                       <select
+                        aria-label={`Statut : ${def.name}`}
                         value={item.status}
                         onChange={(e) => setStatus(def.key, e.target.value as PermitStatus)}
                         className={`rounded-lg border px-2.5 py-1.5 text-xs font-medium ${STATUS_STYLE[item.status]}`}
@@ -413,6 +417,7 @@ export default function ConformitePage() {
                           value={item.expiryDate ?? ''}
                           onChange={(e) => updatePermit(def.key, { expiryDate: e.target.value })}
                           className="input w-40 py-1 text-xs"
+                          aria-label={`Date d'expiration : ${def.name}`}
                           title="Date d'expiration"
                         />
                       )}
@@ -425,6 +430,7 @@ export default function ConformitePage() {
                           updatePermit(def.key, { cost: parseFloat(e.target.value) || undefined })
                         }
                         className="input w-24 py-1 text-xs"
+                        aria-label={`Coût payé (₱) : ${def.name}`}
                         title="Coût payé (₱)"
                       />
                     </div>
@@ -434,6 +440,7 @@ export default function ConformitePage() {
                     <input
                       type="text"
                       placeholder="Numéro de référence, notes…"
+                      aria-label={`Référence ou notes : ${def.name}`}
                       value={item.notes ?? ''}
                       onChange={(e) => updatePermit(def.key, { notes: e.target.value })}
                       className="input mt-3 py-1 text-sm"
@@ -452,6 +459,7 @@ export default function ConformitePage() {
           mairie de Bacolod, du Bureau of Fire Protection et d&apos;un conseil juridique local.
         </p>
       </div>
+      </fieldset>
     </main>
   );
 }

@@ -20,8 +20,8 @@ export default function FloorSelector() {
   return (
     <div className="space-y-2">
       <div>
-        <label className="label">Étage</label>
-        <select
+        <label className="label" htmlFor="floorselector-f1">Étage</label>
+        <select id="floorselector-f1"
           value={selectedFloorId || ''}
           onChange={(e) => setSelectedFloor(e.target.value || null)}
           className="input"

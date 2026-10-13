@@ -103,8 +103,9 @@ export default function BlueprintsPage() {
 
               {rooms.length > 0 && (
                 <div>
-                  <p className="label">Pièce liée</p>
+                  <label className="label" htmlFor="room-filter">Pièce liée</label>
                   <select
+                    id="room-filter"
                     value={selectedRoomId || ''}
                     onChange={(e) => setSelectedRoomId(e.target.value || null)}
                     className="input w-auto"

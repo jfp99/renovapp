@@ -93,8 +93,8 @@ export default function ImageDetailModal({
             {/* Details */}
             <div className="space-y-5">
               <div>
-                <label className="label">Note</label>
-                <textarea
+                <label className="label" htmlFor="imagedetailmodal-f1">Note</label>
+                <textarea id="imagedetailmodal-f1"
                   value={note}
                   onChange={(e) => setNote(e.target.value)}
                   rows={4}
@@ -103,12 +103,12 @@ export default function ImageDetailModal({
                 />
               </div>
               <div>
-                <label className="label">URL source</label>
-                <input type="url" value={source} onChange={(e) => setSource(e.target.value)} placeholder="https://…" className="input" />
+                <label className="label" htmlFor="imagedetailmodal-f2">URL source</label>
+                <input id="imagedetailmodal-f2" type="url" value={source} onChange={(e) => setSource(e.target.value)} placeholder="https://…" className="input" />
               </div>
               <div>
-                <label className="label">Tags</label>
-                <input
+                <label className="label" htmlFor="imagedetailmodal-f3">Tags</label>
+                <input id="imagedetailmodal-f3"
                   type="text"
                   value={tagInput}
                   onChange={(e) => setTagInput(e.target.value)}

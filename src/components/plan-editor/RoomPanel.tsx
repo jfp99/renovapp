@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import { usePlanStore } from '@/stores/planStore';
 import { Room, RoomType } from '@/types/plan';
 import { Trash2, Plus, X, DoorOpen, RectangleHorizontal, Copy } from 'lucide-react';
@@ -50,12 +50,12 @@ export default function RoomPanel({ room }: { room: Room }) {
           <h4 className="section-title mb-3">Informations</h4>
           <div className="space-y-3">
             <div>
-              <label className="label">Nom de la pièce</label>
-              <input type="text" value={room.name} onChange={(e) => up({ name: e.target.value })} className="input" />
+              <label className="label" htmlFor="roompanel-f1">Nom de la pièce</label>
+              <input id="roompanel-f1" type="text" value={room.name} onChange={(e) => up({ name: e.target.value })} className="input" />
             </div>
             <div>
-              <label className="label">Type</label>
-              <select
+              <label className="label" htmlFor="roompanel-f2">Type</label>
+              <select id="roompanel-f2"
                 value={room.type}
                 onChange={(e) => {
                   const t = e.target.value as RoomType;
@@ -92,13 +92,13 @@ export default function RoomPanel({ room }: { room: Room }) {
           <h4 className="section-title mb-3">Dimensions</h4>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="label">Largeur (cm)</label>
-              <input type="number" value={room.width} min="50" max="2000"
+              <label className="label" htmlFor="roompanel-f3">Largeur (cm)</label>
+              <input id="roompanel-f3" type="number" value={room.width} min="50" max="2000"
                 onChange={(e) => up({ width: Math.max(50, parseInt(e.target.value) || 50) })} className="input" />
             </div>
             <div>
-              <label className="label">Hauteur (cm)</label>
-              <input type="number" value={room.height} min="50" max="2000"
+              <label className="label" htmlFor="roompanel-f4">Hauteur (cm)</label>
+              <input id="roompanel-f4" type="number" value={room.height} min="50" max="2000"
                 onChange={(e) => up({ height: Math.max(50, parseInt(e.target.value) || 50) })} className="input" />
             </div>
           </div>
@@ -194,22 +194,24 @@ function OpeningForm({
   widthMin: number; widthMax: number;
   onAdd: () => void; onCancel: () => void;
 }) {
+  // Door and window forms can be open together: ids must be unique per instance.
+  const uid = useId();
   return (
     <div className="mt-3 space-y-2.5 rounded-xl border border-[var(--border)] bg-[var(--bg-app)] p-3">
       <div>
-        <label className="label">Mur</label>
-        <select value={form.wall} onChange={(e) => setForm({ ...form, wall: e.target.value as Wall })} className="input py-1.5 text-xs">
+        <label className="label" htmlFor={`${uid}-f5`}>Mur</label>
+        <select id={`${uid}-f5`} value={form.wall} onChange={(e) => setForm({ ...form, wall: e.target.value as Wall })} className="input py-1.5 text-xs">
           {WALLS.map((w) => <option key={w} value={w}>{WALL_LABELS[w]}</option>)}
         </select>
       </div>
       <div>
-        <label className="label">Position le long du mur ({Math.round(form.position * 100)}%)</label>
-        <input type="range" min="0" max="1" step="0.05" value={form.position}
+        <label className="label" htmlFor={`${uid}-f6`}>Position le long du mur ({Math.round(form.position * 100)}%)</label>
+        <input id={`${uid}-f6`} type="range" min="0" max="1" step="0.05" value={form.position}
           onChange={(e) => setForm({ ...form, position: parseFloat(e.target.value) })} className="w-full accent-brand-600" />
       </div>
       <div>
-        <label className="label">Largeur (cm)</label>
-        <input type="number" min={widthMin} max={widthMax} value={form.width}
+        <label className="label" htmlFor={`${uid}-f7`}>Largeur (cm)</label>
+        <input id={`${uid}-f7`} type="number" min={widthMin} max={widthMax} value={form.width}
           onChange={(e) => setForm({ ...form, width: parseInt(e.target.value) || widthMin })} className="input py-1.5 text-xs" />
       </div>
       <div className="flex gap-2">

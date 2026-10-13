@@ -83,8 +83,8 @@ export const TenancyForm: React.FC<Props> = ({ slot, onClose }) => {
         <form onSubmit={submit} className="space-y-5 p-6">
           {tenants.length > 0 && (
             <div>
-              <label className="label">Locataire existant</label>
-              <select
+              <label className="label" htmlFor="tenancyform-f1">Locataire existant</label>
+              <select id="tenancyform-f1"
                 value={existingTenantId}
                 onChange={(e) => setExistingTenantId(e.target.value)}
                 className="input"
@@ -102,8 +102,8 @@ export const TenancyForm: React.FC<Props> = ({ slot, onClose }) => {
           {!existingTenantId && (
             <div className="grid grid-cols-2 gap-4">
               <div className="col-span-2">
-                <label className="label">Nom *</label>
-                <input
+                <label className="label" htmlFor="tenancyform-f2">Nom *</label>
+                <input id="tenancyform-f2"
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
                   className="input"
@@ -111,8 +111,8 @@ export const TenancyForm: React.FC<Props> = ({ slot, onClose }) => {
                 />
               </div>
               <div>
-                <label className="label">Téléphone</label>
-                <input
+                <label className="label" htmlFor="tenancyform-f3">Téléphone</label>
+                <input id="tenancyform-f3"
                   value={form.phone}
                   onChange={(e) => setForm({ ...form, phone: e.target.value })}
                   className="input"
@@ -120,16 +120,16 @@ export const TenancyForm: React.FC<Props> = ({ slot, onClose }) => {
                 />
               </div>
               <div>
-                <label className="label">École</label>
-                <input
+                <label className="label" htmlFor="tenancyform-f4">École</label>
+                <input id="tenancyform-f4"
                   value={form.school}
                   onChange={(e) => setForm({ ...form, school: e.target.value })}
                   className="input"
                 />
               </div>
               <div className="col-span-2">
-                <label className="label">Contact d&apos;urgence</label>
-                <input
+                <label className="label" htmlFor="tenancyform-f5">Contact d&apos;urgence</label>
+                <input id="tenancyform-f5"
                   value={form.emergencyContact}
                   onChange={(e) => setForm({ ...form, emergencyContact: e.target.value })}
                   className="input"
@@ -141,8 +141,8 @@ export const TenancyForm: React.FC<Props> = ({ slot, onClose }) => {
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="label">Date d&apos;entrée</label>
-              <input
+              <label className="label" htmlFor="tenancyform-f6">Date d&apos;entrée</label>
+              <input id="tenancyform-f6"
                 type="date"
                 value={form.startDate}
                 onChange={(e) => setForm({ ...form, startDate: e.target.value })}
@@ -150,8 +150,8 @@ export const TenancyForm: React.FC<Props> = ({ slot, onClose }) => {
               />
             </div>
             <div>
-              <label className="label">Statut</label>
-              <select
+              <label className="label" htmlFor="tenancyform-f7">Statut</label>
+              <select id="tenancyform-f7"
                 value={form.status}
                 onChange={(e) => setForm({ ...form, status: e.target.value as 'active' | 'reserved' })}
                 className="input"
@@ -161,8 +161,8 @@ export const TenancyForm: React.FC<Props> = ({ slot, onClose }) => {
               </select>
             </div>
             <div>
-              <label className="label">Loyer mensuel (₱) *</label>
-              <input
+              <label className="label" htmlFor="tenancyform-f8">Loyer mensuel (₱) *</label>
+              <input id="tenancyform-f8"
                 type="number"
                 min="0"
                 value={form.monthlyRent}
@@ -171,8 +171,8 @@ export const TenancyForm: React.FC<Props> = ({ slot, onClose }) => {
               />
             </div>
             <div>
-              <label className="label">Jour d&apos;échéance</label>
-              <input
+              <label className="label" htmlFor="tenancyform-f9">Jour d&apos;échéance</label>
+              <input id="tenancyform-f9"
                 type="number"
                 min="1"
                 max="31"
@@ -182,8 +182,8 @@ export const TenancyForm: React.FC<Props> = ({ slot, onClose }) => {
               />
             </div>
             <div>
-              <label className="label">Avance (₱)</label>
-              <input
+              <label className="label" htmlFor="tenancyform-f10">Avance (₱)</label>
+              <input id="tenancyform-f10"
                 type="number"
                 min="0"
                 value={form.advanceAmount}
@@ -192,8 +192,8 @@ export const TenancyForm: React.FC<Props> = ({ slot, onClose }) => {
               />
             </div>
             <div>
-              <label className="label">Dépôt de garantie (₱)</label>
-              <input
+              <label className="label" htmlFor="tenancyform-f11">Dépôt de garantie (₱)</label>
+              <input id="tenancyform-f11"
                 type="number"
                 min="0"
                 value={form.depositAmount}
@@ -205,8 +205,8 @@ export const TenancyForm: React.FC<Props> = ({ slot, onClose }) => {
           </div>
 
           <div>
-            <label className="label">Notes</label>
-            <textarea
+            <label className="label" htmlFor="tenancyform-f12">Notes</label>
+            <textarea id="tenancyform-f12"
               value={form.notes}
               onChange={(e) => setForm({ ...form, notes: e.target.value })}
               rows={2}

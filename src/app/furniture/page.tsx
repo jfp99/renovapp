@@ -30,7 +30,7 @@ export default function FurniturePage() {
   const [mobileView, setMobileView] = useState<'list' | 'canvas'>('list');
 
   return (
-    <div className="flex h-[calc(100dvh-3.5rem)] flex-col overflow-hidden md:h-screen md:flex-row">
+    <div className="flex h-[calc(100dvh-3.5rem-var(--banner-h,0px))] flex-col overflow-hidden md:h-[calc(100vh-var(--banner-h,0px))] md:flex-row">
       {/* MOBILE SWITCH */}
       <div className="flex gap-1 border-b border-[var(--border)] bg-white p-2 md:hidden">
         <button

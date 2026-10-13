@@ -51,7 +51,7 @@ export default function ImageUpload() {
           : 'border-[var(--border-strong)] bg-white hover:border-brand-300 hover:bg-brand-50/30'
       }`}
     >
-      <input {...getInputProps()} />
+      <input {...getInputProps()} aria-label="Ajouter des images" />
       <div className="flex flex-col items-center gap-3">
         <div className={`flex h-12 w-12 items-center justify-center rounded-xl ${isDragActive ? 'bg-brand-100' : 'bg-[var(--bg-app)]'}`}>
           {isDragActive ? <Cloud className="h-6 w-6 text-brand-600" /> : <Upload className="h-6 w-6 text-ink-faint" />}

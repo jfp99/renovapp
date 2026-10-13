@@ -112,7 +112,7 @@ export default function MobileNav() {
             </div>
 
             <div className="border-t border-white/5 px-5 py-4 pb-[calc(1rem+env(safe-area-inset-bottom))]">
-              <p className="font-mono text-[10px] text-[#7d6f59]">
+              <p className="font-mono text-[10px] text-[#a89a82]">
                 {IS_READONLY ? 'Copie en lecture seule' : 'Stockage local actif'}
               </p>
             </div>
