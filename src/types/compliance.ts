@@ -32,6 +32,8 @@ export interface PermitDefinition {
   blocking?: boolean;
   /** Only required when the space is let as a boarding house, not as a dwelling. */
   boardingHouseOnly?: boolean;
+  /** What the step means when the house is let whole, under one lease. */
+  wholeUnitWhy?: string;
 }
 
 export type CheckSeverity = 'ok' | 'warning' | 'blocking' | 'unknown';
@@ -89,6 +91,12 @@ export interface ComplianceSettings {
   /** Rent charged per bed, for the rent-control check. */
   monthlyRentPerBed: number;
   citizenshipStatus: CitizenshipStatus;
+  /**
+   * Whose name the lease, BIR and mayor's permit are in. A Filipino family
+   * member as lessor of record (with an SPA to the operator) lifts the
+   * foreign-operator block.
+   */
+  lessorOfRecord: 'self' | 'filipino_family';
   propertyTitle: PropertyTitle;
   /** Is the right to occupy and to invest written down? */
   writtenAgreement: boolean;

@@ -26,6 +26,7 @@ const defaultSettings: ComplianceSettings = {
   ceilingHeight: 2.7,
   monthlyRentPerBed: 0,
   citizenshipStatus: 'foreign',
+  lessorOfRecord: 'self',
   propertyTitle: 'own',
   writtenAgreement: false,
   investedAmount: 0,

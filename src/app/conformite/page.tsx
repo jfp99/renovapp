@@ -64,7 +64,10 @@ export default function ConformitePage() {
 
   const checks = useMemo(() => runChecks(rooms, settings), [rooms, settings]);
   const expiring = useMemo(() => expiringPermits(permits), [permits]);
-  const budget = useMemo(() => remainingPermitCost(permits), [permits]);
+  const budget = useMemo(
+    () => remainingPermitCost(permits, settings.rentalModel),
+    [permits, settings.rentalModel]
+  );
 
   const blocking = checks.filter((c) => c.severity === 'blocking');
   const obtained = permits.filter((p) => p.status === 'obtained').length;
@@ -232,6 +235,22 @@ export default function ConformitePage() {
               </select>
             </div>
 
+            {settings.citizenshipStatus !== 'citizen' && (
+              <div>
+                <label className="label">Bail, BIR et permis au nom de…</label>
+                <select
+                  value={settings.lessorOfRecord}
+                  onChange={(e) =>
+                    updateSettings({ lessorOfRecord: e.target.value as 'self' | 'filipino_family' })
+                  }
+                  className="input"
+                >
+                  <option value="self">Vous</option>
+                  <option value="filipino_family">Un proche philippin (ex. votre mère)</option>
+                </select>
+              </div>
+            )}
+
             <div>
               <label className="label">Le bâtiment est…</label>
               <select
@@ -371,7 +390,9 @@ export default function ConformitePage() {
                         </span>
                       </div>
                       <p className="mt-0.5 text-xs text-ink-muted">{def.authority}</p>
-                      <p className="mt-1.5 text-sm text-ink-soft">{def.why}</p>
+                      <p className="mt-1.5 text-sm text-ink-soft">
+                        {settings.rentalModel === 'whole_unit' && def.wholeUnitWhy ? def.wholeUnitWhy : def.why}
+                      </p>
                     </div>
 
                     <div className="flex flex-wrap items-center gap-2">

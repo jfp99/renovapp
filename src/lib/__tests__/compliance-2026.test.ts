@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { runChecks, occupantsAllowed, PERMIT_CATALOG } from '@/lib/compliance';
+import { runChecks, occupantsAllowed, PERMIT_CATALOG, remainingPermitCost } from '@/lib/compliance';
 import { LEGAL_THRESHOLDS, type ComplianceSettings } from '@/types/compliance';
 import type { Room } from '@/types/plan';
 
@@ -27,6 +27,7 @@ const base: ComplianceSettings = {
   ceilingHeight: 2.7,
   monthlyRentPerBed: 4_500,
   citizenshipStatus: 'recognition_pending',
+  lessorOfRecord: 'self',
   propertyTitle: 'family',
   writtenAgreement: false,
   investedAmount: 260_420,
@@ -98,9 +99,43 @@ describe('Fiscalité — la falaise des 15 000 ₱ par unité', () => {
 });
 
 describe('Nature de l’activité', () => {
-  it('rend sans objet les permis propres au boarding house en location classique', () => {
+  it('seul le changement d’occupancy est propre au boarding house', () => {
     const onlyBoarding = PERMIT_CATALOG.filter((p) => p.boardingHouseOnly).map((p) => p.key);
-    expect(onlyBoarding).toEqual(expect.arrayContaining(['occupancy', 'fsic', 'sanitary']));
+    expect(onlyBoarding).toEqual(['occupancy']);
+  });
+
+  it('garde FSIC et clearance santé en location entière (exigés par le BPLO de Bacolod), au niveau habitation', () => {
+    for (const key of ['fsic', 'sanitary', 'mayor']) {
+      const def = PERMIT_CATALOG.find((p) => p.key === key)!;
+      expect(def.boardingHouseOnly).toBeFalsy();
+      expect(def.wholeUnitWhy).toBeTruthy();
+    }
+    expect(PERMIT_CATALOG.find((p) => p.key === 'fsic')!.wholeUnitWhy).toContain('Groupe A');
+  });
+
+  it('n’inclut pas au budget les démarches sans objet', () => {
+    const items = PERMIT_CATALOG.map((d) => ({ id: d.key, key: d.key, status: 'not_started' as const }));
+    const whole = remainingPermitCost(items, 'whole_unit');
+    const bh = remainingPermitCost(items, 'boarding_house');
+    expect(whole.low).toBeLessThanOrEqual(bh.low);
+  });
+
+  it('explique comment louer à un groupe en restant bailleur', () => {
+    const c = find({ ...base, plannedOccupants: 8 }, 'groupLease')!;
+    expect(c.value).toContain('8');
+    expect(c.detail).toContain('UN seul contrat');
+    expect(find({ ...base, rentalModel: 'boarding_house' }, 'groupLease')).toBeUndefined();
+  });
+
+  it('lève le blocage étranger quand un proche philippin est le bailleur déclaré', () => {
+    expect(find({ ...base, citizenshipStatus: 'foreign' }, 'citizenship')!.severity).toBe('blocking');
+    const c = find({ ...base, citizenshipStatus: 'foreign', lessorOfRecord: 'filipino_family' }, 'citizenship')!;
+    expect(c.severity).toBe('ok');
+    expect(c.detail).toContain('Special Power of Attorney');
+  });
+
+  it('signale que l’option 8 % remplace la percentage tax', () => {
+    expect(find(base, 'tax')!.detail).toContain('8 %');
   });
 
   it('signale le boarding house et valide le bail unique', () => {
@@ -125,5 +160,30 @@ describe('Statut de l’exploitant', () => {
   it('bloque tant que rien n’est écrit avec la propriétaire', () => {
     expect(find(base, 'title')!.severity).toBe('blocking');
     expect(find({ ...base, writtenAgreement: true }, 'title')!.severity).toBe('warning');
+  });
+});
+
+describe('Location entière à 8 : lecture du volume', () => {
+  const eight = { ...base, plannedOccupants: 8 };
+
+  it('en boarding house, le volume reste compté chambre par chambre, même base « toutes les pièces »', () => {
+    const c = find({ ...eight, rentalModel: 'boarding_house', areaBasis: 'all' }, 'area')!;
+    expect(c.requirement).toContain('chambre par chambre');
+  });
+
+  it('en location entière + toutes les pièces, le logement complet est retenu, en avertissement et non en blocage quand il suffit', () => {
+    const c = find({ ...eight, areaBasis: 'all', ceilingHeight: 3 }, 'area')!;
+    expect(c.requirement).toContain('logement entier');
+    // 39 m² × 3,00 m = 117 m³ → 8 personnes : ça passe, mais à confirmer.
+    expect(c.value).toBe('8 couchages pour 8 prévus');
+    expect(c.severity).toBe('warning');
+    // À 2,70 m le même logement tombe à 7 : le blocage revient.
+    expect(find({ ...eight, areaBasis: 'all' }, 'area')!.severity).toBe('blocking');
+  });
+
+  it('en location entière par chambre, indique la lecture logement entier comme levier', () => {
+    const c = find(eight, 'area')!;
+    expect(c.severity).toBe('blocking');
+    expect(c.detail).toContain('Toutes les pièces louées');
   });
 });

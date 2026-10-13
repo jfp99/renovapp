@@ -54,9 +54,10 @@ export const PERMIT_CATALOG: PermitDefinition[] = [
     order: 4,
     costLow: 1000,
     why:
-      "Exigé avant le permis d'occupation ET avant le permis d'exploitation, puis renouvelé chaque année (RA 9514). Son absence ferme l'exploitation.",
+      "Exigé avant le permis d'occupation ET avant le permis d'exploitation, puis renouvelé chaque année (RA 9514). En boarding house, l'inspection suit les règles des lodging houses : issues, éclairage de secours, détecteur par chambre. Son absence ferme l'exploitation.",
+    wholeUnitWhy:
+      "À Bacolod, le BPLO réclame un FSIC pour TOUT mayor's permit, bailleur compris. Mais une maison louée entière est inspectée comme une habitation (Groupe A) : extincteur, détecteurs de fumée, installation électrique saine, sorties dégagées. Une visite et une petite redevance, rien de comparable au régime lodging house.",
     blocking: true,
-    boardingHouseOnly: true,
   },
   {
     key: 'sanitary',
@@ -67,8 +68,9 @@ export const PERMIT_CATALOG: PermitDefinition[] = [
     costLow: 500,
     costHigh: 2000,
     why:
-      "PD 856 chapitre XIV (hôtels, pensions, lodging et boarding houses) : « aucun établissement couvert ne peut être exploité sans sanitary permit ». Impose aussi un ratio de sanitaires par chambre louée.",
-    boardingHouseOnly: true,
+      "PD 856 chapitre XIV (hôtels, pensions, lodging et boarding houses) : « aucun établissement couvert ne peut être exploité sans sanitary permit ». Impose aussi un ratio de sanitaires par chambre louée et des certificats de santé pour le personnel.",
+    wholeUnitWhy:
+      "Le BPLO de Bacolod demande une clearance du City Health Office pour tout mayor's permit. Pour une maison louée entière, c'est une vérification d'hygiène générale (eau, fosse septique, déchets) — pas le chapitre XIV ni ses ratios de sanitaires.",
   },
   {
     key: 'mayor',
@@ -76,7 +78,9 @@ export const PERMIT_CATALOG: PermitDefinition[] = [
     authority: 'Business Permit & Licensing Office',
     renewal: 'annual',
     order: 6,
-    why: 'Le permis d’exploitation lui-même. À renouveler en janvier chaque année.',
+    why: 'Le permis d’exploitation lui-même. À renouveler en janvier chaque année. À afficher dans la maison : la ville a déjà mené des tournées d’inspection des boarding houses étudiants.',
+    wholeUnitWhy:
+      "En location entière : mayor's permit de « lessor of real property » (residential), au nom du bailleur déclaré. Même dossier de base (barangay, zoning, FSIC, santé, OBO), mais pas de mention boarding house. À renouveler en janvier.",
     blocking: true,
   },
   {
@@ -85,7 +89,7 @@ export const PERMIT_CATALOG: PermitDefinition[] = [
     authority: 'Bureau of Internal Revenue',
     renewal: 'ongoing',
     order: 7,
-    why: 'Registre, reçus officiels et régime fiscal. Requis pour le Mayor’s Permit.',
+    why: 'Registre, reçus officiels et régime fiscal. Requis pour le Mayor’s Permit. Au nom du bailleur déclaré, qui choisit en début d’année entre le barème progressif et l’option 8 % (si recettes ≤ 3 M ₱).',
     blocking: true,
   },
   {
@@ -95,6 +99,8 @@ export const PERMIT_CATALOG: PermitDefinition[] = [
     renewal: 'ongoing',
     order: 8,
     why: 'Obligatoire dès le premier employé déclaré (caretaker, ménage).',
+    wholeUnitWhy:
+      "Seulement si vous employez quelqu'un. En location entière, le ménage des chambres et la gestion du quotidien reviennent aux locataires — c'est même une condition pour rester bailleur.",
   },
 ];
 
@@ -180,24 +186,49 @@ export function runChecks(
     const roomCapacity = perRoom.reduce((sum, r) => sum + r.allowed, 0);
     const floorCapacity = occupantsAllowed(area, height);
 
+    /**
+     * Whole-house lease + whole-floor basis: nobody declares a per-room
+     * capacity (no change of occupancy, no OBO review), so the dwelling's
+     * total volume is the defensible reading — defensible, not settled, hence
+     * a warning even when it fits. A boarding house is always per room.
+     */
+    const wholeFloor = settings.rentalModel === 'whole_unit' && settings.areaBasis === 'all';
+    const capacity = wholeFloor ? floorCapacity : roomCapacity;
+    const fits = capacity >= occupants;
+    const perRoomText = perRoom.length
+      ? perRoom
+          .map((r) => `${r.room.name} : ${r.m2.toFixed(1)} m² × ${height.toFixed(2)} m = ${r.allowed} pers.`)
+          .join(' · ')
+      : 'Aucune chambre au plan.';
+
     checks.push({
       key: 'area',
       label: 'Volume d’air par occupant',
-      severity:
-        roomCapacity >= occupants ? 'ok' : roomCapacity >= occupants * 0.85 ? 'warning' : 'blocking',
-      value: `${roomCapacity} couchage${roomCapacity > 1 ? 's' : ''} pour ${occupants} prévu${occupants > 1 ? 's' : ''}`,
-      requirement: '14 m³ par personne, chambre par chambre (PD 1096, art. 807)',
-      detail:
-        (perRoom.length
-          ? perRoom
-              .map((r) => `${r.room.name} : ${r.m2.toFixed(1)} m² × ${height.toFixed(2)} m = ${r.allowed} pers.`)
-              .join(' · ')
-          : 'Aucune chambre au plan.') +
-        ` — soit ${roomCapacity} au total. ` +
-        `À ${height.toFixed(2)} m de plafond il faut ${(AIR_SPACE_PER_PERSON_M3 / height).toFixed(2)} m² par personne. ` +
-        (roomCapacity >= occupants
-          ? 'Conforme.'
-          : "Insuffisant. Le calcul se fait par pièce : agrandir ou fusionner des chambres est le seul levier, pas ajouter des lits."),
+      severity: wholeFloor
+        ? fits
+          ? 'warning'
+          : 'blocking'
+        : fits
+          ? 'ok'
+          : roomCapacity >= occupants * 0.85
+            ? 'warning'
+            : 'blocking',
+      value: `${capacity} couchage${capacity > 1 ? 's' : ''} pour ${occupants} prévu${occupants > 1 ? 's' : ''}`,
+      requirement: wholeFloor
+        ? '14 m³ par personne sur le logement entier (lecture location entière)'
+        : '14 m³ par personne, chambre par chambre (PD 1096, art. 807)',
+      detail: wholeFloor
+        ? `Logement entier : ${area.toFixed(1)} m² × ${height.toFixed(2)} m = ${(area * height).toFixed(0)} m³, soit ${floorCapacity} personne${floorCapacity > 1 ? 's' : ''}. ` +
+          (fits ? 'Ça passe. ' : 'Même sur le logement entier, le volume manque. ') +
+          `Chambre par chambre ce serait ${roomCapacity} (${perRoomText}) : c'est ce que l'OBO appliquerait si la maison était requalifiée en boarding house, ou si un permis de construire montre ${occupants} couchages dans ces chambres. ` +
+          `La marge est faible : mesurez la hauteur sous plafond réelle — chaque 10 cm compte — et gardez une ventilation franche (fenêtres, ventilateurs) dans les chambres.`
+        : `${perRoomText} — soit ${roomCapacity} au total. ` +
+          `À ${height.toFixed(2)} m de plafond il faut ${(AIR_SPACE_PER_PERSON_M3 / height).toFixed(2)} m² par personne. ` +
+          (fits
+            ? 'Conforme.'
+            : settings.rentalModel === 'whole_unit'
+              ? `Insuffisant chambre par chambre. En location entière, le logement complet donnerait ${floorCapacity} personne${floorCapacity > 1 ? 's' : ''} : choisissez « Toutes les pièces louées » comme surface prise en compte pour retenir cette lecture.`
+              : "Insuffisant. Le calcul se fait par pièce : agrandir ou fusionner des chambres est le seul levier, pas ajouter des lits."),
     });
 
     // Section 806 : taille minimale, et elle vaut aussi pour les pièces de service.
@@ -346,8 +377,27 @@ export function runChecks(
       requirement: 'La classification suit l’activité réelle, pas le contrat',
       detail: boarding
         ? "Louer des chambres séparément correspond à la définition du Lodging or Rooming House au Fire Code, et au Groupe B du PD 1096. Conséquences : changement d'occupancy (art. 702, catégorie plus dangereuse donc mise en conformité préalable), FSIC annuel, sanitary permit PD 856 ch. XIV — et c'est à ce moment que l'art. 807 est appliqué chambre par chambre."
-        : "Un contrat unique sur le logement entier reste en Groupe A : pas de changement d'occupancy, pas de FSIC boarding house, pas de sanitary permit ch. XIV. Restent dus dans tous les cas : barangay clearance, mayor's permit « lessor of real property » et enregistrement BIR. Cela ne tient que si vous vous comportez en bailleur : pas d'attribution de lits, pas de contrat par tête, pas de remplacement d'une partante par vos soins.",
+        : "Un contrat unique sur le logement entier reste en Groupe A : pas de changement d'occupancy, pas de régime lodging house au Fire Code, pas de sanitary permit ch. XIV. Restent dus dans tous les cas : barangay clearance, mayor's permit « lessor of real property » (avec à Bacolod son inspection incendie et sa clearance santé, au niveau habitation) et enregistrement BIR. Il n'existe pas d'exemption « petite maison » : huit étudiantes non apparentées ne sont pas « une famille » au sens du Fire Code. Ce qui vous garde en bail classique, c'est la forme du contrat et votre comportement de bailleur — voir le point suivant."
     });
+
+    if (!boarding) {
+      checks.push({
+        key: 'groupLease',
+        label: 'Louer à un groupe sans devenir boarding house',
+        severity: 'ok',
+        value: occupants > 0 ? `Un bail pour ${occupants} étudiante${occupants > 1 ? 's' : ''}` : 'Un bail unique',
+        requirement: 'Ce que l’inspecteur regarde : qui loue quoi, et qui gère',
+        detail:
+          "1) UN seul contrat sur la maison entière, signé par toutes les colocataires « solidairement » — et par un parent pour chaque mineure, ou un parent garant pour toutes. " +
+          "2) Un loyer fixé pour la maison ; c'est le groupe qui le répartit entre elles (vous pouvez fournir le tableau, pas encaisser lit par lit sur des reçus séparés). " +
+          "3) Elles choisissent qui dort où : pas d'attribution de lits par vous. " +
+          "4) Une partante est remplacée par une colocataire que le groupe propose et que vous acceptez, par avenant au bail — pas par une annonce « 1 lit dispo » à votre nom. " +
+          "5) Pas de services de pension : ni repas, ni ménage des chambres, ni gardien à demeure. L'entretien du bâtiment reste à vous. " +
+          "6) Charges : compteurs au nom du bail ou refacturées au réel. " +
+          "7) Un règlement intérieur annexé au bail est permis (visites, calme, sécurité, couvre-feu demandé par les parents) — il engage les locataires entre elles, ce n'est pas vous qui le faites appliquer chambre par chambre. " +
+          "Au BPLO, déclarez l'activité telle quelle : « lessor — residential house leased to a group under one contract ». C'est le modèle de la maison louée par une bande d'étudiantes, courant autour des universités. Faites-vous confirmer par écrit la classification au dépôt, c'est la seule vraie garantie.",
+      });
+    }
 
     if (boarding && occupants > 0) {
       const max = LEGAL_THRESHOLDS.LODGING_HOUSE_MAX_PERSONS;
@@ -381,12 +431,22 @@ export function runChecks(
       requirement: `Exonération jusqu’à ${LEGAL_THRESHOLDS.VAT_EXEMPT_RENT_PHP.toLocaleString('fr-FR')} ₱ par unité et par mois`,
       detail: vatFree
         ? "Sous le seuil de 15 000 ₱ par unité (NIRC art. 109(Q)), la location est exonérée de TVA ET de percentage tax, quel que soit le chiffre d'affaires annuel. Le RR 13-2018 précise que l'unité se compte « par personne » pour les dortoirs, pensions et bedspaces, et « par chambre » pour les chambres louées. L'impôt sur le revenu reste dû."
-        : `Au-dessus de 15 000 ₱ par unité : percentage tax de 3 % (art. 116), soit environ ${pct.toLocaleString('fr-FR')} ₱ par an, avec déclaration trimestrielle 2551Q. La TVA à 12 % ne s'applique qu'au-delà de ${LEGAL_THRESHOLDS.VAT_REGISTRATION_PHP.toLocaleString('fr-FR')} ₱ de recettes annuelles.`,
+        : `Au-dessus de 15 000 ₱ par unité : percentage tax de 3 % (art. 116), soit environ ${pct.toLocaleString('fr-FR')} ₱ par an, avec déclaration trimestrielle 2551Q — SAUF si le bailleur opte pour l'impôt de 8 % sur les recettes (possible jusqu'à 3 M ₱ par an), qui remplace à la fois l'impôt progressif et cette percentage tax. ${settings.rentalModel === 'whole_unit' ? "En location entière, l'unité est la maison : son loyer dépasse vite 15 000 ₱, alors qu'au lit chacun restait exonéré. L'option 8 % neutralise en pratique cet écart. " : ''}La TVA à 12 % ne s'applique qu'au-delà de ${LEGAL_THRESHOLDS.VAT_REGISTRATION_PHP.toLocaleString('fr-FR')} ₱ de recettes annuelles.`,
     });
   }
 
   // ── Citizenship of the operator ──
-  if (settings.citizenshipStatus === 'foreign') {
+  if (settings.citizenshipStatus !== 'citizen' && settings.lessorOfRecord === 'filipino_family') {
+    checks.push({
+      key: 'citizenship',
+      label: 'Statut de l’exploitant',
+      severity: 'ok',
+      value: 'Bailleur philippin déclaré',
+      requirement: 'Bail, BIR et mayor’s permit au nom du proche philippin',
+      detail:
+        "Le bailleur de record est un proche philippin : c'est lui qui signe le bail, s'enregistre au BIR, détient le mayor's permit et encaisse les loyers sur son compte. Vous pouvez gérer pour son compte avec une Special Power of Attorney notariée. Deux limites : ne vous faites pas verser les loyers ni rémunérer tant que votre statut n'est pas régularisé, et gardez la trace écrite de qui a investi quoi (voir « Titre d'occupation »).",
+    });
+  } else if (settings.citizenshipStatus === 'foreign') {
     checks.push({
       key: 'citizenship',
       label: 'Statut de l’exploitant',
@@ -469,9 +529,13 @@ export function permitDefinition(key: string): PermitDefinition | undefined {
 }
 
 /** Estimated budget for the permits still to obtain. */
-export function remainingPermitCost(items: PermitItem[]): { low: number; high: number } {
+export function remainingPermitCost(
+  items: PermitItem[],
+  rentalModel: ComplianceSettings['rentalModel'] = 'boarding_house'
+): { low: number; high: number } {
   return PERMIT_CATALOG.reduce(
     (acc, def) => {
+      if (def.boardingHouseOnly && rentalModel === 'whole_unit') return acc;
       const item = items.find((i) => i.key === def.key);
       if (item && item.status === 'obtained') return acc;
       return { low: acc.low + (def.costLow ?? 0), high: acc.high + (def.costHigh ?? def.costLow ?? 0) };
