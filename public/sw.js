@@ -11,9 +11,12 @@
  */
 
 const CACHE_VERSION = 'renovapp-v2';
+// The shared build (scripts/build-shared.mjs) replaces this list with every
+// page and asset of the deploy, so a phone can read the whole copy offline
+// right after an update. Pages are listed by their clean URL: Vercel redirects
+// /plans.html to /plans, and a redirected response cannot answer a navigation.
 const PRECACHE = [
   './',
-  './index.html',
   './manifest.json',
   './icon-192.png',
   './icon-512.png',
@@ -23,7 +26,9 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches
       .open(CACHE_VERSION)
-      .then((cache) => cache.addAll(PRECACHE).catch(() => undefined))
+      // One by one: addAll is all-or-nothing, so a single missing file used to
+      // leave the cache empty without a word.
+      .then((cache) => Promise.all(PRECACHE.map((url) => cache.add(url).catch(() => undefined))))
       .then(() => self.skipWaiting())
   );
 });
@@ -70,6 +75,6 @@ self.addEventListener('fetch', (event) => {
         caches.open(CACHE_VERSION).then((cache) => cache.put(request, copy));
         return response;
       })
-      .catch(() => caches.match(request).then((hit) => hit || caches.match('./index.html')))
+      .catch(() => caches.match(request).then((hit) => hit || caches.match('./')))
   );
 });

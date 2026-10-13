@@ -79,7 +79,29 @@ if (existsSync(swPath)) {
     /const CACHE_VERSION = '[^']*';/,
     `const CACHE_VERSION = 'renovapp-${stamp}';`
   );
-  writeFileSync(swPath, sw, 'utf-8');
+  // Tout précharger : après une mise à jour, le nouveau service worker efface
+  // l'ancien cache. Sans liste complète, seul l'accueil restait lisible hors
+  // ligne jusqu'à la visite suivante avec réseau. Mesuré, pas supposé.
+  const files = [];
+  const walk = (dir, rel) => {
+    for (const entry of readdirSync(dir, { withFileTypes: true })) {
+      const r = rel ? `${rel}/${entry.name}` : entry.name;
+      if (entry.isDirectory()) walk(join(dir, entry.name), r);
+      else files.push(r);
+    }
+  };
+  walk(OUT, '');
+  const urls = files
+    .filter((f) => !['sw.js', 'vercel.json', '404.html', '404.txt'].includes(f))
+    .map((f) => (f === 'index.html' ? './' : f.endsWith('.html') ? `./${f.slice(0, -5)}` : `./${f}`))
+    .sort();
+  const withList = sw.replace(/const PRECACHE = \[[\s\S]*?\];/, `const PRECACHE = ${JSON.stringify(urls, null, 2)};`);
+  if (withList === sw) {
+    console.error('  Liste de préchargement introuvable dans sw.js — arrêt.');
+    process.exit(1);
+  }
+  writeFileSync(swPath, withList, 'utf-8');
+  console.log(`  Préchargement hors ligne : ${urls.length} fichiers`);
   console.log(`  Service worker estampillé : renovapp-${stamp}`);
 }
 
