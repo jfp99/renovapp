@@ -41,8 +41,11 @@ const project = JSON.parse(readFileSync(source, 'utf-8'));
 
 const payload = {};
 for (const [field, [key, version]] of Object.entries(STORES)) {
-  const state = project[field];
+  let state = project[field];
   if (state === undefined || state === null) continue;
+  // The export keeps blueprints as a bare array; the store persists
+  // { blueprints: [...] }. Seeded as-is, the shared copy showed 0 blueprints.
+  if (field === 'blueprints' && Array.isArray(state)) state = { blueprints: state };
   payload[key] = { state, version };
 }
 

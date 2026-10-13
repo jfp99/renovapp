@@ -6,6 +6,7 @@ import { Room } from '@/types/plan';
 import { useInspirationStore } from '@/stores/inspirationStore';
 import { X, Trash2 } from 'lucide-react';
 import { useMediaUrl } from '@/lib/useMediaUrl';
+import { IS_READONLY } from '@/lib/readonly';
 
 interface ImageDetailModalProps {
   image: InspirationImage;
@@ -152,7 +153,7 @@ export default function ImageDetailModal({
         </div>
 
         {/* Footer */}
-        <div className="flex justify-between border-t border-[var(--border)] bg-[var(--bg-app)] px-6 py-4">
+        <div className={`flex justify-between border-t border-[var(--border)] bg-[var(--bg-app)] px-6 py-4${IS_READONLY ? ' hidden' : ''}`}>
           <button onClick={handleDelete} className="btn-danger btn-sm">
             <Trash2 className="h-4 w-4" /> Retirer
           </button>

@@ -3,6 +3,7 @@
 import { useFurnitureStore } from '@/stores/furnitureStore';
 import type { FurnitureCategory } from '@/types/furniture';
 import { Trash2, X, Copy, RotateCw } from 'lucide-react';
+import { IS_READONLY } from '@/lib/readonly';
 
 const CATEGORY_LABELS: Record<FurnitureCategory, string> = {
   bed: 'Lit',
@@ -43,7 +44,7 @@ export default function FurnitureDetailPanel({ placementId, onClose }: Props) {
       </div>
 
       {/* Content */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-5">
+      <fieldset disabled={IS_READONLY} className="m-0 min-w-0 flex-1 overflow-y-auto border-0 p-4 space-y-5">
         <div className="rounded-xl bg-[var(--bg-app)] p-3">
           <p className="text-xs text-ink-faint">Modèle · {CATEGORY_LABELS[item.category]}</p>
           <p className="text-sm font-semibold text-ink">{item.name}</p>
@@ -121,10 +122,10 @@ export default function FurnitureDetailPanel({ placementId, onClose }: Props) {
         <div className="rounded-xl bg-[var(--bg-app)] p-3 text-xs text-ink-muted">
           Position : X {Math.round(placement.x / 2)} cm · Y {Math.round(placement.y / 2)} cm
         </div>
-      </div>
+      </fieldset>
 
       {/* Footer actions */}
-      <div className="space-y-2 border-t border-[var(--border)] p-4">
+      <div className={`space-y-2 border-t border-[var(--border)] p-4${IS_READONLY ? ' hidden' : ''}`}>
         <button onClick={() => duplicatePlacement(placementId)} className="btn-secondary btn-sm w-full">
           <Copy size={14} /> Dupliquer <span className="text-ink-faint">(Ctrl+D)</span>
         </button>

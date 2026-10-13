@@ -9,6 +9,7 @@ import InspirationGrid from '@/components/inspiration/InspirationGrid';
 import ImageDetailModal from '@/components/inspiration/ImageDetailModal';
 import { Filter, X, Camera } from 'lucide-react';
 import { useHydrated } from '@/lib/useHydrated';
+import { IS_READONLY } from '@/lib/readonly';
 
 export default function InspirationPage() {
   const hydrated = useHydrated();
@@ -67,7 +68,7 @@ export default function InspirationPage() {
       <div className="mx-auto max-w-7xl px-4 py-6 md:px-8 md:py-8">
         {/* Upload Area */}
         <div className="mb-8">
-          <ImageUpload />
+          {!IS_READONLY && <ImageUpload />}
         </div>
 
         {/* Filters */}

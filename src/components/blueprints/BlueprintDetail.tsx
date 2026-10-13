@@ -6,6 +6,7 @@ import { Room } from '@/types/plan';
 import { useBlueprintStore } from '@/stores/blueprintStore';
 import { ExternalLink, Trash2, X, ZoomIn, ZoomOut } from 'lucide-react';
 import { useMediaUrl } from '@/lib/useMediaUrl';
+import { IS_READONLY } from '@/lib/readonly';
 
 interface BlueprintDetailProps {
   blueprint: Blueprint;
@@ -139,7 +140,7 @@ export default function BlueprintDetail({
             </div>
 
             {/* Sidebar */}
-            <div className="space-y-5 lg:col-span-1">
+            <fieldset disabled={IS_READONLY} className="m-0 min-w-0 space-y-5 border-0 p-0 lg:col-span-1">
               <div>
                 <label className="label">Nom</label>
                 <input type="text" value={name} onChange={(e) => setName(e.target.value)} className="input" />
@@ -191,7 +192,7 @@ export default function BlueprintDetail({
                 <p>Créé le : {new Date(blueprint.createdAt).toLocaleString('fr-FR')}</p>
                 <p>Type : {blueprint.fileType}</p>
               </div>
-            </div>
+            </fieldset>
           </div>
 
           {blueprint.annotations.length > 0 && (
@@ -215,7 +216,7 @@ export default function BlueprintDetail({
         </div>
 
         {/* Footer */}
-        <div className="flex justify-between border-t border-[var(--border)] bg-[var(--bg-app)] px-6 py-4">
+        <div className={`flex justify-between border-t border-[var(--border)] bg-[var(--bg-app)] px-6 py-4${IS_READONLY ? ' hidden' : ''}`}>
           <button onClick={handleDelete} className="btn-danger btn-sm">
             <Trash2 className="h-4 w-4" /> Supprimer
           </button>

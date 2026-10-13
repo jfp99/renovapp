@@ -9,6 +9,7 @@ import { coversDate, heldDeposits, isOverdue, occupancyOn, today } from '@/lib/t
 import { BedGrid } from '@/components/tenancy/BedGrid';
 import { TenancyForm } from '@/components/tenancy/TenancyForm';
 import type { BedSlot } from '@/types/tenancy';
+import { IS_READONLY } from '@/lib/readonly';
 
 const peso = (v: number) => `₱${Math.round(v).toLocaleString('fr-FR')}`;
 
@@ -159,7 +160,7 @@ export default function LocationPage() {
                     </div>
                     <div className="flex items-center gap-3">
                       <span className="font-semibold tabular-nums text-ink">{peso(payment.amount)}</span>
-                      <button onClick={() => markPaid(payment.id, date)} className="btn-primary btn-sm">
+                      <button onClick={() => markPaid(payment.id, date)} className={`btn-primary btn-sm${IS_READONLY ? ' hidden' : ''}`}>
                         Marquer payé
                       </button>
                     </div>
@@ -192,7 +193,7 @@ export default function LocationPage() {
                 <h2 className="text-lg font-semibold text-ink">{selected.label}</h2>
                 <p className="text-sm text-ink-muted">{selected.roomName}</p>
               </div>
-              <div className="flex flex-wrap gap-2">
+              <div className={`flex flex-wrap gap-2${IS_READONLY ? ' hidden' : ''}`}>
                 {!selectedTenancy && (
                   <button onClick={() => setFormSlot(selected)} className="btn-primary btn-sm">
                     <BedDouble size={14} /> Attribuer
@@ -294,7 +295,7 @@ export default function LocationPage() {
                       <td className="py-2.5">{slot?.label ?? '—'}</td>
                       <td className="py-2.5 text-right tabular-nums">{peso(payment.amount)}</td>
                       <td className="py-2.5 text-right">
-                        <button onClick={() => markPaid(payment.id, date)} className="btn-secondary btn-sm">
+                        <button onClick={() => markPaid(payment.id, date)} className={`btn-secondary btn-sm${IS_READONLY ? ' hidden' : ''}`}>
                           Payé
                         </button>
                       </td>
@@ -330,7 +331,7 @@ export default function LocationPage() {
                           <td className="py-2 text-right">
                             <button
                               onClick={() => markUnpaid(payment.id)}
-                              className="text-xs text-ink-faint underline hover:text-ink-soft"
+                              className={`text-xs text-ink-faint underline hover:text-ink-soft${IS_READONLY ? ' hidden' : ''}`}
                             >
                               Annuler
                             </button>

@@ -34,6 +34,7 @@ import {
   ROOM_ACCENT,
 } from '@/lib/rooms';
 import ProjectActions from '@/components/ProjectActions';
+import { IS_READONLY } from '@/lib/readonly';
 
 function StatCard({
   title,
@@ -319,9 +320,11 @@ export default function Dashboard() {
               <div className="flex h-48 flex-col items-center justify-center text-center">
                 <Wallet className="h-8 w-8 text-[var(--border-strong)] mb-2" />
                 <p className="text-sm text-ink-faint">Aucune dépense enregistrée</p>
-                <Link href="/costs" className="mt-2 text-xs font-medium text-brand-600 hover:underline">
-                  Ajouter une dépense
-                </Link>
+                {!IS_READONLY && (
+                  <Link href="/costs" className="mt-2 text-xs font-medium text-brand-600 hover:underline">
+                    Ajouter une dépense
+                  </Link>
+                )}
               </div>
             )}
           </div>
@@ -379,10 +382,10 @@ export default function Dashboard() {
         {/* Quick links */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
-            { href: '/plans', label: 'Dessiner un plan', icon: <PencilRuler className="h-4 w-4" /> },
-            { href: '/furniture', label: 'Agencer les meubles', icon: <Sofa className="h-4 w-4" /> },
-            { href: '/blueprints', label: 'Ajouter un blueprint', icon: <FileImage className="h-4 w-4" /> },
-            { href: '/inspiration', label: 'Collecter des idées', icon: <Camera className="h-4 w-4" /> },
+            { href: '/plans', label: IS_READONLY ? 'Voir le plan' : 'Dessiner un plan', icon: <PencilRuler className="h-4 w-4" /> },
+            { href: '/furniture', label: IS_READONLY ? 'Voir les meubles' : 'Agencer les meubles', icon: <Sofa className="h-4 w-4" /> },
+            { href: '/blueprints', label: IS_READONLY ? 'Voir les blueprints' : 'Ajouter un blueprint', icon: <FileImage className="h-4 w-4" /> },
+            { href: '/inspiration', label: IS_READONLY ? 'Voir l’inspiration' : 'Collecter des idées', icon: <Camera className="h-4 w-4" /> },
           ].map((q) => (
             <Link
               key={q.href}

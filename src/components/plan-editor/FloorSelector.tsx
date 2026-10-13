@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { usePlanStore } from '@/stores/planStore';
 import { Plus } from 'lucide-react';
+import { IS_READONLY } from '@/lib/readonly';
 
 export default function FloorSelector() {
   const { floors, selectedFloorId, setSelectedFloor, addFloor } = usePlanStore();
@@ -58,7 +59,7 @@ export default function FloorSelector() {
             Annuler
           </button>
         </div>
-      ) : (
+      ) : IS_READONLY ? null : (
         <button onClick={() => setShowAddFloor(true)} className="btn-secondary btn-sm w-full">
           <Plus size={15} /> Ajouter un étage
         </button>

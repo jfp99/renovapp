@@ -9,6 +9,7 @@ import BlueprintGrid from '@/components/blueprints/BlueprintGrid';
 import BlueprintDetail from '@/components/blueprints/BlueprintDetail';
 import { Filter, X, FileImage } from 'lucide-react';
 import { useHydrated } from '@/lib/useHydrated';
+import { IS_READONLY } from '@/lib/readonly';
 
 export default function BlueprintsPage() {
   const hydrated = useHydrated();
@@ -67,7 +68,7 @@ export default function BlueprintsPage() {
       <div className="mx-auto max-w-7xl px-4 py-6 md:px-8 md:py-8">
         {/* Upload Area */}
         <div className="mb-8">
-          <BlueprintUpload />
+          {!IS_READONLY && <BlueprintUpload />}
         </div>
 
         {/* Filters */}
