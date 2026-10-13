@@ -154,6 +154,8 @@ export default function PlanCanvasClient() {
   const containerRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<Konva.Stage | null>(null);
   const [size, setSize] = useState({ w: 800, h: 600 });
+  const measured = useRef(false);
+  const fittedFloor = useRef<string | null>(null);
   const [zoom, setZoom] = useState(1);
   const [pan, setPan] = useState({ x: 40, y: 40 });
   const [isPanning, setIsPanning] = useState(false);
@@ -180,7 +182,10 @@ export default function PlanCanvasClient() {
     const measure = () => {
       if (containerRef.current) {
         const { width, height } = containerRef.current.getBoundingClientRect();
-        if (width > 0 && height > 0) setSize({ w: width, h: height });
+        if (width > 0 && height > 0) {
+          measured.current = true;
+          setSize({ w: width, h: height });
+        }
       }
     };
     measure();
@@ -225,6 +230,16 @@ export default function PlanCanvasClient() {
     setZoom(z);
     setPan({ x: pad - minX * z, y: pad - minY * z });
   }, [floorRooms, size]);
+
+  // Open on the whole floor, not a 100% corner of it: on a phone the default
+  // view showed a single room and looked like the rest of the plan was gone.
+  // Once per floor, so it never fights a zoom the user chose.
+  useEffect(() => {
+    if (!measured.current || floorRooms.length === 0 || !selectedFloorId) return;
+    if (fittedFloor.current === selectedFloorId) return;
+    fittedFloor.current = selectedFloorId;
+    fitRooms();
+  }, [selectedFloorId, floorRooms.length, size, fitRooms]);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleWheel = (e: any) => {

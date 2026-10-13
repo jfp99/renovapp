@@ -35,6 +35,7 @@ const STORES = {
   tenancy: ['renovapp-tenancy', 0],
   scenarios: ['renovapp-scenarios', 0],
   compliance: ['renovapp-compliance', 0],
+  worklog: ['renovapp-worklog', 0],
 };
 
 const project = JSON.parse(readFileSync(source, 'utf-8'));
@@ -46,6 +47,15 @@ for (const [field, [key, version]] of Object.entries(STORES)) {
   // The export keeps blueprints as a bare array; the store persists
   // { blueprints: [...] }. Seeded as-is, the shared copy showed 0 blueprints.
   if (field === 'blueprints' && Array.isArray(state)) state = { blueprints: state };
+  // Receipt photos and permit scans are inlined in the backup file since v5.
+  // The phone keeps the seed in localStorage (≈5 Mo max): a few photos would
+  // fill it and the whole copy would open empty. They stay on the PC.
+  if (field === 'costs' && Array.isArray(state.entries)) {
+    state = { ...state, entries: state.entries.map(({ receiptData, ...e }) => e) };
+  }
+  if (field === 'compliance' && Array.isArray(state.permits)) {
+    state = { ...state, permits: state.permits.map(({ fileData, ...p }) => p) };
+  }
   payload[key] = { state, version };
 }
 

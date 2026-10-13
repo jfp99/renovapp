@@ -11,7 +11,9 @@ import {
   useReactTable,
   ColumnFiltersState,
 } from '@tanstack/react-table';
-import { Edit, Paperclip, Repeat, Trash2 } from 'lucide-react';
+import Link from 'next/link';
+import { Edit, HardHat, Paperclip, Repeat, Trash2 } from 'lucide-react';
+import { IS_READONLY } from '@/lib/readonly';
 import { CostEntry, CostStatus } from '@/types/cost';
 import { useCostStore } from '@/stores/costStore';
 import { toPHP, formatPHP, formatMoney } from '@/lib/format';
@@ -73,6 +75,11 @@ export const CostTable: React.FC<CostTableProps> = ({ entries, onEdit }) => {
                 <Repeat size={12} />
               </span>
             )}
+            {entry.workTaskId && (
+              <span title="Vient du suivi de chantier" className="text-accent-600">
+                <HardHat size={13} />
+              </span>
+            )}
             {entry.receiptFileId && (
               <span title="Reçu joint" className="text-pine-500">
                 <Paperclip size={12} />
@@ -129,26 +136,48 @@ export const CostTable: React.FC<CostTableProps> = ({ entries, onEdit }) => {
     columnHelper.display({
       id: 'actions',
       header: 'Actions',
-      cell: (info) => (
-        <div className="flex gap-2">
-          <button
-            onClick={() => onEdit(info.row.original)}
-            className="p-1 text-blue-500 hover:bg-blue-50 rounded"
-            title="Modifier"
-          >
-            <Edit size={18} />
-          </button>
-          <button
-            onClick={() => removeEntry(info.row.original.id)}
-            className="p-1 text-red-500 hover:bg-red-50 rounded"
-            title="Supprimer"
-          >
-            <Trash2 size={18} />
-          </button>
-        </div>
-      ),
+      cell: (info) => {
+        const entry = info.row.original;
+        // Owned by a Chantier task: editing it here would be overwritten the
+        // next time the task is saved, so send the user to the task instead.
+        if (entry.workTaskId) {
+          return (
+            <Link
+              href={`/chantier?tache=${entry.workTaskId}`}
+              className="inline-flex items-center gap-1 whitespace-nowrap rounded px-1.5 py-1 text-xs font-medium text-accent-700 hover:bg-accent-50"
+              title="Cette dépense se modifie depuis l'onglet Chantier"
+            >
+              <HardHat size={14} /> Chantier
+            </Link>
+          );
+        }
+        return (
+          <div className="flex gap-2">
+            <button
+              onClick={() => onEdit(entry)}
+              className="p-1 text-blue-500 hover:bg-blue-50 rounded"
+              title="Modifier"
+            >
+              <Edit size={18} />
+            </button>
+            <button
+              onClick={() => {
+                const children = entry.recurrence && entry.recurrence !== 'none' && !entry.recurrenceParentId;
+                const message = children
+                  ? `Supprimer « ${entry.description} » et toutes ses échéances ?`
+                  : `Supprimer « ${entry.description} » ?`;
+                if (window.confirm(message)) removeEntry(entry.id);
+              }}
+              className="p-1 text-red-500 hover:bg-red-50 rounded"
+              title="Supprimer"
+            >
+              <Trash2 size={18} />
+            </button>
+          </div>
+        );
+      },
     }),
-  ];
+  ].filter((column) => !(IS_READONLY && column.id === 'actions'));
 
   // Apply filters
   const filteredEntries = useMemo(() => {
@@ -195,8 +224,52 @@ export const CostTable: React.FC<CostTableProps> = ({ entries, onEdit }) => {
         </select>
       </div>
 
+      {/* Phone: cards. The table hid the amount and status off-screen to the
+          right, so on a phone the one figure that matters needed a sideways
+          scroll nobody thinks of doing. */}
+      <ul className="space-y-2 md:hidden">
+        {table.getRowModel().rows.map((row) => {
+          const entry = row.original;
+          const php = toPHP(entry.amount, entry.currency, entry.exchangeRate);
+          const badge = StatusBadges[entry.status];
+          const actions = row.getVisibleCells().find((c) => c.column.id === 'actions');
+          return (
+            <li key={row.id} className="rounded-xl border border-[var(--border)] bg-white p-3.5">
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <p className="flex items-center gap-1.5 text-sm font-medium text-ink">
+                    <span className="truncate">{entry.description}</span>
+                    {entry.workTaskId && <HardHat size={13} className="flex-none text-accent-600" />}
+                    {entry.recurrenceParentId || (entry.recurrence && entry.recurrence !== 'none') ? (
+                      <Repeat size={12} className="flex-none text-ink-faint" />
+                    ) : null}
+                    {entry.receiptFileId && <Paperclip size={12} className="flex-none text-pine-500" />}
+                  </p>
+                  <p className="mt-0.5 flex items-center gap-1.5 text-xs text-ink-muted">
+                    <span className="h-2 w-2 flex-none rounded-full" style={{ backgroundColor: getCategoryColor(entry.categoryId) }} />
+                    {getCategoryName(entry.categoryId)} · {new Date(entry.date).toLocaleDateString('fr-FR')}
+                  </p>
+                </div>
+                <div className="flex-none text-right">
+                  <p className="font-semibold tabular-nums text-ink">{formatPHP(php, { decimals: 0 })}</p>
+                  <span className={`badge mt-1 ${badge.cls}`}>{badge.label}</span>
+                </div>
+              </div>
+              {actions && (
+                <div className="mt-2 flex justify-end border-t border-[var(--border)] pt-2">
+                  {flexRender(actions.column.columnDef.cell, actions.getContext())}
+                </div>
+              )}
+            </li>
+          );
+        })}
+        {filteredEntries.length === 0 && (
+          <li className="py-6 text-center text-sm text-ink-faint">Aucune dépense pour ce filtre.</li>
+        )}
+      </ul>
+
       {/* Table */}
-      <div className="overflow-x-auto rounded-xl border border-[var(--border)]">
+      <div className="hidden overflow-x-auto rounded-xl border border-[var(--border)] md:block">
         <table className="w-full">
           <thead className="border-b border-[var(--border)] bg-[var(--bg-app)]">
             {table.getHeaderGroups().map((headerGroup) => (
@@ -233,7 +306,7 @@ export const CostTable: React.FC<CostTableProps> = ({ entries, onEdit }) => {
       </div>
 
       {/* Total */}
-      <div className="flex items-center justify-between border-t border-[var(--border)] pt-4 text-sm">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-t border-[var(--border)] pt-4 text-sm">
         <span className="text-ink-muted">{filteredEntries.length} dépense(s) affichée(s)</span>
         <span className="font-semibold text-ink">
           Total (hors annulées) : <span className="text-brand-600">{formatPHP(totalPHP)}</span>

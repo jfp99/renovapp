@@ -19,6 +19,8 @@ test.describe('démarrage à froid', () => {
     { path: '/inspiration', title: 'Inspiration' },
     { path: '/costs', title: 'rentabilité' },
     { path: '/location', title: 'Location' },
+    { path: '/chantier', title: 'chantier' },
+    { path: '/conformite', title: 'Conformité' },
   ];
 
   for (const { path, title } of PAGES) {

@@ -10,6 +10,7 @@ import { useCostStore } from '@/stores/costStore';
 import { useTenancyStore } from '@/stores/tenancyStore';
 import { useScenarioStore } from '@/stores/scenarioStore';
 import { useComplianceStore } from '@/stores/complianceStore';
+import { useWorkLogStore } from '@/stores/workLogStore';
 import {
   hasContent,
   hasLocalData,
@@ -112,6 +113,7 @@ export default function AutoSave() {
       useTenancyStore.subscribe(schedule),
       useScenarioStore.subscribe(schedule),
       useComplianceStore.subscribe(schedule),
+      useWorkLogStore.subscribe(schedule),
     ];
 
     // A pending save must not be lost when the window closes. fetch would be
@@ -177,7 +179,12 @@ export default function AutoSave() {
 
   return (
     <div
-      className={`fixed bottom-4 left-4 z-[90] flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[11px] font-medium shadow-card ${
+      // On a phone the chip lives in the top bar, where it covers nothing (it used
+      // to sit on the "Ajouter" buttons). It stays under open forms (z-50); a
+      // failure stays on top of everything.
+      className={`fixed right-3 top-[calc(env(safe-area-inset-top)+0.75rem)] flex items-center md:bottom-4 md:left-4 md:right-auto md:top-auto gap-1.5 rounded-lg px-2.5 py-1.5 text-[11px] font-medium shadow-card ${
+        state === 'error' ? 'z-[90]' : 'z-[45]'
+      } ${
         state === 'error'
           ? 'border border-red-200 bg-red-50 text-red-700'
           : state === 'unavailable'

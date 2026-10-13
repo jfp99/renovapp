@@ -48,6 +48,24 @@ export function buildBedSlots(
     }
   });
 
+  // Two bunks of the same model in one room both read "Lit superposé — bas":
+  // impossible to tell which one a tenant is in. Number them per room.
+  const placementsByName = new Map<string, string[]>();
+  for (const slot of slots) {
+    const key = `${slot.roomId}|${slot.label.replace(/ — (bas|haut)$/, '')}`;
+    const list = placementsByName.get(key) ?? [];
+    if (!list.includes(slot.placementId)) list.push(slot.placementId);
+    placementsByName.set(key, list);
+  }
+  for (const slot of slots) {
+    const name = slot.label.replace(/ — (bas|haut)$/, '');
+    const list = placementsByName.get(`${slot.roomId}|${name}`) ?? [];
+    if (list.length > 1) {
+      const n = list.indexOf(slot.placementId) + 1;
+      slot.label = slot.label.replace(name, `${name} ${n}`);
+    }
+  }
+
   return slots.sort((a, b) => a.roomName.localeCompare(b.roomName) || a.label.localeCompare(b.label));
 }
 

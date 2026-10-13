@@ -8,6 +8,7 @@ import { useCostStore } from '@/stores/costStore';
 import { useTenancyStore } from '@/stores/tenancyStore';
 import { useScenarioStore } from '@/stores/scenarioStore';
 import { useComplianceStore } from '@/stores/complianceStore';
+import { useWorkLogStore } from '@/stores/workLogStore';
 import { getMediaDataUrl, putMediaDataUrl } from '@/lib/mediaDb';
 import type { Blueprint } from '@/types/blueprint';
 import type { InspirationImage } from '@/types/inspiration';
@@ -25,6 +26,7 @@ export interface ProjectExport {
   tenancy?: { tenants: unknown; tenancies: unknown; payments: unknown; maintenance: unknown };
   scenarios?: { scenarios: unknown; activeId: unknown };
   compliance?: { permits: unknown; settings: unknown };
+  worklog?: { tasks: unknown };
 }
 
 /**
@@ -32,8 +34,46 @@ export interface ProjectExport {
  * as base64 — otherwise the backup file would reference blobs it doesn't carry
  * and restoring on another machine would produce an album of broken images.
  */
-/** v4 adds compliance tracking; v3 added tenancy and ROI scenarios. */
-const EXPORT_VERSION = 4;
+/**
+ * v5 adds the Chantier work log and inlines receipt photos and permit
+ * documents, which until then stayed in the browser only and were lost with it.
+ * v4 added compliance tracking; v3 tenancy and ROI scenarios.
+ */
+const EXPORT_VERSION = 5;
+
+/** Inline the IndexedDB payload behind `idKey` as `dataKey`, for the backup file. */
+async function inlineMedia<T extends object>(items: T[], idKey: keyof T, dataKey: string): Promise<T[]> {
+  return Promise.all(
+    items.map(async (item) => {
+      const id = item[idKey] as unknown as string | undefined;
+      if (!id) return item;
+      const data = await getMediaDataUrl(id).catch(() => undefined);
+      return data ? { ...item, [dataKey]: data } : item;
+    })
+  );
+}
+
+/** Reverse of inlineMedia: store the payload in IndexedDB and keep only the id. */
+async function storeInlinedMedia<T extends object>(
+  items: T[],
+  idKey: string,
+  dataKey: string,
+  label: string
+): Promise<T[]> {
+  return Promise.all(
+    items.map(async (item) => {
+      const record = item as Record<string, unknown>;
+      const data = record[dataKey] as string | undefined;
+      if (!data) return item;
+      const { [dataKey]: _dropped, ...rest } = record;
+      try {
+        return { ...rest, [idKey]: await putMediaDataUrl(data, label) } as T;
+      } catch {
+        return rest as T;
+      }
+    })
+  );
+}
 
 /** Snapshot every store into a single serialisable object, media included. */
 export async function buildProjectExport(): Promise<ProjectExport> {
@@ -45,6 +85,7 @@ export async function buildProjectExport(): Promise<ProjectExport> {
   const tenancy = useTenancyStore.getState();
   const scenario = useScenarioStore.getState();
   const compliance = useComplianceStore.getState();
+  const worklog = useWorkLogStore.getState();
 
   const blueprints = await Promise.all(
     blueprint.blueprints.map(async (item) => ({
@@ -70,7 +111,7 @@ export async function buildProjectExport(): Promise<ProjectExport> {
     inspiration: { images, boards: inspiration.boards },
     costs: {
       categories: cost.categories,
-      entries: cost.entries,
+      entries: await inlineMedia(cost.entries, 'receiptFileId', 'receiptData'),
       roiConfig: cost.roiConfig,
       settings: cost.settings,
     },
@@ -81,7 +122,11 @@ export async function buildProjectExport(): Promise<ProjectExport> {
       maintenance: tenancy.maintenance,
     },
     scenarios: { scenarios: scenario.scenarios, activeId: scenario.activeId },
-    compliance: { permits: compliance.permits, settings: compliance.settings },
+    compliance: {
+      permits: await inlineMedia(compliance.permits, 'fileId', 'fileData'),
+      settings: compliance.settings,
+    },
+    worklog: { tasks: worklog.tasks },
   };
 }
 
@@ -161,7 +206,12 @@ export async function importProjectExport(json: string): Promise<string | null> 
     if (data.costs) {
       useCostStore.setState({
         categories: (data.costs.categories as never) ?? [],
-        entries: (data.costs.entries as never) ?? [],
+        entries: (await storeInlinedMedia(
+          (data.costs.entries as object[]) ?? [],
+          'receiptFileId',
+          'receiptData',
+          'receipt'
+        )) as never,
         ...(data.costs.roiConfig ? { roiConfig: data.costs.roiConfig as never } : {}),
         ...(data.costs.settings ? { settings: data.costs.settings as never } : {}),
       });
@@ -176,9 +226,17 @@ export async function importProjectExport(json: string): Promise<string | null> 
     }
     if (data.compliance) {
       useComplianceStore.setState({
-        permits: (data.compliance.permits as never) ?? [],
+        permits: (await storeInlinedMedia(
+          (data.compliance.permits as object[]) ?? [],
+          'fileId',
+          'fileData',
+          'permit'
+        )) as never,
         ...(data.compliance.settings ? { settings: data.compliance.settings as never } : {}),
       });
+    }
+    if (data.worklog) {
+      useWorkLogStore.setState({ tasks: (data.worklog.tasks as never) ?? [] });
     }
     if (data.scenarios) {
       const list = (data.scenarios.scenarios as Array<{ id: string }>) ?? [];

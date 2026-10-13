@@ -18,6 +18,7 @@ export function hasLocalData(): boolean {
     'renovapp-tenancy',
     'renovapp-scenarios',
     'renovapp-compliance',
+    'renovapp-worklog',
   ];
 
   return keys.some((key) => {
@@ -46,6 +47,7 @@ export function hasContent(data: ProjectExport | null): data is ProjectExport {
     (data.costs as { entries?: unknown[] })?.entries,
     (data.tenancy as { tenants?: unknown[] })?.tenants,
     (data.tenancy as { tenancies?: unknown[] })?.tenancies,
+    (data.worklog as { tasks?: unknown[] })?.tasks,
   ];
   return sections.some((section) => Array.isArray(section) && section.length > 0);
 }

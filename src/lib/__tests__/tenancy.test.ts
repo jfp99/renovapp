@@ -50,6 +50,18 @@ describe('buildBedSlots', () => {
     const slots = buildBedSlots([place('b2', 'c-bunk')], catalog, rooms);
     expect(slots.map((s) => s.label)).toEqual(['Lit superposé — bas', 'Lit superposé — haut']);
   });
+
+  it('numbers two identical bunks in the same room, without touching ids', () => {
+    const slots = buildBedSlots([place('b2', 'c-bunk'), place('b3', 'c-bunk')], catalog, rooms);
+    expect(slots.map((s) => s.label)).toEqual([
+      'Lit superposé 1 — bas',
+      'Lit superposé 1 — haut',
+      'Lit superposé 2 — bas',
+      'Lit superposé 2 — haut',
+    ]);
+    // Tenancies point at these ids: renumbering labels must never change them.
+    expect(slots.map((s) => s.id)).toEqual(['b2#0', 'b2#1', 'b3#0', 'b3#1']);
+  });
 });
 
 describe('coversDate', () => {

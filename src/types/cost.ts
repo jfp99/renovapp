@@ -51,6 +51,13 @@ export interface CostEntry {
   /** Set on generated instalments, pointing back at their template. */
   recurrenceParentId?: string;
 
+  /**
+   * Set when the entry is mirrored from a Chantier task. Such entries are
+   * owned by the task: edited and deleted from there, never here.
+   */
+  workTaskId?: string;
+  workCostKind?: 'labor' | 'material';
+
   paymentMethod?: PaymentMethod;
   /** IndexedDB media id for the receipt photo or PDF. */
   receiptFileId?: string;

@@ -25,8 +25,10 @@ En développement : `npm run dev` puis http://localhost:3000
 | **Meubles** | Placer lits, lockers et mobilier. **Les lits placés ici définissent la capacité** |
 | **Blueprints** | Stocker les plans techniques et les annoter |
 | **Inspiration** | Moodboard de références |
+| **Chantier** | Travaux réalisés par les ouvriers : métier, durée approximative, nombre d'ouvriers, coût. Résumé par métier et par pièce pour l'investisseur |
 | **Coûts & ROI** | Dépenses, budget, rentabilité et projection pluriannuelle |
 | **Location** | Occupation réelle par lit, contrats, loyers et retards |
+| **Conformité** | Permis et règles vérifiées sur le plan |
 
 ### Le fil conducteur
 
@@ -35,6 +37,11 @@ la capacité du modèle de **ROI**. Un lit superposé compte pour deux places. C
 business plan de reposer sur un nombre de lits que le plan ne contient pas.
 
 De même, chaque dépense enregistrée met à jour le ROI *réel*, affiché à côté du ROI *prévu*.
+
+Une tâche de **Chantier** crée elle-même ses lignes « Main d'œuvre » et « Matériaux » dans
+**Coûts & ROI** (icône casque). Ces lignes se modifient et se suppriment depuis la tâche, jamais
+dans Coûts, pour qu'un montant ne soit jamais compté deux fois. Décochez « Reporter dans Coûts &
+ROI » si la dépense y est déjà saisie à la main.
 
 ## Où sont mes données
 

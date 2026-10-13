@@ -20,12 +20,15 @@ import {
   PencilRuler,
   Layers,
   Target,
+  HardHat,
 } from 'lucide-react';
 import { usePlanStore } from '@/stores/planStore';
 import { useFurnitureStore } from '@/stores/furnitureStore';
 import { useBlueprintStore } from '@/stores/blueprintStore';
 import { useInspirationStore } from '@/stores/inspirationStore';
 import { useCostStore } from '@/stores/costStore';
+import { useWorkLogStore } from '@/stores/workLogStore';
+import { personDays, taskCost } from '@/lib/worklog';
 import { useHydrated } from '@/lib/useHydrated';
 import { formatPHP, formatPct, formatMonths, areaM2 } from '@/lib/format';
 import {
@@ -90,6 +93,7 @@ export default function Dashboard() {
   const { blueprints } = useBlueprintStore();
   const { images } = useInspirationStore();
   const cost = useCostStore();
+  const workTasks = useWorkLogStore((st) => st.tasks);
 
   if (!hydrated) {
     return (
@@ -113,6 +117,10 @@ export default function Dashboard() {
   const monthlyNet = roiMetrics.netMonthlyIncome;
   const roiMonths = roiMetrics.paybackMonths ?? 0;
   const spentByCategory = cost.getSpentByCategory();
+
+  const workCost = workTasks.reduce((sum, t) => sum + taskCost(t), 0);
+  const workDays = workTasks.reduce((sum, t) => sum + (t.durationDays || 0), 0);
+  const workPersonDays = workTasks.reduce((sum, t) => sum + personDays(t), 0);
 
   const totalAreaM2 = rooms.reduce((s, r) => s + areaM2(r.width, r.height), 0);
 
@@ -150,7 +158,7 @@ export default function Dashboard() {
     <div className="min-h-screen">
       {/* Hero header */}
       <div className="bg-mesh border-b border-[var(--border)]">
-        <div className="px-8 py-7 flex flex-wrap items-end justify-between gap-4">
+        <div className="px-4 py-5 md:px-8 md:py-7 flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="text-xs font-mono font-semibold uppercase tracking-wider text-brand-600">
               Maison Philippines · Dortoirs étudiants
@@ -166,7 +174,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className="p-8 space-y-8">
+      <div className="px-4 py-6 md:p-8 space-y-6 md:space-y-8">
         {isEmpty && (
           <div className="card p-10 text-center animate-fade-in">
             <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-50">
@@ -187,18 +195,22 @@ export default function Dashboard() {
           <StatCard
             title="Pièces planifiées"
             value={rooms.length}
-            sub={`${totalAreaM2.toLocaleString('fr-FR', { maximumFractionDigits: 1 })} m² au total`}
+            sub={`${totalAreaM2.toLocaleString('fr-FR', { maximumFractionDigits: 1 })} m² · ${placements.length} meuble${placements.length > 1 ? 's' : ''}`}
             icon={<Home className="h-5 w-5 text-brand-600" />}
             tint="bg-brand-50"
             href="/plans"
           />
           <StatCard
-            title="Meubles placés"
-            value={placements.length}
-            sub={`${blueprints.length} blueprint(s) · ${images.length} inspiration(s)`}
-            icon={<Sofa className="h-5 w-5 text-accent-600" />}
+            title="Chantier"
+            value={workTasks.length > 0 ? formatPHP(workCost, { compact: true }) : '—'}
+            sub={
+              workTasks.length > 0
+                ? `≈ ${Math.round(workDays * 10) / 10} j · ${Math.round(workPersonDays * 10) / 10} j-ouvrier · ${workTasks.length} tâche${workTasks.length > 1 ? 's' : ''}`
+                : 'Aucune tâche saisie'
+            }
+            icon={<HardHat className="h-5 w-5 text-accent-600" />}
             tint="bg-accent-50"
-            href="/furniture"
+            href="/chantier"
           />
           <StatCard
             title="Budget dépensé"
@@ -246,14 +258,29 @@ export default function Dashboard() {
                 style={{ width: `${Math.min(budgetPct, 100)}%` }}
               />
             </div>
-            <div className="mt-2 flex items-center justify-between text-xs font-mono">
-              <span className={budgetPct > 100 ? 'text-rose-600 font-medium' : 'text-ink-muted'}>
-                {formatPct(budgetPct)} utilisé
-              </span>
-              <span className="text-ink-muted">
-                Restant : {formatPHP(Math.max(0, totalBudget - totalSpent))}
-              </span>
-            </div>
+            {totalBudget > 0 ? (
+              <div className="mt-2 flex items-center justify-between text-xs font-mono">
+                <span className={budgetPct > 100 ? 'text-rose-600 font-medium' : 'text-ink-muted'}>
+                  {formatPct(budgetPct)} utilisé
+                </span>
+                <span className={budgetPct > 100 ? 'text-rose-600 font-medium' : 'text-ink-muted'}>
+                  {budgetPct > 100
+                    ? `Dépassement : ${formatPHP(totalSpent - totalBudget)}`
+                    : `Restant : ${formatPHP(totalBudget - totalSpent)}`}
+                </span>
+              </div>
+            ) : (
+              // "0 % utilisé · Restant ₱0" read as "budget exhausted" when no
+              // budget had been set at all.
+              <p className="mt-2 text-xs text-ink-muted">
+                Aucun budget fixé.{' '}
+                {!IS_READONLY && (
+                  <Link href="/costs" className="font-medium text-brand-600 hover:underline">
+                    Le définir dans Coûts &amp; ROI → Budget
+                  </Link>
+                )}
+              </p>
+            )}
 
             {/* secondary metrics */}
             <div className="mt-6 grid grid-cols-3 gap-4 border-t border-[var(--border)] pt-5">
